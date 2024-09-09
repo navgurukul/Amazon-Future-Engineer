@@ -1,0 +1,13 @@
+#NEXT_PUBLIC_API_URL=not yet provided
+
+#LOCAL URL
+# NEXT_PUBLIC_LOCAL_URL_URL = http://localhost:5000
+
+# DEV URL
+#NEXT_PUBLIC_MAIN_URL = not yet provided
+
+NEXT_PUBLIC_BASE_URL = http://localhost:5000
+NEXT_PUBLIC_AFE_LOGIN_URL = "to be provided"
+
+#AWS_IAM_USER_SECRET_KEY = ""
+#AWS_IAM_USER_ACCESS_KEY=""
