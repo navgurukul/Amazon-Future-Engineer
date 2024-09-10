@@ -36,7 +36,7 @@ const NanoSprints: NextPage = () => {
                         <b className={styles.whatIsThe}>What will a Code India Fellow do?</b>
                         <div className={styles.codeIndiaFellowship1}>Code India Fellowship aims to transform the learning and life outcomes of young women/girl students studying in government high schools by placing fellows. CIF will enable young women to have jobs or admission to advanced training opportunities by the time they finish their school education.</div>
                     </div>
-                    <img className={styles.removeCircleOutlineIcon} alt="" src="@/assets/images/sprints/add_circle_outline.svg" />
+                    <img className={styles.removeCircleOutlineIcon} alt="" src="add_circle_outline.svg" />
                 </div>
                 <div className={styles.storyChild} />
                 <div className={styles.faqQuestion1}>
@@ -44,7 +44,7 @@ const NanoSprints: NextPage = () => {
                         <b className={styles.whatIsThe}>What will a Code India Fellow do?</b>
                         <div className={styles.codeIndiaFellowship1}>Code India Fellowship aims to transform the learning and life outcomes of young women/girl students studying in government high schools by placing fellows. CIF will enable young women to have jobs or admission to advanced training opportunities by the time they finish their school education.</div>
                     </div>
-                    <img className={styles.removeCircleOutlineIcon} alt="" src="@/assets/images/sprints/add_circle_outline.svg" />
+                    <img className={styles.removeCircleOutlineIcon} alt="" src="add_circle_outline.svg" />
                 </div>
                 <div className={styles.storyChild} />
                 <div className={styles.faqQuestion1}>
@@ -52,7 +52,7 @@ const NanoSprints: NextPage = () => {
                         <b className={styles.whatIsThe}>What will a Code India Fellow do?</b>
                         <div className={styles.codeIndiaFellowship1}>Code India Fellowship aims to transform the learning and life outcomes of young women/girl students studying in government high schools by placing fellows. CIF will enable young women to have jobs or admission to advanced training opportunities by the time they finish their school education.</div>
                     </div>
-                    <img className={styles.removeCircleOutlineIcon} alt="" src="@/assets/images/sprints/add_circle_outline.svg" />
+                    <img className={styles.removeCircleOutlineIcon} alt="" src="add_circle_outline.svg" />
                 </div>
                 <div className={styles.storyChild} />
                 <div className={styles.faqQuestion1}>
@@ -60,7 +60,7 @@ const NanoSprints: NextPage = () => {
                         <b className={styles.whatIsThe}>What will a Code India Fellow do?</b>
                         <div className={styles.codeIndiaFellowship1}>Code India Fellowship aims to transform the learning and life outcomes of young women/girl students studying in government high schools by placing fellows. CIF will enable young women to have jobs or admission to advanced training opportunities by the time they finish their school education.</div>
                     </div>
-                    <img className={styles.removeCircleOutlineIcon} alt="" src="@/assets/images/sprints/add_circle_outline.svg" />
+                    <img className={styles.removeCircleOutlineIcon} alt="" src="add_circle_outline.svg" />
                 </div>
                 <div className={styles.storyChild} />
                 <div className={styles.faqQuestion1}>
@@ -68,7 +68,7 @@ const NanoSprints: NextPage = () => {
                         <b className={styles.whatIsThe}>What will a Code India Fellow do?</b>
                         <div className={styles.codeIndiaFellowship1}>Code India Fellowship aims to transform the learning and life outcomes of young women/girl students studying in government high schools by placing fellows. CIF will enable young women to have jobs or admission to advanced training opportunities by the time they finish their school education.</div>
                     </div>
-                    <img className={styles.removeCircleOutlineIcon} alt="" src="@/assets/images/sprints/add_circle_outline.svg" />
+                    <img className={styles.removeCircleOutlineIcon} alt="" src="add_circle_outline.svg" />
                 </div>
                 <div className={styles.storyChild3} />
             </div>
@@ -84,15 +84,19 @@ const NanoSprints: NextPage = () => {
             </div>
             <div className={styles.frameParent}>
                 <div className={styles.vectorParent}>
-                    <img className={styles.vectorIcon} alt="" src="assets/images/sprints/Vector.png" />
+                    <img className={styles.vectorIcon} alt="" src="Vector.png" />
                     <div className={styles.innovationHub}>Nano Sprints</div>
                 </div>
                 {/* <div className={styles.vectorGroup} onClick={onFrameContainerClick}>
                     <img className={styles.vectorIcon1} alt="" src="Vector.png" />
                     <div className={styles.miniSprints}>Mini Sprints</div>
                 </div> */}
+                <div className={styles.vectorGroup} >
+                    <img className={styles.vectorIcon1} alt="" src="Vector.png" />
+                    <div className={styles.miniSprints}>Mini Sprints</div>
+                </div>
                 <div className={styles.vectorContainer}>
-                    <img className={styles.vectorIcon1} alt="" src="assets/images/sprints/Vector.png" />
+                    <img className={styles.vectorIcon1} alt="" src="Vector.png" />
                     <div className={styles.miniSprints}>Mega Sprints</div>
                 </div>
             </div>
@@ -122,50 +126,51 @@ const NanoSprints: NextPage = () => {
                 </div>
             </div>
             <div className={styles.rectangleParent}>
-                <img className={styles.frameChild} alt="" src="./assets/images/sprints/Rectangle 4.png" />
-                <img className={styles.frameChild} alt="" src="./assets/images/sprints/Rectangle 3.png" />
+                <img className={styles.frameChild} alt="" src="Rectangle 4.png" />
+                <img className={styles.frameChild} alt="" src="Rectangle 3.png" />
             </div>
             <div className={styles.rectangleGroup}>
-                <img className={styles.frameChild} alt="" src="assets/images/sprints/Rectangle 4.png" />
-                <img className={styles.frameChild} alt="" src="assets/images/sprints/Rectangle 3.png" />
-                <img className={styles.frameChild} alt="" src="assets/images/sprints/Rectangle 5.png" />
+                <img className={styles.frameChild} alt="" src="Rectangle 4.png" />
+                <img className={styles.frameChild} alt="" src="Rectangle 3.png" />
+                <img className={styles.frameChild} alt="" src="Rectangle 5.png" />
             </div>
             <div className={styles.nanoSprintsInner}>
                 <div className={styles.frameDiv}>
                     <div className={styles.reshotIconSearchTimeScheduParent}>
-                        <div className={styles.reshotIconSearchTimeSchedu}>
+                        {/* <div className={styles.reshotIconSearchTimeSchedu}>
                             <div className={styles.group}>
-                                <img className={styles.groupIcon} alt="" src="assets/images/sprints/Group.svg" />
-                                <img className={styles.groupIcon1} alt="" src="assets/images/sprints/Group.svg" />
-                                <img className={styles.groupIcon2} alt="" src="assets/images/sprints/Group.svg" />
-                                <img className={styles.groupIcon3} alt="" src="assets/images/sprints/Group.svg" />
-                                <img className={styles.groupIcon4} alt="" src="assets/images/sprints/Group.svg" />
+                                <img className={styles.groupIcon} alt="" src="Group.svg" />
+                                <img className={styles.groupIcon1} alt="" src="Group.svg" />
+                                <img className={styles.groupIcon2} alt="" src="Group.svg" />
+                                <img className={styles.groupIcon3} alt="" src="Group.svg" />
+                                <img className={styles.groupIcon4} alt="" src="Group.svg" />
                                 <div className={styles.group1}>
                                     <div className={styles.group2}>
-                                        <img className={styles.groupIcon5} alt="" src="assets/images/sprints/Group.svg" />
-                                        <img className={styles.groupIcon6} alt="" src="assets/images/sprints/Group.svg" />
+                                        <img className={styles.groupIcon5} alt="" src="Group.svg" />
+                                        <img className={styles.groupIcon6} alt="" src="Group.svg" />
                                     </div>
-                                    <img className={styles.groupIcon7} alt="" src="assets/images/sprints/Group.svg" />
+                                    <img className={styles.groupIcon7} alt="" src="Group.svg" />
                                     <div className={styles.group3}>
-                                        <img className={styles.groupIcon8} alt="" src="assets/images/sprints/Group.svg" />
-                                        <img className={styles.groupIcon9} alt="" src="assets/images/sprints/Group.svg" />
+                                        <img className={styles.groupIcon8} alt="" src="Group.svg" />
+                                        <img className={styles.groupIcon9} alt="" src="Group.svg" />
                                     </div>
-                                    <img className={styles.groupIcon10} alt="" src="assets/images/sprints/Group.svg" />
+                                    <img className={styles.groupIcon10} alt="" src="Group.svg" />
                                 </div>
-                                <img className={styles.groupIcon11} alt="" src="assets/images/sprints/Group.svg" />
-                                <img className={styles.groupIcon12} alt="" src="assets/images/sprints/Group.svg" />
-                                <img className={styles.groupIcon13} alt="" src="assets/images/sprints/Group.svg" />
-                                <img className={styles.groupIcon14} alt="" src="assets/images/sprints/Group.svg" />
-                                <img className={styles.groupIcon15} alt="" src="assets/images/sprints/Group.svg" />
+                                <img className={styles.groupIcon11} alt="" src="Group.svg" />
+                                <img className={styles.groupIcon12} alt="" src="Group.svg" />
+                                <img className={styles.groupIcon13} alt="" src="Group.svg" />
+                                <img className={styles.groupIcon14} alt="" src="Group.svg" />
+                                <img className={styles.groupIcon15} alt="" src="Group.svg" />
                             </div>
-                        </div>
+                        </div> */}
+                        <img className={styles.reshotIconSearchTimeSchedu} alt="" src="reshot-icon-search-time-schedule-YKN4SVFGAU.svg" />
                         <div className={styles.durationParent}>
                             <b className={styles.whatIsThe}>Duration</b>
                             <div className={styles.bookASession}>1 Day (3 hours)</div>
                         </div>
                     </div>
                     <div className={styles.reshotIconSearchTimeScheduParent}>
-                        <img className={styles.reshotIconSearchTimeSchedu} alt="" src="assets/images/sprints/reshot-icon-student-boy-L9ESXQZ3WU.svg" />
+                        <img className={styles.reshotIconSearchTimeSchedu} alt="" src="reshot-icon-student-boy-L9ESXQZ3WU.svg" />
                         <div className={styles.durationParent}>
                             <b className={styles.whatIsThe}>Batch Strength</b>
                             <div className={styles.bookASession}>30 to 50 students per session</div>
@@ -179,6 +184,14 @@ const NanoSprints: NextPage = () => {
                             <div className={styles.bookASession}>Book over Call</div>
                         </div>
                     </div> */}
+                    <div className={styles.frameParent1}>
+                        <div className={styles.bookNanoSprintTodayWrapper} >
+                            <div className={styles.bookASession}>Book Nano Sprint Today</div>
+                        </div>
+                        <div className={styles.bookOverCallWrapper} >
+                            <div className={styles.bookASession}>Book over Call</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className={styles.groupDiv}>
@@ -188,29 +201,29 @@ const NanoSprints: NextPage = () => {
                     <div className={styles.ellipseDiv} />
                 </div>
                 <div className={styles.polygonParent}>
-                    <img className={styles.polygonIcon} alt="" src="assets/images/sprints/Polygon 1.svg" />
+                    <img className={styles.polygonIcon} alt="" src="Polygon 1.svg" />
                     <div className={styles.firstVisitParent}>
                         <b className={styles.firstVisit}>First Visit</b>
                         <div className={styles.codeIndiaFellowship}>A great starting point for schools exploring the AFE Innovation Hub for the first time</div>
                     </div>
                 </div>
                 <div className={styles.polygonGroup}>
-                    <img className={styles.frameChild3} alt="" src="assets/images/sprints/Polygon 1.svg" />
+                    <img className={styles.frameChild3} alt="" src="Polygon 2.svg" />
                     <div className={styles.firstVisitParent}>
                         <b className={styles.firstVisit}>Getting a Taste of AFE</b>
                         <div className={styles.codeIndiaFellowship}>Discover exciting opportunities and resources at AFE Innovation Hub</div>
                     </div>
                 </div>
                 <div className={styles.polygonContainer}>
-                    <img className={styles.polygonIcon} alt="" src="assets/images/sprints/Polygon 1.svg" />
+                    <img className={styles.polygonIcon} alt="" src="Polygon 3.svg" />
                     <div className={styles.firstVisitParent}>
                         <b className={styles.firstVisit}>One-Day Skill-Building</b>
                         <div className={styles.codeIndiaFellowship}>Gain foundational skills and insights into robotics and AI in just one day</div>
                     </div>
                 </div>
                 <div className={styles.polygonParent1}>
-                    <img className={styles.frameChild5} alt="" src="assets/images/sprints/Polygon 1.svg" />
-                    <img className={styles.starIcon} alt="" src="assets/images/sprints/Star 1.svg" />
+                    <img className={styles.frameChild5} alt="" src="Polygon 1.svg" />
+                    <img className={styles.starIcon} alt="" src="Star 1.svg" />
                     <div className={styles.inspiringFutureAspirationsParent}>
                         <b className={styles.firstVisit}>Inspiring Future Aspirations</b>
                         <div className={styles.codeIndiaFellowship}> Spark curiosity and inspire students to dive deeper into STEM fields</div>
@@ -226,13 +239,13 @@ const NanoSprints: NextPage = () => {
             </div>
             <div className={styles.frameParent2}>
                 <div className={styles.reshotIconMoleculesYbnsd562Parent}>
-                    <img className={styles.reshotIconMoleculesYbnsd562} alt="" src="assets/images/sprints/reshot-icon-molecules-YBNSD562JC 1.svg" />
+                    <img className={styles.reshotIconMoleculesYbnsd562} alt="" src="reshot-icon-molecules-YBNSD562JC 1.svg" />
                     <div className={styles.innovationHub}>Innovation Hub</div>
                 </div>
                 <b className={styles.privacyPolicy}>Privacy Policy</b>
                 <div className={styles.linkedinParent}>
-                    <img className={styles.linkedinIcon} alt="" src="assets/images/sprints/Linkedin.svg" />
-                    <img className={styles.linkedinIcon} alt="" src="assets/images/sprints/Twitter.svg" />
+                    <img className={styles.linkedinIcon} alt="" src="Linkedin.svg" />
+                    <img className={styles.linkedinIcon} alt="" src="Twitter.svg" />
                 </div>
             </div>
             <div className={styles.homeSprintsContainer}>
@@ -254,9 +267,9 @@ const NanoSprints: NextPage = () => {
                             <div className={styles.eng}>ಅಇಈ</div>
                         </div>
                     </div>
-                    <img className={styles.ellipseIcon} alt="" src="assets/images/sprints/Ellipse 1.png" />
+                    <img className={styles.ellipseIcon} alt="" src="Ellipse 1.png" />
                 </div>
-                <img className={styles.reshotIconMoleculesYbnsd5621} alt="" src="assets/images/sprints/reshot-icon-molecules-YBNSD562JC 1.svg" />
+                <img className={styles.reshotIconMoleculesYbnsd5621} alt="" src="reshot-icon-molecules-YBNSD562JC 1.svg" />
             </div>
         </div>);
 };
