@@ -98,13 +98,13 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
   };
 
   return (
-    <div className="w-[90%] md:w-[70%] flex flex-col items-start justify-start gap-8 text-midnight-blue-main">
+    <div className="w-[90%] md:w-[70%] flex flex-col items-start justify-start gap-8">
       <img
         src="/images /arrow_back.svg"
         alt="back"
         onClick={handlePreviousScreen}
       />
-      <p className="text-3xl font-extrabold text-[#29458c] text-center md:text-left">
+      <p className="relative text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-midnight-blue-main text-left">
         Please enter the OTP sent to your mobile
       </p>
       <div className="grid grid-cols-6 gap-2 mb-4">
@@ -117,26 +117,26 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
             onChange={(e) => handleChange(index, e)}
             onClick={() => handleClick(index)}
             onKeyDown={(e) => handleKeyDown(index, e)}
-            className="w-full p-2 border rounded text-center"
+            className="w-full p-2 border rounded text-center text-darkslategray"
             maxLength={1}
           />
         ))}
       </div>
-      <div className="mb-4 text-sm">
+      <div className="relative text-lg leading-[170%] font-medium font-webtypestyles-buttonlarge text-left text-darkslategray">
       {isResendAllowed ? (
-        <button onClick={handleResendOTP} className="text-blue-600 underline">
+        <button onClick={handleResendOTP} className="font-webtypestyles-h6 text-midnight-blue-main text-left underline">
           Resend code
         </button>
       ) : (
         <span>
           Taking too long?{" "}
           <span className="text-red-600">Resend code</span>{" "}in{" "}
-          {`${Math.floor(seconds / 60)}:${seconds % 60}`}
+          {`${Math.floor(seconds / 60)}:${seconds % 60} s`}
         </span>
       )}
     </div>
     
-      <Button variant="proceed" onClick={handleVerifyOTP}>
+      <Button variant="proceed" onClick={handleVerifyOTP} className="relative leading-[170%] font-medium">
         Verify OTP
       </Button>
       {message && <div className="pt-2 text-green-600">{message}</div>}
