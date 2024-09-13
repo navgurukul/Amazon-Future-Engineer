@@ -1,13 +1,13 @@
 import VerifyOTP from "./VerifyOTP";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 
-const PhoneNumberVerification = () => {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [showOTPVerification, setShowOTPVerification] = useState(false);
+const PhoneNumberVerification: React.FC = () => {
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [showOTPVerification, setShowOTPVerification] = useState<boolean>(false);
 
-  const handlePhoneNumber = (event) => {
+  const handlePhoneNumber = (event: ChangeEvent<HTMLInputElement>) => {
     setPhoneNumber(event.target.value);
   };
 
@@ -36,7 +36,7 @@ const PhoneNumberVerification = () => {
   return (
     <div className="flex items-center justify-center p-4 w-full">
       {showOTPVerification ? (
-        <VerifyOTP setShowOTPVerification={setShowOTPVerification}/>
+        <VerifyOTP setShowOTPVerification={setShowOTPVerification} />
       ) : (
         <div className="w-full max-w-md flex flex-col items-center md:items-start justify-center md:justify-start gap-8 text-midnight-blue-main">
           <div className="w-full flex flex-col items-center md:items-start justify-start gap-8">
@@ -72,12 +72,6 @@ const PhoneNumberVerification = () => {
                 </Button>
               </div>
             </div>
-            {/* Uncomment for Google login */}
-            {/* <div className="border-t-[1px] w-full" />
-              <div className="rounded-full bg-white border border-solid border-gray-300 flex items-center justify-center gap-4 h-14 cursor-pointer shadow-md w-full">
-                <img className="w-6 h-6" alt="Google logo" src="/images/Google Logo.svg" />
-                <div className="font-semibold">Login with Google</div>
-              </div> */}
           </div>
         </div>
       )}
@@ -86,3 +80,4 @@ const PhoneNumberVerification = () => {
 };
 
 export default PhoneNumberVerification;
+

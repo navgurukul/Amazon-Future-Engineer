@@ -1,15 +1,20 @@
-import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import axios from "axios"; 
+import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from "react";
 
-const VerifyOTP = ({ length = 6 ,setShowOTPVerification}) => {
-  const [otp, setOtp] = useState(new Array(length).fill(""));
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-  const [seconds, setSeconds] = useState(120);
-  const [isResendAllowed, setIsResendAllowed] = useState(false);
-  const inputRefs = useRef([]);
+interface VerifyOTPProps {
+  length?: number;
+  setShowOTPVerification: (value: boolean) => void;
+}
+
+const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerification }) => {
+  const [otp, setOtp] = useState<string[]>(new Array(length).fill(""));
+  const [message, setMessage] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [seconds, setSeconds] = useState<number>(120);
+  const [isResendAllowed, setIsResendAllowed] = useState<boolean>(false);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -28,9 +33,9 @@ const VerifyOTP = ({ length = 6 ,setShowOTPVerification}) => {
     }
   }, [seconds]);
 
-  const handleChange = (index, e) => {
+  const handleChange = (index: number, e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (isNaN(value)) return; // Prevent non-numeric inputs
+    if (isNaN(Number(value))) return; // Prevent non-numeric inputs
 
     const newOtp = [...otp];
     newOtp[index] = value.substring(value.length - 1);
@@ -38,18 +43,18 @@ const VerifyOTP = ({ length = 6 ,setShowOTPVerification}) => {
 
     // Move to the next input automatically
     if (value && index < length - 1 && inputRefs.current[index + 1]) {
-      inputRefs.current[index + 1].focus();
+      inputRefs.current[index + 1]?.focus();
     }
   };
 
-  const handleClick = (index) => {
-    inputRefs.current[index].setSelectionRange(1, 1);
+  const handleClick = (index: number) => {
+    inputRefs.current[index]?.setSelectionRange(1, 1);
     if (index > 0 && !otp[index - 1]) {
-      inputRefs.current[otp.indexOf("")].focus();
+      inputRefs.current[otp.indexOf("")]?.focus();
     }
   };
 
-  const handleKeyDown = (index, e) => {
+  const handleKeyDown = (index: number, e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
@@ -69,7 +74,7 @@ const VerifyOTP = ({ length = 6 ,setShowOTPVerification}) => {
       setMessage(response.data.message);
       router.push("/profile");
       setError("");
-    } catch (err) {
+    } catch (err: any) {
       setMessage("");
       setError(err.response?.data?.message || "Error verifying OTP");
     }
@@ -83,19 +88,25 @@ const VerifyOTP = ({ length = 6 ,setShowOTPVerification}) => {
       });
       setSeconds(120); // Reset the timer
       setIsResendAllowed(false);
-    } catch (err) {
+    } catch (err: any) {
       setError(err.response?.data?.message || "Error resending OTP");
     }
   };
 
-  const handlePriviousScreen = ()=>{
+  const handlePreviousScreen = () => {
     setShowOTPVerification(false);
-  }
+  };
 
   return (
     <div className="w-[90%] md:w-[70%] flex flex-col items-start justify-start gap-8 text-midnight-blue-main">
-      <img src="/images /arrow_back.svg" alt="back" onClick={handlePriviousScreen}/>
-      <p className="elative text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-midnight-blue-main text-left">Please enter the OTP sent to your mobile</p>
+      <img
+        src="/images /arrow_back.svg"
+        alt="back"
+        onClick={handlePreviousScreen}
+      />
+      <p className="text-3xl font-extrabold text-[#29458c] text-center md:text-left">
+        Please enter the OTP sent to your mobile
+      </p>
       <div className="grid grid-cols-6 gap-2 mb-4">
         {otp.map((digit, index) => (
           <input
@@ -112,24 +123,26 @@ const VerifyOTP = ({ length = 6 ,setShowOTPVerification}) => {
         ))}
       </div>
       <div className="mb-4 text-sm">
-        {isResendAllowed ? (
-          <button onClick={handleResendOTP} className="text-blue-600 underline">
-            Resend code
-          </button>
-        ) : (
-          `Taking too long? Resend code in ${Math.floor(seconds / 60)}:${
-            seconds % 60
-          }`
-        )}
-      </div>
+      {isResendAllowed ? (
+        <button onClick={handleResendOTP} className="text-blue-600 underline">
+          Resend code
+        </button>
+      ) : (
+        <span>
+          Taking too long?{" "}
+          <span className="text-red-600">Resend code</span>{" "}in{" "}
+          {`${Math.floor(seconds / 60)}:${seconds % 60}`}
+        </span>
+      )}
+    </div>
+    
       <Button variant="proceed" onClick={handleVerifyOTP}>
         Verify OTP
       </Button>
-      {message && <div className="mt-4 text-green-600">{message}</div>}
-      {error && <div className="mt-4 text-red-600">{error}</div>}
+      {message && <div className="pt-2 text-green-600">{message}</div>}
+      {error && <div className="pt-2 text-red-600">{error}</div>}
     </div>
   );
 };
 
 export default VerifyOTP;
-
