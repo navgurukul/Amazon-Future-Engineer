@@ -8,7 +8,10 @@ interface VerifyOTPProps {
   setShowOTPVerification: (value: boolean) => void;
 }
 
-const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerification }) => {
+const VerifyOTP: React.FC<VerifyOTPProps> = ({
+  length = 6,
+  setShowOTPVerification,
+}) => {
   const [otp, setOtp] = useState<string[]>(new Array(length).fill(""));
   const [message, setMessage] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -107,7 +110,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
       <p className="relative text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-midnight-blue-main text-left">
         Please enter the OTP sent to your mobile
       </p>
-      <div className="grid grid-cols-6 gap-2 mb-4">
+      <div className="w-[90%] md:w-[70%] grid grid-cols-6 gap-2 mb-2">
         {otp.map((digit, index) => (
           <input
             key={index}
@@ -122,23 +125,34 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
           />
         ))}
       </div>
-      <div className="relative text-lg leading-[170%] font-medium font-webtypestyles-buttonlarge text-left text-darkslategray">
-      {isResendAllowed ? (
-        <button onClick={handleResendOTP} className="font-webtypestyles-h6 text-midnight-blue-main text-left underline">
-          Resend code
-        </button>
-      ) : (
-        <span>
-          Taking too long?{" "}
-          <span className="text-red-600">Resend code</span>{" "}in{" "}
-          {`${Math.floor(seconds / 60)}:${seconds % 60} s`}
-        </span>
-      )}
-    </div>
-    
-      <Button variant="proceed" onClick={handleVerifyOTP} className="relative leading-[170%] font-medium">
-        Verify OTP
-      </Button>
+      <div className="w-[90%] md:w-[70%] w-full relative rounded-[100px] bg-incandescent-main h-14 flex flex-row items-center justify-center py-2 px-8 box-border cursor-pointer text-center text-lg text-midnight-blue-contrasttext font-webtypestyles-buttonlarge">
+        <Button
+          variant="proceed"
+          onClick={handleVerifyOTP}
+          className="relative leading-[170%] font-medium"
+        >
+          Verify OTP
+        </Button>
+      </div>
+      <div className="w-[90%] md:w-[70%] relative text-lg leading-[170%] font-medium font-webtypestyles-buttonlarge text-left text-darkslategray">
+        {isResendAllowed ? (
+          <button
+            onClick={handleResendOTP}
+            className="font-webtypestyles-h6 text-midnight-blue-main text-left underline"
+          >
+            Resend code
+          </button>
+        ) : (
+          <span>
+            Taking too long? <span className="text-red-600">Resend code</span>{" "}
+            in{" "}
+            {`${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(
+              2,
+              "0"
+            )} s`}
+          </span>
+        )}
+      </div>
       {message && <div className="pt-2 text-green-600">{message}</div>}
       {error && <div className="pt-2 text-red-600">{error}</div>}
     </div>

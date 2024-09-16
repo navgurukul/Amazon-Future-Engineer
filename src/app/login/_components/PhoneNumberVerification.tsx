@@ -1,32 +1,52 @@
+import VerifyOTP from "./VerifyOTP";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import React, { useState, ChangeEvent } from "react";
-import VerifyOTP from "./VerifyOTP";
 
 const PhoneNumberVerification: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
-  const [showOTPVerification, setShowOTPVerification] = useState<boolean>(false);
+  const [showOTPVerification, setShowOTPVerification] =
+    useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
+  // Handle phone number change
   const handlePhoneNumber = (event: ChangeEvent<HTMLInputElement>) => {
     setPhoneNumber(event.target.value);
+    setErrorMessage(""); // Clear error message when typing
   };
 
-  const handleProceed = async () => {
-    try {
-      const regex = /[^0-9]/g;
-      if (phoneNumber.length < 10 || regex.test(phoneNumber)) {
-        alert("Invalid Phone Number");
-        return;
-      }
+  // Validate phone number
+  const validatePhoneNumber = (phone: string) => {
+    // This will match 10 digits starting with 6-9, optionally with +91 or 91
+    const phoneRegex = /^(\+91|91)?[6-9]\d{9}$/;
+    return phoneRegex.test(phone);
+  };  
 
+  // Handle proceed button click
+  const handleProceed = async () => {
+    if (!phoneNumber) {
+      setErrorMessage("Phone number cannot be empty.");
+      return;
+    }
+
+    if (!validatePhoneNumber(phoneNumber)) {
+      setErrorMessage(
+        "Invalid phone number. It must be a 10-digit number starting with 6-9."
+      );
+      return;
+    }
+
+    try {
+      // Clear the phone number and show OTP verification screen
       setPhoneNumber("");
       setShowOTPVerification(true);
+
+      // Send OTP request
       await fetch("http://localhost:5000/sendOTP", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone: phoneNumber }),
       });
-      setShowOTPVerification(true);
     } catch (error) {
       console.error("Error sending OTP:", error);
     }
@@ -56,17 +76,23 @@ const PhoneNumberVerification: React.FC = () => {
 
           {/* Phone Number Input */}
           <div className="grid gap-2">
-            <label htmlFor="phone" className="relative text-sm leading-[170%] font-medium font-webtypestyles-body2 text-text-primary text-left">
+            <label
+              htmlFor="phone"
+              className="relative text-sm leading-[170%] font-medium font-webtypestyles-body2 text-text-primary text-left"
+            >
               Phone Number
             </label>
             <Input
               id="phone"
               type="tel"
               placeholder="723120985"
-              className="w-full rounded-full border border-web-light-text-primary h-14 px-4 text-lg"
+              className="w-full rounded-full border border-web-light-text-primary h-14 px-4 text-lg text-darkslategray"
               value={phoneNumber}
               onChange={handlePhoneNumber}
             />
+            {errorMessage && (
+              <span className="text-red-600 text-sm mt-1">{errorMessage}</span>
+            )}
           </div>
 
           {/* Proceed Button */}
@@ -85,5 +111,3 @@ const PhoneNumberVerification: React.FC = () => {
 };
 
 export default PhoneNumberVerification;
-
-
