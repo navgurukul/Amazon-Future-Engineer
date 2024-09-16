@@ -17,7 +17,6 @@ const Page: NextPage = () => {
     const [openRescheduleDialog, setOpenRescheduleDialog] = useState(false);
     const [openAnotherDialog, setOpenAnotherDialog] = useState(false);
 
-
     const handleOpenReschedule = () => setOpenRescheduleDialog(true);
 
     const handleCloseReschedule = () => setOpenRescheduleDialog(false);
@@ -25,10 +24,6 @@ const Page: NextPage = () => {
     const handleOpenAnother = () => setOpenAnotherDialog(true);
 
     const handleCloseAnother = () => setOpenAnotherDialog(false);
-
-
-
-
 
     return (
         <>
@@ -48,7 +43,7 @@ const Page: NextPage = () => {
                                     <Image
                                         className="w-5 h-5"
                                         alt="calendar icon"
-                                        src="reshot-icon-calendar-U75ASPNFXK.svg"
+                                        src="/userdashboardpageimages/reshot-icon-calendar-U75ASPNFXK.svg"
                                         width={20}
                                         height={20}
                                     />
@@ -58,7 +53,7 @@ const Page: NextPage = () => {
                                     <Image
                                         className="w-5 h-5"
                                         alt="time icon"
-                                        src="reshot-icon-time-SRKEMN64PU.svg"
+                                        src="/userdashboardpageimages/reshot-icon-time-SRKEMN64PU.svg"
                                         width={20}
                                         height={20}
                                     />
@@ -68,7 +63,7 @@ const Page: NextPage = () => {
                                     <Image
                                         className="w-5 h-5"
                                         alt="students icon"
-                                        src="reshot-icon-student-boy-L9ESXQZ3WU.svg"
+                                        src="/userdashboardpageimages/reshot-icon-student-boy-L9ESXQZ3WU.svg"
                                         width={20}
                                         height={20}
                                     />
@@ -80,142 +75,163 @@ const Page: NextPage = () => {
                             <Button variant="reschedule" onClick={handleOpenReschedule} className="mt-4 sm:mt-0">
                                 Reschedule
                             </Button>
-                        {openRescheduleDialog &&(
-                            <Dialog open={openRescheduleDialog} onOpenChange={setOpenRescheduleDialog}>
-                                <DialogContent className="bg-white " >
-                                    <DialogHeader>
-                                        <DialogTitle><div className="text-[#3a3a3a] text-2xl font-extrabold font-['Amazon Ember Display'] leading-9">Reschedule Nano Sprint</div></DialogTitle>
-                                    </DialogHeader>
-                                    <div className="text-[#3a3a3a] text-lg font-bold font-['Amazon Ember'] leading-[30.60px]">Current Booking Details</div>
-                                    <DialogDescription className="mt-2 text-gray-600">
-                                        <div className="flex flex-col sm:flex-row space-x-0 sm:space-x-4 space-y-2 sm:space-y-0">
-                                            <div className="flex items-center space-x-2">
-                                                <Image
-                                                    className="w-5 h-5"
-                                                    alt="calendar icon"
-                                                    src="reshot-icon-calendar-U75ASPNFXK.svg"
-                                                    width={20}
-                                                    height={20}
-                                                />
-                                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">24 Sept 2024</div>
+                            {openRescheduleDialog && (
+                                <Dialog open={openRescheduleDialog} onOpenChange={setOpenRescheduleDialog}>
+                                    <DialogContent className="bg-white w-full max-w-[592px] sm:w-[592px] h-auto sm:h-[377px] p-6">
+                                        <DialogHeader>
+                                            <DialogTitle>
+                                                <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold font-['Amazon Ember Display'] leading-7 sm:leading-9">
+                                                    Reschedule Nano Sprint
+                                                </div>
+                                            </DialogTitle>
+                                        </DialogHeader>
 
-                                            </div>
-                                            <div className="flex items-center space-x-2">
-                                                <Image
-                                                    className="w-5 h-5"
-                                                    alt="time icon"
-                                                    src="reshot-icon-time-SRKEMN64PU.svg"
-                                                    width={20}
-                                                    height={20}
-                                                />
-                                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">2 PM to 5 PM</div>
-
-                                            </div>
-                                            <div className="flex items-center space-x-2">
-                                                <Image
-                                                    className="w-5 h-5"
-                                                    alt="students icon"
-                                                    src="reshot-icon-student-boy-L9ESXQZ3WU.svg"
-                                                    width={20}
-                                                    height={20}
-                                                />
-                                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">30 Students</div>
-                                            </div>
-                                        </div>
-                                        <div className="text-black text-lg font-medium font-['Amazon Ember'] leading-[30.60px] mt-4">
-                                            We recommend rescheduling only in cases of emergencies. Please confirm if you would like to proceed.
+                                        <div className="text-[#3a3a3a] text-lg font-bold font-['Amazon Ember'] leading-6 sm:leading-[30.60px]">
+                                            Current Booking Details
                                         </div>
 
+                                        <DialogDescription className="mt-2 text-gray-600">
+                                            <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+                                                <div className="flex items-center space-x-2">
+                                                    <Image
+                                                        className="w-5 h-5"
+                                                        alt="calendar icon"
+                                                        src="/userdashboardpageimages/reshot-icon-calendar-U75ASPNFXK.svg"
+                                                        width={20}
+                                                        height={20}
+                                                    />
+                                                    <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                                                        24 Sept 2024
+                                                    </div>
+                                                </div>
 
-                                    </DialogDescription>
+                                                <div className="flex items-center space-x-2">
+                                                    <Image
+                                                        className="w-5 h-5"
+                                                        alt="time icon"
+                                                        src="/userdashboardpageimages/reshot-icon-time-SRKEMN64PU.svg"
+                                                        width={20}
+                                                        height={20}
+                                                    />
+                                                    <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                                                        2 PM to 5 PM
+                                                    </div>
+                                                </div>
 
-                                    <DialogFooter className="mt-6">
-                                        <Button variant="details" onClick={handleCloseReschedule} className="mr-2 text-#3A3A3A bg-[white] border border-black">
-                                            Cancel
-                                        </Button>
+                                                <div className="flex items-center space-x-2">
+                                                    <Image
+                                                        className="w-5 h-5"
+                                                        alt="students icon"
+                                                        src="/userdashboardpageimages/reshot-icon-student-boy-L9ESXQZ3WU.svg"
+                                                        width={20}
+                                                        height={20}
+                                                    />
+                                                    <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                                                        30 Students
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                        <Button variant="contained" onClick={handleOpenAnother} className="bg-[#f55c38] text-white">
-                                            Request Reschedule
-                                        </Button>
+                                            <div className="whitespace-normal text-black text-lg font-medium font-['Amazon Ember'] leading-6 sm:leading-[30.60px] mt-4">
+                                                We recommend to reschedule only in cases of emergencies.
+                                                <span className="block">Please confirm if you would like to proceed</span>
+                                            </div>
+                                        </DialogDescription>
+
+                                        <DialogFooter className="mt-6 flex flex-col sm:flex-row sm:justify-end space-y-2 sm:space-y-0 sm:space-x-4">
+                                            <Button
+                                                variant="details"
+                                                onClick={handleCloseReschedule}
+                                                className="text-[#3A3A3A] bg-white border border-black w-full sm:w-auto"
+                                            >
+                                                Cancel
+                                            </Button>
+                                            <Button
+                                                variant="contained"
+                                                onClick={handleOpenAnother}
+                                                className="bg-[#f55c38] text-white w-full sm:w-auto"
+                                            >
+                                                Request Reschedule
+                                            </Button>
+                                        </DialogFooter>
+
                                         {openAnotherDialog && (
-                                        <Dialog open={openAnotherDialog} onOpenChange={setOpenAnotherDialog}>
-                                            <DialogContent className="w-[592px] h-[428px] p-8 bg-white rounded-lg shadow-lg">
-                                                <DialogHeader>
-                                                    <DialogTitle className="flex justify-between items-center">
-                                                        <div className="text-[#3a3a3a] text-2xl font-extrabold font-['Amazon Ember Display'] leading-9">
-                                                            Reschedule Nano Sprint
+                                            <Dialog open={openAnotherDialog} onOpenChange={setOpenAnotherDialog}>
+                                                <DialogContent className="w-full max-w-[592px] h-auto p-8 bg-white rounded-lg shadow-lg">
+                                                    <DialogHeader>
+                                                        <DialogTitle className="flex justify-between items-center">
+                                                            <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold font-['Amazon Ember Display'] leading-7 sm:leading-9">
+                                                                Reschedule Nano Sprint
+                                                            </div>
+                                                            <button onClick={handleCloseAnother} className="w-6 h-6" />
+                                                        </DialogTitle>
+                                                    </DialogHeader>
+                                                    <DialogDescription>
+                                                        <div className="text-[#3a3a3a] text-lg font-bold font-['Amazon Ember'] leading-6 sm:leading-[30.60px] mb-4">
+                                                            Current Booking Details
                                                         </div>
-                                                        <button onClick={handleCloseAnother} className="w-6 h-6">
-                                                        </button>
-                                                    </DialogTitle>
-                                                </DialogHeader>
-                                                <DialogDescription>
-                                                    <div className="text-[#3a3a3a] text-lg font-bold font-['Amazon Ember'] leading-[30.60px] mb-4">
-                                                        Current Booking Details
-                                                    </div>
-                                                    <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
-                                                        <div className="flex items-center space-x-2">
-                                                            <Image
-                                                                className="w-5 h-5"
-                                                                alt="calendar icon"
-                                                                src="reshot-icon-calendar-U75ASPNFXK.svg"
-                                                                width={20}
-                                                                height={20}
-                                                            />
-                                                            <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
-                                                                24 Sept 2024
+
+                                                        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                                                            <div className="flex items-center space-x-2">
+                                                                <Image
+                                                                    className="w-5 h-5"
+                                                                    alt="calendar icon"
+                                                                    src="/userdashboardpageimages/reshot-icon-calendar-U75ASPNFXK.svg"
+                                                                    width={20}
+                                                                    height={20}
+                                                                />
+                                                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                                                                    24 Sept 2024
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="flex items-center space-x-2">
+                                                                <Image
+                                                                    className="w-5 h-5"
+                                                                    alt="time icon"
+                                                                    src="/userdashboardpageimages/reshot-icon-time-SRKEMN64PU.svg"
+                                                                    width={20}
+                                                                    height={20}
+                                                                />
+                                                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                                                                    2 PM to 5 PM
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="flex items-center space-x-2">
+                                                                <Image
+                                                                    className="w-5 h-5"
+                                                                    alt="students icon"
+                                                                    src="/userdashboardpageimages/reshot-icon-student-boy-L9ESXQZ3WU.svg"
+                                                                    width={20}
+                                                                    height={20}
+                                                                />
+                                                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                                                                    30 Students
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div className="flex items-center space-x-2">
-                                                            <Image
-                                                                className="w-5 h-5"
-                                                                alt="time icon"
-                                                                src="reshot-icon-time-SRKEMN64PU.svg"
-                                                                width={20}
-                                                                height={20}
-                                                            />
-                                                            <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
-                                                                2 PM to 5 PM
+
+                                                        <div className="whitespace-normal text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-6 sm:leading-[30.60px] mt-4">
+                                                            Please contact us at the phone number below to confirm your
+                                                            <span className="block">sprint rescheduling</span>
+                                                        </div>
+                                                        <div className="mt-6 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center">
+                                                            <div className="text-center text-[#3a3a3a] text-xl sm:text-2xl font-extrabold font-['Amazon Ember Display'] leading-7 sm:leading-9">
+                                                                +91 8597437548
+                                                            </div>
+                                                            <div className="text-center text-black text-lg font-medium font-['Amazon Ember'] leading-6 sm:leading-[30.60px]">
+                                                                Sprint Admin
                                                             </div>
                                                         </div>
-                                                        <div className="flex items-center space-x-2">
-                                                            <Image
-                                                                className="w-5 h-5"
-                                                                alt="students icon"
-                                                                src="reshot-icon-student-boy-L9ESXQZ3WU.svg"
-                                                                width={20}
-                                                                height={20}
-                                                            />
-                                                            <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
-                                                                30 Students
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px] mt-4">
-                                                        Please contact us at the phone number below to confirm your sprint rescheduling
-                                                    </div>
-
-                                                    <div className="mt-6 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center">
-                                                        <div className="text-center text-[#3a3a3a] text-2xl font-extrabold font-['Amazon Ember Display'] leading-9">
-                                                            +91 8597437548
-                                                        </div>
-                                                        <div className="text-center text-black text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
-                                                            Sprint Admin
-                                                        </div>
-                                                    </div>
-                                                </DialogDescription>
-                                            </DialogContent>
-                                        </Dialog>
-                                         )}
-
-
-
-
-                                    </DialogFooter>
-                                </DialogContent>
-                            </Dialog>
+                                                    </DialogDescription>
+                                                </DialogContent>
+                                            </Dialog>
+                                        )}
+                                    </DialogContent>
+                                </Dialog>
                             )}
+
                         </div>
                     </div>
                 ))}
@@ -231,7 +247,7 @@ const Page: NextPage = () => {
                     <Image
                         className="w-full sm:w-[696px] h-auto sm:h-[440px] rounded-lg"
                         alt="innovation hub map"
-                        src="/map.png"
+                        src="/userdashboardpageimages/map.png"
                         width={696}
                         height={440}
                     />
