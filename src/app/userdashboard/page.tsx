@@ -43,7 +43,7 @@ const Page: NextPage = () => {
                                     <Image
                                         className="w-5 h-5"
                                         alt="calendar icon"
-                                        src="/userdashboardpageimages/reshot-icon-calendar-U75ASPNFXK.svg"
+                                        src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg"
                                         width={20}
                                         height={20}
                                     />
@@ -53,7 +53,7 @@ const Page: NextPage = () => {
                                     <Image
                                         className="w-5 h-5"
                                         alt="time icon"
-                                        src="/userdashboardpageimages/reshot-icon-time-SRKEMN64PU.svg"
+                                        src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg"
                                         width={20}
                                         height={20}
                                     />
@@ -63,7 +63,7 @@ const Page: NextPage = () => {
                                     <Image
                                         className="w-5 h-5"
                                         alt="students icon"
-                                        src="/userdashboardpageimages/reshot-icon-student-boy-L9ESXQZ3WU.svg"
+                                        src="/userDashboard/reshot-icon-student-boy-L9ESXQZ3WU.svg"
                                         width={20}
                                         height={20}
                                     />
@@ -96,7 +96,7 @@ const Page: NextPage = () => {
                                                     <Image
                                                         className="w-5 h-5"
                                                         alt="calendar icon"
-                                                        src="/userdashboardpageimages/reshot-icon-calendar-U75ASPNFXK.svg"
+                                                        src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg"
                                                         width={20}
                                                         height={20}
                                                     />
@@ -109,7 +109,7 @@ const Page: NextPage = () => {
                                                     <Image
                                                         className="w-5 h-5"
                                                         alt="time icon"
-                                                        src="/userdashboardpageimages/reshot-icon-time-SRKEMN64PU.svg"
+                                                        src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg"
                                                         width={20}
                                                         height={20}
                                                     />
@@ -122,7 +122,7 @@ const Page: NextPage = () => {
                                                     <Image
                                                         className="w-5 h-5"
                                                         alt="students icon"
-                                                        src="/userdashboardpageimages/reshot-icon-student-boy-L9ESXQZ3WU.svg"
+                                                        src="/userDashboard/reshot-icon-student-boy-L9ESXQZ3WU.svg"
                                                         width={20}
                                                         height={20}
                                                     />
@@ -176,7 +176,7 @@ const Page: NextPage = () => {
                                                                 <Image
                                                                     className="w-5 h-5"
                                                                     alt="calendar icon"
-                                                                    src="/userdashboardpageimages/reshot-icon-calendar-U75ASPNFXK.svg"
+                                                                    src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg"
                                                                     width={20}
                                                                     height={20}
                                                                 />
@@ -189,7 +189,7 @@ const Page: NextPage = () => {
                                                                 <Image
                                                                     className="w-5 h-5"
                                                                     alt="time icon"
-                                                                    src="/userdashboardpageimages/reshot-icon-time-SRKEMN64PU.svg"
+                                                                    src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg"
                                                                     width={20}
                                                                     height={20}
                                                                 />
@@ -202,7 +202,7 @@ const Page: NextPage = () => {
                                                                 <Image
                                                                     className="w-5 h-5"
                                                                     alt="students icon"
-                                                                    src="/userdashboardpageimages/reshot-icon-student-boy-L9ESXQZ3WU.svg"
+                                                                    src="/userDashboard/reshot-icon-student-boy-L9ESXQZ3WU.svg"
                                                                     width={20}
                                                                     height={20}
                                                                 />
@@ -247,7 +247,7 @@ const Page: NextPage = () => {
                     <Image
                         className="w-full sm:w-[696px] h-auto sm:h-[440px] rounded-lg"
                         alt="innovation hub map"
-                        src="/userdashboardpageimages/map.png"
+                        src="/userDashboard/map.png"
                         width={696}
                         height={440}
                     />
