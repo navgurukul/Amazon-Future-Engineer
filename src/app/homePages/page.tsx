@@ -1,12 +1,27 @@
+"use client";
+
 import type { NextPage } from "next";
-import { useCallback } from "react";
+import { useState, useCallback } from "react";
+import CreateAClass from "./CreateAClass";
 
 // import styles from "./_components/homePages.module.css";
 
 const HomePage: NextPage = () => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   const onFrameContainerClick = useCallback(() => {
     // Add your code here
   }, []);
+
+  // Function to handle button click to open the popup
+  const handleBookSessionClick = () => {
+    setIsPopupOpen(true);
+  };
+
+  // Function to close the popup
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
 
   return (
     <div className="w-full relative bg-white h-[5194px] overflow-hidden text-left text-2xl text-[#3a3a3a] font-['Amazon_Ember_Display']">
@@ -138,7 +153,10 @@ const HomePage: NextPage = () => {
           </div>
 
           <div className="flex flex-row gap-8 items-start text-[18px] text-white font-['Amazon_Ember']">
-            <button className="flex items-center justify-center px-8 py-2 bg-[#f55c38] rounded-full h-14 cursor-pointer">
+            <button
+              className="flex items-center justify-center px-8 py-2 bg-[#f55c38] rounded-full h-14 cursor-pointer"
+              onClick={handleBookSessionClick}
+            >
               <span className="relative font-medium leading-[170%]">
                 Book a Session
               </span>
@@ -164,6 +182,14 @@ const HomePage: NextPage = () => {
           </button>
         </div>
       </section>
+
+      {/* Render the popup if isPopupOpen is true */}
+       {/* Render the popup if isPopupOpen is true */}
+      {isPopupOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <CreateAClass closePopup={closePopup} />
+        </div>
+      )}
 
       <section className="absolute top-[3420px] left-8 w-[1664px] hidden flex-row items-center justify-start gap-8 text-[18px] font-['Amazon_Ember']">
         <article className="flex-shrink-0 w-[815px] rounded-[16px] bg-[#d4dae8] flex flex-col items-start justify-between p-8 text-[24px] font-['Amazon_Ember_Display']">
