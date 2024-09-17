@@ -100,7 +100,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
   return (
     <div className="w-[90%] md:w-[70%] flex flex-col items-start justify-start gap-8">
       <img
-        src="/images /arrow_back.svg"
+        src="/login/arrow_back.svg"
         alt="back"
         onClick={handlePreviousScreen}
       />
@@ -112,7 +112,12 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
           <input
             key={index}
             type="text"
-            ref={(input) => (inputRefs.current[index] = input)}
+            // ref={(input) => (inputRefs.current[index] = input)}
+            // ref={(input: HTMLInputElement | null) => (inputRefs.current[index] = input)}
+            // ref={(input) => (inputRefs.current[index] = input as HTMLInputElement | null)}
+            ref={(input) => {
+              inputRefs.current[index] = input;
+            }}            
             value={digit}
             onChange={(e) => handleChange(index, e)}
             onClick={() => handleClick(index)}

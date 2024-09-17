@@ -15,9 +15,9 @@ const config: Config = {
         "web-light-text-primary": "#2e2e2e",
         "incandescent-main": "#f55c38",
         "midnight-blue-main": "#29458c",
-		"text-primary": "#2e2e2e",
-		"grey-400": "#949494",
-		"darkslategray": "#3a3a3a",
+        "text-primary": "#2e2e2e",
+        "grey-400": "#949494",
+        "darkslategray": "#3a3a3a",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -66,10 +66,11 @@ const config: Config = {
         "81xl": "100px",
       },
       fontFamily: {
+        'amazon-ember': ['Amazon Ember', 'sans-serif'],
         "web-typography-button": "'Noto Sans'",
         "webtypestyles-buttonlarge": "'Amazon Ember'",
         "webtypestyles-h6": "'Amazon Ember Display'",
-		"webtypestyles-body2": "'Amazon Ember'"
+        "webtypestyles-body2": "'Amazon Ember'"
       },
     },
     fontSize: {

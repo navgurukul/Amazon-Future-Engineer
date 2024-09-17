@@ -43,7 +43,7 @@ const PhoneNumberVerification: React.FC = () => {
             <img
               className="w-16 h-16"
               alt="Logo"
-              src="/images /reshot-icon-molecules-YBNSD562JC 1.svg"
+              src="/login/reshot-icon-molecules-YBNSD562JC 1.svg"
             />
           </div>
 
