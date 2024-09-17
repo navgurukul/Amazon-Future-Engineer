@@ -77,7 +77,7 @@ const Page: NextPage = () => {
                             </Button>
                             {openRescheduleDialog && (
                                 <Dialog open={openRescheduleDialog} onOpenChange={setOpenRescheduleDialog}>
-                                    <DialogContent className="bg-white w-full max-w-[592px] sm:w-[592px] h-auto sm:h-[377px] p-6">
+                                    <DialogContent className="bg-white w-full rounded-lg max-w-[592px] sm:w-[592px] h-auto sm:h-[377px] p-8">
                                         <DialogHeader>
                                             <DialogTitle>
                                                 <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold font-['Amazon Ember Display'] leading-7 sm:leading-9">

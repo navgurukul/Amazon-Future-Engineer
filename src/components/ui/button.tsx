@@ -22,7 +22,6 @@ const buttonVariants = cva(
         details: "h-14 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center gap-2 inline-flex",
         contained: "h-14 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center gap-2 inline-flex",
         reschedule:"px-4 py-2 text-red-500 border border-red-500 rounded-full transition-colors duration-200",
-        // outline:"w-[119px] h-[56px] rounded-[100px] gap-2 "
 
       },
       size: {
