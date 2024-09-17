@@ -1,0 +1,923 @@
+.frequentlyAskedQuestions {
+  	position: absolute;
+  	top: 1538px;
+  	left: calc(50% - 217px);
+  	line-height: 150%;
+  	font-weight: 800;
+  	text-align: center;
+  	display: none;
+}
+.fellowships {
+  	position: relative;
+  	font-size: 24px;
+  	line-height: 150%;
+  	font-weight: 800;
+  	font-family: 'Amazon Ember Display';
+}
+.whatIsThe {
+  	position: relative;
+  	line-height: 170%;
+}
+.codeIndiaFellowship {
+  	align-self: stretch;
+  	position: relative;
+  	line-height: 170%;
+  	font-weight: 500;
+}
+.question {
+  	flex: 1;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	gap: 16px;
+}
+.removeCircleOutlineIcon {
+  	width: 24px;
+  	position: relative;
+  	height: 24px;
+  	overflow: hidden;
+  	flex-shrink: 0;
+}
+.faqQuestion {
+  	align-self: stretch;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: flex-start;
+  	justify-content: center;
+  	gap: 16px;
+}
+.storyChild {
+  	align-self: stretch;
+  	position: relative;
+  	border-top: 1px solid #dedede;
+  	box-sizing: border-box;
+  	height: 1px;
+}
+.codeIndiaFellowship1 {
+  	width: 759px;
+  	position: relative;
+  	line-height: 170%;
+  	font-family: 'Noto Sans';
+  	color: #2e2e2e;
+  	display: none;
+}
+.faqQuestion1 {
+  	align-self: stretch;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+  	gap: 16px;
+}
+.storyChild3 {
+  	width: 800px;
+  	position: relative;
+  	border-top: 1px solid #dedede;
+  	box-sizing: border-box;
+  	height: 1px;
+  	display: none;
+}
+.story {
+  	position: absolute;
+  	top: 1615px;
+  	left: 320px;
+  	width: 800px;
+  	display: none;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	gap: 32px;
+  	font-size: 18px;
+  	font-family: 'Amazon Ember';
+}
+.multiDaySkillBuildingWorks {
+  	position: absolute;
+  	top: 483px;
+  	left: 256px;
+  	line-height: 150%;
+  	font-weight: 800;
+  	color: #29458c;
+  	display: inline-block;
+  	width: 800px;
+}
+.whyIsMini {
+  	position: absolute;
+  	top: 1269px;
+  	left: 256px;
+  	line-height: 150%;
+  	font-weight: 800;
+  	color: #29458c;
+}
+.vectorIcon {
+  	width: 127.6px;
+  	position: relative;
+  	height: 120px;
+  	object-fit: cover;
+  	mix-blend-mode: luminosity;
+}
+.nanoSprints {
+  	position: relative;
+  	line-height: 150%;
+}
+.vectorParent {
+  	width: 152px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 16px;
+}
+.vectorIcon1 {
+  	width: 127.6px;
+  	position: relative;
+  	height: 120px;
+  	object-fit: cover;
+}
+.vectorGroup {
+  	width: 152px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 16px;
+  	color: #29458c;
+}
+.vectorContainer {
+  	width: 152px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 16px;
+  	cursor: pointer;
+}
+.frameParent {
+  	position: absolute;
+  	top: 247px;
+  	left: calc(50% - 292px);
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 64px;
+  	font-size: 24px;
+}
+.oneDaySessions {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 18px;
+  	line-height: 170%;
+  	font-weight: 500;
+  	font-family: 'Amazon Ember';
+}
+.nanoSprintsParent {
+  	width: 567px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	gap: 24px;
+}
+.bookASession {
+  	position: relative;
+  	line-height: 170%;
+  	font-weight: 500;
+}
+.bookASessionWrapper {
+  	width: 240px;
+  	border-radius: 100px;
+  	background-color: #fff;
+  	height: 56px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+  	padding: 8px 16px;
+  	box-sizing: border-box;
+  	text-align: center;
+  	font-size: 18px;
+  	color: #29458c;
+  	font-family: 'Amazon Ember';
+}
+.frameContainer {
+  	align-self: stretch;
+  	width: 815px;
+  	border-radius: 16px;
+  	background-color: #d4dae8;
+  	overflow: hidden;
+  	flex-shrink: 0;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: space-between;
+  	padding: 32px;
+  	box-sizing: border-box;
+  	font-size: 24px;
+  	font-family: 'Amazon Ember Display';
+}
+.miniSprints2 {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 24px;
+  	line-height: 150%;
+  	font-weight: 800;
+  	font-family: 'Amazon Ember Display';
+}
+.knowMoreWrapper {
+  	width: 240px;
+  	border-radius: 100px;
+  	background-color: #fff;
+  	height: 56px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+  	padding: 8px 16px;
+  	box-sizing: border-box;
+  	text-align: center;
+  	color: #29458c;
+}
+.miniSprintsParent {
+  	align-self: stretch;
+  	flex: 1;
+  	border-radius: 16px;
+  	background-color: #fce9f0;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	padding: 32px;
+  	gap: 24px;
+}
+.megaSprintsParent {
+  	align-self: stretch;
+  	flex: 1;
+  	border-radius: 16px;
+  	background-color: #ffefd6;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	padding: 32px;
+  	gap: 24px;
+}
+.frameGroup {
+  	position: absolute;
+  	top: 3420px;
+  	left: 32px;
+  	width: 1664px;
+  	display: none;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 32px;
+  	font-size: 18px;
+  	font-family: 'Amazon Ember';
+}
+.frameChild {
+  	align-self: stretch;
+  	flex: 1;
+  	position: relative;
+  	border-radius: 8px;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+  	object-fit: cover;
+}
+.rectangleParent {
+  	position: absolute;
+  	top: 611px;
+  	left: 256px;
+  	width: 1216px;
+  	height: 303px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 32px;
+}
+.rectangleGroup {
+  	position: absolute;
+  	top: 946px;
+  	left: 256px;
+  	width: 1216px;
+  	height: 259px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 32px;
+}
+.reshotIconMoleculesYbnsd562 {
+  	width: 38px;
+  	position: relative;
+  	height: 38px;
+  	overflow: hidden;
+  	flex-shrink: 0;
+}
+.innovationHub {
+  	position: relative;
+  	line-height: 150%;
+  	font-weight: 800;
+}
+.reshotIconMoleculesYbnsd562Parent {
+  	position: absolute;
+  	top: 32px;
+  	left: 48px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 16px;
+}
+.privacyPolicy {
+  	position: absolute;
+  	top: 35.5px;
+  	left: calc(50% - 59px);
+  	font-size: 18px;
+  	line-height: 170%;
+  	font-family: 'Amazon Ember';
+}
+.linkedinIcon {
+  	width: 32px;
+  	position: relative;
+  	height: 32px;
+  	overflow: hidden;
+  	flex-shrink: 0;
+}
+.linkedinParent {
+  	position: absolute;
+  	top: 35px;
+  	left: 1584px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 32px;
+}
+.frameDiv {
+  	position: absolute;
+  	bottom: 0px;
+  	left: 0px;
+  	background-color: #ffad33;
+  	width: 1728px;
+  	height: 102px;
+  	font-size: 24px;
+}
+.home1 {
+  	font-family: 'Amazon Ember';
+}
+.home {
+  	color: #29458c;
+}
+.sprints1 {
+  	color: #3a3a3a;
+}
+.sprints {
+  	font-weight: 500;
+  	font-family: 'Amazon Ember';
+}
+.homeSprintsContainer {
+  	position: absolute;
+  	top: 184px;
+  	left: 256px;
+  	font-size: 18px;
+  	line-height: 170%;
+}
+.whyScheduleA {
+  	align-self: stretch;
+  	position: relative;
+  	line-height: 150%;
+  	font-weight: 800;
+}
+.miniSprintsOffer {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 18px;
+  	line-height: 170%;
+  	font-weight: 500;
+  	font-family: 'Amazon Ember';
+  	color: #3a3a3a;
+}
+.whyScheduleAMiniSprintParent {
+  	position: absolute;
+  	top: 1914px;
+  	left: 256px;
+  	width: 796px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	gap: 16px;
+  	color: #29458c;
+}
+.readyToElevateStudentSkillParent {
+  	position: absolute;
+  	top: 2166px;
+  	left: 256px;
+  	width: 796px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	gap: 16px;
+  	color: #29458c;
+}
+.ellipseDiv {
+  	width: 16px;
+  	position: relative;
+  	border-radius: 50%;
+  	background-color: #f55c38;
+  	height: 16px;
+}
+.rectangleDiv {
+  	width: 4px;
+  	flex: 1;
+  	position: relative;
+  	border-radius: 100px;
+  	background-color: #933722;
+}
+.ellipseParent {
+  	position: absolute;
+  	top: 0px;
+  	left: 352px;
+  	width: 24px;
+  	height: 501px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 8px;
+}
+.polygonIcon {
+  	width: 153.8px;
+  	position: absolute;
+  	margin: 0 !important;
+  	top: -51.09px;
+  	left: -69.09px;
+  	height: 153.8px;
+  	object-fit: contain;
+  	z-index: 0;
+}
+.firstVisit {
+  	align-self: stretch;
+  	position: relative;
+  	line-height: 170%;
+}
+.firstVisitParent {
+  	flex: 1;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	gap: 8px;
+  	z-index: 1;
+}
+.polygonParent {
+  	position: absolute;
+  	top: 96px;
+  	left: 0px;
+  	width: 320px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+}
+.frameChild3 {
+  	width: 153.8px;
+  	position: absolute;
+  	margin: 0 !important;
+  	top: -51.09px;
+  	left: -53.09px;
+  	height: 153.8px;
+  	object-fit: contain;
+  	z-index: 0;
+}
+.polygonGroup {
+  	position: absolute;
+  	top: 324px;
+  	left: 440px;
+  	width: 320px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+}
+.groupDiv {
+  	position: absolute;
+  	top: 1349px;
+  	left: 292px;
+  	width: 760px;
+  	height: 501px;
+  	font-size: 18px;
+  	font-family: 'Amazon Ember';
+}
+.groupIcon {
+  	position: absolute;
+  	height: 63.33%;
+  	width: 79.79%;
+  	top: 28.68%;
+  	right: 10.13%;
+  	bottom: 7.99%;
+  	left: 10.08%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.groupIcon1 {
+  	position: absolute;
+  	height: 79.38%;
+  	width: 100%;
+  	top: 20.68%;
+  	right: 0%;
+  	bottom: -0.05%;
+  	left: 0%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.groupIcon2 {
+  	position: absolute;
+  	height: 9.79%;
+  	width: 14.96%;
+  	top: 13.14%;
+  	right: 42.58%;
+  	bottom: 77.07%;
+  	left: 42.46%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.groupIcon3 {
+  	position: absolute;
+  	height: 13.13%;
+  	width: 28.87%;
+  	top: 1%;
+  	right: 35.63%;
+  	bottom: 85.88%;
+  	left: 35.5%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.groupIcon4 {
+  	position: absolute;
+  	height: 15.21%;
+  	width: 31.5%;
+  	top: 0%;
+  	right: 34.26%;
+  	bottom: 84.79%;
+  	left: 34.24%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.groupIcon5 {
+  	position: absolute;
+  	height: 6.44%;
+  	width: 100%;
+  	top: 0%;
+  	right: 0%;
+  	bottom: 93.56%;
+  	left: 0%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.groupIcon6 {
+  	position: absolute;
+  	height: 6.44%;
+  	width: 100%;
+  	top: 93.5%;
+  	right: 0%;
+  	bottom: 0.06%;
+  	left: 0%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.group2 {
+  	position: absolute;
+  	height: 100%;
+  	width: 3.07%;
+  	top: 0%;
+  	right: 48.46%;
+  	bottom: 0%;
+  	left: 48.47%;
+}
+.groupIcon7 {
+  	position: absolute;
+  	height: 71.47%;
+  	width: 71.47%;
+  	top: 14.16%;
+  	right: 14.33%;
+  	bottom: 14.36%;
+  	left: 14.19%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.groupIcon8 {
+  	position: absolute;
+  	height: 100%;
+  	width: 6.44%;
+  	top: 0%;
+  	right: 0.06%;
+  	bottom: 0%;
+  	left: 93.5%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.groupIcon9 {
+  	position: absolute;
+  	height: 100%;
+  	width: 6.44%;
+  	top: 0%;
+  	right: 93.56%;
+  	bottom: 0%;
+  	left: 0%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.group3 {
+  	position: absolute;
+  	height: 3.07%;
+  	width: 100%;
+  	top: 48.47%;
+  	right: 0%;
+  	bottom: 48.46%;
+  	left: 0%;
+}
+.groupIcon10 {
+  	position: absolute;
+  	height: 71.47%;
+  	width: 71.47%;
+  	top: 14.16%;
+  	right: 14.3%;
+  	bottom: 14.36%;
+  	left: 14.22%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.group1 {
+  	position: absolute;
+  	height: 67.92%;
+  	width: 85.56%;
+  	top: 26.42%;
+  	right: 7.2%;
+  	bottom: 5.66%;
+  	left: 7.23%;
+}
+.groupIcon11 {
+  	position: absolute;
+  	height: 13.54%;
+  	width: 2.62%;
+  	top: 36.06%;
+  	right: 48.67%;
+  	bottom: 50.4%;
+  	left: 48.71%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.groupIcon12 {
+  	position: absolute;
+  	height: 2.08%;
+  	width: 14.17%;
+  	top: 59.34%;
+  	right: 63.7%;
+  	bottom: 38.58%;
+  	left: 22.12%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.groupIcon13 {
+  	position: absolute;
+  	height: 15.21%;
+  	width: 17.32%;
+  	top: 0%;
+  	right: 41.35%;
+  	bottom: 84.79%;
+  	left: 41.32%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.groupIcon14 {
+  	position: absolute;
+  	height: 27.92%;
+  	width: 35.17%;
+  	top: 46.44%;
+  	right: 32.4%;
+  	bottom: 25.64%;
+  	left: 32.43%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.groupIcon15 {
+  	position: absolute;
+  	height: 29.79%;
+  	width: 37.53%;
+  	top: 45.4%;
+  	right: 31.3%;
+  	bottom: 24.81%;
+  	left: 31.17%;
+  	max-width: 100%;
+  	overflow: hidden;
+  	max-height: 100%;
+}
+.group {
+  	position: absolute;
+  	height: 100%;
+  	width: 56.87%;
+  	top: 0%;
+  	right: 22.24%;
+  	bottom: 0%;
+  	left: 20.9%;
+}
+.reshotIconSearchTimeSchedu {
+  	width: 67px;
+  	position: relative;
+  	height: 48px;
+  	overflow: hidden;
+  	flex-shrink: 0;
+}
+.durationParent {
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: center;
+  	gap: 4px;
+}
+.reshotIconSearchTimeScheduParent {
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 16px;
+}
+.joinWaitingListWrapper {
+  	align-self: stretch;
+  	border-radius: 100px;
+  	background-color: #f55c38;
+  	height: 56px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+  	padding: 8px 32px;
+  	box-sizing: border-box;
+  	cursor: pointer;
+}
+.frameWrapper {
+  	align-self: stretch;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	text-align: center;
+  	color: #fff;
+}
+.frameParent1 {
+  	position: absolute;
+  	top: 201px;
+  	left: 0px;
+  	border-radius: 8px;
+  	background-color: #fdded7;
+  	border: 2px solid #f55c38;
+  	box-sizing: border-box;
+  	width: 384px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	padding: 32px;
+  	gap: 32px;
+}
+.miniSprintsInner {
+  	position: absolute;
+  	top: 1068px;
+  	left: 1088px;
+  	width: 384px;
+  	height: 517px;
+  	font-size: 18px;
+  	font-family: 'Amazon Ember';
+}
+.afeinnovationihubcom {
+  	color: #f55c38;
+}
+.reachOutToContainer {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 18px;
+  	line-height: 170%;
+  	font-family: 'Amazon Ember';
+  	color: #3a3a3a;
+}
+.haveAnyQuestionsParent {
+  	position: absolute;
+  	top: 2387px;
+  	left: 256px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	gap: 16px;
+  	color: #29458c;
+}
+.eng {
+  	position: relative;
+  	line-height: 20px;
+  	font-weight: 500;
+}
+.engWrapper {
+  	border-radius: 100px;
+  	background-color: #f55c38;
+  	height: 32px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+  	padding: 8px 16px;
+  	box-sizing: border-box;
+}
+.wrapper {
+  	border-radius: 100px;
+  	background-color: #f0f0f0;
+  	height: 32px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+  	padding: 8px 16px;
+  	box-sizing: border-box;
+  	color: #3a3a3a;
+}
+.frameParent3 {
+  	border-radius: 100px;
+  	background-color: rgba(240, 240, 240, 0.72);
+  	height: 48px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+  	padding: 8px;
+  	box-sizing: border-box;
+  	gap: 8px;
+}
+.ellipseIcon {
+  	width: 56px;
+  	position: relative;
+  	border-radius: 50%;
+  	height: 56px;
+  	object-fit: cover;
+}
+.frameParent2 {
+  	position: absolute;
+  	top: calc(50% - 28px);
+  	left: 1458px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 32px;
+}
+.reshotIconMoleculesYbnsd5621 {
+  	position: absolute;
+  	top: calc(50% - 36px);
+  	left: 48px;
+  	width: 72px;
+  	height: 72px;
+  	overflow: hidden;
+}
+.header {
+  	position: absolute;
+  	top: 0px;
+  	left: 0px;
+  	background-color: #fff;
+  	width: 1728px;
+  	height: 120px;
+  	text-align: center;
+  	font-size: 14px;
+  	color: #fff;
+  	font-family: 'Amazon Ember';
+}
+.miniSprints {
+  	width: 100%;
+  	position: relative;
+  	background-color: #fff;
+  	height: 2684px;
+  	overflow: hidden;
+  	text-align: left;
+  	font-size: 32px;
+  	color: #3a3a3a;
+  	font-family: 'Amazon Ember Display';
+}
