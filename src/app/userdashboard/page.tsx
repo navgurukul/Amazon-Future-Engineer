@@ -268,7 +268,6 @@ const Page: NextPage = () => {
                     </div>
                 </div>
             </div>
-
             <div className="w-full max-w-[90%] sm:w-[1216px] h-auto flex flex-col justify-center items-start gap-8 mx-auto relative mt-8">
                 <div className="flex flex-col justify-start items-start gap-4">
                     <div className="text-left text-[#29458c] text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px]">
@@ -284,7 +283,6 @@ const Page: NextPage = () => {
                     </span>
                 </Button>
             </div>
-
         </>
     );
 };
