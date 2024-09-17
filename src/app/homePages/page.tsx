@@ -50,7 +50,7 @@ const HomePage: NextPage = () => {
           <img
             className="relative w-[24px] h-[24px] flex-shrink-0"
             alt="Remove"
-            src="./HomeImages/remove_circle_outline.svg"
+            src="./homepage/remove_circle_outline.svg"
           />
         </article>
 
@@ -73,7 +73,7 @@ const HomePage: NextPage = () => {
           <img
             className="relative w-[24px] h-[24px] flex-shrink-0"
             alt="Add"
-            src="./HomeImages/add_circle_outline.svg"
+            src="./homepage/add_circle_outline.svg"
           />
         </article>
 
@@ -131,7 +131,7 @@ const HomePage: NextPage = () => {
 </section> */}
       <section className="relative w-[1728px] h-[1117px] text-center text-[56px] text-gray-200 font-['Amazon_Ember']">
         <video
-          src="./HomeImages/video.mp4"
+          src="./homepage/video.mp4"
           className="absolute top-0 left-0 w-full h-full object-cover shadow-[0_4px_4px_rgba(0,0,0,0.06),0_8px_12px_rgba(0,0,0,0.04),0_4px_24px_rgba(0,0,0,0.08)] bg-gradient-to-b from-black/80 to-black/0"
           autoPlay
           muted
@@ -139,7 +139,7 @@ const HomePage: NextPage = () => {
         <img
           className="absolute top-12 left-12 w-[72px] h-[72px] overflow-hidden"
           alt=""
-          src="./HomeImages/reshot-icon-molecules-YBNSD562JC 1.svg"
+          src="./homepage/reshot-icon-molecules-YBNSD562JC 1.svg"
         />
 
         <header className="absolute top-[200px] left-12 w-[1215px] flex flex-col gap-12 items-start text-left font-['Amazon_Ember_Display']">
@@ -267,7 +267,7 @@ const HomePage: NextPage = () => {
           <img
             className="object-cover"
             alt="AFE Innovation Hub"
-            src="./HomeImages/Rectangle 1.png"
+            src="./homepage/Rectangle 1.png"
           />
         </figure>
 
@@ -276,21 +276,21 @@ const HomePage: NextPage = () => {
             <img
               className="object-cover"
               alt="AFE Hub Image 1"
-              src="./HomeImages/Rectangle 4.svg"
+              src="./homepage/Rectangle 4.svg"
             />
           </figure>
           <figure className="w-[800px] h-[360px]">
             <img
               className="object-cover"
               alt="AFE Hub Image 2"
-              src="./HomeImages/Rectangle 3.svg"
+              src="./homepage/Rectangle 3.svg"
             />
           </figure>
           <figure className="flex-1 h-[360px]">
             <img
               className="object-cover"
               alt="AFE Hub Image 3"
-              src="./HomeImages/Rectangle 5.svg"
+              src="./homepage/Rectangle 5.svg"
             />
           </figure>
         </div>
@@ -304,7 +304,7 @@ const HomePage: NextPage = () => {
           <img
             className="object-cover"
             alt="Latest innovation"
-            src="./HomeImages/Rectangle 1.png"
+            src="./homepage/Rectangle 1.png"
           />
         </figure>
 
@@ -314,7 +314,7 @@ const HomePage: NextPage = () => {
               <img
                 className="object-cover"
                 alt="Previous"
-                src="./HomeImages/chevron_left.svg"
+                src="./homepage/chevron_left.svg"
               />
             </button>
 
@@ -322,7 +322,7 @@ const HomePage: NextPage = () => {
               <img
                 className="object-cover"
                 alt="Innovation Hub Image 1"
-                src="./HomeImages/Rectangle 6.svg"
+                src="./homepage/Rectangle 6.svg"
               />
             </figure>
 
@@ -330,7 +330,7 @@ const HomePage: NextPage = () => {
               <img
                 className="object-cover"
                 alt="Innovation Hub Image 2"
-                src="./HomeImages/Rectangle 7.svg"
+                src="./homepage/Rectangle 7.svg"
               />
             </figure>
 
@@ -338,7 +338,7 @@ const HomePage: NextPage = () => {
               <img
                 className="object-cover"
                 alt="Innovation Hub Image 3"
-                src="./HomeImages/Rectangle 8.svg"
+                src="./homepage/Rectangle 8.svg"
               />
             </figure>
 
@@ -346,7 +346,7 @@ const HomePage: NextPage = () => {
               <img
                 className="object-cover"
                 alt="Next"
-                src="./HomeImages/chevron_right_black.svg"
+                src="./homepage/chevron_right_black.svg"
               />
             </button>
           </div>
@@ -382,7 +382,7 @@ const HomePage: NextPage = () => {
               <div className="flex flex-row items-center justify-start gap-2">
                 <figure className="w-11 h-8 relative overflow-hidden flex-shrink-0">
                   <img
-                    src="./HomeImages/reshot-icon-search-time-schedule-YKN4SVFGAU.svg"
+                    src="./homepage/reshot-icon-search-time-schedule-YKN4SVFGAU.svg"
                     alt="Icon"
                   />
                 </figure>
@@ -393,7 +393,7 @@ const HomePage: NextPage = () => {
               <div className="flex flex-row items-center justify-start gap-2">
                 <figure className="w-[44px] h-[32px] relative overflow-hidden flex-shrink-0">
                   <img
-                    src="./HomeImages/reshot-icon-student-boy-L9ESXQZ3WU.svg"
+                    src="./homepage/reshot-icon-student-boy-L9ESXQZ3WU.svg"
                     alt="Student icon"
                   />
                 </figure>
@@ -405,7 +405,7 @@ const HomePage: NextPage = () => {
             <img
               className="absolute w-[558.7px] h-[523.7px] top-[131px] left-[534px] object-contain z-20 m-0"
               alt="Decorative graphic"
-              src="./HomeImages/Vector.svg"
+              src="./homepage/Vector.svg"
             />
           </section>
 
@@ -431,7 +431,7 @@ const HomePage: NextPage = () => {
                 <img
                   className="w-6 h-6 relative overflow-hidden flex-shrink-0"
                   alt="Chevron"
-                  src="./HomeImages/chevron_right.svg"
+                  src="./homepage/chevron_right.svg"
                 />
               </div>
             </article>
@@ -458,7 +458,7 @@ const HomePage: NextPage = () => {
                 <img
                   className="relative w-6 h-6 overflow-hidden flex-shrink-0"
                   alt="Chevron"
-                  src="./HomeImages/chevron_right.svg"
+                  src="./homepage/chevron_right.svg"
                 />
               </div>
             </article>
@@ -470,7 +470,7 @@ const HomePage: NextPage = () => {
           <img
             className="relative w-[38px] h-[38px] overflow-hidden flex-shrink-0"
             alt="Innovation Hub Logo"
-            src="./HomeImages/reshot-icon-molecules-YBNSD562JC 1.svg"
+            src="./homepage/reshot-icon-molecules-YBNSD562JC 1.svg"
           />
           <h1 className="relative leading-[150%] font-extrabold">
             Innovation Hub
@@ -486,14 +486,14 @@ const HomePage: NextPage = () => {
             <img
               className="w-[32px] relative h-[32px] overflow-hidden flex-shrink-0"
               alt="LinkedIn"
-              src="./HomeImages/Linkedin.svg"
+              src="./homepage/Linkedin.svg"
             />
           </a>
           <a href="https://www.twitter.com">
             <img
               className="w-[32px] relative h-[32px] overflow-hidden flex-shrink-0"
               alt="Twitter"
-              src="./HomeImages/Twitter.svg"
+              src="./homepage/Twitter.svg"
             />
           </a>
         </nav>
@@ -515,7 +515,7 @@ const HomePage: NextPage = () => {
               <img
                 className="w-[140px] h-[140px] relative object-cover"
                 alt="Step 1"
-                src="./HomeImages/Lottie flies.gif"
+                src="./homepage/Lottie flies.gif"
               />
               <figcaption>Step 1</figcaption>
             </figure>
@@ -523,7 +523,7 @@ const HomePage: NextPage = () => {
               <img
                 className="w-[140px] h-[140px] relative object-cover"
                 alt="Step 2"
-                src="./HomeImages/Lottie flies.gif"
+                src="./homepage/Lottie flies.gif"
               />
               <figcaption>Step 2</figcaption>
             </figure>
@@ -531,7 +531,7 @@ const HomePage: NextPage = () => {
               <img
                 className="w-[140px] h-[140px] relative object-cover"
                 alt="Step 3"
-                src="./HomeImages/Lottie flies.gif"
+                src="./homepage/Lottie flies.gif"
               />
               <figcaption>Step 3</figcaption>
             </figure>
@@ -539,7 +539,7 @@ const HomePage: NextPage = () => {
               <img
                 className="w-[140px] h-[140px] relative object-cover"
                 alt="Step 4"
-                src="./HomeImages/Lottie flies.gif"
+                src="./homepage/Lottie flies.gif"
               />
               <figcaption>Step 4</figcaption>
             </figure>
@@ -548,7 +548,7 @@ const HomePage: NextPage = () => {
           <img
             className="w-[1276px] relative h-[24px]"
             alt="Process Overview"
-            src="./HomeImages/Frame 31704.svg"
+            src="./homepage/Frame 31704.svg"
           />
 
           <div className="self-stretch flex flex-row items-start justify-start gap-[33px]">
@@ -595,7 +595,7 @@ const HomePage: NextPage = () => {
         <img
           className="absolute top-0 left-0 w-[1632px] h-[800px] object-cover"
           alt="Background video"
-          src="./HomeImages/video 2.svg"
+          src="./homepage/video 2.svg"
         />
 
         <div className="absolute top-12 left-[calc(50%-768px)] flex flex-col items-start justify-start gap-8">
