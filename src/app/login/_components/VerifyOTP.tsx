@@ -104,7 +104,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
         alt="back"
         onClick={handlePreviousScreen}
       />
-      <p className="relative text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-midnight-blue-main text-left">
+      <p className="relative text-5xl leading-[150%] font-extrabold font-['Amazon Ember Display'] text-midnight-blue-main text-left">
         Please enter the OTP sent to your mobile
       </p>
       <div className="grid grid-cols-6 gap-2 mb-4">
@@ -127,9 +127,9 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
           />
         ))}
       </div>
-      <div className="relative text-lg leading-[170%] font-medium font-webtypestyles-buttonlarge text-left text-darkslategray">
+      <div className="relative text-lg leading-[170%] font-medium font-['Amazon Ember'] text-left text-darkslategray">
       {isResendAllowed ? (
-        <button onClick={handleResendOTP} className="font-webtypestyles-h6 text-midnight-blue-main text-left underline">
+        <button onClick={handleResendOTP} className="font-['Amazon Ember Display'] text-midnight-blue-main text-left underline">
           Resend code
         </button>
       ) : (
