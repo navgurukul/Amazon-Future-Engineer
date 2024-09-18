@@ -47,14 +47,14 @@ const PhoneNumberVerification: React.FC = () => {
 
           {/* Title */}
           <div className="text-center md:text-left">
-            <h1 className="text-5xl font-extrabold font-webtypestyles-h6 leading-[150%]">
+            <h1 className="text-5xl font-extrabold  font-['Amazon Ember Display'] leading-[150%]">
               Login to Innovation Hub
             </h1>
           </div>
 
           {/* Phone Number Input */}
           <div className="grid gap-2">
-            <label htmlFor="phone" className="relative text-sm leading-[170%] font-medium font-webtypestyles-body2 text-text-primary text-left">
+            <label htmlFor="phone" className="relative text-sm leading-[170%] font-medium font-['Amazon Ember'] text-text-primary text-left">
               Phone Number
             </label>
             <Input

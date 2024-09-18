@@ -75,6 +75,7 @@ const config: Config = {
         "81xl": "100px",
       },
       fontFamily: {
+        'amazon-ember': ['Amazon Ember','Amazon Ember Display','Noto Sans', 'sans-serif'],
         "web-typography-button": "'Noto Sans'",
         "webtypestyles-buttonlarge": "'Amazon Ember'",
         "webtypestyles-h6": "'Amazon Ember Display'",
