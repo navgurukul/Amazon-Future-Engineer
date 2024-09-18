@@ -19,7 +19,13 @@ const config: Config = {
         "grey-400": "#949494",
         "incandescent-light": "#fdded7",
         "orange-main": "#ffad33",
+        tomato: "#f55c38",
         "incandescent-contrasttext": "#fff",
+        whitesmoke: {
+          "100": "#f0f0f0",
+          "200": "rgba(240, 240, 240, 0.72)",
+        },
+
         darkslategray: "#3a3a3a",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

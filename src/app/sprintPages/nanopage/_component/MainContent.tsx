@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import Booking from "./Booking";
 
+
 const MainContent = () => {
   return (
     <div className="px-4 sm:px-8 md:px-12 lg:px-[calc(50%_-_512px)] flex flex-col gap-8">

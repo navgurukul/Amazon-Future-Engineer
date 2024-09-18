@@ -6,9 +6,10 @@ import { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from "react";
 interface VerifyOTPProps {
   length?: number;
   setShowOTPVerification: (value: boolean) => void;
+  phoneNumber: string;
 }
 
-const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerification }) => {
+const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerification, phoneNumber }) => {
   const [otp, setOtp] = useState<string[]>(new Array(length).fill(""));
   const [message, setMessage] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -23,7 +24,6 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
     }
   }, []);
 
-  // Timer effect for OTP resend
   useEffect(() => {
     if (seconds > 0) {
       const timer = setInterval(() => setSeconds((prev) => prev - 1), 1000);
@@ -35,22 +35,14 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
 
   const handleChange = (index: number, e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (isNaN(Number(value))) return; // Prevent non-numeric inputs
+    if (isNaN(Number(value))) return;
 
     const newOtp = [...otp];
     newOtp[index] = value.substring(value.length - 1);
     setOtp(newOtp);
 
-    // Move to the next input automatically
     if (value && index < length - 1 && inputRefs.current[index + 1]) {
       inputRefs.current[index + 1]?.focus();
-    }
-  };
-
-  const handleClick = (index: number) => {
-    inputRefs.current[index]?.setSelectionRange(1, 1);
-    if (index > 0 && !otp[index - 1]) {
-      inputRefs.current[otp.indexOf("")]?.focus();
     }
   };
 
@@ -60,11 +52,12 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
     }
   };
 
-  // OTP submission handler
   const handleVerifyOTP = async () => {
     try {
+      console.log("phoneNumber",phoneNumber)
       const otpString = otp.join("");
-      const response = await axios.post("http://localhost:5000/verifyOTP", {
+      const response = await axios.post("http://13.127.216.196/api/v1/auth/verify-otp", {
+        phone: phoneNumber, // Use phoneNumber prop here
         otp: otpString,
       });
 
@@ -72,7 +65,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
       const userId = response.data.userId;
       localStorage.setItem("userId", userId);
       setMessage(response.data.message);
-      router.push("/profile");
+      router.push("/sprintPages/nanopage");
       setError("");
     } catch (err: any) {
       setMessage("");
@@ -80,13 +73,12 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
     }
   };
 
-  // OTP resend handler
   const handleResendOTP = async () => {
     try {
-      await axios.post("http://localhost:5000/resendOTP", {
-        email: localStorage.getItem("userEmail"),
+      await axios.post("http://13.127.216.196/api/v1/auth/send-otp", {
+        phone: phoneNumber, // Use phoneNumber prop for resending OTP
       });
-      setSeconds(120); // Reset the timer
+      setSeconds(120); 
       setIsResendAllowed(false);
     } catch (err: any) {
       setError(err.response?.data?.message || "Error resending OTP");
@@ -100,7 +92,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
   return (
     <div className="w-[90%] md:w-[70%] flex flex-col items-start justify-start gap-8">
       <img
-        src="/images /arrow_back.svg"
+        src="/login/arrow_back.svg"
         alt="back"
         onClick={handlePreviousScreen}
       />
@@ -115,7 +107,6 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
             ref={(input) => (inputRefs.current[index] = input)}
             value={digit}
             onChange={(e) => handleChange(index, e)}
-            onClick={() => handleClick(index)}
             onKeyDown={(e) => handleKeyDown(index, e)}
             className="w-full p-2 border rounded text-center text-darkslategray"
             maxLength={1}
@@ -123,19 +114,19 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
         ))}
       </div>
       <div className="relative text-lg leading-[170%] font-medium font-webtypestyles-buttonlarge text-left text-darkslategray">
-      {isResendAllowed ? (
-        <button onClick={handleResendOTP} className="font-webtypestyles-h6 text-midnight-blue-main text-left underline">
-          Resend code
-        </button>
-      ) : (
-        <span>
-          Taking too long?{" "}
-          <span className="text-red-600">Resend code</span>{" "}in{" "}
-          {`${Math.floor(seconds / 60)}:${seconds % 60} s`}
-        </span>
-      )}
-    </div>
-    
+        {isResendAllowed ? (
+          <button onClick={handleResendOTP} className="font-webtypestyles-h6 text-midnight-blue-main text-left underline">
+            Resend code
+          </button>
+        ) : (
+          <span>
+            Taking too long?{" "}
+            <span className="text-red-600">Resend code</span> in{" "}
+            {`${Math.floor(seconds / 60)}:${seconds % 60} s`}
+          </span>
+        )}
+      </div>
+
       <Button variant="proceed" onClick={handleVerifyOTP} className="relative leading-[170%] font-medium">
         Verify OTP
       </Button>

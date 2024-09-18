@@ -18,10 +18,8 @@ const PhoneNumberVerification: React.FC = () => {
         alert("Invalid Phone Number");
         return;
       }
-
-      setPhoneNumber("");
-      setShowOTPVerification(true);
-      await fetch("http://localhost:5000/sendOTP", {
+      // setPhoneNumber("");
+      await fetch("http://13.127.216.196/api/v1/auth/send-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone: phoneNumber }),
@@ -35,7 +33,7 @@ const PhoneNumberVerification: React.FC = () => {
   return (
     <div className="w-full p-6 md:p-14 flex flex-col items-center justify-center text-left text-midnight-blue-main">
       {showOTPVerification ? (
-        <VerifyOTP setShowOTPVerification={setShowOTPVerification} />
+        <VerifyOTP phoneNumber={phoneNumber} setShowOTPVerification={setShowOTPVerification} />
       ) : (
         <div className="w-full max-w-md grid gap-8">
           {/* Logo */}
@@ -43,7 +41,7 @@ const PhoneNumberVerification: React.FC = () => {
             <img
               className="w-16 h-16"
               alt="Logo"
-              src="/images /reshot-icon-molecules-YBNSD562JC 1.svg"
+              src="/login/reshot-icon-molecules-YBNSD562JC 1.svg"
             />
           </div>
 
@@ -85,5 +83,6 @@ const PhoneNumberVerification: React.FC = () => {
 };
 
 export default PhoneNumberVerification;
+
 
 

@@ -1,4 +1,5 @@
 import React from "react";
+import LastPart from "./LastPart";
 
 const Booking = () => {
   return (
@@ -7,6 +8,8 @@ const Booking = () => {
         <div className="w-[633px] relative text-13xl leading-[150%] font-extrabold font-webtypestyles-h5 text-midnight-blue-main text-left inline-block">
           Why is Nano a Perfect Fit for Your Class?{" "}
         </div>
+        <img src="/nanopage/Frame 31619.svg"/>
+        <LastPart/>
       </div>
       <div className="p-2">
         <div className="w-full relative rounded-lg bg-incandescent-light border-incandescent-main border-[2px] border-solid box-border flex flex-col items-start justify-start p-8 gap-8 text-left text-lg text-text-primary font-webtypestyles-buttonlarge">
@@ -30,7 +33,7 @@ const Booking = () => {
             <div className="flex flex-col items-start justify-center gap-1">
               <b className="relative leading-[170%]">Batch Strength</b>
               <div className="relative leading-[170%] font-medium">
-                30 to 50 students per session
+                30 to 40 students per session
               </div>
             </div>
           </div>

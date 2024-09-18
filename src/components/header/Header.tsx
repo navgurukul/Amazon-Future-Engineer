@@ -1,10 +1,14 @@
-import type { NextPage } from "next";
-import { useCallback } from "react";
+import { useState, useCallback } from "react";
 import Image from "next/image";
+import type { NextPage } from "next";
 
 const Header: NextPage = () => {
-  const onReshotIconMoleculesYBNSDClick = useCallback(() => {
-    // Add your code here
+  const [selectedLanguage, setSelectedLanguage] = useState("Eng");
+
+  const toggleLanguage = useCallback(() => {
+    setSelectedLanguage((prevLanguage) =>
+      prevLanguage === "Eng" ? "Kannada" : "Eng"
+    );
   }, []);
 
   return (
@@ -15,23 +19,34 @@ const Header: NextPage = () => {
           <Image
             alt="Logo"
             src="/nanopage/reshot-icon-molecules-YBNSD562JC 1.svg"
-            layout="fill" // This makes the image responsive
-            objectFit="cover" // Ensure the image covers the area properly
-            onClick={onReshotIconMoleculesYBNSDClick}
+            layout="fill"
+            objectFit="cover"
           />
         </div>
 
         {/* Right Section - Language Switcher and Avatar */}
         <div className="flex flex-row items-center gap-4">
-          <div className="flex flex-row items-center bg-whitesmoke-200 rounded-full p-2 gap-2">
-            {/* English Button */}
-            <div className="flex items-center justify-center bg-incandescent-main rounded-full h-8 px-4 py-2">
-              <div className="font-medium">Eng</div>
+          <div className="flex flex-row items-center bg-whitesmoke-200 rounded-full p-2 gap-2 cursor-pointer" onClick={toggleLanguage}>
+            {/* Language Button */}
+            <div
+              className={`flex items-center justify-center rounded-full h-8 px-4 py-2 font-medium ${
+                selectedLanguage === "Eng"
+                  ? "bg-incandescent-main text-white"
+                  : "bg-whitesmoke-100 text-text-primary"
+              }`}
+            >
+              Eng
             </div>
 
-            {/* Language Icon */}
-            <div className="flex items-center justify-center bg-whitesmoke-100 rounded-full h-8 px-4 py-2 text-text-primary">
-              <div className="font-medium">ಅಇಈ</div>
+            {/* Language Button */}
+            <div
+              className={`flex items-center justify-center rounded-full h-8 px-4 py-2 font-medium ${
+                selectedLanguage === "Kannada"
+                  ? "bg-incandescent-main text-white"
+                  : "bg-whitesmoke-100 text-text-primary"
+              }`}
+            >
+              ಅಇಈ
             </div>
           </div>
 
@@ -40,8 +55,8 @@ const Header: NextPage = () => {
             <Image
               alt="User Avatar"
               src="/nanopage/Ellipse 1.svg"
-              layout="fill" // This ensures the avatar is responsive
-              objectFit="cover" // Keeps the aspect ratio of the image
+              layout="fill"
+              objectFit="cover"
               className="rounded-full"
             />
           </div>
@@ -52,3 +67,4 @@ const Header: NextPage = () => {
 };
 
 export default Header;
+
