@@ -41,33 +41,33 @@ const Page: NextPage = () => {
                             <div className="flex flex-col sm:flex-row space-x-0 sm:space-x-4 space-y-2 sm:space-y-0">
                                 <div className="flex items-center space-x-2">
                                     <Image
-                                        className="w-5 h-5"
+                                        className="w-8 h-8 relative"
                                         alt="calendar icon"
                                         src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg"
                                         width={20}
                                         height={20}
                                     />
-                                    <div className="text-sm">24 Sept 2024</div>
+                                    <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">24 Sept 2024</div>
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <Image
-                                        className="w-5 h-5"
+                                        className="w-8 h-8 relative"
                                         alt="time icon"
                                         src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg"
                                         width={20}
                                         height={20}
                                     />
-                                    <div className="text-sm">2 PM to 5 PM</div>
+                                    <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">2 PM to 5 PM</div>
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <Image
-                                        className="w-11 h-8 relative"
+                                        className="w-8 h-8 relative"
                                         alt="students icon"
-                                        src="/userDashboard/reshot-icon-student-boy-L9ESXQZ3WU.svg"
+                                        src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg"
                                         width={20}
                                         height={20}
                                     />
-                                    <div className="text-sm">30 Students</div>
+                                    <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">30 Students</div>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@ const Page: NextPage = () => {
                             </Button>
                             {openRescheduleDialog && (
                                 <Dialog open={openRescheduleDialog} onOpenChange={setOpenRescheduleDialog}>
-                                    <DialogContent className="bg-white w-full rounded-lg max-w-[592px] sm:w-[592px] h-auto sm:h-[377px] p-8">
+                                    <DialogContent className="bg-white w-full max-w-[592px] sm:w-[592px] h-auto sm:h-[377px] p-6">
                                         <DialogHeader>
                                             <DialogTitle>
                                                 <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold font-['Amazon Ember Display'] leading-7 sm:leading-9">
@@ -94,7 +94,7 @@ const Page: NextPage = () => {
                                             <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                                                 <div className="flex items-center space-x-2">
                                                     <Image
-                                                        className="w-5 h-5"
+                                                        className="w-8 h-8 relative"
                                                         alt="calendar icon"
                                                         src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg"
                                                         width={20}
@@ -107,7 +107,7 @@ const Page: NextPage = () => {
 
                                                 <div className="flex items-center space-x-2">
                                                     <Image
-                                                        className="w-5 h-5"
+                                                        className="w-8 h-8 relative"
                                                         alt="time icon"
                                                         src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg"
                                                         width={20}
@@ -120,9 +120,9 @@ const Page: NextPage = () => {
 
                                                 <div className="flex items-center space-x-2">
                                                     <Image
-                                                        className="w-5 h-5"
+                                                        className="w-8 h-8 relative"
                                                         alt="students icon"
-                                                        src="/userDashboard/reshot-icon-student-boy-L9ESXQZ3WU.svg"
+                                                        src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg"
                                                         width={20}
                                                         height={20}
                                                     />
@@ -174,7 +174,7 @@ const Page: NextPage = () => {
                                                         <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
                                                             <div className="flex items-center space-x-2">
                                                                 <Image
-                                                                    className="w-5 h-5"
+                                                                    className="w-8 h-8 relative"
                                                                     alt="calendar icon"
                                                                     src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg"
                                                                     width={20}
@@ -187,7 +187,7 @@ const Page: NextPage = () => {
 
                                                             <div className="flex items-center space-x-2">
                                                                 <Image
-                                                                    className="w-5 h-5"
+                                                                    className="w-8 h-8 relative"
                                                                     alt="time icon"
                                                                     src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg"
                                                                     width={20}
@@ -200,9 +200,9 @@ const Page: NextPage = () => {
 
                                                             <div className="flex items-center space-x-2">
                                                                 <Image
-                                                                    className="w-5 h-5"
+                                                                    className="w-8 h-8 relative"
                                                                     alt="students icon"
-                                                                    src="/userDashboard/reshot-icon-student-boy-L9ESXQZ3WU.svg"
+                                                                    src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg"
                                                                     width={20}
                                                                     height={20}
                                                                 />
@@ -278,7 +278,7 @@ const Page: NextPage = () => {
                     </div>
                 </div>
                 <Button variant="details">
-                    <span className="text-center text-white text-lg font-medium  font-['Amazon Ember'] leading-[30.60px]">
+                    <span className="text-center text-white text-lg font-medium leading-[30.60px]">
                         View Sprint Details
                     </span>
                 </Button>
