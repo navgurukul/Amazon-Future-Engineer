@@ -19,7 +19,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        details: "h-14 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center gap-2 inline-flex",
+        details: "h-14 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center inline-flex mb-4",
         contained: "h-14 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center gap-2 inline-flex",
         reschedule:"px-4 py-2 text-red-500 border border-red-500 rounded-full transition-colors duration-200",
 

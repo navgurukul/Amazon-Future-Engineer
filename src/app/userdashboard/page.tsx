@@ -61,7 +61,7 @@ const Page: NextPage = () => {
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <Image
-                                        className="w-5 h-5"
+                                        className="w-11 h-8 relative"
                                         alt="students icon"
                                         src="/userDashboard/reshot-icon-student-boy-L9ESXQZ3WU.svg"
                                         width={20}
@@ -278,7 +278,7 @@ const Page: NextPage = () => {
                     </div>
                 </div>
                 <Button variant="details">
-                    <span className="text-center text-white text-lg font-medium leading-[30.60px]">
+                    <span className="text-center text-white text-lg font-medium  font-['Amazon Ember'] leading-[30.60px]">
                         View Sprint Details
                     </span>
                 </Button>
