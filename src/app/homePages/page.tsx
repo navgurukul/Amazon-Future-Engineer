@@ -79,6 +79,12 @@ const HomePage: NextPage = () => {
     </div>
   </section>
 
+  {isPopupOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <CreateAClass closePopup={closePopup} />
+        </div>
+      )}
+
   <section className="relative w-full min-h-screen overflow-visible text-left text-xl text-[#29458c] mt-16 md:mt-24">
     <article className="w-full flex flex-col items-start justify-start gap-4 px-4 md:px-12">
       <h2 className="relative font-extrabold leading-[150%]">
