@@ -1,17 +1,17 @@
 "use client";
 
+import MainContent from "./_component/MainContent";
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
+import Top from "./_component/MainContents/Top/top"
 import React from "react";
-import MainContent from "./_component/MainContent";
 
 const Page = () => {
   return (
     <div className="min-h-screen">
-      {" "}
-      {/* Ensure the page takes at least the full height of the screen */}
       <Header />
-        <MainContent/>
+      {/* <MainContent /> */}
+      <Top />
       <Footer />
     </div>
   );
