@@ -17,7 +17,16 @@ const config: Config = {
         "midnight-blue-main": "#29458c",
         "text-primary": "#2e2e2e",
         "grey-400": "#949494",
-        "darkslategray": "#3a3a3a",
+        "incandescent-light": "#fdded7",
+        "orange-main": "#ffad33",
+        tomato: "#f55c38",
+        "incandescent-contrasttext": "#fff",
+        whitesmoke: {
+          "100": "#f0f0f0",
+          "200": "rgba(240, 240, 240, 0.72)",
+        },
+
+        darkslategray: "#3a3a3a",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -70,13 +79,18 @@ const config: Config = {
         "web-typography-button": "'Noto Sans'",
         "webtypestyles-buttonlarge": "'Amazon Ember'",
         "webtypestyles-h6": "'Amazon Ember Display'",
-        "webtypestyles-body2": "'Amazon Ember'"
+        "webtypestyles-body2": "'Amazon Ember'",
+        "webtypestyles-h5": "'Amazon Ember Display'",
+        "webtypestyles-body1": "'Amazon Ember'",
+        "webtypestyles-buttonsmall": "'Amazon Ember'",
+        "web-body-1": "'Noto Sans'",
       },
     },
     fontSize: {
       lg: "18px",
       sm: "14px",
       "5xl": "24px",
+      "13xl": "32px",
       inherit: "inherit",
     },
   },
