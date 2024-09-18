@@ -47,7 +47,7 @@ const Page: NextPage = () => {
                                         width={20}
                                         height={20}
                                     />
-                                    <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">24 Sept 2024</div>
+                                    <div className="text-[#3a3a3a] flex items-center text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">24 Sept 2024</div>
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <Image
@@ -57,7 +57,7 @@ const Page: NextPage = () => {
                                         width={20}
                                         height={20}
                                     />
-                                    <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">2 PM to 5 PM</div>
+                                    <div className="text-[#3a3a3a] flex items-center text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">2 PM to 5 PM</div>
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <Image
@@ -67,7 +67,7 @@ const Page: NextPage = () => {
                                         width={20}
                                         height={20}
                                     />
-                                    <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">30 Students</div>
+                                    <div className="text-[#3a3a3a] flex items-center text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">30 Students</div>
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@ const Page: NextPage = () => {
                                     <DialogContent className="bg-white w-full max-w-[592px] sm:w-[592px] h-auto sm:h-[377px] p-6">
                                         <DialogHeader>
                                             <DialogTitle>
-                                                <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold font-['Amazon Ember Display'] leading-7 sm:leading-9">
+                                                <div style={{fontSize:"24px",fontWeight:"800px"}} className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold font-['Amazon Ember Display'] leading-7 sm:leading-9">
                                                     Reschedule Nano Sprint
                                                 </div>
                                             </DialogTitle>
@@ -139,20 +139,28 @@ const Page: NextPage = () => {
                                         </DialogDescription>
 
                                         <DialogFooter className="mt-6 flex flex-col sm:flex-row sm:justify-end space-y-2 sm:space-y-0 sm:space-x-4">
-                                            <Button
-                                                variant="details"
-                                                onClick={handleCloseReschedule}
-                                                className="text-[#3A3A3A] bg-white border border-black w-full sm:w-auto"
-                                            >
-                                                Cancel
-                                            </Button>
-                                            <Button
-                                                variant="contained"
-                                                onClick={handleOpenAnother}
-                                                className="bg-[#f55c38] text-white w-full sm:w-auto"
-                                            >
-                                                Request Reschedule
-                                            </Button>
+
+
+                                            <div className="mt-6 flex flex-col sm:flex-row sm:justify-end space-y-2 sm:space-y-0 sm:space-x-4">
+                                                <div
+                                                    onClick={handleCloseReschedule}
+                                                    className="px-8 py-2 rounded-[100px] border border-[#3a3a3a] justify-center items-center gap-2 flex cursor-pointer"
+                                                >
+                                                    <div className="text-center text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                                                        Cancel
+                                                    </div>
+                                                </div>
+
+                                                <div
+                                                    onClick={handleOpenAnother}
+                                                    className="px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center gap-2 flex cursor-pointer"
+                                                >
+                                                    <div className="text-center text-white text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                                                        Request Reschedule
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </DialogFooter>
 
                                         {openAnotherDialog && (
@@ -160,7 +168,7 @@ const Page: NextPage = () => {
                                                 <DialogContent className="w-full max-w-[592px] h-auto p-8 bg-white rounded-lg shadow-lg">
                                                     <DialogHeader>
                                                         <DialogTitle className="flex justify-between items-center">
-                                                            <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold font-['Amazon Ember Display'] leading-7 sm:leading-9">
+                                                            <div style={{fontSize:"24px",fontWeight:"800px"}} className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold font-['Amazon Ember Display'] leading-7 sm:leading-9">
                                                                 Reschedule Nano Sprint
                                                             </div>
                                                             <button onClick={handleCloseAnother} className="w-6 h-6" />
@@ -180,7 +188,7 @@ const Page: NextPage = () => {
                                                                     width={20}
                                                                     height={20}
                                                                 />
-                                                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                                                                <div className="flex items-center text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
                                                                     24 Sept 2024
                                                                 </div>
                                                             </div>
@@ -193,11 +201,10 @@ const Page: NextPage = () => {
                                                                     width={20}
                                                                     height={20}
                                                                 />
-                                                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                                                                <div className="flex items-center text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
                                                                     2 PM to 5 PM
                                                                 </div>
                                                             </div>
-
                                                             <div className="flex items-center space-x-2">
                                                                 <Image
                                                                     className="w-8 h-8 relative"
@@ -206,7 +213,7 @@ const Page: NextPage = () => {
                                                                     width={20}
                                                                     height={20}
                                                                 />
-                                                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                                                                <div className="flex items-center text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
                                                                     30 Students
                                                                 </div>
                                                             </div>
@@ -217,13 +224,17 @@ const Page: NextPage = () => {
                                                             <span className="block">sprint rescheduling</span>
                                                         </div>
                                                         <div className="mt-6 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center">
-                                                            <div className="text-center text-[#3a3a3a] text-xl sm:text-2xl font-extrabold font-['Amazon Ember Display'] leading-7 sm:leading-9">
+                                                            {/* <div className="text-center text-[#3a3a3a] text-2xl sm:text-20xl font-extrabold font-['Amazon Ember Display'] leading-9 sm:leading-9">
+                                                                +91 8597437548
+                                                            </div> */}
+                                                            <div style={{fontSize:"24px",fontWeight:"800px"}} className="text-center text-[#3a3a3a] text-2xl font-extrabold font-['Amazon Ember Display'] leading-30">
                                                                 +91 8597437548
                                                             </div>
                                                             <div className="text-center text-black text-lg font-medium font-['Amazon Ember'] leading-6 sm:leading-[30.60px]">
                                                                 Sprint Admin
                                                             </div>
                                                         </div>
+
                                                     </DialogDescription>
                                                 </DialogContent>
                                             </Dialog>
@@ -277,11 +288,11 @@ const Page: NextPage = () => {
                         Check out the sprint details and book one for your students today.
                     </div>
                 </div>
-                <Button variant="details">
+                <div className="h-14 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center inline-flex mb-4">
                     <span className="text-center text-white text-lg font-medium leading-[30.60px]">
                         View Sprint Details
                     </span>
-                </Button>
+                </div>
             </div>
         </>
     );
