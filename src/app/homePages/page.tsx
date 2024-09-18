@@ -1,9 +1,10 @@
 "use client";
 
-import CreateAClass from "./CreateAClass";
 import type { NextPage } from "next";
 import { useState, useCallback } from "react";
+import CreateAClass from "./CreateAClass";
 
+// import styles from "./_components/homePages.module.css";
 
 const HomePage: NextPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -23,8 +24,8 @@ const HomePage: NextPage = () => {
   };
 
   return(
-<div className="w-full relative bg-white min-h-screen overflow-hidden text-left text-xl md:text-2xl text-[#3a3a3a] font-['Amazon_Ember_Display']">
-  <section className="relative w-full min-h-screen text-center text-xl md:text-2xl text-[#3a3a3a] font-['Amazon_Ember_Display']">
+<div className="w-full relative bg-white min-h-screen overflow-hidden text-left text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
+  <section className="relative w-full min-h-screen text-center text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
     <video
       src="./homepage/video.mp4"
       className="absolute top-0 left-0 w-full h-full object-cover"
@@ -90,7 +91,7 @@ const HomePage: NextPage = () => {
       <h2 className="relative font-extrabold leading-[150%]">
         What is the AFE Innovation Hub?
       </h2>
-      <p className="w-full md:w-1/2 relative text-[18px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon_Ember']">
+      <p className="w-full md:w-1/2 relative text-[18px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
         AFE Studio is a state-of-the-art Robotics and AI lab dedicated to
         empowering over 4,000 students by 2024. Our lab offers an
         unparalleled opportunity for students to dive into the fascinating
@@ -260,7 +261,7 @@ const HomePage: NextPage = () => {
 
     <aside className="w-full lg:w-[calc(35%-16px)] flex flex-col items-start justify-start gap-4 text-[#29458c]">
       <article className="self-stretch bg-[#cdeaea] overflow-hidden flex flex-col items-start justify-start p-12 gap-6">
-        <header className="flex flex-row items-center justify-start gap-4 text-2xl font-['Amazon_Ember_Display']">
+        <header className="flex flex-row items-center justify-start gap-4 text-2xl font-['Amazon Ember Display']">
           <h3 className="relative leading-[1.5] font-extrabold">
             Mini Sprints
           </h3>

@@ -1,12 +1,19 @@
 import styles from "./_components/CreateAClass.module.css";
 import type { NextPage } from "next";
 import { useCallback } from "react";
+import { useRouter } from "next/navigation";
 
 interface CreateAClassProps {
   closePopup: () => void; // Add closePopup as a prop
 }
 
 const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
+  const router = useRouter();
+  
+  const onYesClick = useCallback(() => {
+    router.push('/login'); 
+  }, [router]);
+
   const onNoClick = useCallback(() => {
     closePopup(); // Close the popup when "No, I am not" is clicked
   }, [closePopup]);
@@ -94,7 +101,7 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
         <div className={styles.noIAmNotWrapper} onClick={onNoClick}>
           <div className={styles.noIAm}>No, I am not</div>
         </div>
-        <div className={styles.yesIConfirmWrapper}>
+        <div className={styles.yesIConfirmWrapper} onClick={onYesClick}>
           <div className={styles.noIAm}>Yes, I confirm</div>
         </div>
       </div>
