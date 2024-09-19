@@ -44,9 +44,9 @@ import React from "react";
 
 const LastPart = () => {
   return (
-    <div className="flex flex-col gap-8 mt-10 max-w-full sm:max-w-[65%]">
+    <div className="flex flex-col gap-8 mt-20 max-w-full sm:max-w-[70%]">
       <div className="w-full">
-        <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[150%] font-extrabold font-webtypestyles-h5 text-midnight-blue-main text-left">
+        <div className="text-3xl sm:text-4xl md:text-5xl lg:text-13xl leading-[150%] font-extrabold font-webtypestyles-h5 text-midnight-blue-main text-left">
           Why Schedule a Nano Sprint?{" "}
         </div>
         <div className="text-base sm:text-lg md:text-xl leading-[170%] font-medium font-webtypestyles-body1 text-text-primary text-left mt-2">
@@ -57,7 +57,7 @@ const LastPart = () => {
         </div>
       </div>
       <div className="w-full mt-4">
-        <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[150%] font-extrabold font-webtypestyles-h5 text-midnight-blue-main text-left">
+        <div className="text-3xl sm:text-4xl md:text-5xl lg:text-13xl leading-[150%] font-extrabold font-webtypestyles-h5 text-midnight-blue-main text-left">
           Ready to Inspire?{" "}
         </div>
         <div className="text-base sm:text-lg md:text-xl leading-[170%] font-medium font-webtypestyles-body1 text-text-primary text-left mt-2">
@@ -67,7 +67,7 @@ const LastPart = () => {
         </div>
       </div>
       <div className="w-full mt-4">
-        <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[150%] font-extrabold font-webtypestyles-h5 text-midnight-blue-main text-left">
+        <div className="text-3xl sm:text-4xl md:text-5xl lg:text-13xl leading-[150%] font-extrabold font-webtypestyles-h5 text-midnight-blue-main text-left">
           Have Any Questions?
         </div>
         <b className="text-base sm:text-lg md:text-xl leading-[170%] font-webtypestyles-subtitle1 text-left text-darkslategray mt-2">

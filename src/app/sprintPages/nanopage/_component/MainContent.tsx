@@ -103,7 +103,8 @@ import React from "react";
 
 const MainContent = () => {
   return (
-    <div className="px-4 py-16 sm:px-8 md:px-12 lg:px-16 max-w-[70%] mx-auto flex flex-col gap-8">
+    // <div className="px-4 py-16 sm:px-8 md:px-12 lg:px-16 max-w-[70%] mx-auto flex flex-col gap-8">
+    <div className="py-16 max-w-[70%] mx-auto flex flex-col gap-8">
       <div className="flex flex-col md:flex-row items-center justify-start gap-8 md:gap-16 text-xl md:text-2xl lg:text-3xl">
         <div className="text-sm md:text-lg leading-[150%] text-left inline-block">
           <span className="text-darkslateblue text-[#29458c]">
