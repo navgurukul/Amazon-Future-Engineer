@@ -42,10 +42,10 @@ const HomePage: NextPage = () => {
     <header className="absolute top-[25%] left-[2vw] right-[2vw] max-w-[1200px] mx-auto flex flex-col gap-6 items-start text-left">
       <div className="w-full flex flex-col gap-4 items-start">
         <h1 className="w-[60vw] relative font-extrabold leading-[150%] text-white">
-          WELCOME TO AMAZON FUTURE ENGINEERS INNOVATION HUB
+          WELCOME TO AMAZON FUTURE ENGINEER MAKERSPACE
         </h1>
         <h2 className="relative text-[1.5vw] leading-[150%] font-extrabold text-white">
-          A tinkering lab for every future engineer
+          A Cutting-Edge Robotics and AI Lab for Educators and Students
         </h2>
       </div>
 
@@ -56,6 +56,12 @@ const HomePage: NextPage = () => {
         >
           <span className="relative font-medium leading-[170%]">
             Book a Session
+          </span>
+        </button>
+        <button className="flex items-center justify-center px-4 py-2 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 gap-2">
+          <img src="./nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg" alt="helpdesk" />
+          <span className="relative font-medium leading-[170%]">
+            Helpdesk
           </span>
         </button>
         <button className="flex items-center justify-center px-4 py-2 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14">
@@ -101,26 +107,26 @@ const HomePage: NextPage = () => {
       </p>
     </article>
 
-    <div className="w-full flex flex-col md:flex-row items-start justify-start gap-4 px-4 md:px-12 overflow-visible">
+    <div className="w-full flex flex-col md:flex-row items-start justify-start gap-4 px-4 md:px-12 overflow-visible mt-10">
       <figure className="flex-1 h-[360px]">
         <img
           className="object-cover w-full h-full"
           alt="AFE Hub Image 1"
-          src="./homepage/Rectangle 4.svg"
+          src="./homepage/Rectangle 4-new.svg"
         />
       </figure>
       <figure className="w-full md:w-[50%] h-[360px]">
         <img
           className="object-cover w-full h-full"
           alt="AFE Hub Image 2"
-          src="./homepage/Rectangle 3.svg"
+          src="./homepage/Rectangle 3-new.svg"
         />
       </figure>
       <figure className="flex-1 h-[360px]">
         <img
           className="object-cover w-full h-full"
           alt="AFE Hub Image 3"
-          src="./homepage/Rectangle 5.svg"
+          src="./homepage/Rectangle 5-new.svg"
         />
       </figure>
     </div>
@@ -205,7 +211,7 @@ const HomePage: NextPage = () => {
 <section className="relative w-full flex flex-col items-start justify-start gap-[48px] text-[#29458c] px-4 mt-16 mb-16">
   <article className="w-full max-w-screen-lg flex flex-col items-start justify-start gap-[24px]">
     <h2 className="self-stretch relative leading-[150%] font-extrabold">
-      Value - Driven programs
+      What to Expect at AFE Makerspace
     </h2>
     <p className="self-stretch relative text-[18px] leading-[170%] font-medium font-[Amazon Ember] text-[#3a3a3a] lg:w-2/3">
       Teachers can easily schedule lab sessions and integrate Maker's Space into their lesson plans/ Curriculum. Pick a program and embark on a transformative STEM journey with your students.
@@ -213,7 +219,7 @@ const HomePage: NextPage = () => {
   </article>
 
   <div className="w-full flex flex-col lg:flex-row items-start justify-start gap-4 text-[18px] text-white font-[Amazon Ember]">
-    <section className="flex-1 bg-[#29458c] overflow-hidden flex flex-col items-start justify-start p-12 box-border relative gap-8 min-h-[calc(100vh-4.5rem)]">
+    <section className="flex-1 bg-[#29458c] overflow-hidden flex flex-col items-start justify-start p-12 box-border relative gap-8 min-h-[calc(100vh-15rem)]">
       <div className="w-full max-w-screen-md flex flex-col items-start justify-start gap-4 z-0">
         <header className="flex flex-row items-center justify-start gap-4 text-[24px] font-[Amazon Ember Display]">
           <h3 className="relative leading-[150%] font-extrabold text-white">
@@ -224,12 +230,12 @@ const HomePage: NextPage = () => {
           </span>
         </header>
         <p className="self-stretch relative leading-[170%] font-medium">
-          One day sessions designed to spark interest and build aspiration.
+          One day sessions designed to spark interest and build aspiration
         </p>
         <div className="flex flex-row items-center justify-start gap-2">
           <figure className="w-11 h-8 relative overflow-hidden flex-shrink-0">
             <img
-              src="./homepage/reshot-icon-search-time-schedule-YKN4SVFGAU.svg"
+              src="./homepage/reshot-icon-time-YEDR7WZV2Q.svg"
               alt="Icon"
             />
           </figure>
@@ -240,7 +246,7 @@ const HomePage: NextPage = () => {
         <div className="flex flex-row items-center justify-start gap-2">
           <figure className="w-[44px] h-[32px] relative overflow-hidden flex-shrink-0">
             <img
-              src="./homepage/reshot-icon-student-boy-L9ESXQZ3WU.svg"
+              src="./homepage/reshot-icon-student-DRC3YF56MU.svg"
               alt="Student icon"
             />
           </figure>
@@ -253,13 +259,13 @@ const HomePage: NextPage = () => {
         </div>
       </div>
       <img
-        className="absolute w-[558.7px] h-[523.7px] top-[131px] right-0 object-contain z-20 m-0 hidden lg:block"
+        className="absolute w-[558.7px] h-[523.7px] top-[75px] right-10 object-contain z-20 m-0 hidden lg:block"
         alt="Decorative graphic"
         src="./homepage/Vector.svg"
       />
     </section>
 
-    <aside className="w-full lg:w-[calc(35%-16px)] flex flex-col items-start justify-start gap-4 text-[#29458c]">
+    <aside className="w-full lg:w-[calc(30%-16px)] flex flex-col items-start justify-start gap-4 text-[#29458c]">
       <article className="self-stretch bg-[#cdeaea] overflow-hidden flex flex-col items-start justify-start p-12 gap-6">
         <header className="flex flex-row items-center justify-start gap-4 text-2xl font-['Amazon Ember Display']">
           <h3 className="relative leading-[1.5] font-extrabold">
@@ -353,21 +359,21 @@ const HomePage: NextPage = () => {
         <img
           className="object-cover w-full h-full"
           alt="Innovation Hub Image 1"
-          src="./homepage/Rectangle 6.svg"
+          src="./homepage/Rectangle 9.svg"
         />
       </figure>
       <figure className="flex-grow relative overflow-hidden">
         <img
           className="object-cover w-full h-full"
           alt="Innovation Hub Image 2"
-          src="./homepage/Rectangle 7.svg"
+          src="./homepage/Rectangle 4(2).svg"
         />
       </figure>
       <figure className="flex-grow relative overflow-hidden">
         <img
           className="object-cover w-full h-full"
           alt="Innovation Hub Image 3"
-          src="./homepage/Rectangle 8.svg"
+          src="./homepage/Rectangle 3(2).svg"
         />
       </figure>
     </div>
