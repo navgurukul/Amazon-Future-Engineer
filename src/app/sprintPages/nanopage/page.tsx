@@ -1,9 +1,8 @@
 "use client";
 
 import MainContent from "./_component/MainContent";
-import Footer from "@/components/footer/Footer";
-import Header from "@/components/header/Header";
-import Top from "./_component/MainContents/Top/top"
+import Footer from "./_component/Footer";
+import Header from "./_component/Header";
 import React from "react";
 
 const Page = () => {
@@ -11,7 +10,6 @@ const Page = () => {
     <div className="min-h-screen">
       <Header />
       <MainContent />
-      {/* <Top /> */}
       <Footer />
     </div>
   );
