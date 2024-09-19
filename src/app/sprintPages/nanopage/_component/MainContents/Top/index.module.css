@@ -74,3 +74,10 @@
   	font-family: 'Amazon Ember Display';
 }
 
+.mainContainer {
+	max-width: 70%;
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 50px;
+}
+

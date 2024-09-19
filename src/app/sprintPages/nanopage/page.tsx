@@ -10,8 +10,8 @@ const Page = () => {
   return (
     <div className="min-h-screen">
       <Header />
-      {/* <MainContent /> */}
-      <Top />
+      <MainContent />
+      {/* <Top /> */}
       <Footer />
     </div>
   );

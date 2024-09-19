@@ -5,10 +5,10 @@ import Booking from "./Booking";
 
 const MainContent = () => {
   return (
-    <div className="px-4 sm:px-8 md:px-12 lg:px-[calc(50%_-_512px)] flex flex-col gap-8">
+    <div className="px-4 py-16 sm:px-8 md:px-12 lg:px-[calc(50%_-_512px)] flex flex-col gap-8">
       <div className="flex flex-col md:flex-row items-center justify-start gap-16 text-2xl md:text-5xl">
         <div className="text-sm md:text-lg leading-[150%] text-left inline-block">
-          <span className="text-darkslateblue">
+          <span className="text-darkslateblue text-[#29458c]">
             <b className="font-amazon-ember">Home</b>
           </span>
           <span className="font-medium font-amazon-ember">
@@ -20,7 +20,7 @@ const MainContent = () => {
 
       {/* Center the 3 sprint images */}
       <div className="w-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 text-left text-lg md:text-5xl text-text-primary font-webtypestyles-h6">
-        <div className="w-full sm:w-[152px] flex flex-col items-center justify-start gap-4 text-midnight-blue-main">
+        <div className="w-full sm:w-[152px] flex flex-col items-center justify-start gap-4 text-[#29458c]">
           <Image
             className="w-full sm:w-[127.6px] h-auto sm:h-[120px] object-cover"
             alt="Nano Sprints"
@@ -53,26 +53,32 @@ const MainContent = () => {
       </div>
 
       {/* Other elements aligned to the left */}
-      <div className="w-full max-w-screen-lg text-lg md:text-13xl leading-[150%] font-extrabold font-webtypestyles-h5 text-midnight-blue-main text-left">
-        <div>Nano Sprints: One-Day Introductory Sessions to</div>
-        <div>Spark Interest and Build Aspiration</div>
+      <div className="w-full max-w-screen-lg text-lg md:text-13xl leading-[150%] font-extrabold font-webtypestyles-h5 text-[#29458c] text-left mt-10">
+        <div>Nano Sprints: One-Day Introductory Sessions to Spark Interest and Build Aspiration</div>
+        {/* <div></div> */}
       </div>
 
       <div className="flex flex-col gap-4 md:gap-8">
-        <div className="flex flex-wrap gap-4 justify-start">
-          <img src="/nanopage/Rectangle 4.svg" className="w-1/2 md:w-[200px]" />
+        <div className="flex flex-wrap gap-1 justify-start">
+          <img src="/nanopage/Rectangle 4.svg" 
+          className="w-1/2 md:w-[510px]"
+          />
           <img
             src="/nanopage/Rectangle 32.svg"
-            className="w-1/2 md:w-[200px]"
+            className="w-1/2 md:w-[510px]"
           />
         </div>
         <div className="flex flex-wrap gap-4 justify-start">
           <img
             src="/nanopage/Rectangle 42.svg"
-            className="w-1/3 md:w-[200px]"
+            className="w-1/3 md:w-[330px]"
           />
-          <img src="/nanopage/Rectangle 3.svg" className="w-1/3 md:w-[200px]" />
-          <img src="/nanopage/Rectangle 3.svg" className="w-1/3 md:w-[200px]" />
+          <img src="/nanopage/Rectangle 3.svg"
+          className="w-1/3 md:w-[330px]" 
+          />
+          <img src="/nanopage/Rectangle 3.svg"
+          className="w-1/3 md:w-[330px]" 
+          />
         </div>
       </div>
       <Booking/>

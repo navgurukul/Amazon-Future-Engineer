@@ -2,7 +2,7 @@ import React from "react";
 
 const LastPart = () => {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 mt-10">
       <div>
         <div className="w-full relative text-13xl leading-[150%] font-extrabold font-webtypestyles-h5 text-midnight-blue-main text-left inline-block">
           Why Schedule a Nano Sprint?{" "}
