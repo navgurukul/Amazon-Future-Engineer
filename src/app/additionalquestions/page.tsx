@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import type { NextPage } from 'next';
 
-const Booking: NextPage = () => {
+const Page: NextPage = () => {
     return (
         <>
             <div className="flex justify-center items-center min-h-screen">
@@ -61,4 +61,4 @@ const Booking: NextPage = () => {
     );
 };
 
-export default Booking;
+export default Page;
