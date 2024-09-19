@@ -168,7 +168,7 @@ const Page: NextPage = () => {
                                                 <DialogContent className="w-full max-w-[592px] h-auto p-8 bg-white rounded-lg shadow-lg">
                                                     <DialogHeader>
                                                         <DialogTitle className="flex justify-between items-center">
-                                                            <div style={{fontSize:"24px",fontWeight:"800px"}} className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold font-['Amazon Ember Display'] leading-7 sm:leading-9">
+                                                            <div style={{ fontSize: "24px", fontWeight: "800px" }} className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold font-['Amazon Ember Display'] leading-7 sm:leading-9">
                                                                 Reschedule Nano Sprint
                                                             </div>
                                                             <button onClick={handleCloseAnother} className="w-6 h-6" />
@@ -227,7 +227,7 @@ const Page: NextPage = () => {
                                                             {/* <div className="text-center text-[#3a3a3a] text-2xl sm:text-20xl font-extrabold font-['Amazon Ember Display'] leading-9 sm:leading-9">
                                                                 +91 8597437548
                                                             </div> */}
-                                                            <div style={{fontSize:"24px",fontWeight:"800px"}} className="text-center text-[#3a3a3a] text-2xl font-extrabold font-['Amazon Ember Display'] leading-30">
+                                                            <div style={{ fontSize: "24px", fontWeight: "800px" }} className="text-center text-[#3a3a3a] text-2xl font-extrabold font-['Amazon Ember Display'] leading-30">
                                                                 +91 8597437548
                                                             </div>
                                                             <div className="text-center text-black text-lg font-medium font-['Amazon Ember'] leading-6 sm:leading-[30.60px]">
