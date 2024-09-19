@@ -27,6 +27,7 @@ const config: Config = {
         },
 
         darkslategray: "#3a3a3a",
+        "error-main": "#f44336",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
