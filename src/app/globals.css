@@ -1,6 +1,6 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 
 /* :root {
   --background: #ffffff;
@@ -27,6 +27,42 @@
     text-wrap: balance;
   }
 }  */
+
+/* Define the Amazon Ember and Amazon Ember Display fonts with local .ttf files */
+@font-face {
+  font-family: 'Amazon Ember';
+  src: url('/path-to-your-fonts/amazon-ember.woff2') format('woff2'),
+       url('/path-to-your-fonts/amazon-ember.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Amazon Ember Display';
+  src: url('/path-to-your-fonts/amazon-ember-display.woff2') format('woff2'),
+       url('/path-to-your-fonts/amazon-ember-display.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+/* Google Fonts imports for fallback */
+@import url('https://fonts.googleapis.com/css2?family=Amazon+Ember+Display:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amazon+Ember:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400&display=swap');
+
+/* Tailwind base */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Set the body font-family to use Amazon Ember and fallback to sans-serif */
+body {
+  font-family: 'Amazon Ember',"Amazon Ember Display","Noto Sans",
+}
+
+/* other custom styles below */
+
 
 @layer base {
   :root {
@@ -93,10 +129,10 @@
   }
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Amazon+Ember+Display:wght@800&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Amazon+Ember+Display:wght@800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Amazon+Ember:wght@500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400&display=swap');
 
 body {
   font-family: 'Amazon Ember', 'Amazon Ember Display', sans-serif;
-}
+} */
