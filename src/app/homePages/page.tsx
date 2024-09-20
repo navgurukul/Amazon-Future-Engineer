@@ -1,13 +1,14 @@
 "use client";
 
+import Footer from "@/components/footer/Footer";
+import CreateAClass from "./CreateAClass";
+import Popup from "./_components/Popup";
 import type { NextPage } from "next";
 import { useState, useCallback } from "react";
-import CreateAClass from "./CreateAClass";
-
-// import styles from "./_components/homePages.module.css";
 
 const HomePage: NextPage = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isHelpDeskPopupOpen, setIsHelpDeskPopupOpen] = useState(false);
 
   const onFrameContainerClick = useCallback(() => {
     // Add your code here
@@ -23,8 +24,19 @@ const HomePage: NextPage = () => {
     setIsPopupOpen(false);
   };
 
-  return(
-<div className="w-full relative bg-white min-h-screen overflow-hidden text-left text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
+  // Function to handle button click to open the helpdesk popup
+  const handleHelpDeskPopup = () => {
+    setIsHelpDeskPopupOpen(true);
+  };
+
+  // Function to close the helpdesk popup
+  const closeHelpDeskPopup = () => {
+    setIsHelpDeskPopupOpen(false);
+  };
+
+  return (
+        <div className="w-full relative bg-white min-h-screen overflow-hidden text-left text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
+  {/* First Section */}
   <section className="relative w-full min-h-screen text-center text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
     <video
       src="./homepage/video.mp4"
@@ -39,9 +51,9 @@ const HomePage: NextPage = () => {
       src="./homepage/reshot-icon-molecules-YBNSD562JC 1.svg"
     />
 
-    <header className="absolute top-[25%] left-[2vw] right-[2vw] max-w-[1200px] mx-auto flex flex-col gap-6 items-start text-left">
+    <header className="absolute top-[25%] left-[2vw] max-w-[1200px] mx-auto flex flex-col gap-6 items-start text-left">
       <div className="w-full flex flex-col gap-4 items-start">
-        <h1 className="w-[60vw] relative font-extrabold leading-[150%] text-white">
+        <h1 className="w-[60vw] relative font-extrabold leading-[150%] text-white text-[2.5vw]">
           WELCOME TO AMAZON FUTURE ENGINEER MAKERSPACE
         </h1>
         <h2 className="relative text-[1.5vw] leading-[150%] font-extrabold text-white">
@@ -58,12 +70,18 @@ const HomePage: NextPage = () => {
             Book a Session
           </span>
         </button>
-        <button className="flex items-center justify-center px-4 py-2 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 gap-2">
-          <img src="./nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg" alt="helpdesk" />
-          <span className="relative font-medium leading-[170%]">
-            Helpdesk
-          </span>
-        </button>
+         <button
+              className="flex items-center justify-center px-4 py-2 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 gap-2"
+              onClick={handleHelpDeskPopup}
+            >
+              <img
+                src="./nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
+                alt="helpdesk"
+              />
+              <span className="relative font-medium leading-[170%]">
+                Helpdesk
+              </span>
+            </button>
         <button className="flex items-center justify-center px-4 py-2 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14">
           <span className="relative font-medium leading-[170%]">
             Take a Virtual Tour
@@ -71,8 +89,13 @@ const HomePage: NextPage = () => {
         </button>
       </div>
     </header>
+    {isHelpDeskPopupOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+            <Popup closeHelpDeskPopup={closeHelpDeskPopup} />
+          </div>
+        )}
 
-    <nav className="absolute top-[2vw] right-[2vw] flex items-center justify-center px-8 py-2 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 text-[14px] md:text-[18px] cursor-pointer">
+    <nav className="absolute top-[2vw] right-[2vw] flex items-center justify-center px-8 py-2 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 text-[14px] md:text-[18px] cursor-pointer" onClick={handleBookSessionClick}>
       <span className="relative font-medium leading-[170%]">Login</span>
     </nav>
 
@@ -92,12 +115,13 @@ const HomePage: NextPage = () => {
         </div>
       )}
 
+  {/* Second Section */}
   <section className="relative w-full min-h-screen overflow-visible text-left text-xl text-[#29458c] mt-16 md:mt-24">
-    <article className="w-full flex flex-col items-start justify-start gap-4 px-4 md:px-12">
-      <h2 className="relative font-extrabold leading-[150%]">
+    <article className="w-full flex flex-col items-start justify-start gap-4 px-4 md:px-12 md:mb-10">
+      <h2 className="relative font-extrabold leading-[150%] md:text-[28px]">
         What is the AFE Innovation Hub?
       </h2>
-      <p className="w-full md:w-1/2 relative text-[18px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
+      <p className="w-full md:w-1/2 relative text-[18px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
         AFE Studio is a state-of-the-art Robotics and AI lab dedicated to
         empowering over 4,000 students by 2024. Our lab offers an
         unparalleled opportunity for students to dive into the fascinating
@@ -107,40 +131,41 @@ const HomePage: NextPage = () => {
       </p>
     </article>
 
-    <div className="w-full flex flex-col md:flex-row items-start justify-start gap-4 px-4 md:px-12 overflow-visible mt-10">
-      <figure className="flex-1 h-[360px]">
-        <img
-          className="object-cover w-full h-full"
-          alt="AFE Hub Image 1"
-          src="./homepage/Rectangle 4-new.svg"
-        />
-      </figure>
-      <figure className="w-full md:w-[50%] h-[360px]">
-        <img
-          className="object-cover w-full h-full"
-          alt="AFE Hub Image 2"
-          src="./homepage/Rectangle 3-new.svg"
-        />
-      </figure>
-      <figure className="flex-1 h-[360px]">
-        <img
-          className="object-cover w-full h-full"
-          alt="AFE Hub Image 3"
-          src="./homepage/Rectangle 5-new.svg"
-        />
-      </figure>
-    </div>
+    <div className="w-full flex flex-col md:flex-row items-start justify-start gap-4 px-4 md:px-12 overflow-visible">
+  <figure className="w-full md:w-[33%] h-[360px]">
+    <img
+      className="object-cover w-full h-full"
+      alt="AFE Hub Image 1"
+      src="./homepage/Rectangle 4(2).svg"
+    />
+  </figure>
+  <figure className="w-full md:w-[66%] h-[360px]">
+    <img
+      className="object-cover w-full h-full"
+      alt="AFE Hub Image 2"
+      src="./homepage/Rectangle 3-new.svg"
+    />
+  </figure>
+  <figure className="w-full md:w-[33%] h-[360px]">
+    <img
+      className="object-cover w-full h-full"
+      alt="AFE Hub Image 3"
+      src="./homepage/Rectangle 5-new.svg"
+    />
+  </figure>
+</div>
+
   </section>
-<section className="relative w-full bg-[#29458c] flex flex-col items-start justify-start py-[80px] px-4 md:px-12 gap-[48px] text-white">
+  <section className="relative w-full bg-[#29458c] flex flex-col items-start justify-start py-[80px] px-4 md:px-12 gap-[48px] text-white">
   <header className="w-full md:w-[793px] flex flex-col items-start justify-start gap-[16px]">
-    <h2 className="relative leading-[150%] font-extrabold text-[24px] md:text-[32px]">How it Works?</h2>
-    <p className="self-stretch relative text-[16px] md:text-[18px] leading-[170%] font-medium font-[Amazon Ember]">
+    <h2 className="relative leading-[150%] font-extrabold text-[28px] md:text-[32px]">How it Works?</h2>
+    <p className="self-stretch relative text-[16px] md:text-[22px] leading-[170%] font-medium font-[Amazon Ember]">
       There are a few simple steps that you can take to book a sprint session for your students.
     </p>
   </header>
 
   <div className="w-full flex flex-col items-center justify-start gap-8 text-[20px] md:text-[24px]">
-    <div className="w-full flex flex-wrap items-center justify-start gap-8 gap-y-12">
+    <div className="w-full flex items-center justify-start gap-8 gap-y-12">
       <div className="w-full lg:w-[25%] flex flex-col items-center justify-start">
         <img
           className="w-[140px] h-[140px] object-cover"
@@ -148,7 +173,7 @@ const HomePage: NextPage = () => {
           src="./homepage/Lottie flies.gif"
         />
       </div>
-      <div className="w-full lg:w-[15%] flex flex-col items-center justify-start">
+      <div className="w-full lg:w-[25%] flex flex-col items-center justify-start">
         <img
           className="w-[140px] h-[140px] object-cover"
           alt="Step 2"
@@ -179,156 +204,129 @@ const HomePage: NextPage = () => {
 
     <div className="w-full flex flex-col md:flex-row items-start justify-start gap-8 md:gap-[33px]">
       <article className="w-full md:w-[calc(50%-16px)] lg:w-[383px] flex flex-col items-center justify-start gap-2">
-        <h3 className="relative leading-[150%] font-extrabold text-[18px]">Get to Know Innovation Hub</h3>
-        <p className="relative text-center text-[14px] leading-[150%] font-medium font-['Amazon Ember']">
+        <h3 className="relative leading-[150%] font-extrabold text-[24px]">Get to Know Innovation Hub</h3>
+        <p className="relative text-center text-[20px] leading-[150%] font-medium font-['Amazon Ember']">
           Take a look around at what we do at Innovation Hub with the latest happenings or our virtual tour.
         </p>
       </article>
 
       <article className="w-full md:w-[calc(50%-16px)] lg:w-[383px] flex flex-col items-center justify-start gap-2">
-        <h3 className="relative leading-[150%] font-extrabold text-[18px]">Check Out Sprint Details</h3>
-        <p className="relative text-center text-[14px] leading-[150%] font-medium font-['Amazon Ember']">
+        <h3 className="relative leading-[150%] font-extrabold text-[24px]">Check Out Sprint Details</h3>
+        <p className="relative text-center text-[20px] leading-[150%] font-medium font-['Amazon Ember']">
           Explore if the sprint fits your needs and learning goals.
         </p>
       </article>
 
       <article className="w-full md:w-[calc(50%-16px)] lg:w-[383px] flex flex-col items-center justify-start gap-2">
-        <h3 className="relative leading-[150%] font-extrabold text-[18px]">Book and Get Ready</h3>
-        <p className="relative text-center text-[14px] leading-[150%] font-medium font-['Amazon Ember']">
+        <h3 className="relative leading-[150%] font-extrabold text-[24px]">Book and Get Ready</h3>
+        <p className="relative text-center text-[20px] leading-[150%] font-medium font-['Amazon Ember']">
           Easily find suitable slots and book via our system or call us.
         </p>
       </article>
 
       <article className="w-full md:w-[calc(50%-16px)] lg:w-[383px] flex flex-col items-center justify-start gap-2">
-        <h3 className="relative leading-[150%] font-extrabold text-[18px]">Visit & Enjoy the Tinkering</h3>
-        <p className="relative text-center text-[14px] leading-[150%] font-medium font-['Amazon Ember']">
+        <h3 className="relative leading-[150%] font-extrabold text-[24px]">Visit & Enjoy the Tinkering</h3>
+        <p className="relative text-center text-[20px] leading-[150%] font-medium font-['Amazon Ember']">
           Get hands-on for the actual fun at the lab.
         </p>
       </article>
     </div>
   </div>
 </section>
-<section className="relative w-full flex flex-col items-start justify-start gap-[48px] text-[#29458c] px-4 mt-16 mb-16">
-  <article className="w-full max-w-screen-lg flex flex-col items-start justify-start gap-[24px]">
-    <h2 className="self-stretch relative leading-[150%] font-extrabold">
+<section className="relative w-full flex flex-col items-start justify-start gap-12 text-[#29458c] px-4 mt-16 mb-16 md:px-12">
+  <article className="w-full max-w-screen-lg flex flex-col items-start justify-start gap-6">
+    <h2 className="w-full leading-[150%] font-extrabold text-2xl md:text-[28px]">
       What to Expect at AFE Makerspace
     </h2>
-    <p className="self-stretch relative text-[18px] leading-[170%] font-medium font-[Amazon Ember] text-[#3a3a3a] lg:w-2/3">
+    <p className="w-full text-lg leading-[170%] font-medium text-[#3a3a3a] lg:w-3/4 md:text-[20px]">
       Teachers can easily schedule lab sessions and integrate Maker's Space into their lesson plans/ Curriculum. Pick a program and embark on a transformative STEM journey with your students.
     </p>
   </article>
 
-  <div className="w-full flex flex-col lg:flex-row items-start justify-start gap-4 text-[18px] text-white font-[Amazon Ember]">
-    <section className="flex-1 bg-[#29458c] overflow-hidden flex flex-col items-start justify-start p-12 box-border relative gap-8 min-h-[calc(100vh-15rem)]">
+  <div className="w-full flex flex-col lg:flex-row items-start justify-start gap-6 text-[18px] text-white font-[Amazon Ember]">
+    <section className="flex-1 bg-[#29458c] flex flex-col items-start justify-start p-12 relative gap-8 min-h-[80vh] lg:min-h-[calc(100vh-14.5rem)]">
       <div className="w-full max-w-screen-md flex flex-col items-start justify-start gap-4 z-0">
-        <header className="flex flex-row items-center justify-start gap-4 text-[24px] font-[Amazon Ember Display]">
-          <h3 className="relative leading-[150%] font-extrabold text-white">
-            Nano Sprints
-          </h3>
-          <span className="rounded-full bg-[#049796] h-8 flex flex-row items-center justify-center px-2 box-border text-sm font-[Amazon Ember]">
-            <p className="relative leading-[170%] font-medium">Active</p>
+        <header className="flex flex-row items-center justify-start gap-4 text-[24px] font-bold">
+          <h3 className="leading-[150%] font-extrabold text-white">Nano Sprints</h3>
+          <span className="rounded-full bg-[#049796] h-8 flex items-center justify-center px-4 text-sm font-medium">
+            Active
           </span>
         </header>
-        <p className="self-stretch relative leading-[170%] font-medium">
-          One day sessions designed to spark interest and build aspiration
+        <p className="w-full leading-[170%] font-medium">
+          One day sessions designed to spark interest and build aspiration.
         </p>
-        <div className="flex flex-row items-center justify-start gap-2">
-          <figure className="w-11 h-8 relative overflow-hidden flex-shrink-0">
-            <img
-              src="./homepage/reshot-icon-time-YEDR7WZV2Q.svg"
-              alt="Icon"
-            />
+        <div className="flex flex-row items-center gap-2">
+          <figure className="w-11 h-8">
+            <img src="./homepage/reshot-icon-time-YEDR7WZV2Q.svg" alt="Icon" />
           </figure>
-          <p className="flex flex-row items-center justify-start relative leading-[170%] font-medium">
-            1 Day (3 hours)
-          </p>
+          <p className="leading-[170%] font-medium">1 Day (3 hours)</p>
         </div>
-        <div className="flex flex-row items-center justify-start gap-2">
-          <figure className="w-[44px] h-[32px] relative overflow-hidden flex-shrink-0">
-            <img
-              src="./homepage/reshot-icon-student-DRC3YF56MU.svg"
-              alt="Student icon"
-            />
+        <div className="flex flex-row items-center gap-2">
+          <figure className="w-[44px] h-[32px]">
+            <img src="./homepage/reshot-icon-student-DRC3YF56MU.svg" alt="Student icon" />
           </figure>
-          <p className="relative leading-[170%] font-medium">
-            30 to 40 students per session
-          </p>
+          <p className="leading-[170%] font-medium">30 to 40 students per session</p>
         </div>
         <div>
-          <button className="relative rounded-full bg-white flex items-center justify-center px-8 py-2.5 cursor-pointer text-center text-lg text-[#29458c]">Book a Session</button>
+          <button className="rounded-full bg-white text-[#29458c] px-8 py-2.5 text-lg">
+            Book a Session
+          </button>
         </div>
       </div>
+
       <img
-        className="absolute w-[558.7px] h-[523.7px] top-[75px] right-10 object-contain z-20 m-0 hidden lg:block"
+        className="absolute right-0 top-12 lg:top-[22.5%] lg:right-[5%] w-[30%] lg:w-[50%] z-10"
         alt="Decorative graphic"
         src="./homepage/Vector.svg"
       />
     </section>
 
-    <aside className="w-full lg:w-[calc(30%-16px)] flex flex-col items-start justify-start gap-4 text-[#29458c]">
-      <article className="self-stretch bg-[#cdeaea] overflow-hidden flex flex-col items-start justify-start p-12 gap-6">
-        <header className="flex flex-row items-center justify-start gap-4 text-2xl font-['Amazon Ember Display']">
-          <h3 className="relative leading-[1.5] font-extrabold">
-            Mini Sprints
-          </h3>
-          <span className="rounded-full bg-[#f55c38] h-8 flex flex-row items-center justify-center px-2 box-border text-sm text-white font-sans">
-            <p className="relative leading-[170%] font-medium">
-              Upcoming
-            </p>
+    <aside className="w-full lg:w-[30%] flex flex-col gap-6">
+      <article className="w-full bg-[#cdeaea] flex flex-col items-start p-12 gap-6 h-full">
+        <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
+          <h3 className="leading-[1.5] font-extrabold text-[#29458c]">Mini Sprints</h3>
+          <span className="rounded-full bg-[#f55c38] h-8 flex items-center justify-center px-4 text-sm text-white font-medium">
+            Upcoming
           </span>
         </header>
-        <p className="relative leading-[170%] font-medium text-[#3a3a3a] self-stretch">
+        <p className="leading-[170%] font-medium text-[#3a3a3a]">
           Multi-day workshops focusing on specific STEM topics.
         </p>
-        <div className="flex flex-row items-center justify-start gap-1 text-[#f55c38]">
-          <p className="relative leading-[170%] font-medium">
-            Learn More
-          </p>
-          <img
-            className="w-6 h-6 relative overflow-hidden flex-shrink-0"
-            alt="Chevron"
-            src="./homepage/chevron_right.svg"
-          />
+        <div className="flex flex-row items-center text-[#f55c38]">
+          <p className="leading-[170%] font-medium">Learn More</p>
+          <img className="w-6 h-6 ml-1" alt="Chevron" src="./homepage/chevron_right.svg" />
         </div>
       </article>
 
-      <article className="self-stretch bg-[#fff2f2] overflow-hidden flex flex-col items-start justify-start p-12 gap-6">
-        <header className="flex flex-row items-center justify-start gap-4 text-2xl font-display">
-          <h3 className="relative leading-[150%] font-extrabold">
-            Mega Sprints
-          </h3>
-          <span className="rounded-full bg-[#f55c38] h-[32px] flex flex-row items-center justify-center px-2 box-border text-xs text-white font-[Amazon Ember]">
-            <p className="relative leading-[170%] font-medium">
-              Upcoming
-            </p>
+      <article className="w-full bg-[#fff2f2] flex flex-col items-start p-12 gap-6 h-full">
+        <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
+          <h3 className="leading-[150%] font-extrabold text-[#29458c]">Mega Sprints</h3>
+          <span className="rounded-full bg-[#f55c38] h-8 flex items-center justify-center px-2 text-sm text-white font-medium">
+            Upcoming
           </span>
         </header>
-        <p className="self-stretch relative leading-[170%] font-medium text-[#3a3a3a]">
+        <p className="leading-[170%] font-medium text-[#3a3a3a]">
           Comprehensive Programs Leading to Exciting Competitive Robotics Challenges.
         </p>
-        <div className="flex flex-row items-center justify-start gap-1 text-[#f55c38]">
-          <p className="relative leading-[170%] font-medium">
-            Learn More
-          </p>
-          <img
-            className="relative w-6 h-6 overflow-hidden flex-shrink-0"
-            alt="Chevron"
-            src="./homepage/chevron_right.svg"
-          />
+        <div className="flex flex-row items-center text-[#f55c38]">
+          <p className="leading-[170%] font-medium">Learn More</p>
+          <img className="w-6 h-6 ml-1" alt="Chevron" src="./homepage/chevron_right.svg" />
         </div>
       </article>
     </aside>
   </div>
 </section>
-<section className="relative w-full min-h-screen text-left text-white flex items-start overflow-hidden">
+
+
+<section className="relative min-h-screen text-left text-white flex items-start overflow-hidden md:mx-6">
   <img
     className="absolute top-0 left-0 w-full h-full object-cover"
     alt="Background video"
     src="./homepage/video 2.svg"
   />
 
-  <div className="relative z-10 flex flex-col items-start justify-start gap-8 px-4 md:px-8 lg:px-16 py-8">
-    <h2 className="md:text-4xl lg:text-2xl font-extrabold leading-tight">
+  <div className="relative z-10 flex flex-col items-start justify-start gap-8 mx-6 px-4 md:px-8 py-8 lg:mx-6">
+    <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
       Take a Sneak Peak at AFE Innovation Hub
     </h2>
 
@@ -340,8 +338,9 @@ const HomePage: NextPage = () => {
     </a>
   </div>
 </section>
-<section className="relative w-full flex flex-col items-start justify-start gap-8 text-[#29458c] px-4 mt-16">
-  <header className="w-full font-extrabold leading-[150%]">
+
+<section className="relative mx-4 md:mt-12 lg:mx-12 flex flex-col items-start justify-start gap-8 text-[#29458c]">
+  <header className="w-full md:text-[30px] font-extrabold leading-[150%]">
     Latest From The Innovation Hub
   </header>
 
@@ -359,21 +358,21 @@ const HomePage: NextPage = () => {
         <img
           className="object-cover w-full h-full"
           alt="Innovation Hub Image 1"
-          src="./homepage/Rectangle 9.svg"
+          src="./homepage/Rectangle-new1.svg"
         />
       </figure>
       <figure className="flex-grow relative overflow-hidden">
         <img
           className="object-cover w-full h-full"
           alt="Innovation Hub Image 2"
-          src="./homepage/Rectangle 4(2).svg"
+          src="./homepage/Rectangle-new2.svg"
         />
       </figure>
       <figure className="flex-grow relative overflow-hidden">
         <img
           className="object-cover w-full h-full"
           alt="Innovation Hub Image 3"
-          src="./homepage/Rectangle 3(2).svg"
+          src="./homepage/Rectangle-new3.svg"
         />
       </figure>
     </div>
@@ -388,10 +387,10 @@ const HomePage: NextPage = () => {
   </div>
 </section>
 <section className="relative mx-4 lg:mx-12 flex flex-col items-start justify-start gap-4 text-[#29458c] py-8">
-  <h2 className="text-2xl font-extrabold leading-[150%]">
+  <h2 className="text-2xl font-extrabold leading-[150%] md:text-[25px]">
     Have Any Questions?
   </h2>
-  <p className="text-base leading-[170%] font-[Amazon Ember] text-[#3a3a3a]">
+  <p className="text-base leading-[170%] font-[Amazon Ember] text-[#3a3a3a] md:text-[20px]">
     <strong>
       <span>Reach out to us at </span>
       <a href="mailto:afeinnovation@ihub.com" className="text-[#f55c38]">
@@ -400,44 +399,12 @@ const HomePage: NextPage = () => {
     </strong>
   </p>
 </section>
+<Footer />
 
-<footer className="relative bg-[#ffad33] w-full h-[102px] text-[24px]">
-  <section className="flex flex-row items-center justify-between w-full h-full px-12">
-    <div className="flex flex-row items-center gap-4">
-      <img
-        className="w-[38px] h-[38px]"
-        alt="Innovation Hub Logo"
-        src="./homepage/reshot-icon-molecules-YBNSD562JC 1.svg"
-      />
-      <h1 className="text-lg font-extrabold leading-[150%]">
-        Innovation Hub
-      </h1>
-    </div>
 
-    <b className="text-sm font-[AmazonEmber]">
-      Privacy Policy
-    </b>
-
-    <nav className="flex flex-row items-center gap-4">
-      <a href="https://www.linkedin.com">
-        <img
-          className="w-[32px] h-[32px]"
-          alt="LinkedIn"
-          src="./homepage/Linkedin.svg"
-        />
-      </a>
-      <a href="https://www.twitter.com">
-        <img
-          className="w-[32px] h-[32px]"
-          alt="Twitter"
-          src="./homepage/Twitter.svg"
-        />
-      </a>
-    </nav>
-  </section>
-</footer>
 </div>
-  )
+
+  );
 };
 
 export default HomePage;
