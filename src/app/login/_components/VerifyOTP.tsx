@@ -1,19 +1,23 @@
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from "react";
+import React, { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from "react";
 
 interface VerifyOTPProps {
   length?: number;
-  setShowOTPVerification: (value: boolean) => void;
+  setShowOTPVerification: (show: boolean) => void;
   phoneNumber: string;
 }
 
-const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerification, phoneNumber }) => {
+const VerifyOTP: React.FC<VerifyOTPProps> = ({
+  length = 6,
+  setShowOTPVerification,
+  phoneNumber,
+}) => {
   const [otp, setOtp] = useState<string[]>(new Array(length).fill(""));
   const [message, setMessage] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const [seconds, setSeconds] = useState<number>(120);
+  const [seconds, setSeconds] = useState<number>(119);
   const [isResendAllowed, setIsResendAllowed] = useState<boolean>(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
@@ -53,35 +57,49 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
   };
 
   const handleVerifyOTP = async () => {
+    const otpString = otp.join("");
+
+    if (otp.some((digit) => digit === "")) {
+      setError("Please enter an OTP to proceed");
+      return;
+    }
+
+    if (otpString.length !== length) {
+      setError("Please enter a valid OTP");
+      return;
+    }
+
+    setError("");
+
     try {
-      console.log("phoneNumber",phoneNumber)
-      const otpString = otp.join("");
-      const response = await axios.post("http://13.127.216.196/api/v1/auth/verify-otp", {
-        phone: phoneNumber, // Use phoneNumber prop here
-        otp: otpString,
-      });
+      const response = await axios.post(
+        "http://13.127.216.196/api/v1/auth/verify-otp",
+        {
+          phone: phoneNumber,
+          otp: otpString,
+        }
+      );
 
       localStorage.setItem("userData", JSON.stringify(response.data));
       const userId = response.data.userId;
       localStorage.setItem("userId", userId);
       setMessage(response.data.message);
       router.push("/sprintPages/nanopage");
-      setError("");
     } catch (err: any) {
       setMessage("");
-      setError(err.response?.data?.message || "Error verifying OTP");
+      setError("Please enter a valid OTP");
     }
   };
 
   const handleResendOTP = async () => {
     try {
       await axios.post("http://13.127.216.196/api/v1/auth/send-otp", {
-        phone: phoneNumber, // Use phoneNumber prop for resending OTP
+        phone: phoneNumber,
       });
-      setSeconds(120); 
+      setSeconds(119);
       setIsResendAllowed(false);
     } catch (err: any) {
-      setError(err.response?.data?.message || "Error resending OTP");
+      setError("Please enter a valid OTP");
     }
   };
 
@@ -90,67 +108,80 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({ length = 6, setShowOTPVerificatio
   };
 
   return (
-    <div className="w-[90%] md:w-[70%] flex flex-col items-start justify-start gap-8">
-      <img
-        src="/login/arrow_back.svg"
-        alt="back"
-        onClick={handlePreviousScreen}
-      />
-      <p className="relative text-5xl leading-[150%] font-extrabold font-['Amazon Ember Display'] text-midnight-blue-main text-left">
-        Please enter the OTP sent to your mobile
-      </p>
-      <div className="grid grid-cols-6 gap-2 mb-4">
-        {otp.map((digit, index) => (
-          <input
-            key={index}
-            type="text"
-            // ref={(input) => (inputRefs.current[index] = input)}
-            // ref={(input: HTMLInputElement | null) => (inputRefs.current[index] = input)}
-            // ref={(input) => (inputRefs.current[index] = input as HTMLInputElement | null)}
-            ref={(input) => {
-              inputRefs.current[index] = input;
-            }}            
-            value={digit}
-            onChange={(e) => handleChange(index, e)}
-            onKeyDown={(e) => handleKeyDown(index, e)}
-            className="w-full p-2 border rounded text-center text-darkslategray"
-            maxLength={1}
+    <div className="px-4 sm:px-4 mx-auto mt-12 md:mx-0 md:mt-0">
+      <div className="flex flex-col items-start gap-8 self-stretch md:self-auto">
+        <div>
+          <img
+            src="/login/arrow_back.svg"
+            alt="back"
+            onClick={handlePreviousScreen}
+            className="cursor-pointer"
           />
-        ))}
+        </div>
+        <div className="flex flex-col gap-6 w-full">
+          <div className="relative text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-midnight-blue-main text-left">
+            Please enter the OTP sent to your mobile
+          </div>
+          <div className="flex flex-col gap-6 w-full">
+            {/* OTP Input Fields */}
+            <div>
+              <div className="flex items-start gap-4 w-full">
+                {otp.map((digit, index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    ref={(input) => {
+                      inputRefs.current[index] = input;
+                    }}
+                    value={digit}
+                    onChange={(e) => handleChange(index, e)}
+                    onKeyDown={(e) => handleKeyDown(index, e)}
+                    className={`flex h-14 w-full max-w-[3rem] sm:max-w-full px-3 justify-center items-center border rounded-lg text-center text-darkslategray text-lg
+                      ${error ? "border-error-main" : "border-gray-300"} 
+                      md:max-w-[3rem]`}
+                    maxLength={1}
+                  />
+                ))}
+              </div>
+              {/* Error Message */}
+              <div className="mt-2">
+                {error && (
+                  <span className="text-[#F44336] font-medium text-sm leading-[1.4875rem]">
+                    {error}
+                  </span>
+                )}
+              </div>
+            </div>
+            {/* Verify Button */}
+            <Button
+              variant="proceed"
+              onClick={handleVerifyOTP}
+              className="flex w-full sm:w-full md:w-[23rem] h-14 py-2 px-8 justify-center items-center gap-2 rounded-[6.25rem]"
+            >
+              Verify OTP
+            </Button>
+            {/* Resend Timer */}
+            <div className="relative text-lg leading-[170%] font-medium font-['Amazon Ember'] text-left text-darkslategray">
+              {isResendAllowed ? (
+                <button
+                  onClick={handleResendOTP}
+                  className="font-['Amazon Ember Display'] text-midnight-blue-main text-left underline"
+                >
+                  Resend OTP
+                </button>
+              ) : (
+                <span>
+                  Taking too long?{" "}
+                  <span className="text-incandescent-main">Resend code</span> in{" "}
+                  {`${Math.floor(seconds / 60)}:${
+                    seconds % 60 < 10 ? `0${seconds % 60}` : seconds % 60
+                  } s`}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="relative text-lg leading-[170%] font-medium font-['Amazon Ember'] text-left text-darkslategray">
-      {isResendAllowed ? (
-        <button onClick={handleResendOTP} className="font-['Amazon Ember Display'] text-midnight-blue-main text-left underline">
-          Resend code
-        </button>
-      ) : (
-        <span>
-          Taking too long?{" "}
-          <span className="text-red-600">Resend code</span>{" "}in{" "}
-          {`${Math.floor(seconds / 60)}:${seconds % 60} s`}
-        </span>
-      )}
-    </div>
-    
-      <div className="relative text-lg leading-[170%] font-medium font-webtypestyles-buttonlarge text-left text-darkslategray">
-        {isResendAllowed ? (
-          <button onClick={handleResendOTP} className="font-webtypestyles-h6 text-midnight-blue-main text-left underline">
-            Resend code
-          </button>
-        ) : (
-          <span>
-            Taking too long?{" "}
-            <span className="text-red-600">Resend code</span> in{" "}
-            {`${Math.floor(seconds / 60)}:${seconds % 60} s`}
-          </span>
-        )}
-      </div>
-
-      <Button variant="proceed" onClick={handleVerifyOTP} className="relative leading-[170%] font-medium">
-        Verify OTP
-      </Button>
-      {message && <div className="pt-2 text-green-600">{message}</div>}
-      {error && <div className="pt-2 text-red-600">{error}</div>}
     </div>
   );
 };

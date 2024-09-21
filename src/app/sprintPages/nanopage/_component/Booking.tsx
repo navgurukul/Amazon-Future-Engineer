@@ -1,6 +1,5 @@
 import LastPart from "./LastPart";
 import React, { useState } from "react";
-import Tamanna from "../Tamanna"
 
 const Booking = () => {
   const [offlinePopup,setOfflinePopup] = useState<boolean>(false);
@@ -140,7 +139,6 @@ const Booking = () => {
 
       {/* Last Part Component */}
       <LastPart />
-      <Tamanna offlinePopup={offlinePopup} handleOfflineBookingClose={handleOfflineBookingClose} />
     </>
   );
 };
