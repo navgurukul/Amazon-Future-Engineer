@@ -32,16 +32,44 @@
 
 // export default Header;
 
+
+
+
+
 import type { NextPage } from "next";
-import { useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const Header: NextPage = () => {
+  const [hasShadow, setHasShadow] = useState<boolean>(false);
+
+  const handleScroll = useCallback(() => {
+    if (window.scrollY > 0) {
+      setHasShadow(true);
+    } else {
+      setHasShadow(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
+
   const onReshotIconMoleculesYBNSDClick = useCallback(() => {
     // Add your code here
   }, []);
 
   return (
-    <div className="relative w-full h-[104px] shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_1px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)] bg-white text-center text-[14px] text-white">
+    <div
+      className={`fixed w-full h-[104px] bg-white text-center text-[14px] text-white transition-shadow duration-300 ${
+        hasShadow
+          ? "shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_1px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)]"
+          : ""
+      }`}
+      style={{ zIndex: 1000 }}
+    >
       <img
         className="absolute top-[calc(50%_-_32px)] left-12 w-16 h-16 overflow-hidden cursor-pointer"
         alt=""

@@ -1,8 +1,17 @@
 import LastPart from "./LastPart";
-import React from "react";
-
+import React, { useState } from "react";
+import Tamanna from "../Tamanna"
 
 const Booking = () => {
+  const [offlinePopup,setOfflinePopup] = useState<boolean>(false);
+
+  const handleOfflineBooking = ()=>{
+    setOfflinePopup(true)
+  }
+  const handleOfflineBookingClose=()=>{
+    setOfflinePopup(false)
+  }
+
   return (
     <>
       <div className="relative flex flex-col items-center w-full">
@@ -121,7 +130,7 @@ const Booking = () => {
                   <div className="leading-[170%] font-medium text-white">Book Online</div>
                 </div>
                 <div className="w-full h-14 flex items-center justify-center rounded-81xl bg-orange-main py-2 px-8 cursor-pointer">
-                  <div className="leading-[170%] font-medium text-text-primary">Book via Helpdesk</div>
+                  <div className="leading-[170%] font-medium text-text-primary" onClick={handleOfflineBooking}>Book via Helpdesk</div>
                 </div>
               </div>
             </div>
@@ -131,6 +140,7 @@ const Booking = () => {
 
       {/* Last Part Component */}
       <LastPart />
+      <Tamanna offlinePopup={offlinePopup} handleOfflineBookingClose={handleOfflineBookingClose} />
     </>
   );
 };
