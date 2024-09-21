@@ -40,7 +40,7 @@ const HomePage: NextPage = () => {
   <section className="relative w-full min-h-screen text-center text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
     <video
       src="./homepage/video.mp4"
-      className="absolute top-0 left-0 w-full h-full object-cover"
+      className="absolute top-0 left-0 w-full h-full object-cover brightness-50"
       autoPlay
       muted
     ></video>
