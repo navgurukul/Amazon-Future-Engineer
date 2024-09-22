@@ -162,7 +162,7 @@ const Page: NextPage = () => {
                                         </div>
                                         <div
                                             onClick={handleOpenAnother}
-                                            className="px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center gap-2 flex cursor-pointer"
+                                            className="px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center gap-2 flex cursor-pointer mb-4"
                                         >
                                             <div className="text-center text-white text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
                                                 Request Reschedule
