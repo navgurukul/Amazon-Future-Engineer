@@ -1,13 +1,28 @@
 "use client";
+
 import CreateAClass from "./CreateAClass";
-import Popup from "./_components/Popup";
+import Popup from "../sprintPages/nanopage/_component/Popup";
 import Footer from "../sprintPages/nanopage/_component/Footer";
 import type { NextPage } from "next";
-import { useState, useCallback } from "react";
+import { useState, useCallback,useEffect } from "react";
+import Header from "../sprintPages/nanopage/_component/Header";
+import SecondPopup from "../sprintPages/nanopage/_component/SecondPopup";
 
-const HomePage: NextPage = () => {
+
+interface PopupProps {
+
+  offlinePopup: boolean;
+
+  handleOfflineBookingClose: () => void;
+
+  handleClose: () => void;
+
+}
+const HomePage:  NextPage<PopupProps>  = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isHelpDeskPopupOpen, setIsHelpDeskPopupOpen] = useState(false);
+  const [offlinePopup, setOfflinePopup] = useState<boolean>(false);
+  const [openSecondPopup, setOpenSecondPopup] = useState<boolean>(false);
 
   const onFrameContainerClick = useCallback(() => {
     // Add your code here
@@ -33,22 +48,59 @@ const HomePage: NextPage = () => {
     setIsHelpDeskPopupOpen(false);
   };
 
+
+  const handleOfflineBooking : ()=> void = () => {
+    setOfflinePopup(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    document.body.classList.add("overflow-hidden");
+  };
+
+  const handleOfflineBookingClose : () => void = () => {
+    setOfflinePopup(false);
+    setOpenSecondPopup(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    document.body.classList.add("overflow-hidden");
+  };
+
+  const handleClose = ()=>{
+    setOfflinePopup(false);
+    document.body.classList.remove("overflow-hidden");
+  }
+  // Close the second popup after 2 seconds
+  useEffect(() => {
+    if (openSecondPopup) {
+      const timer = setTimeout(() => {
+        setOpenSecondPopup(false);
+        document.body.classList.remove("overflow-hidden");
+      }, 5000);
+
+      return () => clearTimeout(timer); // Clean up the timer on unmount or change
+    }
+  }, [openSecondPopup]);
+
   return (
     <div className="w-full relative bg-white min-h-screen overflow-hidden text-left text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
+      {/* <Header/> */}
+      <Header
+      isLoggedIn={false}
+      handleOfflineBooking={handleOfflineBooking}
+      offlinePopup={offlinePopup}
+      openSecondPopup={openSecondPopup}
+    />
       {/* First Section */}
       <section className="relative w-full min-h-screen text-center text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
         <video
           src="./homepage/video.mp4"
-          className="absolute top-0 left-0 w-full h-full object-cover"
+          className="absolute top-0 left-0 w-full h-full object-cover brightness-50"
           autoPlay
           muted
         ></video>
 
-        <img
+        {/* <img
           className="absolute top-[2vw] left-[2vw] w-[4vw] h-[4vw] overflow-hidden"
           alt=""
           src="./homepage/reshot-icon-molecules-YBNSD562JC 1.svg"
-        />
+        /> */}
 
         <header className="absolute top-[25%] left-[2vw] max-w-[1200px] mx-auto flex flex-col gap-6 items-start text-left">
           <div className="w-full flex flex-col gap-4 items-start">
@@ -94,21 +146,23 @@ const HomePage: NextPage = () => {
           </div>
         )}
 
-        <nav
+        {/* <nav
           className="absolute top-[2vw] right-[2vw] flex items-center justify-center px-8 py-2 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 text-[14px] md:text-[18px] cursor-pointer"
           onClick={handleBookSessionClick}
         >
           <span className="relative font-medium leading-[170%]">Login</span>
-        </nav>
+        </nav> */}
 
-        <div className="absolute top-[2vw] right-[14vw] flex items-center justify-center px-2 bg-gray-200/70 rounded-full h-8 md:h-12 gap-1 text-[12px] md:text-[14px] text-white">
+        
+
+        {/* <div className="absolute top-[2vw] right-[14vw] flex items-center justify-center px-2 bg-gray-200/70 rounded-full h-8 md:h-12 gap-1 text-[12px] md:text-[14px] text-white">
           <button className="flex items-center justify-center px-3 py-2 bg-[#f55c38] rounded-full h-6 md:h-8 font-medium leading-5">
             Eng
           </button>
           <button className="flex items-center justify-center px-3 py-2 rounded-full h-6 md:h-8 text-[#3a3a3a]">
             ಅಇಈ
           </button>
-        </div>
+        </div> */}
       </section>
 
       {isPopupOpen && (
@@ -438,6 +492,11 @@ const HomePage: NextPage = () => {
         </p>
       </section>
       <Footer />
+      <Popup offlinePopup={offlinePopup}
+      handleOfflineBookingClose={handleOfflineBookingClose}
+      // openSecondPopup={openSecondPopup}
+      handleClose={handleClose}/>
+      {openSecondPopup && <SecondPopup />}
     </div>
   );
 };

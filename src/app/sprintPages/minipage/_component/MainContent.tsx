@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 const MainContent = ({ handleOfflineBooking }) => {
   const router = useRouter()
   const [page, setPage] = useState({
-    nano: "nano",
-    mini: "",
+    nano: "",
+    mini: "mini",
     mega: "",
   });
 
@@ -97,8 +97,7 @@ const MainContent = ({ handleOfflineBooking }) => {
 
       {/* Increased heading size */}
       <div className="md:max-w-[70%] text-2xl md:text-13xl lg:text-4xl leading-[150%] font-extrabold font-webtypestyles-h5 text-[#29458c] text-left mt-6 md:mt-10">
-        Nano Sprints: One-Day Introductory Sessions to Spark Interest and Build
-        Aspiration
+      Multi-Day Skill-Building Workshops on specific STEM Topics
       </div>
 
       {/* First two images in the same row */}
