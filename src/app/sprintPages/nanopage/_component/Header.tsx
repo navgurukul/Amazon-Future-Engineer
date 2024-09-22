@@ -32,21 +32,20 @@
 
 // export default Header;
 
-
-
-
-
-import type { NextPage } from "next";
+import Popup from "./Popup";
 import { useState, useEffect, useCallback } from "react";
 
-const Header: NextPage = () => {
+const Header = ({ offlinePopup, handleOfflineBookingClose, handleClose}) => {
   const [hasShadow, setHasShadow] = useState<boolean>(false);
+  const [zIndex, setZIndex] = useState<number>(0);
 
   const handleScroll = useCallback(() => {
     if (window.scrollY > 0) {
       setHasShadow(true);
+      setZIndex(1000);
     } else {
       setHasShadow(false);
+      setZIndex(0);
     }
   }, []);
 
@@ -68,7 +67,7 @@ const Header: NextPage = () => {
           ? "shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_1px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)]"
           : ""
       }`}
-      style={{ zIndex: 1000 }}
+      style={{ zIndex }}
     >
       <img
         className="absolute top-[calc(50%_-_32px)] left-12 w-16 h-16 overflow-hidden cursor-pointer"
@@ -99,6 +98,11 @@ const Header: NextPage = () => {
           src="/nanopage/Ellipse 1.svg"
         />
       </div>
+      <Popup
+        offlinePopup={offlinePopup}
+        handleOfflineBookingClose={handleOfflineBookingClose}
+        handleClose={handleClose}
+      />
     </div>
   );
 };

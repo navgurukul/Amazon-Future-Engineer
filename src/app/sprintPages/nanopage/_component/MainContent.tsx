@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 
-const MainContent = () => {
+const MainContent = ({handleOfflineBooking}) => {
   return (
     <div className="pt-[104px] py-16 max-w-[70%] mx-auto flex flex-col gap-8">
       <div className="flex flex-col md:flex-row items-center justify-start gap-8 md:gap-16 text-xl md:text-2xl lg:text-3xl">
@@ -32,9 +32,9 @@ const MainContent = () => {
         </div>
         <div className="w-full sm:w-[110px] flex flex-col items-center justify-start gap-4 cursor-pointer">
           <Image
-            className="w-full h-auto object-cover mix-blend-luminosity rounded-md"
+            className="w-full h-auto object-cover  rounded-md"
             alt="Mini Sprints"
-            src="/nanopage/Vector.svg"
+            src="/nanopage/Vector (1).svg"
             width={110}
             height={110}
           />
@@ -42,9 +42,9 @@ const MainContent = () => {
         </div>
         <div className="w-full sm:w-[110px] flex flex-col items-center justify-start gap-4 cursor-pointer">
           <Image
-            className="w-full h-auto object-cover mix-blend-luminosity rounded-md"
+            className="w-full h-auto object-cover  rounded-md"
             alt="Mega Sprints"
-            src="/nanopage/Vector.svg"
+            src="/nanopage/Vector (1).svg"
             width={110}
             height={110}
           />
@@ -90,7 +90,7 @@ const MainContent = () => {
         />
       </div>
 
-      <Booking />
+      <Booking handleOfflineBooking={handleOfflineBooking}/>
     </div>
   );
 };

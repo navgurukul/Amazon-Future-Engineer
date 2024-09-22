@@ -1,5 +1,4 @@
 "use client";
-
 import CreateAClass from "./CreateAClass";
 import Popup from "./_components/Popup";
 import Footer from "../sprintPages/nanopage/_component/Footer";
