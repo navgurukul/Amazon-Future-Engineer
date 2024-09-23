@@ -119,7 +119,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
           />
         </div>
         <div className="flex flex-col gap-6 w-full">
-          <div className="relative text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-midnight-blue-main text-left">
+          <div className="relative text-5xl leading-[150%] text-heading5 font-heading5-bold text-midnight-blue-main text-left">
             Please enter the OTP sent to your mobile
           </div>
           <div className="flex flex-col gap-6 w-full">
@@ -146,7 +146,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
               {/* Error Message */}
               <div className="mt-2">
                 {error && (
-                  <span className="text-[#F44336] font-medium text-sm leading-[1.4875rem]">
+                  <span className="text-[#F44336] font-body2-regular text-body2 leading-[1.4875rem]">
                     {error}
                   </span>
                 )}

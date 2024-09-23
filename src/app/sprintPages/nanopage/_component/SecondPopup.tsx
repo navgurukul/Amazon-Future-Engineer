@@ -22,7 +22,7 @@ const SecondPopup: NextPage = () => {
           </div>
 
           <div className="self-stretch leading-[170%] font-medium font-webtypestyles-body1 text-center text-text-primary mt-4">
-            <p className="m-0">{`Redirecting to Sprint Information page in 2 seconds or `}</p>
+            <p className="m-0">{`Redirecting to Sprint Information page in 5 seconds or `}</p>
             <p className="m-0 text-tomato">Go to Sprint Information manually</p>
           </div>
         </div>

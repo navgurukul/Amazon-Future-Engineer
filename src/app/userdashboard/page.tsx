@@ -37,7 +37,9 @@ const Page: NextPage = () => {
     return (
         <>
         <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
-                <Header isLoggedIn={true} />
+                <Header isLoggedIn={true} handleOfflineBooking={function (): void {
+                    throw new Error("Function not implemented.");
+                } } offlinePopup={false} openSecondPopup={false} />
             </div>
             {/* <Header isLoggedIn={true} /> */}
             {/* <div className="mt-[184px] max-w-[90%] sm:max-w-[1216px] h-auto flex flex-col justify-start items-center gap-8 mb-8 mx-auto relative"> */}

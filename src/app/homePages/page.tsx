@@ -121,7 +121,7 @@ const HomePage:  NextPage<PopupProps>  = () => {
                 Book a Session
               </span>
             </button>
-            <button
+            {/* <button
               className="flex items-center justify-center px-4 py-2 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 gap-2"
               onClick={handleHelpDeskPopup}
             >
@@ -132,7 +132,7 @@ const HomePage:  NextPage<PopupProps>  = () => {
               <span className="relative font-medium leading-[170%]">
                 Helpdesk
               </span>
-            </button>
+            </button> */}
             <button className="flex items-center justify-center px-4 py-2 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14">
               <span className="relative font-medium leading-[170%]">
                 Take a Virtual Tour
@@ -140,11 +140,11 @@ const HomePage:  NextPage<PopupProps>  = () => {
             </button>
           </div>
         </header>
-        {isHelpDeskPopupOpen && (
+        {/* {isHelpDeskPopupOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
             <Popup closeHelpDeskPopup={closeHelpDeskPopup} />
           </div>
-        )}
+        )} */}
 
         {/* <nav
           className="absolute top-[2vw] right-[2vw] flex items-center justify-center px-8 py-2 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 text-[14px] md:text-[18px] cursor-pointer"

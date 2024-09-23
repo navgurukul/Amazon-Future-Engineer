@@ -10,7 +10,7 @@ const Booking = ({ handleOfflineBooking }) => {
           {/* Left Side Content for larger screens */}
           <div className="flex flex-col w-full md:w-2/3 gap-8">
             <div className="w-full text-left md:text-5xl text-[#29458c]">
-              <h1 className="text-3xl font-bold">
+              <h1 className="text-heading4 font-heading4-bold">
                 Why is Nano a Perfect Fit for Your Class?
               </h1>
             </div>
