@@ -164,8 +164,8 @@ const Page: NextPage = () => {
                                         </DialogFooter>
 
                                         {openAnotherDialog && (
-                                            <Dialog open={openAnotherDialog} onOpenChange={setOpenAnotherDialog}>
-                                                <DialogContent className="w-full max-w-[592px] h-auto p-8 bg-white rounded-lg shadow-lg">
+                                            <Dialog open={openAnotherDialog} onOpenChange={setOpenAnotherDialog} >
+                                                <DialogContent className="w-full max-w-[592px] h-auto p-8 bg-white rounded-lg shadow-lg ">
                                                     <DialogHeader>
                                                         <DialogTitle className="flex justify-between items-center">
                                                             <div style={{fontSize:"24px",fontWeight:"800px"}} className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold font-['Amazon Ember Display'] leading-7 sm:leading-9">
