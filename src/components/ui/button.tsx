@@ -22,6 +22,10 @@ const buttonVariants = cva(
         // details: "h-14 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center inline-flex mb-4",
         // contained: "h-14 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center gap-2 inline-flex",
         // reschedule:"px-4 py-2 text-red-500 border border-red-500 rounded-full transition-colors duration-200",
+        proceed:"w-full relative rounded-[100px] bg-incandescent-main h-14 flex flex-row items-center justify-center py-2 px-8 box-border cursor-pointer text-center  text-button1 text-lg font-button1-bold bg-[#f55c38] text-[#fff]",
+        // details: "h-14 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center gap-2 inline-flex",
+        // contained: "h-14 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center gap-2 inline-flex",
+        // reschedule:"px-4 py-2 text-red-500 border border-red-500 rounded-full transition-colors duration-200",
 
       },
       size: {

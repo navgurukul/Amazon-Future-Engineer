@@ -6,9 +6,9 @@ import { useRouter } from "next/navigation";
 const MainContent = ({ handleOfflineBooking }) => {
   const router = useRouter()
   const [page, setPage] = useState({
-    nano: "nano",
+    nano: "",
     mini: "",
-    mega: "",
+    mega: "mega",
   });
 
   const handleChange = (name:string) => {
@@ -96,9 +96,8 @@ const MainContent = ({ handleOfflineBooking }) => {
       </div>
 
       {/* Increased heading size */}
-      <div className="md:max-w-[70%] text-2xl md:text-13xl lg:text-4xl leading-[150%] font-extrabold font-webtypestyles-h5 text-[#29458c] text-left mt-6 md:mt-10">
-        Nano Sprints: One-Day Introductory Sessions to Spark Interest and Build
-        Aspiration
+      <div className="md:max-w-[80%] text-2xl md:text-13xl lg:text-4xl leading-[150%] font-extrabold font-webtypestyles-h5 text-[#29458c] text-left mt-6 md:mt-10">
+      Mega Sprints: Comprehensive Programs Leading to Exciting Competitive Robotics Challenges
       </div>
 
       {/* First two images in the same row */}
