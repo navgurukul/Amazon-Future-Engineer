@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import type { NextPage } from 'next';
 import Image from 'next/image';
+import WaitingListPopup from '../additionalquestions/WaitingListPopup';
 
 const Page: NextPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,7 +20,7 @@ const Page: NextPage = () => {
   return (
     <>
       <div className="w-full min-h-screen bg-white flex flex-col justify-center items-center gap-8 md:gap-16">
-        <div className="w-full h-[64px] md:h-[104px] px-4 md:pl-12 md:pr-[816px] py-3 md:pt-[37px] md:pb-9 bg-white shadow inline-flex justify-between items-center gap-4">
+        {/* <div className="w-full h-[64px] md:h-[104px] px-4 md:pl-12 md:pr-[816px] py-3 md:pt-[37px] md:pb-9 bg-white shadow inline-flex justify-between items-center gap-4">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 relative mt-1 ml-2">
               <Image
@@ -33,6 +34,25 @@ const Page: NextPage = () => {
             <div className="text-sm md:text-lg text-[#3a3a3a] font-medium leading-[30.60px]">Back</div>
           </div>
           <div className="text-sm md:text-lg text-[#3a3a3a] font-bold leading-[30.60px]">Mini Sprint</div>
+        </div> */}
+        <div className="w-full h-[80px] px-4 md:px-12 bg-white shadow-md flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 relative">
+              <Image
+                src="/userDashboard/chevron_left.svg"
+                alt="Back Icon"
+                width={7.41}
+                height={12}
+                className="w-full h-full"
+              />
+            </div>
+            <div className="text-lg text-[#3a3a3a] font-medium">
+              Back
+            </div>
+          </div>
+          <div className="text-lg text-center font-extrabold text-[#3a3a3a] mx-auto">
+            Mini Sprint
+          </div>
         </div>
 
         <div className="flex justify-center items-center w-full px-4">
@@ -123,7 +143,7 @@ const Page: NextPage = () => {
           </div>
         </div>
 
-        {isModalOpen && (
+        {/* {isModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="w-[360px] md:w-[592px] h-auto md:h-[458px] flex-col justify-start items-center gap-8 inline-flex bg-white rounded-lg p-6">
               <div className="w-[320px] h-[220px] md:w-[434px] md:h-[238px] bg-[#d9d9d9] rounded-lg"></div>
@@ -152,7 +172,9 @@ const Page: NextPage = () => {
               </div>
             </div>
           </div>
-        )}
+        )} */}
+        <WaitingListPopup isOpen={isModalOpen} name={name} />
+
       </div>
     </>
   );
