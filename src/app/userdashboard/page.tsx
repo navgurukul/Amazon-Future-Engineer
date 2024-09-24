@@ -36,16 +36,16 @@ const Page: NextPage = () => {
 
     return (
         <>
-        <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+            <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
                 <Header isLoggedIn={true} handleOfflineBooking={function (): void {
                     throw new Error("Function not implemented.");
-                } } offlinePopup={false} openSecondPopup={false} />
+                }} offlinePopup={false} openSecondPopup={false} />
             </div>
             {/* <Header isLoggedIn={true} /> */}
             {/* <div className="mt-[184px] max-w-[90%] sm:max-w-[1216px] h-auto flex flex-col justify-start items-center gap-8 mb-8 mx-auto relative"> */}
             <div className=" pt-[184px] max-w-[90%] sm:max-w-[1216px] h-auto flex flex-col justify-start items-center gap-8 mb-8 mx-auto relative">
                 {/* <Header isLoggedIn={true} /> */}
-                <div className="text-[#29458c] text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px] self-stretch">
+                <div className="text-[#29458c]  text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px] self-stretch">
                     My Bookings
                 </div>
                 {[...Array(3)].map((_, index) => (
@@ -259,9 +259,13 @@ const Page: NextPage = () => {
                                                         </div>
 
                                                         <div className="mt-6 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center">
-                                                            <div style={{ fontSize: "24px", fontWeight: "800px" }} className="text-center text-[#3a3a3a] text-2xl font-extrabold font-['Amazon Ember Display'] leading-30">
+                                                            {/* <div style={{ fontSize: "24px", fontWeight: "800px" }} className="text-center text-[#3a3a3a] text-2xl font-extrabold font-['Amazon Ember Display'] leading-30">
+                                                                +91 8597437548
+                                                            </div> */}
+                                                            <div className="text-center text-[#3a3a3a] font-extrabold text-heading5 font-heading5-bold">
                                                                 +91 8597437548
                                                             </div>
+
                                                             <div className="text-center text-black text-lg font-medium font-['Amazon Ember'] leading-6 sm:leading-[30.60px]">
                                                                 Sprint Admin
                                                             </div>
@@ -319,7 +323,7 @@ const Page: NextPage = () => {
                     </div>
                 </div>
                 <div className="w-full sm:w-auto h-12 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center mb-4 gap-2 flex cursor-pointer"
-                onClick={handleViewSprintDetails}>
+                    onClick={handleViewSprintDetails}>
                     <div className="text-center text-white text-base font-medium font-['Amazon Ember'] leading-7 ">
                         View Sprint Details
                     </div>
