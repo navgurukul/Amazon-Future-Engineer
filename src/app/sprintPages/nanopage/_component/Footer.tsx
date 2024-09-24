@@ -2,8 +2,8 @@ import type { NextPage } from "next";
 
 const Footer: NextPage = () => {
   return (
-    <div className="w-full bg-[#ffad33] h-24 text-center text-lg text-gray-800 font-amazon-ember">
-      <div className="flex flex-col md:flex-row justify-between items-center h-full px-6">
+    <div className="w-full bg-[#ffad33] md:h-24 text-center text-lg text-gray-800 font-amazon-ember">
+      <div className="flex flex-col md:flex-row justify-between items-center h-full py-4 md:py-0 px-4 md:px-6">
         {/* Logo Section */}
         <div className="flex flex-row items-center gap-4 text-xl font-amazon-ember-display">
           <img
