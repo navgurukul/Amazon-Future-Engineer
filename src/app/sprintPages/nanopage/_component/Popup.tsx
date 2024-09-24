@@ -24,6 +24,15 @@ const Popup: React.FC<PopupProps> = ({
     handleOfflineBookingClose();
   };
 
+  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const phoneInput = e.target.value;
+  
+    // Allow only numerical characters
+    if (/^\d*$/.test(phoneInput)) {
+      setPhoneNumber(phoneInput);
+    }
+  };
+   
   if (!offlinePopup) return null;
 
   return (
@@ -89,10 +98,11 @@ const Popup: React.FC<PopupProps> = ({
               <input
                 id="phone"
                 type="tel"
+                pattern="\d{10}"
                 className="w-full h-12 flex items-center justify-start px-4 border border-gray-700 rounded-full text-base text-gray-700"
                 placeholder="Eg. xxxx-xxxxxxx"
                 value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                onChange={handlePhoneNumberChange}
                 required
               />
             </div>
@@ -114,5 +124,4 @@ const Popup: React.FC<PopupProps> = ({
 };
 
 export default Popup;
-
 

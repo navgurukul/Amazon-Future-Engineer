@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import Image from "next/image";
 import type { NextPage } from "next";
-import Header from "../sprintPages/nanopage/_component/Header";
+import Header from "../../components/Header";
 import { useRouter } from "next/navigation";
 
 const Page: NextPage = () => {
