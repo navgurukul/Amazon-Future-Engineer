@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import Image from "next/image";
 import WaitingListPopup from "./_components/WaitingListPopup";
 import { useRouter } from "next/navigation";
 const MiniPage: NextPage = () => {
-    const router = useRouter()
+    const router = useRouter();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [name, setName] = useState("");
@@ -115,8 +115,10 @@ const MiniPage: NextPage = () => {
     };
 
 
+
     return (
         <>
+        {!isModalOpen ? (
             <div className="w-full min-h-screen bg-white flex flex-col justify-center items-center gap-8 md:gap-16">
                 <div className="w-full h-[80px] px-4 md:px-12 bg-white shadow-md flex justify-between items-center">
                     <div className="flex items-center gap-2 cursor-pointer" 
@@ -237,8 +239,9 @@ const MiniPage: NextPage = () => {
 
                     </div>
                 </div>
-            </div>
-            <WaitingListPopup isOpen={isModalOpen} name={name} />
+            </div>)
+            // <WaitingListPopup isOpen={isModalOpen} name={name} />
+            : (<WaitingListPopup isOpen={isModalOpen} name={name} />)}
 
         </>
     );

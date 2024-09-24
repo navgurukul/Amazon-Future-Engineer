@@ -8,16 +8,16 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 
 interface HeaderProps {
-  isLoggedIn: boolean;
+  bgColor: string;
   handleOfflineBooking: () => void;
   offlinePopup: boolean;
   openSecondPopup: boolean;
 }
 const Header: NextPage<HeaderProps> = ({
-  isLoggedIn,
   handleOfflineBooking,
   offlinePopup,
   openSecondPopup,
+  bgColor
 }) => {
   const router = useRouter();
   const [hasShadow, setHasShadow] = useState<boolean>(false);
@@ -25,7 +25,8 @@ const Header: NextPage<HeaderProps> = ({
   const [isHelpDeskPopupOpen, setIsHelpDeskPopupOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState<any>(null);
   const [headerBgColor, setHeaderBgColor] = useState<string>(
-    profileOpen ? "bg-white" : "bg-black bg-opacity-30"
+    // profileOpen ? "bg-white" : "bg-transparent"
+    "bg-white"
   );
   // const [zIndex,setZIndex] = useState(1000);
 
@@ -48,9 +49,12 @@ const Header: NextPage<HeaderProps> = ({
     if (window.scrollY > window.innerHeight) {
       setHeaderBgColor("bg-white");
     } else {
-      setHeaderBgColor(profileOpen ? "bg-white" : "bg-black bg-opacity-30");
+      if (bgColor=="transparent"){
+        setHeaderBgColor(profileOpen ? "bg-white" : "transparent");
+      }
     }
   }, []);
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {

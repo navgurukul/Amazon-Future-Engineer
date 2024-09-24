@@ -82,10 +82,10 @@ const HomePage:  NextPage<PopupProps>  = () => {
     <div className="w-full relative bg-white min-h-screen overflow-hidden text-left text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
       {/* <Header/> */}
       <Header
-      isLoggedIn={false}
       handleOfflineBooking={handleOfflineBooking}
       offlinePopup={offlinePopup}
       openSecondPopup={openSecondPopup}
+      bgColor= {"transparent"}
     />
       {/* First Section */}
       <section className="relative w-full min-h-screen text-center text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
