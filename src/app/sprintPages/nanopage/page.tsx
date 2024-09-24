@@ -1,7 +1,7 @@
 "use client";
 
-import Footer from "./_component/Footer";
-import Header from "./_component/Header";
+import Footer from "../../../components/Footer";
+import Header from "../../../components/Header";
 import MainContent from "./_component/MainContent";
 import React, { useState, useEffect } from "react";
 import SecondPopup from "./_component/SecondPopup";
