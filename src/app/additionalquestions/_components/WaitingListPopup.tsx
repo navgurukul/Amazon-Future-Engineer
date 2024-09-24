@@ -28,9 +28,9 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({ isOpen, name }) => 
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="w-full min-h-screen bg-white flex flex-col justify-center items-center gap-8 md:gap-16">
-                <div className="w-full  px-4  h-auto p-4 md:px-12 bg-white shadow-md flex justify-between items-center">
-                    <div className="flex items-center gap-2 cursor-pointer">
+            <div className="w-full px-4 py-2 h-auto p-4 md:px-12 bg-white shadow-md flex justify-between items-center">
+                <div className="w-full px-4 py-2 md:px-8 bg-white shadow-md flex justify-between items-center">
+                    <div className="flex items-center gap-2 cursor-pointer" onClick={handleBackClick}>
                         <div className="w-6 h-6 relative">
                             <Image
                                 src="/userDashboard/chevron_left.svg"
@@ -38,13 +38,11 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({ isOpen, name }) => 
                                 width={7.41}
                                 height={12}
                                 className="w-full h-full"
-                                onClick={handleBackClick} 
                             />
                         </div>
 
                         <div
                             className="text-lg text-[#3a3a3a] font-medium"
-                            onClick={handleBackClick}  
                         >
                             Back
                         </div>
