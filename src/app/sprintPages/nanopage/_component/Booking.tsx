@@ -208,7 +208,7 @@ const Booking = ({ handleOfflineBooking }) => {
               </div>
             </div>
           </div> */}
-<div className="hidden lg:block lg:w-1/3 w-full">
+<div className="hidden lg:block lg:w-1/3 w-full sticky top-32 h-full">
   <div className="w-full relative rounded-lg bg-incandescent-light border-[2px] border-incandescent-main p-8 gap-8">
     <div className="flex flex-row items-center gap-4 md:mb-10">
       <img
