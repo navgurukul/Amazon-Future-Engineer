@@ -20,8 +20,12 @@ const Popup: React.FC<PopupProps> = ({
     // Store the data in localStorage
     localStorage.setItem("userData", JSON.stringify({ name, phoneNumber }));
 
+
     // Close the popup after saving data
     handleOfflineBookingClose();
+    setName("")
+    setPhoneNumber("")
+
   };
 
   const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +45,7 @@ const Popup: React.FC<PopupProps> = ({
       <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
 
       {/* Popup Dialog */}
-      <div className="fixed inset-0 flex items-center justify-center z-50">
+      <div className="mt-20 fixed inset-0 flex items-end md:items-center justify-center z-50">
         <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-6 flex flex-col items-start gap-4 text-left text-gray-500 font-nunito-sans">
           {/* Title and Close Button */}
           <div className="flex items-center justify-between text-lg font-amazon-ember w-full">

@@ -12,12 +12,14 @@ interface HeaderProps {
   handleOfflineBooking: () => void;
   offlinePopup: boolean;
   openSecondPopup: boolean;
+  bookingPopup:boolean
 }
 const Header: NextPage<HeaderProps> = ({
   handleOfflineBooking,
   offlinePopup,
   openSecondPopup,
-  bgColor
+  bgColor,
+  bookingPopup
 }) => {
   const router = useRouter();
   const [hasShadow, setHasShadow] = useState<boolean>(false);
@@ -82,7 +84,7 @@ const Header: NextPage<HeaderProps> = ({
       hasShadow
         ? "shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_1px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)]"
         : ""
-    } z-${offlinePopup || openSecondPopup ? 0 : 50} px-4 sm:px-8 md:px-12`}
+    } z-${offlinePopup || openSecondPopup ||  bookingPopup ? 0 : 50} px-4 sm:px-8 md:px-12`}
     >
       <img
         className="absolute top-1/2 left-4 transform -translate-y-1/2 w-12 h-12 sm:w-16 sm:h-16 overflow-hidden cursor-pointer"
@@ -128,7 +130,7 @@ const Header: NextPage<HeaderProps> = ({
             alt="Helpdesk Icon"
             src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
           />
-          <div className="font-medium leading-[170%]">Helpdesk</div>
+          <div className="font-medium leading-[170%]">Call Us</div>
         </div>
         {profileOpen ? (
           <img
