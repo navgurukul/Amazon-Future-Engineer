@@ -8,16 +8,18 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 
 interface HeaderProps {
-  isLoggedIn: boolean;
+  bgColor: string;
   handleOfflineBooking: () => void;
   offlinePopup: boolean;
   openSecondPopup: boolean;
+  bookingPopup:boolean
 }
 const Header: NextPage<HeaderProps> = ({
-  isLoggedIn,
   handleOfflineBooking,
   offlinePopup,
   openSecondPopup,
+  bgColor,
+  bookingPopup
 }) => {
   const router = useRouter();
   const [hasShadow, setHasShadow] = useState<boolean>(false);
@@ -25,7 +27,8 @@ const Header: NextPage<HeaderProps> = ({
   const [isHelpDeskPopupOpen, setIsHelpDeskPopupOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState<any>(null);
   const [headerBgColor, setHeaderBgColor] = useState<string>(
-    profileOpen ? "bg-white" : "bg-black bg-opacity-30"
+    // profileOpen ? "bg-white" : "bg-transparent"
+    "bg-white"
   );
   // const [zIndex,setZIndex] = useState(1000);
 
@@ -48,9 +51,12 @@ const Header: NextPage<HeaderProps> = ({
     if (window.scrollY > window.innerHeight) {
       setHeaderBgColor("bg-white");
     } else {
-      setHeaderBgColor(profileOpen ? "bg-white" : "bg-black bg-opacity-30");
+      if (bgColor=="transparent"){
+        setHeaderBgColor(profileOpen ? "bg-white" : "transparent");
+      }
     }
   }, []);
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -78,7 +84,7 @@ const Header: NextPage<HeaderProps> = ({
       hasShadow
         ? "shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_1px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)]"
         : ""
-    } z-${offlinePopup || openSecondPopup ? 0 : 50} px-4 sm:px-8 md:px-12`}
+    } z-${offlinePopup || openSecondPopup ||  bookingPopup ? 0 : 50} px-4 sm:px-8 md:px-12`}
     >
       <img
         className="absolute top-1/2 left-4 transform -translate-y-1/2 w-12 h-12 sm:w-16 sm:h-16 overflow-hidden cursor-pointer"
@@ -124,7 +130,7 @@ const Header: NextPage<HeaderProps> = ({
             alt="Helpdesk Icon"
             src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
           />
-          <div className="font-medium leading-[170%]">Helpdesk</div>
+          <div className="font-medium leading-[170%]">Call Us</div>
         </div>
         {profileOpen ? (
           <img

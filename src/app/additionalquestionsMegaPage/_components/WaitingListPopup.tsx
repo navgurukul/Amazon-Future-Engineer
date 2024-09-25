@@ -16,7 +16,7 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
   useEffect(() => {
     if (isOpen) {
       const timer = setTimeout(() => {
-        router.push("/sprintPages/minipage");
+        router.push("/sprintPages/megapage");
       }, 5000);
 
       return () => clearTimeout(timer);
@@ -26,7 +26,7 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
   if (!isOpen) return null;
 
   const handleBackClick = () => {
-    router.push("/sprintPages/minipage");
+    router.push("/sprintPages/megapage");
   };
 
   return (
@@ -49,7 +49,7 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
           <div className="text-lg text-[#3a3a3a] font-medium">Back</div>
         </div>
         <div className="text-lg text-center font-extrabold text-[#3a3a3a] mx-auto">
-          Mini Sprint
+          Mega Sprint
         </div>
       </div>
 
