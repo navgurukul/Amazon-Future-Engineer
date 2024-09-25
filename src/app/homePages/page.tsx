@@ -1,13 +1,14 @@
 "use client";
 
-import Footer from "../sprintPages/nanopage/_component/Footer";
-import Header from "../sprintPages/nanopage/_component/Header";
-import Popup from "../sprintPages/nanopage/_component/Popup";
-import SecondPopup from "../sprintPages/nanopage/_component/SecondPopup";
 import CreateAClass from "./CreateAClass";
+import Popup from "../sprintPages/nanopage/_component/Popup";
+import Footer from "../../components/Footer";
 import type { NextPage } from "next";
+import { useState, useCallback,useEffect } from "react";
+import Header from "../../components/Header";
+import SecondPopup from "../sprintPages/nanopage/_component/SecondPopup";
 import { useRouter } from "next/navigation";
-import { useState, useCallback, useEffect } from "react";
+
 
 
 interface PopupProps {

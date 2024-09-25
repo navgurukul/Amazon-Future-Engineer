@@ -2,8 +2,9 @@ import type { NextPage } from "next";
 
 const Footer: NextPage = () => {
   return (
-    <div className="w-full bg-[#ffad33] md:h-24 text-center text-lg text-gray-800 font-amazon-ember">
-      <div className="flex flex-col md:flex-row justify-between items-center h-full py-4 md:py-0 px-4 md:px-6">
+    <div className="w-full bg-[#ffad33] h-auto text-center text-lg text-gray-800 font-amazon-ember py-4">
+      <div className="flex flex-col md:flex-row justify-between items-center h-full px-6">
+        {/* Logo Section */}
         <div className="flex flex-row items-center gap-4 text-xl font-amazon-ember-display">
           <img
             className="w-9 h-9 object-cover"
@@ -13,11 +14,13 @@ const Footer: NextPage = () => {
           <div className="font-extrabold">AFE Makerspace</div>
         </div>
 
-        <div className="mt-4 md:mt-0 font-medium leading-[170%]">
+        {/* Privacy Policy */}
+        <div className="mt-4 md:mt-0 font-medium leading-[170%] order-2 md:order-none">
           Privacy Policy
         </div>
 
-        <div className="flex flex-row items-center justify-center gap-2 px-6 py-2 mt-4 md:mt-0 rounded-full bg-gray-200 text-orange-600">
+        {/* Helpdesk Section */}
+        <div className="flex flex-row items-center justify-center gap-2 px-6 py-2 mt-4 md:mt-0 rounded-full bg-gray-200 text-orange-600 order-3 md:order-none">
           <img
             className="w-8 h-8 object-cover"
             alt="Helpdesk Icon"
@@ -31,3 +34,4 @@ const Footer: NextPage = () => {
 };
 
 export default Footer;
+
