@@ -42,7 +42,7 @@ const Page = () => {
   }, [openSecondPopup]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-32 lg:pb-0">
       <Header
         handleOfflineBooking={handleOfflineBooking}
         offlinePopup={offlinePopup}

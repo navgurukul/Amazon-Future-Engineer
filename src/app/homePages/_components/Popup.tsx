@@ -15,8 +15,9 @@ const Popup: NextPage<PopupProps> = ({ closeHelpDeskPopup }) => {
   }, [closeHelpDeskPopup]);
 
   return (
-    <div className="w-1/3 relative shadow-md rounded-lg bg-white flex flex-col items-end justify-start p-8 gap-8 text-left text-gray-500 font-nunito-sans">
-      <div className="flex flex-col gap-4 items-start w-full">
+    <div className="fixed bottom-0 w-full md:w-2/3 lg:w-1/3 shadow-md rounded-lg bg-white flex flex-col justify-between p-4 lg:p-8 gap-4 text-left text-gray-500 font-nunito-sans">
+      {/* Popup header and content */}
+      <div className="flex flex-col gap-4 flex-grow">
         <div className="flex items-center justify-between text-lg font-amazon-ember w-full">
           <div className="font-extrabold">Helpdesk</div>
           <img
@@ -28,7 +29,7 @@ const Popup: NextPage<PopupProps> = ({ closeHelpDeskPopup }) => {
         </div>
         <div className="leading-7 font-medium">
           You can talk to our representative for sprint information, booking
-          sprints or any general queries
+          sprints, or any general queries.
         </div>
         <div className="leading-7">
           <b>Response Time:</b>{" "}
@@ -38,6 +39,8 @@ const Popup: NextPage<PopupProps> = ({ closeHelpDeskPopup }) => {
           <b>Operational Time:</b>{" "}
           <span className="font-medium">Mon to Fri from 9 AM to 6 PM</span>
         </div>
+
+        {/* Name input */}
         <div className="flex flex-col gap-2 w-full">
           <div className="font-medium">
             <span>Name</span>
@@ -47,6 +50,8 @@ const Popup: NextPage<PopupProps> = ({ closeHelpDeskPopup }) => {
             Eg. Prakash
           </div>
         </div>
+
+        {/* Phone input */}
         <div className="flex flex-col gap-2 w-full">
           <div className="font-medium">
             <span>Phone Number</span>
@@ -58,51 +63,8 @@ const Popup: NextPage<PopupProps> = ({ closeHelpDeskPopup }) => {
         </div>
       </div>
 
-      <div className="w-full flex flex-col gap-2">
-        <div className="text-sm leading-6 hidden">Foundation Track</div>
-        <div className="flex hidden gap-4">
-          <div className="flex items-center gap-2">
-            <img className="w-6 h-6" alt="radio" src="Radio Button.svg" />
-            <div className="leading-6">Web Dev</div>
-          </div>
-          <div className="flex items-center gap-2">
-            <img className="w-6 h-6" alt="radio" src="Radio Button.svg" />
-            <div className="leading-6">Soft Skills</div>
-          </div>
-          <div className="flex items-center gap-2">
-            <img className="w-6 h-6" alt="radio" src="Radio Button.svg" />
-            <div className="leading-6">Miscellaneous</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="w-full h-14 hidden" />
-      <div className="w-full h-14 hidden" />
-      <div className="w-full hidden flex-col gap-2 text-sm">
-        <div className="leading-6">Description</div>
-        <div className="flex px-2 pt-2 text-lg text-gray-700">
-          Learn about different datatypes that govern how values are stored in
-          Python. We will talk about how to identify variables, naming schemes
-          and usage in programs.
-        </div>
-      </div>
-      <div className="w-full h-14 hidden" />
-      <div className="w-full hidden flex-col gap-2 text-sm">
-        <div className="leading-6">On Days</div>
-        <div className="flex gap-4">
-          <div className="rounded-lg bg-[#e9f5e9] px-3 py-1 text-green-700">
-            Mon
-          </div>
-          <div className="rounded-lg px-3 py-1">Tue</div>
-          <div className="rounded-lg px-3 py-1">Wed</div>
-          <div className="rounded-lg px-3 py-1">Thurs</div>
-          <div className="rounded-lg px-3 py-1">Fri</div>
-          <div className="rounded-lg px-3 py-1">Sat</div>
-          <div className="rounded-lg px-3 py-1">Sun</div>
-        </div>
-      </div>
-
-      <div className="rounded-full bg-[#f55c38] h-14 flex items-center justify-center px-8 cursor-pointer text-white font-amazon-ember">
+      {/* Request Callback button */}
+      <div className="w-full lg:w-auto h-14 rounded-full bg-[#f55c38] flex items-center justify-center cursor-pointer text-white font-amazon-ember">
         Request a Callback
       </div>
     </div>
