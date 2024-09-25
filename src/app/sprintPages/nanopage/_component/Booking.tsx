@@ -247,11 +247,11 @@ const Booking = ({ handleOfflineBooking }) => {
 
 <div className="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl">
   <div className="flex flex-col gap-4 text-center">
-    <div className="w-full h-14 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer">
+    <div className="w-full h-10 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer">
       <div className="leading-[170%] font-medium text-white">Book Online</div>
     </div>
     <div
-      className="w-full h-14 flex items-center justify-center rounded-81xl bg-orange-main py-2 px-8 cursor-pointer"
+      className="w-full h-10 flex items-center justify-center rounded-81xl bg-orange-main py-2 px-8 cursor-pointer"
       onClick={handleOfflineBooking}
     >
       <div className="leading-[170%] font-medium text-text-primary">
