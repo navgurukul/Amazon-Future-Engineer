@@ -28,12 +28,15 @@ const Header: NextPage<HeaderProps> = ({
   const [profileOpen, setProfileOpen] = useState<any>(null);
   const [headerBgColor, setHeaderBgColor] = useState<string>(
     // profileOpen ? "bg-white" : "bg-transparent"
-    "bg-white"
+   bgColor?"transparent":"bg-white" 
   );
   // const [zIndex,setZIndex] = useState(1000);
+  // useEffect(()=>{
+  //   setHeaderBgColor(bgColor)
+  // },[bgColor])
 
   useEffect(() => {
-    const open = localStorage.getItem("userData");
+    const open = localStorage.getItem("loginData");
     const parsedOpen = open ? JSON.parse(open) : null;
     if (open) {
       setProfileOpen(parsedOpen.status);

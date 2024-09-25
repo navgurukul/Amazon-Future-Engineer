@@ -74,10 +74,10 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
 
     try {
       const response = await verifyOtp(phoneNumber, otpString); // Use the API call
-
-      localStorage.setItem("userData", JSON.stringify(response));
-      const userId = response.userId;
-      localStorage.setItem("userId", userId);
+      console.log(response)
+      localStorage.setItem("loginData", JSON.stringify(response));
+      const userId =  JSON.stringify(response.userId);
+      localStorage.setItem("LoginId", userId);
       setMessage(response.message);
       router.push("/sprintPages/nanopage");
     } catch (err: any) {
