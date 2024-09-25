@@ -111,7 +111,7 @@ const MegaPage: NextPage = () => {
         setPincode(e.target.value);
     };
     const handleBackClick = () => {
-        router.push ('/sprintPages/Megapage');
+        router.push ('/sprintPages/megapage');
     };
 
 

@@ -53,7 +53,7 @@ const CallPopup: React.FC<PopupProps> = ({
           </div>
 
           <div className="text-center text-black text-lg font-medium font-['Amazon Ember'] leading-6 sm:leading-[30.60px]">
-            Sprint Admin
+            AFE Helpdesk
           </div>
         </div>
         </div>
