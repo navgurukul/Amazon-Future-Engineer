@@ -44,7 +44,6 @@ const Page = () => {
   return (
     <div className="min-h-screen pb-32 lg:pb-0">
       <Header
-        isLoggedIn={true}
         handleOfflineBooking={handleOfflineBooking}
         offlinePopup={offlinePopup}
         openSecondPopup={openSecondPopup}
