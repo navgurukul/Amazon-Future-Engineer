@@ -1,7 +1,12 @@
 import LastPart from "./LastPart";
 import React from "react";
+import { useRouter } from "next/navigation";
 
-const Booking = ({ handleOfflineBooking }) => {
+const Booking = () => {
+  const router = useRouter()
+  const handleRoute = ()=>{
+    router.push("/additionalquestionsMegaPage")
+  }
   return (
     <>
       <div className="relative flex flex-col items-center w-full">
@@ -101,7 +106,7 @@ const Booking = ({ handleOfflineBooking }) => {
 
               {/* Buttons */}
               <div className="flex flex-col gap-4 text-center">
-                <div className="w-full h-14 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer">
+                <div className="w-full h-14 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer" onClick={handleRoute}>
                   <div className="leading-[170%] font-medium text-white">
                   Join Waiting List
                   </div>

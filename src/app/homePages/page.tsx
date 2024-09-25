@@ -1,7 +1,7 @@
 "use client";
 
 import CreateAClass from "./CreateAClass";
-import Popup from "../sprintPages/nanopage/_component/Popup";
+import CallPopup from "../sprintPages/nanopage/_component/CallPopup";
 import Footer from "../../components/Footer";
 import type { NextPage } from "next";
 import { useState, useCallback,useEffect } from "react";
@@ -781,7 +781,7 @@ const HomePage:  NextPage<PopupProps>  = () => {
         </p>
       </section>
       <Footer />
-      <Popup offlinePopup={offlinePopup}
+      <CallPopup offlinePopup={offlinePopup}
       handleOfflineBookingClose={handleOfflineBookingClose}
       // openSecondPopup={openSecondPopup}
       handleClose={handleClose}/>
