@@ -116,7 +116,7 @@ const MainContent = ({ handleOfflineBooking }) => {
 <section className="w-full flex flex-row items-center justify-center md:justify-center gap-8 md:gap-12 text-left text-lg md:text-2xl lg:text-3xl overflow-x-auto no-scrollbar pl-40">
   {/* Article for Nano Sprints */}
   <article
-    className="flex-shrink-0 w-[36vw] sm:w-[45vw] md:w-[118px] flex flex-col items-center justify-start gap-4 cursor-pointer"
+    className="flex-shrink-0 w-[36vw] sm:w-[45vw] md:w-[118px] flex flex-col items-center justify-start gap-4"
     onClick={() => handleChange("nano")}
   >
     <Image
