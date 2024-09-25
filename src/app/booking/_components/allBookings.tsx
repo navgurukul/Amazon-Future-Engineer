@@ -1,6 +1,5 @@
-"use client"
-
 import { useEffect, useState } from "react";
+import { getSlots } from "@/utils/api";
 
 // Define the Event interface
 interface Event {
@@ -10,77 +9,49 @@ interface Event {
   end: Date;
   allDay: boolean;
   extendedProps: {
-    phoneNo: string;
-    numStudents: number;
+    availableCapacity: number;
+    status: string;
   };
 }
 
-// Custom hook to handle events data
+// Custom hook to handle fetching slots
 export const useAllBookings = () => {
   const [events, setEvents] = useState<Event[]>([]);
 
-  // Dummy data (initial events)
-  const dummyEvents: Event[] = [
-    {
-      id: "1",
-      title: "Team Meeting",
-      start: new Date(), // Current date and time
-      end: new Date(new Date().getTime() + 3600000), // 1 hour later
-      allDay: false,
-      extendedProps: {
-        phoneNo: "7234567890",
-        numStudents: 5,
-      },
-    },
-    {
-      id: "2",
-      title: "Project Deadline",
-      start: new Date(new Date().setDate(new Date().getDate() + 1)), // Next day
-      end: new Date(new Date().setDate(new Date().getDate() + 1)), // Same day
-      allDay: true,
-      extendedProps: {
-        phoneNo: "9987654321",
-        numStudents: 10,
-      },
-    },
-    {
-        id: "3",
-        title: "Project Final Deadline",
-        start: new Date(new Date().setDate(new Date().getDate() + 1)), // Next day
-        end: new Date(new Date().setDate(new Date().getDate() + 1)), // Same day
-        allDay: true,
-        extendedProps: {
-          phoneNo: "9987654321",
-          numStudents: 10,
-        },
-      },
-  ];
-
-  // Simulate fetching data from an API
   useEffect(() => {
     const fetchApiData = async () => {
-      // Simulate API call with a timeout (replace with real API call)
-      setTimeout(() => {
-        const apiEvents: Event[] = [
-          {
-            id: "3",
-            title: "Client Call",
-            start: new Date(new Date().setDate(new Date().getDate() + 2)),
-            end: new Date(new Date().setDate(new Date().getDate() + 2)),
+      try {
+        const slots = await getSlots(1); // API call with venue_id as 1 by default
+        console.log('Fetched slots:', slots);
+
+        // Map the API response to the event structure
+        const mappedSlots: Event[] = slots.map((slot: any) => {
+          const slotDate = new Date(slot.date); // Convert slot date string to Date object
+          const [startHour, startMinute] = slot.start_time.split(":").map(Number);
+          const [endHour, endMinute] = slot.end_time.split(":").map(Number);
+
+          return {
+            id: slot.id.toString(),
+            title: `Slot at ${slot.start_time}`, // Adjust title as needed
+            start: new Date(slotDate.setHours(startHour, startMinute)), // Create start time
+            end: new Date(slotDate.setHours(endHour, endMinute)), // Create end time
             allDay: false,
             extendedProps: {
-              phoneNo: "9678901234",
-              numStudents: 8,
+              availableCapacity: slot.available_capacity,
+              status: slot.status,
             },
-          },
-        ];
-        setEvents([...dummyEvents, ...apiEvents]);
-      }, 1000); // Simulate API delay
+          };
+        });
+
+        console.log('Mapped events:', mappedSlots);
+        setEvents(mappedSlots); // Set the mapped slots to state
+      } catch (error) {
+        console.error("Error fetching slots:", error);
+      }
     };
 
     fetchApiData();
   }, []);
 
-  // Return the events
   return events;
 };

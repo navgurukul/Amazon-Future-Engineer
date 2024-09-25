@@ -8,6 +8,37 @@ const api = axios.create({
   },
 });
 
+
+// Function to fetch slots
+export const getSlots = async (venueId: number = 1) => {
+    // Retrieve token from localStorage
+    const userDataString = localStorage.getItem('userData');
+    console.log('userDataString:', userDataString);
+  
+    const userData = JSON.parse(userDataString || '{}');
+    console.log('Parsed userData:', userData);
+  
+    const token = userData?.data?.token;
+    console.log('Extracted token:', token);
+  
+    if (!token) {
+      throw new Error('No token found');
+    }
+  
+    try {
+      const response = await api.get(`/slotmanagement/${venueId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching slots:', error);
+      throw error;
+    }
+  };
+
+// Other existing functions (verifyOtp, resendOtp)
 export const verifyOtp = async (phone: string, otp: string) => {
   try {
     const response = await api.post('/auth/verify-otp', { phone, otp });
