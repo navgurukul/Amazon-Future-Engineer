@@ -27,15 +27,29 @@ export const useAllBookings = () => {
         // Map the API response to the event structure
         const mappedSlots: Event[] = slots.map((slot: any) => {
           const slotDate = new Date(slot.date); // Convert slot date string to Date object
-          const [startHour, startMinute] = slot.start_time.split(":").map(Number);
-          const [endHour, endMinute] = slot.end_time.split(":").map(Number);
+          // const [startHour, startMinute] = slot.start_time.split(":").map(Number);
+          // const [endHour, endMinute] = slot.end_time.split(":").map(Number);
 
+          const startDateTime = new Date(`${slot.date.split('T')[0]}T${slot.start_time}:00`);
+          const endDateTime = new Date(`${slot.date.split('T')[0]}T${slot.end_time}:00`);
+
+          //   return {
+          //     id: slot.id.toString(),
+          //     title: `Slot at ${slot.start_time}`, // Adjust title as needed
+          //     start: new Date(slotDate.setHours(startHour, startMinute)), // Create start time
+          //     end: new Date(slotDate.setHours(endHour, endMinute)), // Create end time
+          //     allDay: false,
+          //     extendedProps: {
+          //       availableCapacity: slot.available_capacity,
+          //       status: slot.status,
+          //     },
+          //   };
+          // });
           return {
-            id: slot.id.toString(),
-            title: `Slot at ${slot.start_time}`, // Adjust title as needed
-            start: new Date(slotDate.setHours(startHour, startMinute)), // Create start time
-            end: new Date(slotDate.setHours(endHour, endMinute)), // Create end time
-            allDay: false,
+            id: slot.id,
+            title: `Program ${slot.program_id} - Venue ${slot.venue_id}`,
+            start: startDateTime.toISOString(), // Ensure ISO format
+            end: endDateTime.toISOString(),
             extendedProps: {
               availableCapacity: slot.available_capacity,
               status: slot.status,
