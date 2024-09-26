@@ -23,13 +23,13 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({ isOpen, name }) => 
     if (!isOpen) return null;
 
     const handleBackClick = () => {
-        router.push ('/sprintPages/minipage');
+        router.push('/sprintPages/minipage');
     };
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="w-full px-4 py-2 h-auto p-4 md:px-12 bg-white shadow-md flex justify-between items-center">
-                <div className="w-full px-4 py-2 md:px-8 bg-white shadow-md flex justify-between items-center">
+        <div className="fixed inset-0 flex justify-center bg-black bg-opacity-50">
+            <div className="w-full px-4 h-auto p-4 md:px-12 bg-white shadow-md">
+                <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2 cursor-pointer" onClick={handleBackClick}>
                         <div className="w-6 h-6 relative">
                             <Image
@@ -40,22 +40,17 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({ isOpen, name }) => 
                                 className="w-full h-full"
                             />
                         </div>
-
-                        <div
-                            className="text-lg text-[#3a3a3a] font-medium"
-                        >
+                        <div className="text-lg text-[#3a3a3a] font-medium">
                             Back
                         </div>
-
                     </div>
                     <div className="text-lg text-center font-extrabold text-[#3a3a3a] mx-auto">
                         Mini Sprint
                     </div>
                 </div>
-
-
-                <div className="w-[360px] md:w-[592px] h-auto md:h-[458px] flex-col justify-start items-center gap-8 inline-flex bg-white rounded-lg p-6">
+                <div className="w-[360px] md:w-[592px] h-auto md:h-[458px] flex flex-col justify-center items-center gap-8 bg-white rounded-lg p-6 mt-6 mx-auto">
                     <div className="w-[320px] h-[220px] md:w-[434px] md:h-[238px] bg-[#d9d9d9] rounded-lg"></div>
+
                     <div className="text-center text-[#3a3a3a] text-base md:text-lg font-medium font-['Amazon Ember'] leading-7 md:leading-[30.60px]">
                         Thanks for joining the waiting list {name}. We will contact you via the phone number or email provided when the program is launched.
                     </div>
@@ -74,7 +69,7 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({ isOpen, name }) => 
                         <span className="text-[#3a3a3a] text-base md:text-lg font-medium leading-7 md:leading-[30.60px]">
                             Redirecting to Sprint Information page in 5 seconds or <br />
                         </span>
-                        <span className="text-[#f55c38] text-base md:text-lg font-medium leading-7 md:leading-[30.60px]">
+                        <span className="text-[#f55c38] text-base md:text-lg font-medium leading-7 md:leading-[30.60px] cursor-pointer">
                             Go to Sprint Information manually
                         </span>
                     </div>
