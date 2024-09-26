@@ -59,7 +59,7 @@ const Page = () => {
         bookingPopup={bookingPopup}
       />
       <MainContent handleOfflineBooking={handleBooking} />
-      <Footer />
+      <Footer handleOfflineBooking={handleOfflineBooking}/>
       <Popup
         offlinePopup={bookingPopup}
         handleOfflineBookingClose={handleOfflineBookingClose}
