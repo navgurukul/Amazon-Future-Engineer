@@ -1,14 +1,13 @@
 "use client";
 
-import CreateAClass from "./CreateAClass";
-import CallPopup from "../sprintPages/nanopage/_component/CallPopup";
 import Footer from "../../components/Footer";
-import type { NextPage } from "next";
-import { useState, useCallback,useEffect } from "react";
 import Header from "../../components/Header";
+import CallPopup from "../sprintPages/nanopage/_component/CallPopup";
 import SecondPopup from "../sprintPages/nanopage/_component/SecondPopup";
+import CreateAClass from "./CreateAClass";
+import type { NextPage } from "next";
 import { useRouter } from "next/navigation";
-
+import { useState, useCallback, useEffect } from "react";
 
 
 interface PopupProps {
@@ -26,6 +25,38 @@ const HomePage:  NextPage<PopupProps>  = () => {
   const [offlinePopup, setOfflinePopup] = useState<boolean>(false);
   const [openSecondPopup, setOpenSecondPopup] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const handleSmoothScroll = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+
+      if (
+        target.tagName === "A" &&
+        target.getAttribute("href") === "#virtual-tour"
+      ) {
+        e.preventDefault();
+        const section = document.querySelector("#virtual-tour");
+
+        if (section) {
+          const headerHeight = 120;
+          const sectionPosition =
+            section.getBoundingClientRect().top + window.pageYOffset;
+          window.scrollTo({
+            top: sectionPosition - headerHeight,
+            behavior: "smooth",
+          });
+        }
+      }
+    };
+
+    // Attach event listener to the document for smooth scrolling
+    document.addEventListener("click", handleSmoothScroll);
+
+    // Clean up event listener on unmount
+    return () => {
+      document.removeEventListener("click", handleSmoothScroll);
+    };
+  }, []);
 
   const router = useRouter();
 
@@ -160,22 +191,22 @@ const HomePage:  NextPage<PopupProps>  = () => {
 
   <header className="absolute top-[25%] left-0 max-w-[1200px] mx-auto flex flex-col gap-6 items-start text-left px-4">
     <div className="w-full flex flex-col gap-3 items-start">
-      <h1 className="w-full relative font-bold md:font-extrabold leading-[100%] text-white text-[10vw] md:text-[3vw]">
-        WELCOME TO AFE MAKERSPACE
+      <h1 className="w-[80%] relative font-bold md:font-extrabold leading-[150%] text-white text-[32px] md:text-[3vw]">
+        <span className="inline md:hidden">WELCOME TO AFE MAKERSPACE</span><span className="hidden md:inline">Come build the future with us at the Amazon Future Engineer Makerspace</span>
       </h1>
-      <h2 className="relative text-[5vw] md:text-[2vw] leading-[120%] font-bold md:font-extrabold text-white">
-        A Cutting-Edge Robotics and AI Lab for Educators and Students
+      <h2 className="relative text-[5vw] md:text-[1.8vw] leading-[120%] font-bold md:font-extrabold text-white md:my-2 lg:my-4">
+        <span className="inline md:hidden">A Cutting-Edge Robotics and AI Lab for Educators and Students</span><span className="hidden md:inline">A one-of-a-kind Robotics and AI Lab for students and educators in Bangaloree</span>
       </h2>
     </div>
 
     <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start text-[14px] md:text-[18px] text-white w-full">
       <button
-        className="flex items-center justify-center px-4 py-2 bg-[#f55c38] rounded-full h-12 md:h-14 w-full md:w-auto cursor-pointer"
+        className="flex items-center justify-center md:px-4 md:py-4 lg:px-10 lg:py-4 bg-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto cursor-pointer"
         onClick={handleBookSessionClick}
       >
-        <span className="relative font-medium leading-[170%]">Book a Session</span>
+        <span className="relative font-medium leading-[170%]">Book a Session Online</span>
       </button>
-      <button className="flex items-center justify-center px-4 py-2 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 w-full md:w-auto">
+      <button className="flex items-center justify-center md:px-4 md:py-4 lg:px-10 lg:py-4 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto">
         <span className="relative font-medium leading-[170%]">Take a Virtual Tour</span>
       </button>
     </div>
@@ -228,9 +259,12 @@ const HomePage:  NextPage<PopupProps>  = () => {
     <h2 className="relative font-extrabold leading-[150%] text-[20px] text-5xl md:text-[25px]">
       What is the AFE Makerspace?
     </h2>
+    <div>
     <p className="w-full md:w-1/2 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
-      AFE Studio is a state-of-the-art Robotics and AI lab dedicated to empowering over 4,000 students by 2024. Our lab offers an unparalleled opportunity for students to dive into the fascinating realms of computer science and robotics. Designed with innovation in mind, AFE Studio provides an interactive and immersive environment where students can experiment, learn, and grow.
+      At the AFE Makerspace, we provide exciting learning opportunities in robotics and computer science for students. Our goal is to give them a glimpse into the careers of the future, encouraging them to think big while exploring and creating
     </p>
+    <p className="w-full md:w-1/2 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember'] mt-4">By prioritizing government school students, we ensure equitable access and support diverse talent in shaping the future of technology</p>
+    </div>
   </article>
 
   <div className="w-full overflow-x-auto flex flex-row items-start justify-start gap-4 px-4 md:px-12">
@@ -349,73 +383,73 @@ const HomePage:  NextPage<PopupProps>  = () => {
         </div>
       </section> */}
 <section className="relative w-full bg-[#29458c] flex flex-col items-start justify-start py-[80px] px-4 md:px-12 gap-[48px] text-white">
-  <header className="w-full md:w-[793px] flex flex-col items-start justify-start gap-[16px]">
+  <header className="w-full lg:w-[1000px] flex flex-col items-start justify-start gap-[16px]">
     <h2 className="relative leading-[150%] font-extrabold text-[28px] md:text-[32px]">
-      How it Works?
+      Are You a Government School Teacher in or around Bengaluru?
     </h2>
     <p className="self-stretch relative text-[16px] md:text-[22px] leading-[170%] font-medium font-[Amazon Ember]">
-      There are a few simple steps that you can take to book a sprint session for your students.
+      Help inspire the next generation of tech leaders by registering your students to visit the AFE Makerspace in a few simple steps:
     </p>
   </header>
 
   <div className="w-full overflow-x-auto no-scrollbar">
     <div className="flex flex-row items-start gap-8 w-[full]">
       <img
-        className="w-[80vw] min-w-[220px] h-[140px] object-cover"
+        className="w-[30vw] min-w-[220px] h-[180px] object-cover"
         alt="Step 1"
         src="./homepage/Lottie flies.gif"
       />
       <img
-        className="w-[80vw] min-w-[220px] h-[140px] object-cover"
+        className="w-[30vw] min-w-[220px] h-[180px] object-cover"
         alt="Step 2"
         src="./homepage/Lottie flies.gif"
       />
       <img
-        className="w-[80vw] min-w-[220px] h-[140px] object-cover"
+        className="w-[30vw] min-w-[220px] h-[180px] object-cover"
         alt="Step 3"
         src="./homepage/Lottie flies.gif"
       />
       <img
-        className="w-[80vw] min-w-[220px] h-[140px] object-cover"
+        className="w-[30vw] min-w-[220px] h-[180px] object-cover"
         alt="Step 4"
         src="./homepage/Lottie flies.gif"
       />
     </div>
 
-    <div className="flex justify-center my-4 ml-8 md:ml-0 w-[880px] lg:w-full">
+    {/* <div className="flex justify-center mx-12 ml-8 md:ml-0 w-[880px] lg:w-full">
       <img
         className="h-[24px] object-contain w-full"
         alt="Process Overview"
         src="./homepage/Frame 31704.svg"
       />
-    </div>
+    </div> */}
 
     <div className="flex flex-row items-start gap-8 mt-4 w-full">
       <article className="flex flex-col items-center w-[80vw] min-w-[220px]">
-        <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center">Get to Know Innovation Hub</h3>
-        <p className="lg:text-[20px] md:text-[16px] text-[13px] leading-[150%] font-['Amazon Ember']">
-          Take a look around at what we do at Innovation Hub with the latest happenings or our virtual tour.
+        <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3">Visit AFE Makerspace Virtually</h3>
+        <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center">
+          Take a look at the lab through the <a href="#virtual-tour" className="text-[#f55c38] cursor-pointer">virtual tour</a>
         </p>
       </article>
 
       <article className="flex flex-col items-center w-[80vw] min-w-[220px]">
-        <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center">Check Out Sprint Details</h3>
-        <p className="lg:text-[20px] md:text-[16px] text-[13px] leading-[150%] font-['Amazon Ember']">
-          Explore if the sprint fits your needs and learning goals.
+        <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3">Discover Our Programs</h3>
+        <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center">
+          We offer three programs: Nano, Mini, and Mega sprints. Choose the one that best fit your classroom's learning goals
         </p>
       </article>
 
       <article className="flex flex-col items-center w-[80vw] min-w-[220px]">
-        <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center">Book and Get Ready</h3>
-        <p className="lg:text-[20px] md:text-[16px] text-[13px] leading-[150%] font-['Amazon Ember']">
-          Easily find suitable slots and book via our system or call us.
+        <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3">Book Your Session</h3>
+        <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center">
+          Select a time slot and book your session through our online system or by calling us on +919875466343. Currently, we are only taking bookings for Nano sprints
         </p>
       </article>
 
       <article className="flex flex-col items-center w-[80vw] min-w-[220px]">
-        <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center">Visit & Enjoy the Tinkering</h3>
-        <p className="lg:text-[20px] md:text-[16px] text-[13px] leading-[150%] font-['Amazon Ember']">
-          Get hands-on for the actual fun at the lab.
+        <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3">Visit and Start Learning</h3>
+        <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center">
+          Bring your students to AFE Makerspace and enjoy a hands-on experience with robotics and AI!
         </p>
       </article>
     </div>
@@ -537,17 +571,17 @@ const HomePage:  NextPage<PopupProps>  = () => {
 <section className="relative w-full flex flex-col items-start justify-start gap-12 text-[#29458c] px-4 mt-16 mb-16 md:px-12">
   <article className="w-full max-w-screen-lg flex flex-col items-start justify-start gap-6">
     <h2 className="w-full leading-[150%] font-extrabold text-5xl md:text-[25px]">
-      What to Expect at AFE Makerspace
+      Programs at AFE Makerspace
     </h2>
-    <p className="w-full md:w-1/2 lg:w-3/4 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
+    {/* <p className="w-full md:w-1/2 lg:w-3/4 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
       Teachers can easily schedule lab sessions and integrate Maker's Space into
       their lesson plans/ Curriculum. Pick a program and embark on a
       transformative STEM journey with your students.
-    </p>
+    </p> */}
   </article>
 
   <div className="w-full flex flex-col lg:flex-row items-stretch justify-start gap-6 text-[18px] text-white font-[Amazon Ember]">
-    <section className="flex-1 bg-[#29458c] flex flex-col items-start justify-start p-12 relative gap-8 min-h-[80vh] lg:min-h-[calc(100vh-14.5rem)]">
+    <section className="flex-1 bg-[#29458c] flex flex-col items-start justify-start p-12 relative gap-8 min-h-[80vh] lg:min-h-[calc(100vh-14.5rem)] rounded-md">
       <div className="w-full max-w-screen-md flex flex-col items-start justify-start gap-4 z-0">
         <header className="flex flex-row items-center justify-start gap-4 text-[17px] font-bold">
           <h3 className="leading-[150%] font-bold md:font-extrabold text-white">
@@ -558,7 +592,7 @@ const HomePage:  NextPage<PopupProps>  = () => {
           </span>
         </header>
         <p className="w-full leading-[170%] font-medium text-[14px] md:text-[20px]">
-          One day sessions designed to spark interest and build aspiration.
+          The Nano Sprint Program offers a quick and engaging introduction into the world of Robotics and AI
         </p>
         <div className="flex flex-row items-center gap-2">
           <figure className="w-11 h-8">
@@ -578,10 +612,12 @@ const HomePage:  NextPage<PopupProps>  = () => {
           <p className="leading-[170%] font-medium text-[14px] md:text-[20px]">
             30 to 40 students per session
           </p>
+          
         </div>
+        <p className="w-full leading-[170%] font-medium text-[14px] md:text-[20px]">Registrations are open!</p>
         <div>
           <button
-            className="rounded-full bg-white text-[#29458c] px-4 py-1 md:px-8 md:py-2.5 text-lg font-bold"
+            className="rounded-full bg-white text-[#f55c38] px-4 py-1 md:px-8 md:py-4 text-lg font-bold mt-8"
             onClick={handleBookSessionClick}
           >
             Book a Session
@@ -591,56 +627,55 @@ const HomePage:  NextPage<PopupProps>  = () => {
     </section>
 
     <aside className="w-full lg:w-[30%] flex flex-col gap-6 min-h-[80vh] lg:min-h-[calc(100vh-14.5rem)]">
-      <article className="w-full bg-[#cdeaea] flex flex-col items-start p-12 gap-6 h-full">
+      <article className="w-full bg-[#cdeaea] flex flex-col items-start p-12 gap-6 h-full rounded-md">
         <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
           <h3 className="leading-[1.5] font-extrabold text-[#29458c]">
             Mini Sprints
           </h3>
-          <span className="rounded-full bg-[#f55c38] h-8 flex items-center justify-center px-4 text-sm text-white font-medium">
+          <span className="rounded-full bg-[#ffad33] h-8 flex items-center justify-center px-4 text-sm text-white font-medium">
             Upcoming
           </span>
         </header>
         <p className="leading-[170%] font-medium text-[#3a3a3a]  text-[14px] md:text-[20px]">
-          Multi-day workshops focusing on specific STEM topics.
+          Multi-day skill building workshops
         </p>
         <button
-          className="flex flex-row items-center text-[#f55c38]"
+          className="rounded-full bg-white text-[#f55c38] px-4 py-1 md:px-8 md:py-4 text-lg font-bold mt-8"
           // onClick = {handleLearnMoreMiniClick}
           onClick={() => handleLearnMoreClick('mini')}
         >
           <p className="leading-[170%] font-medium">Learn More</p>
-          <img
+          {/* <img
             className="w-6 h-6 ml-1"
             alt="Chevron"
             src="./homepage/chevron_right.svg"
-          />
+          /> */}
         </button>
       </article>
 
-      <article className="w-full bg-[#fff2f2] flex flex-col items-start p-12 gap-6 h-full">
+      <article className="w-full bg-[#fdded7] flex flex-col items-start p-12 gap-6 h-full rounded-md">
         <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
           <h3 className="leading-[150%] font-extrabold text-[#29458c]">
             Mega Sprints
           </h3>
-          <span className="rounded-full bg-[#f55c38] h-8 flex items-center justify-center px-2 text-sm text-white font-medium">
+          <span className="rounded-full bg-[#ffad33] h-8 flex items-center justify-center px-2 text-sm text-white font-medium">
             Upcoming
           </span>
         </header>
         <p className="leading-[170%] font-medium text-[#3a3a3a]  text-[14px] md:text-[20px]">
-          Comprehensive Programs Leading to Exciting Competitive Robotics
-          Challenges.
+          Comprehensive programs leading to exciting competitive robotics challenges
         </p>
         <button
-          className="flex flex-row items-center text-[#f55c38]"
+          className="rounded-full bg-white text-[#f55c38] px-4 py-1 md:px-8 md:py-4 text-lg font-bold mt-8"
           // onClick = {handleLearnMoreMiniClick}
           onClick={() => handleLearnMoreClick('mega')}
         >
           <p className="leading-[170%] font-medium">Learn More</p>
-          <img
+          {/* <img
             className="w-6 h-6 ml-1"
             alt="Chevron"
             src="./homepage/chevron_right.svg"
-          />
+          /> */}
         </button>
       </article>
     </aside>
@@ -648,23 +683,24 @@ const HomePage:  NextPage<PopupProps>  = () => {
 </section>
 
 {/* Fifth Section */}
-      <section className="relative min-h-screen text-left text-white flex items-start overflow-hidden mx-2 md:mx-6">
+      <section id="virtual-tour" className="relative min-h-screen text-left text-white flex items-start overflow-hidden mx-4 md:mx-12">
         <img
-          className="absolute top-0 left-0 w-full h-full object-cover"
+          className="absolute top-0 left-0 w-full h-full object-cover brightness-50 rounded"
           alt="Background video"
-          src="./homepage/video 2.svg"
+          // src="./homepage/video 2.svg"
+          src="./homepage/video image.jpeg"
         />
 
         <div className="relative z-10 flex flex-col items-start justify-start gap-8 px-4 md:px-8 py-8 lg:mx-6">
           <h2 className="text-13xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
-            Take a Sneak Peak at AFE Innovation Hub
+            Take a Sneak Peak at AFE Makerspace
           </h2>
 
           <a
             href="#"
-            className="rounded-full bg-white h-12 md:h-16 flex items-center justify-center px-6 py-3 text-lg text-[#29458c] font-[Amazon Ember] hover:bg-gray-100 transition-colors duration-300"
+            className="rounded-full bg-white h-12 md:h-16 flex items-center justify-center px-6 py-3 text-lg text-[#f55c38] font-[Amazon Ember] hover:bg-gray-100 transition-colors duration-300"
           >
-            <span className="font-medium">Start Virtual Tour</span>
+            <span className="font-medium">Take Virtual Tour</span>
           </a>
         </div>
       </section>
@@ -716,13 +752,12 @@ const HomePage:  NextPage<PopupProps>  = () => {
           </button>
         </div>
       </section> */}
-<section className="relative mx-4 md:mt-12 lg:mx-12 flex flex-col items-start justify-start gap-8 text-[#29458c]">
+{/* <section className="relative mx-4 mt-8 md:mt-12 md:mx-12 flex flex-col items-start justify-start gap-8 text-[#29458c]">
   <header className="w-full text-5xl md:text-[25px] font-extrabold leading-[150%]">
     Latest From AFE Makerspace
   </header>
 
   <div className="w-full flex items-center justify-between relative">
-    {/* Left arrow, hidden on small screens */}
     <button className="w-12 h-12 flex items-center justify-center overflow-hidden hidden sm:flex">
       <img
         className="object-cover"
@@ -731,7 +766,6 @@ const HomePage:  NextPage<PopupProps>  = () => {
       />
     </button>
 
-    {/* Images container with horizontal scrolling on small screens */}
     <div className="w-full overflow-x-auto flex flex-row items-start justify-start gap-4 px-4">
       <figure className="flex-none w-[calc(100vw-80px)] h-[calc((100vw-32px)*0.6)] md:w-[32%] md:h-[calc((100vw-32px)*0.22)]">
         <img
@@ -756,7 +790,6 @@ const HomePage:  NextPage<PopupProps>  = () => {
       </figure>
     </div>
 
-    {/* Right arrow, hidden on small screens */}
     <button className="w-12 h-12 flex items-center justify-center overflow-hidden hidden sm:flex">
       <img
         className="object-cover"
@@ -765,11 +798,11 @@ const HomePage:  NextPage<PopupProps>  = () => {
       />
     </button>
   </div>
-</section>
-{/* Seventh Section */}
-      <section className="relative mx-4 lg:mx-12 flex flex-col items-start justify-start gap-4 text-[#29458c] py-8">
+</section> */}
+
+      <section className="relative mx-4 md:mx-12 flex flex-col items-start justify-start gap-4 text-[#29458c] py-8 md:py-16">
         <h2 className="text-5xl font-extrabold leading-[150%] md:text-[25px]">
-          Have Any Questions?
+          Have Questions or Want to Book a Session?
         </h2>
         <p className="text-base leading-[170%] font-[Amazon Ember] text-[#3a3a3a] md:text-[20px]">
           <strong>
@@ -777,6 +810,8 @@ const HomePage:  NextPage<PopupProps>  = () => {
             <a href="mailto:afeinnovation@ihub.com" className="text-[#f55c38]">
               afeinnovation@ihub.com
             </a>
+            <span> or Call/Whatsapp on </span>
+            <a href="" className="text-[#f55c38]">+918764674356</a>
           </strong>
         </p>
       </section>

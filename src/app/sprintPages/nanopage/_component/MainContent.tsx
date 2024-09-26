@@ -113,22 +113,23 @@ const MainContent = ({ handleOfflineBooking }) => {
           </p>
         </article>
       </section> */}
-<section className="w-full flex flex-row items-center justify-center md:justify-center gap-8 md:gap-12 text-left text-lg md:text-2xl lg:text-3xl overflow-x-auto no-scrollbar pl-40">
+<section className="w-full flex flex-row items-center justify-center gap-8 md:gap-12 text-left text-lg md:text-2xl lg:text-3xl overflow-x-auto no-scrollbar pl-40 md:pl-0">
   {/* Article for Nano Sprints */}
   <article
     className="flex-shrink-0 w-[36vw] sm:w-[45vw] md:w-[118px] flex flex-col items-center justify-start gap-4"
     onClick={() => handleChange("nano")}
   >
     <Image
-      className={`w-full h-auto object-cover rounded-md ${
+      className={`w-[50%] h-auto object-cover rounded-md ${
         page.nano ? "" : "mix-blend-luminosity"
       }`}
       alt="Nano Sprints"
-      src={!page.nano ? "/nanopage/Vector (1).svg" : "/nanopage/Vector.svg"}
+      // src={!page.nano ? "/nanopage/Vector (1).svg" : "/nanopage/Vector.svg"}
+      src={!page.nano ? "/nanopage/reshot-icon-triangle-puzzle-block-A4BNSTCJ6D 1(1).svg" : "/nanopage/reshot-icon-triangle-puzzle-block-A4BNSTCJ6D 1.svg"}
       width={110}
       height={110}
     />
-    <p className={page.nano ? "leading-[150%] font-extrabold text-[#29458c]" : "leading-[150%]"}>
+    <p className={page.nano ? "leading-[150%] font-extrabold text-[#29458c]" : "leading-[150%] font-extrabold text-[#bdbdbd]"}>
       Nano Sprints
     </p>
   </article>
@@ -139,15 +140,15 @@ const MainContent = ({ handleOfflineBooking }) => {
     onClick={() => handleChange("mini")}
   >
     <Image
-      className={`w-full h-auto object-cover rounded-md ${
+      className={`w-[50%] h-auto object-cover rounded-md ${
         page.mini ? "" : "mix-blend-luminosity"
       }`}
       alt="Mini Sprints"
-      src={!page.mini ? "/nanopage/Vector (1).svg" : "/nanopage/Vector.svg"}
+      src={!page.mini ? "/nanopage/reshot-icon-block-stacking-tower-4TBWAMFDY8 1(1).svg" : "/nanopage/reshot-icon-block-stacking-tower-4TBWAMFDY8 1.svg"}
       width={110}
       height={110}
     />
-    <p className={page.mini ? "leading-[150%] font-extrabold text-[#29458c]" : "leading-[150%]"}>
+    <p className={page.mini ? "leading-[150%] font-extrabold text-[#29458c]" : "leading-[150%] font-extrabold text-[#bdbdbd]"}>
       Mini Sprints
     </p>
   </article>
@@ -158,15 +159,15 @@ const MainContent = ({ handleOfflineBooking }) => {
     onClick={() => handleChange("mega")}
   >
     <Image
-      className={`w-full h-auto object-cover rounded-md ${
+      className={`w-[50%] h-auto object-cover rounded-md ${
         page.mega ? "" : "mix-blend-luminosity"
       }`}
       alt="Mega Sprints"
-      src={!page.mega ? "/nanopage/Vector (1).svg" : "/nanopage/Vector.svg"}
+      src={!page.mega ? "/nanopage/reshot-icon-3x3x3-puzzle-block-PUT9QD5ZER 1(1).svg" : "/nanopage/reshot-icon-3x3x3-puzzle-block-PUT9QD5ZER 1.svg"}
       width={110}
       height={110}
     />
-    <p className={page.mega ? "leading-[150%] font-extrabold text-[#29458c]" : "leading-[150%]"}>
+    <p className={page.mega ? "leading-[150%] font-extrabold text-[#29458c]" : "leading-[150%] font-extrabold text-[#bdbdbd]"}>
       Mega Sprints
     </p>
   </article>
@@ -176,8 +177,8 @@ const MainContent = ({ handleOfflineBooking }) => {
 
 
 {/* Second Section */}
-      <section className="md:max-w-[70%] text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold font-['Amazon Ember'] text-[#29458c] text-left mt-6 md:mt-10">
-        Nano Sprints: One-Day Introductory Sessions to Spark Interest and Build Aspiration
+      <section className="md:max-w-[100%] text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold font-['Amazon Ember'] text-[#29458c] text-left mt-6 md:mt-10">
+        Nano Sprints: One-day experiential learning sessions to ignite interest and aspirations in Robotics and AI
       </section>
 
 {/* Third Section */}
