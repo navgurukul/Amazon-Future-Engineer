@@ -16,9 +16,41 @@ const Booking = ({ handleOfflineBooking }) => {
           <div className="flex flex-col w-full lg:w-2/3 gap-8">
             <div className="w-full text-left text-[#29458c]">
               <h1 className="text-2xl md:text-3xl lg:text-13xl font-extrabold font-['Amazon Ember']">
-                Why is Nano a Perfect Fit for Your Class?
+                Programs Details
               </h1>
             </div>
+            <div className="flex flex-row items-center gap-4 text-darkslategray">
+      <img
+        className="w-[67px] h-12 overflow-hidden relative"
+        src="/nanopage/reshot-icon-time-YEDR7WZV2Q.svg"
+        alt="Time Icon"
+      />
+      <div className="flex flex-col">
+        <b className="leading-[170%] text-extrabold">Duration</b>
+        <div className="leading-[170%] font-medium">1 Day (3 hours)</div>
+      </div>
+    </div>
+    <div className="flex flex-row items-center gap-4 text-darkslategray">
+      <img
+        className="w-[67px] h-12 overflow-hidden relative"
+        alt="Batch Strength Icon"
+        src="/nanopage/reshot-icon-student-DRC3YF56MU.svg"
+      />
+      <div className="flex flex-col">
+        <b className="leading-[170%] text-extrabold">Batch Strength</b>
+        <div className="leading-[170%] font-medium">
+          30 to 40 students per session
+        </div>
+      </div>
+    </div>
+     <div className="w-full mt-8">
+        <h1 className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left">
+          Why Schedule a Nano Sprint?{" "}
+        </h1>
+        <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember'] mt-4">
+          Nano Sprints are designed to spark students' curiosity by providing an engaging, hands-on introduction to robotics and AI. They offer students the chance to tinker, learn new skills, and explore the world of robotics and AI, inspiring the next generation of innovators
+        </p>
+      </div>
             {/* <div className="flex gap-8 items-start">
               <div className="flex flex-col gap-[300px] mt-20">
                 <div className="relative flex items-center gap-4 md:w-[100%]">
@@ -87,8 +119,7 @@ const Booking = ({ handleOfflineBooking }) => {
                 </div>
               </div>
             </div> */}
-            <div className="flex md:gap-8 items-start flex-wrap md:flex-nowrap">
-  {/* Left Column */}
+            {/* <div className="flex md:gap-8 items-start flex-wrap md:flex-nowrap">
   <div className="flex flex-col md:gap-[300px] md:mt-20 w-full md:w-auto">
     <div className="relative flex items-center md:gap-4 w-full md:w-[100%]">
       <img
@@ -119,14 +150,12 @@ const Booking = ({ handleOfflineBooking }) => {
     </div>
   </div>
 
-  {/* Divider: Hide on smaller screens */}
   <img
     className="hidden md:block"
     src="/nanopage/Frame 31619.svg"
     alt="Divider"
   />
 
-  {/* Right Column */}
   <div className="flex flex-col md:gap-[300px] md:mt-44 md:ml-20 w-full md:w-auto">
     <div className="relative flex items-center gap-4 w-full md:w-[100%] md:mt-20">
       <img
@@ -156,7 +185,7 @@ const Booking = ({ handleOfflineBooking }) => {
       </div>
     </div>
   </div>
-</div>
+</div> */}
 
 
           </div>
@@ -210,7 +239,10 @@ const Booking = ({ handleOfflineBooking }) => {
           </div> */}
 <div className="hidden lg:block lg:w-1/3 w-full sticky top-32 h-full">
   <div className="w-full relative rounded-lg bg-incandescent-light border-[2px] border-incandescent-main p-8 gap-8">
-    <div className="flex flex-row items-center gap-4 md:mb-10">
+    <h1 className="text-darkslategray leading-[150%] lg:text-[20px] md:text-[16px] text-[12px] font-bold font-extrabold font-[Amazon Ember]">Get Started Today</h1>
+    <p className="text-darkslategray leading-[150%] font-extrabold font-[Amazon Ember] lg:text-[17px] md:text-[12px] text-[10px] font-medium mt-4 mb-8">Give your students an exciting glimpse into the careers of the future</p>
+    {/* lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center */}
+    {/* <div className="flex flex-row items-center gap-4 md:mb-10">
       <img
         className="w-[67px] h-12 overflow-hidden relative"
         src="/nanopage/reshot-icon-time-YEDR7WZV2Q.svg"
@@ -220,9 +252,9 @@ const Booking = ({ handleOfflineBooking }) => {
         <b className="leading-[170%]">Duration</b>
         <div className="leading-[170%] font-medium">1 Day (3 hours)</div>
       </div>
-    </div>
+    </div> */}
 
-    <div className="flex flex-row items-center gap-4 md:mb-10">
+    {/* <div className="flex flex-row items-center gap-4 md:mb-10">
       <img
         className="w-[67px] h-12 overflow-hidden relative"
         alt="Batch Strength Icon"
@@ -234,7 +266,7 @@ const Booking = ({ handleOfflineBooking }) => {
           30 to 50 students per session
         </div>
       </div>
-    </div>
+    </div> */}
 
     <div className="flex flex-col gap-4 text-center">
       <div className="w-full h-14 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer"
@@ -246,7 +278,7 @@ const Booking = ({ handleOfflineBooking }) => {
         onClick={handleOfflineBooking}
       >
         <div className="leading-[170%] font-medium text-text-primary">
-          Book via Helpdesk
+          Book Over Call
         </div>
       </div>
     </div>
@@ -263,7 +295,7 @@ const Booking = ({ handleOfflineBooking }) => {
       onClick={handleOfflineBooking}
     >
       <div className="leading-[170%] font-medium text-text-primary">
-        Book via Helpdesk
+        Book Over Call
       </div>
     </div>
   </div>

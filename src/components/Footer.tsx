@@ -1,6 +1,11 @@
 import type { NextPage } from "next";
 
-const Footer: NextPage = () => {
+
+interface FooterProps {
+  handleOfflineBooking: () => void;
+}
+
+const Footer: NextPage = ({handleOfflineBooking}) => {
   return (
     <div className="w-full bg-[#ffad33] h-auto text-center text-lg text-gray-800 font-amazon-ember py-4">
       <div className="flex flex-col md:flex-row justify-between items-center h-full px-6">
@@ -20,13 +25,13 @@ const Footer: NextPage = () => {
         </div>
 
         {/* Helpdesk Section */}
-        <div className="flex flex-row items-center justify-center gap-2 px-6 py-2 mt-4 md:mt-0 rounded-full bg-gray-200 text-orange-600 order-3 md:order-none">
+        <div className="flex flex-row items-center justify-center gap-2 px-6 py-2 mt-4 md:mt-0 rounded-full bg-gray-200 text-orange-600 order-3 md:order-none cursor-pointer" onClick={handleOfflineBooking}>
           <img
             className="w-8 h-8 object-cover"
             alt="Helpdesk Icon"
             src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
           />
-          <div className="font-medium leading-[170%]">Helpdesk</div>
+          <div className="font-medium leading-[170%]">Call Us</div>
         </div>
       </div>
     </div>
@@ -34,4 +39,3 @@ const Footer: NextPage = () => {
 };
 
 export default Footer;
-
