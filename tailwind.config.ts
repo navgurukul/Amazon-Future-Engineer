@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 
+
 const config: Config = {
   darkMode: ["class"],
   content: [
@@ -22,13 +23,15 @@ const config: Config = {
         "midnight-blue-dark": "#192954",
         "midnight-blue-light": "#D4DAE8",
         "midnight-blue-contrasttext": "#FFF",
-        "midnight-blue-gradient": "linear-gradient(90deg, rgba(41, 69, 140, 0.72) 0%, #192954 100%)",
+        "midnight-blue-gradient":
+          "linear-gradient(90deg, rgba(41, 69, 140, 0.72) 0%, #192954 100%)",
 
         "incandescent-main": "#F55C38",
         "incandescent-dark": "#933722",
         "incandescent-light": "#FDDED7",
         "incandescent-contrasttext": "#FFF",
-        "incandescent-gradient": "linear-gradient(90deg, rgba(245, 92, 56, 0.72) 0%, #933722 100%)",
+        "incandescent-gradient":
+          "linear-gradient(90deg, rgba(245, 92, 56, 0.72) 0%, #933722 100%)",
 
         "pink-main": "#F091B2",
         "pink-dark": "#FCE9F0",
@@ -118,17 +121,17 @@ const config: Config = {
         },
       },
       fill: {
-        'paper': 'var(--bg-surface-paper, #FFF)',
-        'default': 'var(--bg-surface-default, #FFF)',
-        'elevated8dp': 'var(--bg-surface-elevated-8, #FFF)',
+        paper: "var(--bg-surface-paper, #FFF)",
+        default: "var(--bg-surface-default, #FFF)",
+        elevated8dp: "var(--bg-surface-elevated-8, #FFF)",
       },
       stroke: {
-        'paper': 'var(--Text-Primary, #3A3A3A)',
-        'default': 'var(--Text-Primary, #3A3A3A)',
-        'elevated8dp': 'var(--Text-Primary, #3A3A3A)',
+        paper: "var(--Text-Primary, #3A3A3A)",
+        default: "var(--Text-Primary, #3A3A3A)",
+        elevated8dp: "var(--Text-Primary, #3A3A3A)",
       },
       strokeWidth: {
-        '1': '1px',
+        "1": "1px",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -164,6 +167,10 @@ const config: Config = {
         "button1-bold": ["Amazon Ember", "sans-serif"],
         "button2-bold": ["Amazon Ember", "sans-serif"],
       },
+      screens: {
+        xs: "320px",
+        sm: "375px",
+      },
     },
     fontSize: {
       lg: "18px",
@@ -172,17 +179,17 @@ const config: Config = {
       "13xl": "32px",
       inherit: "inherit",
       // Sizes corresponding to each style metioned above
-      "heading1": ["72px", { fontWeight: "700" }],
-      "heading2": ["56px", { fontWeight: "700" }],
-      "heading3": ["42px", { fontWeight: "700" }],
-      "heading4": ["32px", { fontWeight: "700" }],
-      "heading5": ["24px", { fontWeight: "700" }],
-      "subTitle1": ["18px", { fontWeight: "700" }],
-      "subTitle2": ["14px", { fontWeight: "700" }],
-      "body1": ["18px", { fontWeight: "400" }],
-      "body2": ["14px", { fontWeight: "400" }],
-      "button1": ["18px", { fontWeight: "700" }],
-      "button2": ["14px", { fontWeight: "700" }],
+      heading1: ["72px", { fontWeight: "700" }],
+      heading2: ["56px", { fontWeight: "700" }],
+      heading3: ["42px", { fontWeight: "700" }],
+      heading4: ["32px", { fontWeight: "700" }],
+      heading5: ["24px", { fontWeight: "700" }],
+      subTitle1: ["18px", { fontWeight: "700" }],
+      subTitle2: ["14px", { fontWeight: "700" }],
+      body1: ["18px", { fontWeight: "400" }],
+      body2: ["14px", { fontWeight: "400" }],
+      button1: ["18px", { fontWeight: "700" }],
+      button2: ["14px", { fontWeight: "700" }],
     },
   },
   plugins: [require("tailwindcss-animate")],

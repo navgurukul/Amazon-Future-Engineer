@@ -14,14 +14,16 @@ interface HeaderProps {
   handleOfflineBooking: () => void;
   offlinePopup: boolean;
   openSecondPopup: boolean;
-  bookingPopup:boolean
+  bookingPopup:boolean,
+  handleBookSessionClick: () => void;
 }
 const Header: NextPage<HeaderProps> = ({
   handleOfflineBooking,
   offlinePopup,
   openSecondPopup,
   bgColor,
-  bookingPopup
+  bookingPopup,
+  handleBookSessionClick,
 }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -31,6 +33,7 @@ const Header: NextPage<HeaderProps> = ({
   const [profileOpen, setProfileOpen] = useState<any>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [headerBgColor, setHeaderBgColor] = useState<string>(
     // profileOpen ? "bg-white" : "bg-transparent"
     // "bg-white"
@@ -194,8 +197,9 @@ const Header: NextPage<HeaderProps> = ({
               />
             ) : (
               <nav
-                className="flex items-center justify-center h-12 bg-[#FFF] rounded-full p-2 px-4 sm:px-8 gap-2 sm:gap-3 text-base sm:text-lg text-[#F55C38] cursor-pointer"
-                onClick={handleLoginClick}
+                className="flex items-center justify-center md:h-12 bg-[#F0F0F0] rounded-full p-2 px-4 sm:px-8 gap-2 sm:gap-3 text-base sm:text-lg text-[#F55C38] cursor-pointer mt-2"
+                // onClick={handleLoginClick}
+                onClick={handleBookSessionClick}
               >
                 <span className="relative font-medium leading-[170%]">Login</span>
               </nav>
@@ -206,7 +210,7 @@ const Header: NextPage<HeaderProps> = ({
     ) : (
       <>
         {/* Large screen "Call Us" button */}
-        <div
+        {/* <div
           className={`flex items-center justify-center h-12 rounded-full p-2 px-4 sm:px-8 gap-2 sm:gap-3 text-base sm:text-lg ${
             profileOpen
               ? "bg-[#FDDED7] text-[#F55C38] cursor-pointer"
@@ -220,12 +224,12 @@ const Header: NextPage<HeaderProps> = ({
             src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
           />
           <div className="font-medium leading-[170%]">Call Us</div>
-        </div>
+        </div> */}
 
         {/* Language selector and user avatar */}
-        <div className={`flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 ${
-            profileOpen ? "bg-[#FDDED7]" : "bg-[#F0F0F0]"
-          }`}
+        <div className={`flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2
+         bg-[#FFF]`}
+        //  ${profileOpen ? "bg-[#FDDED7]" : "bg-[#F0F0F0]"} 
         >
           <div className="flex items-center justify-center rounded-full h-8 px-3 py-2 bg-[#F55C38] text-white">
             <div className="text-sm sm:text-base font-medium cursor-pointer">Eng</div>
@@ -245,7 +249,8 @@ const Header: NextPage<HeaderProps> = ({
         ) : (
           <nav
             className="flex items-center justify-center h-12 bg-[#FFF] rounded-full p-2 px-4 sm:px-8 gap-2 sm:gap-3 text-base sm:text-lg text-[#F55C38] cursor-pointer"
-            onClick={handleLoginClick}
+            // onClick={handleLoginClick}
+            onClick={handleBookSessionClick}
           >
             <span className="relative font-medium leading-[170%]">Login</span>
           </nav>
