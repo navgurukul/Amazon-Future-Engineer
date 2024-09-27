@@ -361,21 +361,25 @@
 "use client"
 import * as React from "react";
 import Image from "next/image";
+
 import type { NextPage } from "next";
-import Header from "../sprintPages/nanopage/_component/Header";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from 'react';
 import FirstPopup from './_components/FirstPopup';
 import PhoneSecondPopup from './_components/PhoneSecondPopup';
 
 
-const Page: NextPage = () => {
-    const router = useRouter();
 
-    const handleViewSprintDetails = () => {
-        // Navigate to the desired page
-        router.push("/sprintPages/nanopage");
-    };
+const Page = () => {
+  const router = useRouter();
+  const [offlinePopup, setOfflinePopup] = useState<boolean>(false);
+  const [openSecondPopup, setOpenSecondPopup] = useState<boolean>(false);
+
+  const handleViewSprintDetails = () => {
+    // Navigate to the desired page
+    router.push("/sprintPages/nanopage");
+  };
 
     const [isFirstPopupOpen, setIsFirstPopupOpen] = useState(false);
     const [isPhoneSecondPopupOpen, setIsPhoneSecondPopupOpen] = useState(false);
@@ -392,19 +396,104 @@ const Page: NextPage = () => {
 
 
 
-    return (
-        <>
-            <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
-                <Header isLoggedIn={true} handleOfflineBooking={function (): void {
-                    throw new Error("Function not implemented.");
-                }} offlinePopup={false} openSecondPopup={false} />
+
+  const handleOfflineBooking: () => void = () => {
+    setOfflinePopup(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    document.body.classList.add("overflow-hidden");
+  };
+
+  const handleOfflineBookingClose = () => {
+    setOfflinePopup(false);
+    setOpenSecondPopup(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    document.body.classList.add("overflow-hidden");
+  };
+
+  const handleClose = () => {
+    setOfflinePopup(false);
+    document.body.classList.remove("overflow-hidden");
+  };
+  // Close the second popup after 2 seconds
+  useEffect(() => {
+    if (openSecondPopup) {
+      const timer = setTimeout(() => {
+        setOpenSecondPopup(false);
+        document.body.classList.remove("overflow-hidden");
+      }, 5000);
+
+      return () => clearTimeout(timer); // Clean up the timer on unmount or change
+    }
+  }, [openSecondPopup]);
+
+  return (
+    <>
+      <Header
+        handleOfflineBooking={handleOfflineBooking}
+        offlinePopup={offlinePopup}
+        openSecondPopup={openSecondPopup}
+      />
+
+      {/* <Header isLoggedIn={true} /> */}
+      {/* <div className="mt-[184px] max-w-[90%] sm:max-w-[1216px] h-auto flex flex-col justify-start items-center gap-8 mb-8 mx-auto relative"> */}
+      <div className=" pt-[184px] max-w-[90%] sm:max-w-[1216px] h-auto flex flex-col justify-start items-center gap-8 mb-8 mx-auto relative">
+        {/* <Header isLoggedIn={true} /> */}
+        <div className="text-[#29458c]  text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px] self-stretch">
+          My Bookings
+        </div>
+        {[...Array(3)].map((_, index) => (
+          <div
+            key={index}
+            className="bg-white p-4 rounded-md flex flex-col sm:flex-row sm:justify-between sm:items-center shadow-md h-auto sm:h-[132px] border border-gray-200 w-full"
+          >
+            <div className="space-y-2 text-left sm:text-right">
+              <div className="text-lg text-left font-semibold">Nano Sprint</div>
+              <div className="flex flex-col sm:flex-row space-x-0 sm:space-x-4 space-y-2 sm:space-y-0">
+                <div className="flex items-center space-x-2">
+                  <Image
+                    className="w-6 sm:w-8 h-6 sm:h-8"
+                    alt="calendar icon"
+                    src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg"
+                    width={20}
+                    height={20}
+                  />
+                  <div className="text-[#3a3a3a] flex items-center text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                    24 Sept 2024
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Image
+                    className="w-6 sm:w-8 h-6 sm:h-8"
+                    alt="time icon"
+                    src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg"
+                    width={20}
+                    height={20}
+                  />
+                  <div className="text-[#3a3a3a] flex items-center text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                    2 PM to 5 PM
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Image
+                    className="w-6 sm:w-8 h-6 sm:h-8"
+                    alt="students icon"
+                    src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg"
+                    width={20}
+                    height={20}
+                  />
+                  <div className="text-[#3a3a3a] flex items-center text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                    30 Students
+                  </div>
+                </div>
+              </div>
             </div>
-            {/* <Header isLoggedIn={true} /> */}
-            {/* <div className="mt-[184px] max-w-[90%] sm:max-w-[1216px] h-auto flex flex-col justify-start items-center gap-8 mb-8 mx-auto relative"> */}
-            <div className=" pt-[184px] max-w-[90%] sm:max-w-[1216px] h-auto flex flex-col justify-start items-center gap-8 mb-8 mx-auto relative">
-                {/* <Header isLoggedIn={true} /> */}
-                <div className="text-[#29458c]  text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px] self-stretch">
-                    My Bookings
+            <div>
+              <div className="h-14 px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full sm:w-48 sm:px-6 sm:py-2 mt-4">
+                <div
+                  onClick={handleOpenReschedule}
+                  className="text-center text-[#f55c38] text-lg font-medium font-['Amazon Ember'] leading-[30.60px] sm:text-base sm:leading-7 cursor-pointer"
+                >
+                  Reschedule
                 </div>
                 {/* <div className="text-[#29458c] text-heading4 font-heading4-bold  sm:text-[32px]  leading-[48px] sm:leading-[48px] self-stretch">
                     My Bookings
@@ -528,8 +617,35 @@ const Page: NextPage = () => {
                     </div>
                 </div>
             </div>
-        </>
-    );
+          </div>
+        </div>
+      </div>
+      <div className="w-full max-w-[90%] sm:w-[1216px] h-auto flex flex-col justify-center items-start gap-8 mx-auto relative mt-8">
+        <div className="flex flex-col justify-start items-start gap-4">
+          <div className="text-left text-[#29458c] text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px]">
+            Planned for future sprints?
+          </div>
+          <div className="text-left text-[#3a3a3a] text-lg font-medium leading-[30.60px]">
+            Check out the sprint details and book one for your students today.
+          </div>
+        </div>
+        <div
+          className="w-full sm:w-auto h-12 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center mb-4 gap-2 flex cursor-pointer"
+          onClick={handleViewSprintDetails}
+        >
+          <div className="text-center text-white text-base font-medium font-['Amazon Ember'] leading-7 ">
+            View Sprint Details
+          </div>
+        </div>
+      </div>
+      <CallPopup
+        offlinePopup={offlinePopup}
+        handleOfflineBookingClose={handleOfflineBookingClose}
+        // openSecondPopup={openSecondPopup}
+        handleClose={handleClose}
+      />
+    </>
+  );
 };
 
 export default Page;

@@ -1,12 +1,13 @@
 "use client";
 
-import CreateAClass from "./CreateAClass";
-import Popup from "../sprintPages/nanopage/_component/Popup";
-import Footer from "../sprintPages/nanopage/_component/Footer";
-import type { NextPage } from "next";
-import { useState, useCallback,useEffect } from "react";
-import Header from "../sprintPages/nanopage/_component/Header";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import CallPopup from "../sprintPages/nanopage/_component/CallPopup";
 import SecondPopup from "../sprintPages/nanopage/_component/SecondPopup";
+import CreateAClass from "./CreateAClass";
+import type { NextPage } from "next";
+import { useRouter } from "next/navigation";
+import { useState, useCallback, useEffect } from "react";
 
 
 interface PopupProps {
@@ -23,6 +24,41 @@ const HomePage:  NextPage<PopupProps>  = () => {
   const [isHelpDeskPopupOpen, setIsHelpDeskPopupOpen] = useState(false);
   const [offlinePopup, setOfflinePopup] = useState<boolean>(false);
   const [openSecondPopup, setOpenSecondPopup] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const handleSmoothScroll = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+
+      if (
+        target.tagName === "A" &&
+        target.getAttribute("href") === "#virtual-tour"
+      ) {
+        e.preventDefault();
+        const section = document.querySelector("#virtual-tour");
+
+        if (section) {
+          const headerHeight = 120;
+          const sectionPosition =
+            section.getBoundingClientRect().top + window.pageYOffset;
+          window.scrollTo({
+            top: sectionPosition - headerHeight,
+            behavior: "smooth",
+          });
+        }
+      }
+    };
+
+    // Attach event listener to the document for smooth scrolling
+    document.addEventListener("click", handleSmoothScroll);
+
+    // Clean up event listener on unmount
+    return () => {
+      document.removeEventListener("click", handleSmoothScroll);
+    };
+  }, []);
+
+  const router = useRouter();
 
   const onFrameContainerClick = useCallback(() => {
     // Add your code here
@@ -46,6 +82,27 @@ const HomePage:  NextPage<PopupProps>  = () => {
   // Function to close the helpdesk popup
   const closeHelpDeskPopup = () => {
     setIsHelpDeskPopupOpen(false);
+  };
+
+  // Function to handle redirection on "Learn More" button click
+  // const handleLearnMoreMiniClick = () => {
+  //   router.push("/sprintPages/minipage");
+  // };
+
+  // const handleLearnMoreMegaClick = () => {
+  //   router.push("/sprintPages/megapage");
+  // };
+
+  const handleLearnMoreClick = (type) => {
+    if (isLoggedIn) {
+      if (type === "mini") {
+       router.push("/sprintPages/minipage");
+      } else if (type === "mega") {
+      router.push("/sprintPages/megapage");
+      }
+    } else {
+      alert("Please login to continue");
+    }
   };
 
 
@@ -82,25 +139,20 @@ const HomePage:  NextPage<PopupProps>  = () => {
     <div className="w-full relative bg-white min-h-screen overflow-hidden text-left text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
       {/* <Header/> */}
       <Header
-      isLoggedIn={false}
+      handleBookSessionClick={handleBookSessionClick}
       handleOfflineBooking={handleOfflineBooking}
       offlinePopup={offlinePopup}
       openSecondPopup={openSecondPopup}
+      bgColor= {"transparent"}
     />
       {/* First Section */}
-      <section className="relative w-full min-h-screen text-center text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
+      {/* <section className="relative w-full min-h-screen text-center text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
         <video
           src="./homepage/video.mp4"
           className="absolute top-0 left-0 w-full h-full object-cover brightness-50"
           autoPlay
           muted
         ></video>
-
-        {/* <img
-          className="absolute top-[2vw] left-[2vw] w-[4vw] h-[4vw] overflow-hidden"
-          alt=""
-          src="./homepage/reshot-icon-molecules-YBNSD562JC 1.svg"
-        /> */}
 
         <header className="absolute top-[25%] left-[2vw] max-w-[1200px] mx-auto flex flex-col gap-6 items-start text-left">
           <div className="w-full flex flex-col gap-4 items-start">
@@ -121,18 +173,6 @@ const HomePage:  NextPage<PopupProps>  = () => {
                 Book a Session
               </span>
             </button>
-            {/* <button
-              className="flex items-center justify-center px-4 py-2 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 gap-2"
-              onClick={handleHelpDeskPopup}
-            >
-              <img
-                src="./nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
-                alt="helpdesk"
-              />
-              <span className="relative font-medium leading-[170%]">
-                Helpdesk
-              </span>
-            </button> */}
             <button className="flex items-center justify-center px-4 py-2 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14">
               <span className="relative font-medium leading-[170%]">
                 Take a Virtual Tour
@@ -140,50 +180,62 @@ const HomePage:  NextPage<PopupProps>  = () => {
             </button>
           </div>
         </header>
-        {/* {isHelpDeskPopupOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-            <Popup closeHelpDeskPopup={closeHelpDeskPopup} />
-          </div>
-        )} */}
+      </section> */}
 
-        {/* <nav
-          className="absolute top-[2vw] right-[2vw] flex items-center justify-center px-8 py-2 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 text-[14px] md:text-[18px] cursor-pointer"
-          onClick={handleBookSessionClick}
-        >
-          <span className="relative font-medium leading-[170%]">Login</span>
-        </nav> */}
+<section className="relative w-full min-h-screen text-center text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
+  <video
+    src="./homepage/video.mp4"
+    className="absolute top-0 left-0 w-full h-full object-cover brightness-50"
+    autoPlay
+    muted
+  ></video>
 
-        
+  <header className="absolute top-[20%] left-0 max-w-[1200px] mx-auto flex flex-col gap-6 items-start text-left px-4">
+    <div className="w-full flex flex-col gap-3 items-start">
+      <h1 className="w-[80%] relative font-bold md:font-extrabold leading-[150%] text-white text-[28px] md:text-[3vw] xs:leading-[120%]">
+        <span className="inline md:hidden">WELCOME TO AFE MAKERSPACE</span><span className="hidden md:inline">Come build the future with us at the Amazon Future Engineer Makerspace</span>
+      </h1>
+      <h2 className="relative text-[5vw] md:text-[1.8vw] leading-[120%] font-bold md:font-extrabold text-white md:my-2 lg:my-4">
+        <span className="inline md:hidden">A Cutting-Edge Robotics and AI Lab for Educators and Students</span><span className="hidden md:inline">A one-of-a-kind Robotics and AI Lab for students and educators in Bangalore</span>
+      </h2>
+    </div>
 
-        {/* <div className="absolute top-[2vw] right-[14vw] flex items-center justify-center px-2 bg-gray-200/70 rounded-full h-8 md:h-12 gap-1 text-[12px] md:text-[14px] text-white">
-          <button className="flex items-center justify-center px-3 py-2 bg-[#f55c38] rounded-full h-6 md:h-8 font-medium leading-5">
-            Eng
-          </button>
-          <button className="flex items-center justify-center px-3 py-2 rounded-full h-6 md:h-8 text-[#3a3a3a]">
-            ಅಇಈ
-          </button>
-        </div> */}
-      </section>
+    <div className="flex flex-col md:flex-row xs:gap-2 sm:gap-4 md:gap-4 lg:gap-8 items-start text-[14px] md:text-[18px] text-white w-full">
+      <button
+        className="flex items-center justify-center md:px-2 md:py-2 lg:px-10 lg:py-4 bg-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto cursor-pointer"
+        onClick={handleBookSessionClick}
+      >
+        <span className="relative font-medium leading-[170%]">Book a Session Online</span>
+      </button>
+      <button className="flex items-center justify-center md:px-4 md:py-4 lg:px-10 lg:py-4 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto gap-4" onClick={handleOfflineBooking}>
+        <img
+            className="w-6 h-6 sm:w-8 sm:h-8 overflow-hidden"
+            alt="Helpdesk Icon"
+            src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
+          />
+        <span className="relative font-medium leading-[170%]">Call Us</span>
+      </button>
+      <button className="flex items-center justify-center md:px-4 md:py-4 lg:px-10 lg:py-4 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto">
+        <span className="relative font-medium leading-[170%]">Take Virtual Tour</span>
+      </button>
+    </div>
+  </header>
+</section>
 
       {isPopupOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <CreateAClass closePopup={closePopup} />
         </div>
       )}
 
       {/* Second Section */}
-      <section className="relative w-full min-h-screen overflow-visible text-left text-xl text-[#29458c] mt-16 md:mt-24">
+      {/* <section className="relative w-full min-h-screen overflow-visible text-left text-xl text-[#29458c] mt-16 md:mt-24">
         <article className="w-full flex flex-col items-start justify-start gap-4 px-4 md:px-12 md:mb-10">
-          <h2 className="relative font-extrabold leading-[150%] md:text-[28px]">
-            What is the AFE Innovation Hub?
+          <h2 className="relative font-extrabold leading-[150%] text-[20px] md:text-[28px]">
+            What is the AFE Makerspace?
           </h2>
-          <p className="w-full md:w-1/2 relative text-[18px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
-            AFE Studio is a state-of-the-art Robotics and AI lab dedicated to
-            empowering over 4,000 students by 2024. Our lab offers an
-            unparalleled opportunity for students to dive into the fascinating
-            realms of computer science and robotics. Designed with innovation in
-            mind, AFE Studio provides an interactive and immersive environment
-            where students can experiment, learn, and grow.
+          <p className="w-full md:w-1/2 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
+            AFE Studio is a state-of-the-art Robotics and AI lab dedicated to empowering over 4,000 students by 2024. Our lab offers an unparalleled opportunity for students to dive into the fascinating realms of computer science and robotics. Designed with innovation in mind, AFE Studio provides an interactive and immersive environment where students can experiment, learn, and grow
           </p>
         </article>
 
@@ -210,15 +262,54 @@ const HomePage:  NextPage<PopupProps>  = () => {
             />
           </figure>
         </div>
-      </section>
-      <section className="relative w-full bg-[#29458c] flex flex-col items-start justify-start py-[80px] px-4 md:px-12 gap-[48px] text-white">
+      </section> */}
+      <section className="relative w-full min-h-screen overflow-visible text-left text-xl text-[#29458c] py-12 md:mt-16">
+  <article className="w-full flex flex-col items-start justify-start gap-4 px-4 md:px-12 mb-10">
+    <h2 className="relative font-extrabold leading-[150%] text-[20px] text-5xl md:text-[25px]">
+      What is the AFE Makerspace?
+    </h2>
+    <div>
+    <p className="w-full md:w-1/2 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
+      At the AFE Makerspace, we provide exciting learning opportunities in robotics and computer science for students. Our goal is to give them a glimpse into the careers of the future, encouraging them to think big while exploring and creating
+    </p>
+    <p className="w-full md:w-1/2 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember'] mt-4">By prioritizing government school students, we ensure equitable access and support diverse talent in shaping the future of technology</p>
+    </div>
+  </article>
+
+  <div className="w-full overflow-x-auto flex flex-row items-start justify-start gap-4 px-4 md:px-12">
+    <figure className="flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[24%] md:h-[360px]">
+      <img
+        className="object-cover w-full h-full"
+        alt="AFE Hub Image 1"
+        src="./homepage/Rectangle 4(2).svg"
+      />
+    </figure>
+    <figure className="flex-none w-[calc(100vw-32px)] h-[calc((100vw-32px)*0.6)] md:w-[50%] md:h-[360px]">
+      <img
+        className="object-cover w-full h-full"
+        alt="AFE Hub Image 2"
+        src="./homepage/Rectangle 3-new.svg"
+      />
+    </figure>
+    <figure className="flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[24%] md:h-[360px]">
+      <img
+        className="object-cover w-full h-full"
+        alt="AFE Hub Image 3"
+        src="./homepage/Rectangle 5-new.svg"
+      />
+    </figure>
+  </div>
+</section>
+
+{/* Third Section */}
+      {/* <section className="relative w-full bg-[#29458c] flex flex-col items-start justify-start py-[80px] px-4 md:px-12 gap-[48px] text-white">
         <header className="w-full md:w-[793px] flex flex-col items-start justify-start gap-[16px]">
           <h2 className="relative leading-[150%] font-extrabold text-[28px] md:text-[32px]">
             How it Works?
           </h2>
           <p className="self-stretch relative text-[16px] md:text-[22px] leading-[170%] font-medium font-[Amazon Ember]">
             There are a few simple steps that you can take to book a sprint
-            session for your students.
+            session for your students
           </p>
         </header>
 
@@ -299,141 +390,333 @@ const HomePage:  NextPage<PopupProps>  = () => {
             </article>
           </div>
         </div>
-      </section>
-      <section className="relative w-full flex flex-col items-start justify-start gap-12 text-[#29458c] px-4 mt-16 mb-16 md:px-12">
-        <article className="w-full max-w-screen-lg flex flex-col items-start justify-start gap-6">
-          <h2 className="w-full leading-[150%] font-extrabold text-2xl md:text-[28px]">
-            What to Expect at AFE Makerspace
-          </h2>
-          <p className="w-full text-lg leading-[170%] font-medium text-[#3a3a3a] lg:w-3/4 md:text-[20px]">
-            Teachers can easily schedule lab sessions and integrate Maker's
-            Space into their lesson plans/ Curriculum. Pick a program and embark
-            on a transformative STEM journey with your students.
+      </section> */}
+<section className="relative w-full bg-[#29458c] flex flex-col items-start justify-start py-[80px] px-4 md:px-12 gap-[48px] text-white">
+  <header className="w-full lg:w-[1000px] flex flex-col items-start justify-start gap-[16px]">
+    <h2 className="relative leading-[150%] font-extrabold text-[28px] md:text-[32px]">
+      Are You a Government School Teacher in or around Bengaluru?
+    </h2>
+    <p className="self-stretch relative text-[16px] md:text-[22px] leading-[170%] font-medium font-[Amazon Ember]">
+      Help inspire the next generation of tech leaders by registering your students to visit the AFE Makerspace in a few simple steps:
+    </p>
+  </header>
+
+  <div className="w-full overflow-x-auto no-scrollbar">
+    <div className="flex flex-row items-start gap-8 w-[full]">
+      <img
+        className="w-[30vw] min-w-[220px] h-[180px] object-cover"
+        alt="Step 1"
+        src="./homepage/Lottie flies.gif"
+      />
+      <img
+        className="w-[30vw] min-w-[220px] h-[180px] object-cover"
+        alt="Step 2"
+        src="./homepage/Lottie flies.gif"
+      />
+      <img
+        className="w-[30vw] min-w-[220px] h-[180px] object-cover"
+        alt="Step 3"
+        src="./homepage/Lottie flies.gif"
+      />
+      <img
+        className="w-[30vw] min-w-[220px] h-[180px] object-cover"
+        alt="Step 4"
+        src="./homepage/Lottie flies.gif"
+      />
+    </div>
+
+    {/* <div className="flex justify-center mx-12 ml-8 md:ml-0 w-[880px] lg:w-full">
+      <img
+        className="h-[24px] object-contain w-full"
+        alt="Process Overview"
+        src="./homepage/Frame 31704.svg"
+      />
+    </div> */}
+
+    <div className="flex flex-row items-start gap-8 mt-4 w-full">
+      <article className="flex flex-col items-center w-[80vw] min-w-[220px]">
+        <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3">Visit AFE Makerspace Virtually</h3>
+        <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center">
+          Take a look at the lab through the <a href="#virtual-tour" className="text-[#f55c38] cursor-pointer">virtual tour</a>
+        </p>
+      </article>
+
+      <article className="flex flex-col items-center w-[80vw] min-w-[220px]">
+        <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3">Discover Our Programs</h3>
+        <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center">
+          We offer three programs: Nano, Mini, and Mega sprints. Choose the one that best fit your classroom's learning goals
+        </p>
+      </article>
+
+      <article className="flex flex-col items-center w-[80vw] min-w-[220px]">
+        <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3">Book Your Session</h3>
+        <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center">
+          Select a time slot and book your session through our online system or by calling us on +919875466343. Currently, we are only taking bookings for Nano sprints
+        </p>
+      </article>
+
+      <article className="flex flex-col items-center w-[80vw] min-w-[220px]">
+        <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3">Visit and Start Learning</h3>
+        <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center">
+          Bring your students to AFE Makerspace and enjoy a hands-on experience with robotics and AI!
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+{/* Fourth Section */}
+    {/* <section className="relative w-full flex flex-col items-start justify-start gap-12 text-[#29458c] px-4 mt-16 mb-16 md:px-12">
+  <article className="w-full max-w-screen-lg flex flex-col items-start justify-start gap-6">
+    <h2 className="w-full leading-[150%] font-extrabold text-5xl md:text-[25px]">
+      What to Expect at AFE Makerspace
+    </h2>
+    <p className="w-full md:w-1/2 lg:w-3/4 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
+      Teachers can easily schedule lab sessions and integrate Maker's Space into
+      their lesson plans/ Curriculum. Pick a program and embark on a
+      transformative STEM journey with your students.
+    </p>
+  </article>
+
+  <div className="w-full flex flex-col lg:flex-row items-start justify-start gap-6 text-[18px] text-white font-[Amazon Ember]">
+    <section className="flex-1 bg-[#29458c] flex flex-col items-start justify-start p-12 relative gap-8 min-h-[80vh] lg:min-h-[calc(100vh-14.5rem)]">
+      <div className="w-full max-w-screen-md flex flex-col items-start justify-start gap-4 z-0">
+        <header className="flex flex-row items-center justify-start gap-4 text-[17px] font-bold">
+          <h3 className="leading-[150%] font-bold md:font-extrabold text-white">
+            Nano Sprints
+          </h3>
+          <span className="rounded-full bg-[#049796] h-8 flex items-center justify-center px-4 text-sm font-medium">
+            Active
+          </span>
+        </header>
+        <p className="w-full leading-[170%] font-medium text-[14px] md:text-[20px]">
+          One day sessions designed to spark interest and build aspiration.
+        </p>
+        <div className="flex flex-row items-center gap-2">
+          <figure className="w-11 h-8">
+            <img src="./homepage/reshot-icon-time-YEDR7WZV2Q.svg" alt="Icon" />
+          </figure>
+          <p className="leading-[170%] font-medium  text-[14px] md:text-[20px]">
+            1 Day (3 hours)
           </p>
-        </article>
-
-        <div className="w-full flex flex-col lg:flex-row items-start justify-start gap-6 text-[18px] text-white font-[Amazon Ember]">
-          <section className="flex-1 bg-[#29458c] flex flex-col items-start justify-start p-12 relative gap-8 min-h-[80vh] lg:min-h-[calc(100vh-14.5rem)]">
-            <div className="w-full max-w-screen-md flex flex-col items-start justify-start gap-4 z-0">
-              <header className="flex flex-row items-center justify-start gap-4 text-[24px] font-bold">
-                <h3 className="leading-[150%] font-extrabold text-white">
-                  Nano Sprints
-                </h3>
-                <span className="rounded-full bg-[#049796] h-8 flex items-center justify-center px-4 text-sm font-medium">
-                  Active
-                </span>
-              </header>
-              <p className="w-full leading-[170%] font-medium">
-                One day sessions designed to spark interest and build
-                aspiration.
-              </p>
-              <div className="flex flex-row items-center gap-2">
-                <figure className="w-11 h-8">
-                  <img
-                    src="./homepage/reshot-icon-time-YEDR7WZV2Q.svg"
-                    alt="Icon"
-                  />
-                </figure>
-                <p className="leading-[170%] font-medium">1 Day (3 hours)</p>
-              </div>
-              <div className="flex flex-row items-center gap-2">
-                <figure className="w-[44px] h-[32px]">
-                  <img
-                    src="./homepage/reshot-icon-student-DRC3YF56MU.svg"
-                    alt="Student icon"
-                  />
-                </figure>
-                <p className="leading-[170%] font-medium">
-                  30 to 40 students per session
-                </p>
-              </div>
-              <div>
-                <button className="rounded-full bg-white text-[#29458c] px-8 py-2.5 text-lg">
-                  Book a Session
-                </button>
-              </div>
-            </div>
-
-            <img
-              className="absolute right-0 top-12 lg:top-[22.5%] lg:right-[5%] w-[30%] lg:w-[50%] z-10"
-              alt="Decorative graphic"
-              src="./homepage/Vector.svg"
-            />
-          </section>
-
-          <aside className="w-full lg:w-[30%] flex flex-col gap-6">
-            <article className="w-full bg-[#cdeaea] flex flex-col items-start p-12 gap-6 h-full">
-              <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
-                <h3 className="leading-[1.5] font-extrabold text-[#29458c]">
-                  Mini Sprints
-                </h3>
-                <span className="rounded-full bg-[#f55c38] h-8 flex items-center justify-center px-4 text-sm text-white font-medium">
-                  Upcoming
-                </span>
-              </header>
-              <p className="leading-[170%] font-medium text-[#3a3a3a]">
-                Multi-day workshops focusing on specific STEM topics.
-              </p>
-              <div className="flex flex-row items-center text-[#f55c38]">
-                <p className="leading-[170%] font-medium">Learn More</p>
-                <img
-                  className="w-6 h-6 ml-1"
-                  alt="Chevron"
-                  src="./homepage/chevron_right.svg"
-                />
-              </div>
-            </article>
-
-            <article className="w-full bg-[#fff2f2] flex flex-col items-start p-12 gap-6 h-full">
-              <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
-                <h3 className="leading-[150%] font-extrabold text-[#29458c]">
-                  Mega Sprints
-                </h3>
-                <span className="rounded-full bg-[#f55c38] h-8 flex items-center justify-center px-2 text-sm text-white font-medium">
-                  Upcoming
-                </span>
-              </header>
-              <p className="leading-[170%] font-medium text-[#3a3a3a]">
-                Comprehensive Programs Leading to Exciting Competitive Robotics
-                Challenges.
-              </p>
-              <div className="flex flex-row items-center text-[#f55c38]">
-                <p className="leading-[170%] font-medium">Learn More</p>
-                <img
-                  className="w-6 h-6 ml-1"
-                  alt="Chevron"
-                  src="./homepage/chevron_right.svg"
-                />
-              </div>
-            </article>
-          </aside>
         </div>
-      </section>
+        <div className="flex flex-row items-center gap-2">
+          <figure className="w-[44px] h-[32px]">
+            <img
+              src="./homepage/reshot-icon-student-DRC3YF56MU.svg"
+              alt="Student icon"
+            />
+          </figure>
+          <p className="leading-[170%] font-medium  text-[14px] md:text-[20px]">
+            30 to 40 students per session
+          </p>
+        </div>
+        <div>
+          <button
+            className="rounded-full bg-white text-[#29458c] px-4 py-1 md:px-8 md:py-2.5 text-lg font-bold"
+            onClick={handleBookSessionClick}
+          >
+            Book a Session
+          </button>
+        </div>
+      </div>
+      
+    </section>
 
-      <section className="relative min-h-screen text-left text-white flex items-start overflow-hidden md:mx-6">
+    <aside className="w-full lg:w-[30%] flex flex-col gap-6 min-h-[80vh] lg:min-h-[calc(100vh-14.5rem)]">
+      <article className="w-full bg-[#cdeaea] flex flex-col items-start p-12 gap-6 h-full">
+        <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
+          <h3 className="leading-[1.5] font-extrabold text-[#29458c]">
+            Mini Sprints
+          </h3>
+          <span className="rounded-full bg-[#f55c38] h-8 flex items-center justify-center px-4 text-sm text-white font-medium">
+            Upcoming
+          </span>
+        </header>
+        <p className="leading-[170%] font-medium text-[#3a3a3a]  text-[14px] md:text-[20px]">
+          Multi-day workshops focusing on specific STEM topics.
+        </p>
+        <button
+          className="flex flex-row items-center text-[#f55c38]"
+          onClick={handleLearnMoreMiniClick}
+        >
+          <p className="leading-[170%] font-medium">Learn More</p>
+          <img
+            className="w-6 h-6 ml-1"
+            alt="Chevron"
+            src="./homepage/chevron_right.svg"
+          />
+        </button>
+      </article>
+
+      <article className="w-full bg-[#fff2f2] flex flex-col items-start p-12 gap-6 h-full">
+        <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
+          <h3 className="leading-[150%] font-extrabold text-[#29458c]">
+            Mega Sprints
+          </h3>
+          <span className="rounded-full bg-[#f55c38] h-8 flex items-center justify-center px-2 text-sm text-white font-medium">
+            Upcoming
+          </span>
+        </header>
+        <p className="leading-[170%] font-medium text-[#3a3a3a]  text-[14px] md:text-[20px]">
+          Comprehensive Programs Leading to Exciting Competitive Robotics
+          Challenges.
+        </p>
+        <button
+          className="flex flex-row items-center text-[#f55c38]"
+          onClick={handleLearnMoreMegaClick}
+        >
+          <p className="leading-[170%] font-medium">Learn More</p>
+          <img
+            className="w-6 h-6 ml-1"
+            alt="Chevron"
+            src="./homepage/chevron_right.svg"
+          />
+        </button>
+      </article>
+    </aside>
+  </div>
+</section> */}
+<section className="relative w-full flex flex-col items-start justify-start gap-12 text-[#29458c] px-4 mt-16 mb-16 md:px-12">
+  <article className="w-full max-w-screen-lg flex flex-col items-start justify-start gap-6">
+    <h2 className="w-full leading-[150%] font-extrabold text-5xl md:text-[25px]">
+      Programs at AFE Makerspace
+    </h2>
+    {/* <p className="w-full md:w-1/2 lg:w-3/4 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
+      Teachers can easily schedule lab sessions and integrate Maker's Space into
+      their lesson plans/ Curriculum. Pick a program and embark on a
+      transformative STEM journey with your students.
+    </p> */}
+  </article>
+
+  <div className="w-full flex flex-col lg:flex-row items-stretch justify-start gap-6 text-[18px] text-white font-[Amazon Ember]">
+    <section className="flex-1 bg-[#29458c] flex flex-col items-start justify-start p-12 relative gap-8 min-h-[80vh] lg:min-h-[calc(100vh-14.5rem)] rounded-md">
+      <div className="w-full max-w-screen-md flex flex-col items-start justify-start gap-4 z-0">
+        <header className="flex flex-row items-center justify-start gap-4 text-[17px] font-bold">
+          <h3 className="leading-[150%] font-bold md:font-extrabold text-white">
+            Nano Sprints
+          </h3>
+          <span className="rounded-full bg-[#049796] h-8 flex items-center justify-center px-4 text-sm font-medium">
+            Active
+          </span>
+        </header>
+        <p className="w-full leading-[170%] font-medium text-[14px] md:text-[20px]">
+          The Nano Sprint Program offers a quick and engaging introduction into the world of Robotics and AI
+        </p>
+        <div className="flex flex-row items-center gap-2">
+          <figure className="w-11 h-8">
+            <img src="./homepage/reshot-icon-time-YEDR7WZV2Q.svg" alt="Icon" />
+          </figure>
+          <p className="leading-[170%] font-medium text-[14px] md:text-[20px]">
+            1 Day (3 hours)
+          </p>
+        </div>
+        <div className="flex flex-row items-center gap-2">
+          <figure className="w-[44px] h-[32px]">
+            <img
+              src="./homepage/reshot-icon-student-DRC3YF56MU.svg"
+              alt="Student icon"
+            />
+          </figure>
+          <p className="leading-[170%] font-medium text-[14px] md:text-[20px]">
+            30 to 40 students per session
+          </p>
+          
+        </div>
+        <p className="w-full leading-[170%] font-medium text-[14px] md:text-[20px]">Registrations are open!</p>
+        <div>
+          <button
+            className="rounded-full bg-white text-[#f55c38] px-4 py-1 md:px-8 md:py-4 text-lg font-bold mt-8"
+            onClick={handleBookSessionClick}
+          >
+            Book a Session
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <aside className="w-full lg:w-[30%] flex flex-col gap-6 min-h-[80vh] lg:min-h-[calc(100vh-14.5rem)]">
+      <article className="w-full bg-[#cdeaea] flex flex-col items-start p-12 gap-6 h-full rounded-md">
+        <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
+          <h3 className="leading-[1.5] font-extrabold text-[#29458c]">
+            Mini Sprints
+          </h3>
+          <span className="rounded-full bg-[#ffad33] h-8 flex items-center justify-center px-4 text-sm text-white font-medium">
+            Upcoming
+          </span>
+        </header>
+        <p className="leading-[170%] font-medium text-[#3a3a3a]  text-[14px] md:text-[20px]">
+          Multi-day skill building workshops
+        </p>
+        <button
+          className="rounded-full bg-white text-[#f55c38] px-4 py-1 md:px-8 md:py-4 text-lg font-bold mt-8"
+          // onClick = {handleLearnMoreMiniClick}
+          onClick={() => handleLearnMoreClick('mini')}
+        >
+          <p className="leading-[170%] font-medium">Learn More</p>
+          {/* <img
+            className="w-6 h-6 ml-1"
+            alt="Chevron"
+            src="./homepage/chevron_right.svg"
+          /> */}
+        </button>
+      </article>
+
+      <article className="w-full bg-[#fdded7] flex flex-col items-start p-12 gap-6 h-full rounded-md">
+        <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
+          <h3 className="leading-[150%] font-extrabold text-[#29458c]">
+            Mega Sprints
+          </h3>
+          <span className="rounded-full bg-[#ffad33] h-8 flex items-center justify-center px-2 text-sm text-white font-medium">
+            Upcoming
+          </span>
+        </header>
+        <p className="leading-[170%] font-medium text-[#3a3a3a]  text-[14px] md:text-[20px]">
+          Comprehensive programs leading to exciting competitive robotics challenges
+        </p>
+        <button
+          className="rounded-full bg-white text-[#f55c38] px-4 py-1 md:px-8 md:py-4 text-lg font-bold mt-8"
+          // onClick = {handleLearnMoreMiniClick}
+          onClick={() => handleLearnMoreClick('mega')}
+        >
+          <p className="leading-[170%] font-medium">Learn More</p>
+          {/* <img
+            className="w-6 h-6 ml-1"
+            alt="Chevron"
+            src="./homepage/chevron_right.svg"
+          /> */}
+        </button>
+      </article>
+    </aside>
+  </div>
+</section>
+
+{/* Fifth Section */}
+      <section id="virtual-tour" className="relative min-h-screen text-left text-white flex items-start overflow-hidden mx-4 md:mx-12">
         <img
-          className="absolute top-0 left-0 w-full h-full object-cover"
+          className="absolute top-0 left-0 w-full h-full object-cover brightness-50 rounded"
           alt="Background video"
-          src="./homepage/video 2.svg"
+          // src="./homepage/video 2.svg"
+          src="./homepage/video image.jpeg"
         />
 
-        <div className="relative z-10 flex flex-col items-start justify-start gap-8 mx-6 px-4 md:px-8 py-8 lg:mx-6">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
-            Take a Sneak Peak at AFE Innovation Hub
+        <div className="relative z-10 flex flex-col items-start justify-start gap-8 px-4 md:px-8 py-8 lg:mx-6">
+          <h2 className="text-13xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
+            Take a Sneak Peak at AFE Makerspace
           </h2>
 
           <a
             href="#"
-            className="rounded-full bg-white h-16 flex items-center justify-center px-6 py-3 text-lg text-[#29458c] font-[Amazon Ember] hover:bg-gray-100 transition-colors duration-300"
+            className="rounded-full bg-white h-12 md:h-16 flex items-center justify-center px-6 py-3 text-lg text-[#f55c38] font-[Amazon Ember] hover:bg-gray-100 transition-colors duration-300"
           >
-            <span className="font-medium">Start Virtual Tour</span>
+            <span className="font-medium">Take Virtual Tour</span>
           </a>
         </div>
       </section>
-
-      <section className="relative mx-4 md:mt-12 lg:mx-12 flex flex-col items-start justify-start gap-8 text-[#29458c]">
-        <header className="w-full md:text-[30px] font-extrabold leading-[150%]">
-          Latest From The Innovation Hub
+{/* Sixth Section */}
+      {/* <section className="relative mx-4 md:mt-12 lg:mx-12 flex flex-col items-start justify-start gap-8 text-[#29458c]">
+        <header className="w-full text-5xl md:text-[25px] font-extrabold leading-[150%]">
+          Latest From AFE Makerspace
         </header>
 
         <div className="w-full flex items-center justify-between relative">
@@ -477,10 +760,58 @@ const HomePage:  NextPage<PopupProps>  = () => {
             />
           </button>
         </div>
-      </section>
-      <section className="relative mx-4 lg:mx-12 flex flex-col items-start justify-start gap-4 text-[#29458c] py-8">
-        <h2 className="text-2xl font-extrabold leading-[150%] md:text-[25px]">
-          Have Any Questions?
+      </section> */}
+{/* <section className="relative mx-4 mt-8 md:mt-12 md:mx-12 flex flex-col items-start justify-start gap-8 text-[#29458c]">
+  <header className="w-full text-5xl md:text-[25px] font-extrabold leading-[150%]">
+    Latest From AFE Makerspace
+  </header>
+
+  <div className="w-full flex items-center justify-between relative">
+    <button className="w-12 h-12 flex items-center justify-center overflow-hidden hidden sm:flex">
+      <img
+        className="object-cover"
+        alt="Previous"
+        src="./homepage/chevron_left.svg"
+      />
+    </button>
+
+    <div className="w-full overflow-x-auto flex flex-row items-start justify-start gap-4 px-4">
+      <figure className="flex-none w-[calc(100vw-80px)] h-[calc((100vw-32px)*0.6)] md:w-[32%] md:h-[calc((100vw-32px)*0.22)]">
+        <img
+          className="object-cover w-full h-full"
+          alt="Innovation Hub Image 1"
+          src="./homepage/Rectangle-new1.svg"
+        />
+      </figure>
+      <figure className="flex-none w-[calc(100vw-80px)] h-[calc((100vw-32px)*0.6)] md:w-[33%] md:h-[calc((100vw-32px)*0.22)]">
+        <img
+          className="object-cover w-full h-full"
+          alt="Innovation Hub Image 2"
+          src="./homepage/Rectangle-new2.svg"
+        />
+      </figure>
+      <figure className="flex-none w-[calc(100vw-80px)] h-[calc((100vw-32px)*0.6)] md:w-[32%] md:h-[calc((100vw-32px)*0.22)]">
+        <img
+          className="object-cover w-full h-full"
+          alt="Innovation Hub Image 3"
+          src="./homepage/Rectangle-new3.svg"
+        />
+      </figure>
+    </div>
+
+    <button className="w-12 h-12 flex items-center justify-center overflow-hidden hidden sm:flex">
+      <img
+        className="object-cover"
+        alt="Next"
+        src="./homepage/chevron_right_black.svg"
+      />
+    </button>
+  </div>
+</section> */}
+
+      <section className="relative mx-4 md:mx-12 flex flex-col items-start justify-start gap-4 text-[#29458c] py-8 md:py-16">
+        <h2 className="text-5xl font-extrabold leading-[150%] md:text-[25px]">
+          Have Questions or Want to Book a Session?
         </h2>
         <p className="text-base leading-[170%] font-[Amazon Ember] text-[#3a3a3a] md:text-[20px]">
           <strong>
@@ -488,11 +819,13 @@ const HomePage:  NextPage<PopupProps>  = () => {
             <a href="mailto:afeinnovation@ihub.com" className="text-[#f55c38]">
               afeinnovation@ihub.com
             </a>
+            <span> or Call/Whatsapp on </span>
+            <a href="" className="text-[#f55c38]">+918764674356</a>
           </strong>
         </p>
       </section>
-      <Footer />
-      <Popup offlinePopup={offlinePopup}
+      <Footer handleOfflineBooking={handleOfflineBooking} />
+      <CallPopup offlinePopup={offlinePopup}
       handleOfflineBookingClose={handleOfflineBookingClose}
       // openSecondPopup={openSecondPopup}
       handleClose={handleClose}/>

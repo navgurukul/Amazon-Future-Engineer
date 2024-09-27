@@ -105,7 +105,7 @@ const Header: NextPage<HeaderProps> = ({ isLoggedIn, handleOfflineBooking,offlin
             alt="Helpdesk Icon"
             src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
           />
-          <div className="font-medium leading-[170%]">Helpdesk</div>
+          <div className="font-medium leading-[170%]">Call Us</div>
         </div>
         {isLoggedIn ? (
           <img

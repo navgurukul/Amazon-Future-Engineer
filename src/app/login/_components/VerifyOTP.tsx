@@ -1,7 +1,9 @@
+// components/VerifyOTP.tsx
 import { Button } from "@/components/ui/button";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from "react";
+import { verifyOtp, resendOtp } from "@/utils/api"; // Import the API functions
+import Cookies from "js-cookie"; // Import js-cookie for cookie handling
 
 interface VerifyOTPProps {
   length?: number;
@@ -72,18 +74,14 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
     setError("");
 
     try {
-      const response = await axios.post(
-        "http://13.127.216.196/api/v1/auth/verify-otp",
-        {
-          phone: phoneNumber,
-          otp: otpString,
-        }
-      );
-
-      localStorage.setItem("userData", JSON.stringify(response.data));
-      const userId = response.data.userId;
-      localStorage.setItem("userId", userId);
-      setMessage(response.data.message);
+      const response = await verifyOtp(phoneNumber, otpString); // Use the API call
+      console.log(response);
+      localStorage.setItem("loginData", JSON.stringify(response));
+      // Set loginData in cookies
+      Cookies.set("loginData", JSON.stringify(response.data), { expires: 7 }); // Set cookie with expiration of 7 days
+      const userId = JSON.stringify(response.userId);
+      localStorage.setItem("LoginId", userId);
+      setMessage(response.message);
       router.push("/sprintPages/nanopage");
     } catch (err: any) {
       setMessage("");
@@ -93,9 +91,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
 
   const handleResendOTP = async () => {
     try {
-      await axios.post("http://13.127.216.196/api/v1/auth/send-otp", {
-        phone: phoneNumber,
-      });
+      await resendOtp(phoneNumber); // Use the API call
       setSeconds(119);
       setIsResendAllowed(false);
     } catch (err: any) {

@@ -5,7 +5,7 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import WaitingListPopup from "./_components/WaitingListPopup";
 import { useRouter } from "next/navigation";
-const MiniPage: NextPage = () => {
+const MegaPage: NextPage = () => {
     const router = useRouter();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -53,7 +53,7 @@ const MiniPage: NextPage = () => {
         let isValid = true;
 
         if (!phoneRegex.test(phoneNo) || !phoneDigitsOnly.test(phoneNo) || !phonePattern.test(phoneNo)) {
-            setPhoneError("Please enter a valid 10-digit phone number.");
+            setPhoneError("Please enter a valid 10-digit phone number starting with 6-9.");
             isValid = false;
         } else {
             setPhoneError("");
@@ -111,7 +111,7 @@ const MiniPage: NextPage = () => {
         setPincode(e.target.value);
     };
     const handleBackClick = () => {
-        router.push ('/sprintPages/minipage');
+        router.push ('/sprintPages/megapage');
     };
 
 
@@ -135,21 +135,21 @@ const MiniPage: NextPage = () => {
                         </div>
                         <div className="text-lg text-[#3a3a3a] font-medium">Back</div>
                     </div>
-                    <div className="text-lg text-center font-extrabold text-[#3a3a3a] mx-auto">Mini Sprint</div>
+                    <div className="text-lg text-center font-extrabold text-[#3a3a3a] mx-auto">Mega Sprint</div>
                 </div>
 
                 <div className="flex justify-center items-center w-full px-4">
                     <div className="w-full md:w-[592px] rounded-lg flex flex-col justify-start items-center gap-8 p-4 md:p-6">
                         <div className="w-full flex flex-col gap-4">
                             <div className="text-[#3a3a3a] text-2xl md:text-[24px] font-extrabold leading-[30px] md:leading-[36px]">
-                                Join Mini Sprint Waiting List
+                                Join Mega Sprint Waiting List
                             </div>
 
                             <div className="text-[#3a3a3a] text-base md:text-lg font-bold leading-[25px] md:leading-[30.60px]">
                                 AFE Makerspace Lab - Bengaluru
                             </div>
                             <div className="text-[#6d6d6d] text-sm md:text-lg font-medium leading-[22px] md:leading-[30.60px]">
-                                Please share the following details below and we will connect with you as soon as the Mini Sprint program is launched at the lab.
+                                Please share the following details below and we will connect with you as soon as the Mega Sprint program is launched at the lab.
                             </div>
                         </div>
 
@@ -247,6 +247,6 @@ const MiniPage: NextPage = () => {
     );
 };
 
-export default MiniPage;
+export default MegaPage;
 
 
