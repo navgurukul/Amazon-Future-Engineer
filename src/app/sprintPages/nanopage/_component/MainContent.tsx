@@ -201,7 +201,7 @@ const MainContent = ({ handleOfflineBooking }) => {
           <img src="/nanopage/Rectangle 32.jpeg" alt="Third Image" />
         </figure>
       </section> */}
-<section className="hidden sm:flex flex-col gap-6">
+<section className="hidden md:flex flex-col gap-6">
   <div className="flex flex-row gap-6 justify-between">
     <figure className="w-full sm:w-[48%] h-auto rounded-md">
       <img src="/nanopage/Rectangle 4.jpeg" alt="First Image" />
@@ -222,7 +222,7 @@ const MainContent = ({ handleOfflineBooking }) => {
     </figure>
   </div>
 </section>
-<section className="flex sm:hidden overflow-x-auto no-scrollbar">
+<section className="flex md:hidden overflow-x-auto no-scrollbar">
   <div className="flex flex-row gap-6">
     <figure className="w-[80%] h-auto flex-shrink-0 rounded-md">
       <img src="/nanopage/Rectangle 4.jpeg" alt="First Image" />

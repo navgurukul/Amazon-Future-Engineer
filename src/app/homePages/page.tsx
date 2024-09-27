@@ -139,6 +139,7 @@ const HomePage:  NextPage<PopupProps>  = () => {
     <div className="w-full relative bg-white min-h-screen overflow-hidden text-left text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
       {/* <Header/> */}
       <Header
+      handleBookSessionClick={handleBookSessionClick}
       handleOfflineBooking={handleOfflineBooking}
       offlinePopup={offlinePopup}
       openSecondPopup={openSecondPopup}
@@ -189,25 +190,33 @@ const HomePage:  NextPage<PopupProps>  = () => {
     muted
   ></video>
 
-  <header className="absolute top-[25%] left-0 max-w-[1200px] mx-auto flex flex-col gap-6 items-start text-left px-4">
+  <header className="absolute top-[20%] left-0 max-w-[1200px] mx-auto flex flex-col gap-6 items-start text-left px-4">
     <div className="w-full flex flex-col gap-3 items-start">
-      <h1 className="w-[80%] relative font-bold md:font-extrabold leading-[150%] text-white text-[32px] md:text-[3vw]">
+      <h1 className="w-[80%] relative font-bold md:font-extrabold leading-[150%] text-white text-[28px] md:text-[3vw] xs:leading-[120%]">
         <span className="inline md:hidden">WELCOME TO AFE MAKERSPACE</span><span className="hidden md:inline">Come build the future with us at the Amazon Future Engineer Makerspace</span>
       </h1>
       <h2 className="relative text-[5vw] md:text-[1.8vw] leading-[120%] font-bold md:font-extrabold text-white md:my-2 lg:my-4">
-        <span className="inline md:hidden">A Cutting-Edge Robotics and AI Lab for Educators and Students</span><span className="hidden md:inline">A one-of-a-kind Robotics and AI Lab for students and educators in Bangaloree</span>
+        <span className="inline md:hidden">A Cutting-Edge Robotics and AI Lab for Educators and Students</span><span className="hidden md:inline">A one-of-a-kind Robotics and AI Lab for students and educators in Bangalore</span>
       </h2>
     </div>
 
-    <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start text-[14px] md:text-[18px] text-white w-full">
+    <div className="flex flex-col md:flex-row xs:gap-2 sm:gap-4 md:gap-4 lg:gap-8 items-start text-[14px] md:text-[18px] text-white w-full">
       <button
-        className="flex items-center justify-center md:px-4 md:py-4 lg:px-10 lg:py-4 bg-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto cursor-pointer"
+        className="flex items-center justify-center md:px-2 md:py-2 lg:px-10 lg:py-4 bg-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto cursor-pointer"
         onClick={handleBookSessionClick}
       >
         <span className="relative font-medium leading-[170%]">Book a Session Online</span>
       </button>
+      <button className="flex items-center justify-center md:px-4 md:py-4 lg:px-10 lg:py-4 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto gap-4" onClick={handleOfflineBooking}>
+        <img
+            className="w-6 h-6 sm:w-8 sm:h-8 overflow-hidden"
+            alt="Helpdesk Icon"
+            src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
+          />
+        <span className="relative font-medium leading-[170%]">Call Us</span>
+      </button>
       <button className="flex items-center justify-center md:px-4 md:py-4 lg:px-10 lg:py-4 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto">
-        <span className="relative font-medium leading-[170%]">Take a Virtual Tour</span>
+        <span className="relative font-medium leading-[170%]">Take Virtual Tour</span>
       </button>
     </div>
   </header>
@@ -815,7 +824,7 @@ const HomePage:  NextPage<PopupProps>  = () => {
           </strong>
         </p>
       </section>
-      <Footer />
+      <Footer handleOfflineBooking={handleOfflineBooking} />
       <CallPopup offlinePopup={offlinePopup}
       handleOfflineBookingClose={handleOfflineBookingClose}
       // openSecondPopup={openSecondPopup}
