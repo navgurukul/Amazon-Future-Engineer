@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from "react";
 import { verifyOtp, resendOtp } from "@/utils/api"; // Import the API functions
+import Cookies from "js-cookie"; // Import js-cookie for cookie handling
 
 interface VerifyOTPProps {
   length?: number;
@@ -74,10 +75,12 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
 
     try {
       const response = await verifyOtp(phoneNumber, otpString); // Use the API call
-
-      localStorage.setItem("userData", JSON.stringify(response));
-      const userId = response.userId;
-      localStorage.setItem("userId", userId);
+      console.log(response);
+      localStorage.setItem("loginData", JSON.stringify(response));
+      // Set loginData in cookies
+      Cookies.set("loginData", JSON.stringify(response.data), { expires: 7 }); // Set cookie with expiration of 7 days
+      const userId = JSON.stringify(response.userId);
+      localStorage.setItem("LoginId", userId);
       setMessage(response.message);
       router.push("/sprintPages/nanopage");
     } catch (err: any) {

@@ -62,7 +62,7 @@ const Header: NextPage<HeaderProps> = ({
    }, []);
 
   useEffect(() => {
-    const open = localStorage.getItem("userData");
+    const open = localStorage.getItem("loginData");
     const parsedOpen = open ? JSON.parse(open) : null;
     if (open) {
       setProfileOpen(parsedOpen.status);
