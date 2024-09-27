@@ -17,6 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"; // Adjust the path if needed
+import WaitingListPopup from "../../app/sprintPages/nanopage/_component/CalendarPopup"; // Import the WaitingListPopup component
 
 const formatTime = (date: Date) => {
   const hours = date.getHours();
@@ -34,9 +35,8 @@ interface CalendarProps {
 
 const Calendar: React.FC<CalendarProps> = ({ initialEvents = [] }) => {
   const [currentEvents, setCurrentEvents] = useState<EventApi[]>(initialEvents);
-// const Calendar: React.FC = () => {
-//   const [currentEvents, setCurrentEvents] = useState<EventApi[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // State for WaitingListPopup
   const [name, setName] = useState<string>("");
   const [phoneNo, setPhoneNo] = useState<string>("");
   const [numStudents, setNumStudents] = useState<number | "">("");
@@ -132,136 +132,137 @@ const Calendar: React.FC<CalendarProps> = ({ initialEvents = [] }) => {
 
       calendarApi.addEvent(newEvent);
       handleCloseDialog();
+      setIsModalOpen(true); // Open WaitingListPopup after adding event
     }
   };
-
   return (
     <div>
-      <div className="flex w-full px-10 justify-start items-start gap-8">
-        <div className="w-3/12">
-          <div className="py-10 text-2xl font-extrabold px-7">
-            Calendar Events
+      {!isModalOpen ? (
+        <div>
+          <div className="flex w-full px-10 justify-start items-start gap-8">
+            <div className="w-3/12">
+              <div className="py-10 text-2xl font-extrabold px-7">Calendar Events</div>
+              <ul className="space-y-4">
+                {currentEvents.length <= 0 && (
+                  <div className="italic text-center text-gray-400">No Events Present</div>
+                )}
+  
+                {currentEvents.length > 0 &&
+                  currentEvents.map((event: EventApi) => (
+                    <li
+                      className="border border-gray-200 shadow px-4 py-2 rounded-md text-blue-800"
+                      key={event.id}
+                    >
+                      {event.title}
+                      <br />
+                      <label className="text-slate-950">
+                        {formatDate(event.start!, {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                        <br />
+                        Phone No: {event.extendedProps.phoneNo}
+                        <br />
+                        No. of Students: {event.extendedProps.numStudents}
+                      </label>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+  
+            <div className="w-9/12 mt-8">
+              <FullCalendar
+                height={"85vh"}
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                headerToolbar={{
+                  left: "prev,next today",
+                  center: "title",
+                  right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+                }}
+                initialView="dayGridMonth"
+                editable={true}
+                selectable={true}
+                selectMirror={true}
+                dayMaxEvents={true}
+                select={handleDateClick}
+                eventClick={handleEventClick}
+                eventsSet={(events) => setCurrentEvents(events)}
+                initialEvents={
+                  typeof window !== "undefined"
+                    ? JSON.parse(localStorage.getItem("events") || "[]")
+                    : []
+                }
+              />
+            </div>
           </div>
-          <ul className="space-y-4">
-            {currentEvents.length <= 0 && (
-              <div className="italic text-center text-gray-400">
-                No Events Present
-              </div>
-            )}
-
-            {currentEvents.length > 0 &&
-              currentEvents.map((event: EventApi) => (
-                <li
-                  className="border border-gray-200 shadow px-4 py-2 rounded-md text-blue-800"
-                  key={event.id}
+  
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Add New Event Details</DialogTitle>
+              </DialogHeader>
+              <form className="space-y-4 mb-4" onSubmit={handleAddEvent}>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="border border-gray-200 p-3 rounded-md text-lg w-full"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Phone No"
+                    value={phoneNo}
+                    onChange={(e) => setPhoneNo(e.target.value)}
+                    required
+                    maxLength={10}
+                    minLength={10}
+                    className={`border border-gray-200 p-3 rounded-md text-lg w-full ${errors.phoneNo ? 'border-red-500' : ''}`}
+                  />
+                  {errors.phoneNo && <p className="text-red-500 text-sm">{errors.phoneNo}</p>}
+                </div>
+                <div>
+                  <input
+                    type="number"
+                    placeholder="No. of students"
+                    value={numStudents}
+                    onChange={(e) => setNumStudents(e.target.value ? +e.target.value : "")}
+                    required
+                    className="border border-gray-200 p-3 rounded-md text-lg w-full"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="number"
+                    placeholder="Start Hour (1-24)"
+                    value={timeSlot}
+                    onChange={(e) => setTimeSlot(e.target.value)}
+                    min={1}
+                    max={24}
+                    className={`border border-gray-200 p-3 rounded-md text-lg w-full ${errors.timeSlot ? 'border-red-500' : ''}`}
+                  />
+                  {errors.timeSlot && <p className="text-red-500 text-sm">{errors.timeSlot}</p>}
+                </div>
+                <button
+                  className="bg-green-500 text-white p-3 mt-5 rounded-md w-full"
+                  type="submit"
                 >
-                  {event.title}
-                  <br />
-                  <label className="text-slate-950">
-                    {formatDate(event.start!, {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}{" "}
-                    {/* Format event start date */}
-                    <br />
-                    Phone No: {event.extendedProps.phoneNo}
-                    <br />
-                    No. of Students: {event.extendedProps.numStudents}
-                  </label>
-                </li>
-              ))}
-          </ul>
+                  Add
+                </button>
+              </form>
+            </DialogContent>
+          </Dialog>
         </div>
-
-        <div className="w-9/12 mt-8">
-          <FullCalendar
-            height={"85vh"}
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            headerToolbar={{
-              left: "prev,next today",
-              center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
-            }}
-            initialView="dayGridMonth"
-            editable={true}
-            selectable={true}
-            selectMirror={true}
-            dayMaxEvents={true}
-            select={handleDateClick}
-            eventClick={handleEventClick}
-            eventsSet={(events) => setCurrentEvents(events)}
-            initialEvents={
-              typeof window !== "undefined"
-                ? JSON.parse(localStorage.getItem("events") || "[]")
-                : []
-            }
-          />
-        </div>
-      </div>
-
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Add New Event Details</DialogTitle>
-          </DialogHeader>
-          <form className="space-y-4 mb-4" onSubmit={handleAddEvent}>
-            <div>
-              <input
-                type="text"
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                className="border border-gray-200 p-3 rounded-md text-lg w-full"
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Phone No"
-                value={phoneNo}
-                onChange={(e) => setPhoneNo(e.target.value)}
-                required
-                maxLength={10}
-                minLength={10}
-                className={`border border-gray-200 p-3 rounded-md text-lg w-full ${errors.phoneNo ? 'border-red-500' : ''}`}
-              />
-              {errors.phoneNo && <p className="text-red-500 text-sm">{errors.phoneNo}</p>}
-            </div>
-            <div>
-              <input
-                type="number"
-                placeholder="No. of students"
-                value={numStudents}
-                onChange={(e) => setNumStudents(e.target.value ? +e.target.value : "")}
-                required
-                className="border border-gray-200 p-3 rounded-md text-lg w-full"
-              />
-            </div>
-            <div>
-              <input
-                type="number"
-                placeholder="Start Hour (1-24)"
-                value={timeSlot}
-                onChange={(e) => setTimeSlot(e.target.value)}
-                min={1}
-                max={24}
-                className={`border border-gray-200 p-3 rounded-md text-lg w-full ${errors.timeSlot ? 'border-red-500' : ''}`}
-              />
-              {errors.timeSlot && <p className="text-red-500 text-sm">{errors.timeSlot}</p>}
-            </div>
-            <button
-              className="bg-green-500 text-white p-3 mt-5 rounded-md w-full"
-              type="submit"
-            >
-              Add
-            </button>
-          </form>
-        </DialogContent>
-      </Dialog>
+      ) : (
+        <WaitingListPopup isOpen={isModalOpen} name={name} />
+      )}
     </div>
-  );
-};
-
+   )}
+  
 export default Calendar;
+
