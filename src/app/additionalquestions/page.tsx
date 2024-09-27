@@ -53,7 +53,7 @@ const MiniPage: NextPage = () => {
         let isValid = true;
 
         if (!phoneRegex.test(phoneNo) || !phoneDigitsOnly.test(phoneNo) || !phonePattern.test(phoneNo)) {
-            setPhoneError("Please enter a valid 10-digit phone number starting with 6-9.");
+            setPhoneError("Please enter a valid 10-digit phone number.");
             isValid = false;
         } else {
             setPhoneError("");
