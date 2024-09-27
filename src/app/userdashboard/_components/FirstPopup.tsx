@@ -24,7 +24,7 @@ const FirstPopup: NextPage<FirstPopupProps> = ({ isOpen, handleClose, handleOpen
                     <DialogHeader>
                         <DialogTitle>
 
-                            <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold text-heading5 font-heading5-bold leading-7 sm:leading-9">
+                            <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold text-heading5 font-heading5-bold leading-7 sm:leading-9 text-left">
                                 Reschedule Nano Sprint
                             </div>
                         </DialogTitle>
@@ -74,26 +74,20 @@ const FirstPopup: NextPage<FirstPopupProps> = ({ isOpen, handleClose, handleOpen
                                     height={20}
                                 />
                                 <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
-                                    30 Students                                                     </div>
+                                    30 Students
+                                </div>
                             </div>
                         </div>
-
-                        {/* <div className="whitespace-normal text-black text-lg font-medium font-['Amazon Ember'] leading-6 sm:leading-[30.60px] mt-4">
-                                         We recommend to reschedule only in cases of emergencies.
-                                         <span className="block">Please confirm if you would like to proceed</span>
-                                     </div> */}
-                        <div className="whitespace-normal text-black text-lg font-medium font-['Amazon Ember'] leading-6 sm:leading-[30.60px] mt-4">
-                            <span className="block sm:inline">We recommend to reschedule only in cases</span>
-                            <span className="block sm:inline  mr-1">of emergencies. Please confirm if you would</span>
-                            <span className="block sm:inline">like to proceed</span>
+        
+                        <div className="whitespace-normal text-[#3a3a3a] text-base sm:text-lg text-lg font-medium font-['Amazon Ember'] leading-7 sm:leading-[30.60px] mt-4">
+                            <span className="inline">We recommend to reschedule only in cases of emergencies. Please confirm if you would like to proceed</span>
                         </div>
 
                     </DialogDescription>
 
-                    <DialogFooter className="mt-6 flex flex-col sm:flex-row sm:justify-end space-y-2 sm:space-y-0 sm:space-x-4">
+                    <DialogFooter className="hidden md:mt-6 md:block flex flex-col sm:flex-row pb-[24px] sm:justify-end space-y-2 sm:space-y-0 sm:space-x-4">
 
-
-                        <div className="mt-2 flex flex-col sm:flex-row sm:justify-end space-y-2 sm:space-y-0 sm:space-x-4">
+                        <div className="mt-2 flex flex-col sm:flex-row  sm:justify-end space-y-2 sm:space-y-0 sm:space-x-4">
                             <div
                                 className="hidden sm:flex px-8 py-2 rounded-[100px] border border-[#3a3a3a] justify-center items-center gap-2 cursor-pointer"
                                 onClick={handleClose}
@@ -103,13 +97,15 @@ const FirstPopup: NextPage<FirstPopupProps> = ({ isOpen, handleClose, handleOpen
                                 </div>
                             </div>
                             <div
-                                className="px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center gap-2 flex cursor-pointer"
+                                // className="self-stretch h-12 px-6 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center gap-2 inline-flex cursor-pointer mb-4"
+                                className="w-full sm:w-auto h-12 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center mb-4 gap-2 flex cursor-pointer"
                                 onClick={handleOpenSecondPopup}
                             >
                                 <div className="text-center text-white text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
                                     Request Reschedule
                                 </div>
                             </div>
+
                         </div>
                     </DialogFooter>
                 </DialogContent>

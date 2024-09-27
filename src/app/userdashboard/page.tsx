@@ -103,7 +103,7 @@
 // //                                     <DialogContent className="bg-white w-full sm:fixed top-[75%] md:top-[50%]  max-w-[592px] sm:w-[592px] h-auto sm:h-[377px] p-6 ">
 // //                                         <DialogHeader>
 // //                                             <DialogTitle>
-                                               
+
 // //                                                 <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold text-heading5 font-heading5-bold leading-7 sm:leading-9">
 // //                                                     Reschedule Nano Sprint
 // //                                                 </div>
@@ -365,8 +365,8 @@ import type { NextPage } from "next";
 import Header from "../sprintPages/nanopage/_component/Header";
 import { useRouter } from "next/navigation";
 import { useState } from 'react';
-import FirstPopup from './_components/FirstPopup';  
-import  PhoneSecondPopup  from './_components/PhoneSecondPopup';
+import FirstPopup from './_components/FirstPopup';
+import PhoneSecondPopup from './_components/PhoneSecondPopup';
 
 
 const Page: NextPage = () => {
@@ -390,8 +390,8 @@ const Page: NextPage = () => {
 
     const handleCloseSecondPopup = () => setIsPhoneSecondPopupOpen(false);
 
-   
-     
+
+
     return (
         <>
             <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
@@ -403,12 +403,12 @@ const Page: NextPage = () => {
             {/* <div className="mt-[184px] max-w-[90%] sm:max-w-[1216px] h-auto flex flex-col justify-start items-center gap-8 mb-8 mx-auto relative"> */}
             <div className=" pt-[184px] max-w-[90%] sm:max-w-[1216px] h-auto flex flex-col justify-start items-center gap-8 mb-8 mx-auto relative">
                 {/* <Header isLoggedIn={true} /> */}
-                {/* <div className="text-[#29458c]  text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px] self-stretch">
-                    My Bookings
-                </div> */}
-                <div className="text-[#29458c] text-heading4 font-heading4-bold  sm:text-[32px]  leading-[48px] sm:leading-[48px] self-stretch">
+                <div className="text-[#29458c]  text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px] self-stretch">
                     My Bookings
                 </div>
+                {/* <div className="text-[#29458c] text-heading4 font-heading4-bold  sm:text-[32px]  leading-[48px] sm:leading-[48px] self-stretch">
+                    My Bookings
+                </div> */}
                 {[...Array(3)].map((_, index) => (
                     <div
                         key={index}
@@ -460,15 +460,15 @@ const Page: NextPage = () => {
                 ))}
             </div >
 
-            <FirstPopup 
-                isOpen={isFirstPopupOpen} 
-                handleClose={handleCloseFirstPopup} 
-                handleOpenSecondPopup={handleOpenSecondPopup} 
+            <FirstPopup
+                isOpen={isFirstPopupOpen}
+                handleClose={handleCloseFirstPopup}
+                handleOpenSecondPopup={handleOpenSecondPopup}
             />
 
-            <PhoneSecondPopup 
-                isOpen={isPhoneSecondPopupOpen} 
-                handleClose={handleCloseSecondPopup} 
+            <PhoneSecondPopup
+                isOpen={isPhoneSecondPopupOpen}
+                handleClose={handleCloseSecondPopup}
             />
 
             <div className="max-w-[90%] sm:w-[1216px] h-[0px] border border-[#dedede] mx-auto relative gap-16"></div>
@@ -479,14 +479,15 @@ const Page: NextPage = () => {
                 </div>
                 <div className="flex flex-col sm:flex-row items-start gap-4 w-full">
                     <Image
-                        className="w-full sm:w-[696px] h-auto sm:h-[440px] rounded-lg"
+                        className="w-full sm:w-[592px] h-auto sm:h-[440px] rounded-lg"
                         alt="innovation hub map"
                         src="/userDashboard/map.png"
-                        width={696}
+                        width={592}
                         height={440}
                     />
                     <div className="w-full sm:w-[487px] flex flex-col gap-4">
-                        <div className="text-[#3a3a3a] text-2xl font-extrabold leading-9">AFE Makerspace Lab</div>
+                        <div className="text-[#3a3a3a] text-[24px]  sm:text-xl font-extrabold leading-9">AFE Makerspace Lab</div>
+                        {/* <div className="text-[#3a3a3a] text-heading5 font-heading5-bold  leading-9">AFE Makerspace Lab</div> */}
                         <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]">
                             16th Avenue, Roadside steps, Bengaluru - 208011
                         </div>
@@ -498,20 +499,26 @@ const Page: NextPage = () => {
                             <a href="mailto:afeinnovation@ihub.com" className="text-[#f55c38] font-semibold underline">
                                 afeinnovation@ihub.com
                             </a>
+                            <span> or Call/</span>
+                            <div><span>Whatsapp on</span>
+                                <span className="text-[#f55c38] font-extrabold">+918764674356</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="w-full max-w-[90%] sm:w-[1216px] h-auto flex flex-col justify-center items-start gap-8 mx-auto relative mt-8">
                 <div className="flex flex-col justify-start items-start gap-4">
-                    {/* <div className="text-left text-[#29458c] text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px]">
-                        Planned for future sprints?
-                    </div> */}
-                    <div className="text-left text-[#29458c] text-heading4 font-heading4-bold sm:text-[32px] leading-[36px] sm:leading-[48px]">
+                    <div className="text-left text-[#29458c] text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px]">
                         Planned for future sprints?
                     </div>
+                    {/* <div className="text-left text-[#29458c] text-heading4 font-heading4-bold sm:text-[32px] leading-[36px] sm:leading-[48px]">
+                        Planned for Future Sprints?
+                    </div>
+                      */}
+
                     <div className="text-left text-[#3a3a3a] text-lg font-medium leading-[30.60px]">
-                        Check out the sprint details and book one for your students today.
+                        Check out the sprint details and book one for your students today!
                     </div>
                 </div>
                 <div className="w-full sm:w-auto h-12 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center mb-4 gap-2 flex cursor-pointer"

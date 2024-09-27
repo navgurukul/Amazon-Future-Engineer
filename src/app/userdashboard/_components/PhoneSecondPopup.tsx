@@ -10,24 +10,24 @@ import {
 import Image from "next/image";
 interface SecondPopupProps {
     isOpen: boolean;
-    handleClose: () => void; 
+    handleClose: () => void;
 }
 const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose }) => {
     return (
         <>
             <Dialog open={isOpen} onOpenChange={handleClose}>
 
-                <DialogContent className="sm:fixed top-[75%] md:top-[50%] w-full max-w-[592px] h-auto p-8 bg-white rounded-lg shadow-lg">
+                <DialogContent className="sm:fixed top-[70%] md:top-[50%] w-full max-w-[592px] h-auto p-8 bg-white rounded-lg shadow-lg gap-2">
                     {/* <DialogContent className="w-full max-w-[592px] h-auto p-8 bg-white rounded-lg shadow-lg "> */}
-                    <DialogHeader>                                                        
-                    <DialogTitle className="flex justify-between items-center">
-                    
-                        <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold text-heading5 font-heading5-bold leading-7 sm:leading-9">
-                            Reschedule Nano Sprint
-                        </div>
+                    <DialogHeader>
+                        <DialogTitle className="flex justify-between items-center">
 
-                        <button className="w-6 h-6" />
-                    </DialogTitle>
+                            <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold text-heading5 font-heading5-bold leading-7 sm:leading-9">
+                                Reschedule Nano Sprint
+                            </div>
+
+                            <button className="w-6 h-6" />
+                        </DialogTitle>
                     </DialogHeader>
                     <DialogDescription>
                         {/* <div className="text-[#3a3a3a] text-lg font-extrabold font-['Amazon Ember'] leading-6 sm:leading-[30.60px] mb-4">
@@ -76,27 +76,20 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose }) =
                             </div>
                         </div>
 
-                        {/* <div className="whitespace-normal text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-6 sm:leading-[30.60px] mt-4">
-                                                     Please contact us at the phone number below to confirm your
-                                                     <span className="block">sprint rescheduling</span>
-                                                 </div> */}
-
-                        <div className="whitespace-normal text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-6 sm:leading-[30.60px] mt-4">
-                            <span className="block sm:hidden">Please contact us at the phone number</span>
-                            <span className="block sm:hidden">below to confirm your sprint rescheduling</span>
-                            <span className="hidden sm:inline">
-                                Please contact us at the phone number below to confirm your
-                                <span className="block">sprint rescheduling</span>
-                            </span>
+                        <div className="whitespace-normal text-[#3a3a3a] text-base sm:text-lg text-lg font-medium font-['Amazon Ember'] leading-7 sm:leading-[30.60px] mt-4 ">
+                            <span className="inline">Currently, we are only accepting reschedule requests via calls and WhatsApp. Please contact us at the number below to confirm your session rescheduling</span>
                         </div>
+                                               
+                         {/* <div className="whitespace-normal text-[#3a3a3a]  text-base font-medium font-['Amazon Ember'] leading-7 max-w-xs sm:max-w-md mt-4">
+                            Currently, we are only accepting reschedule requests via calls and WhatsApp. Please contact us at the number below to confirm your session rescheduling.
+                        </div> */}
 
                         <div className="mt-6 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center">
                             <div className="text-center text-[#3a3a3a] font-extrabold text-heading5 font-heading5-bold">
                                 +91 8597437548
                             </div>
-
                             <div className="text-center text-black text-lg font-medium font-['Amazon Ember'] leading-6 sm:leading-[30.60px]">
-                                Sprint Admin
+                                AFE Makerspace Helpline
                             </div>
                         </div>
                     </DialogDescription>
