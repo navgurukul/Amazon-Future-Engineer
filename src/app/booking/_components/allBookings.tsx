@@ -21,11 +21,10 @@ export const useAllBookings = () => {
   useEffect(() => {
     const fetchApiData = async () => {
       try {
-        const slots = await getSlots(1); // API call with venue_id as 1 by default
-        console.log('Fetched slots:', slots);
-
+        const slots = await getSlots(2); // API call with venue_id as 1 by default
+        console.log('Fetched slots:', slots.data);
         // Map the API response to the event structure
-        const mappedSlots: Event[] = slots.map((slot: any) => {
+        const mappedSlots: Event[] = slots.data.map((slot: any) => {
           const slotDate = new Date(slot.date); // Convert slot date string to Date object
           // const [startHour, startMinute] = slot.start_time.split(":").map(Number);
           // const [endHour, endMinute] = slot.end_time.split(":").map(Number);
@@ -57,7 +56,7 @@ export const useAllBookings = () => {
           };
         });
 
-        console.log('Mapped events:', mappedSlots);
+        console.log('Ram Ram events:', mappedSlots);
         setEvents(mappedSlots); // Set the mapped slots to state
       } catch (error) {
         console.error("Error fetching slots:", error);

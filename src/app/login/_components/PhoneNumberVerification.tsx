@@ -44,6 +44,14 @@ const PhoneNumberVerification: React.FC = () => {
     }
   };
 
+  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+    const charCode = event.key.charCodeAt(0);
+    // Only allow numbers (charCode between 48 and 57)
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault();
+    }
+  };
+
   return (
     <div className="flex justify-center md:items-center">
       {showOTPVerification ? (
@@ -77,18 +85,19 @@ const PhoneNumberVerification: React.FC = () => {
                   Phone Number
                 </label>
                 <div className="relative flex items-center gap-4 w-full">
-                  <span className="absolute left-4 text-gray-500">+91</span>
+                  <span className="absolute left-4 text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-secondary text-left">+91</span>
                   <Input
                     id="phone"
                     type="tel"
-                    placeholder={errorMessage ? "" : "723120985"}
-                    className={`pl-12 rounded-full border h-14 text-lg text-darkslategray ${
+                    placeholder={errorMessage ? "" : "xxxxxxxxxx"}
+                    className={`pl-12 rounded-full border h-14 text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-hint text-left ${
                       errorMessage
                         ? "border-error-main"
                         : "border-web-light-text-primary"
                     }`}
                     value={phoneNumber}
                     onChange={handlePhoneNumber}
+                    onKeyPress={handleKeyPress} 
                   />
                 </div>
                 {errorMessage && (
