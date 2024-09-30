@@ -49,7 +49,7 @@ const CallPopup: React.FC<PopupProps> = ({
           </div>
           <div className=" w-full mt-6 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center">
           <div className="text-center text-[#3a3a3a] font-extrabold text-heading5 font-heading5-bold">
-            +91 8597437548
+            +916366969292
           </div>
 
           <div className="text-center text-black text-lg font-medium font-['Amazon Ember'] leading-6 sm:leading-[30.60px]">
