@@ -24,22 +24,20 @@ const FirstPopup: NextPage<FirstPopupProps> = ({ isOpen, handleClose, handleOpen
                     <DialogHeader>
                         <DialogTitle>
 
-                            <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold text-heading5 font-heading5-bold leading-7 sm:leading-9 text-left">
+                            <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold text-heading5 font-heading5-bold leading-7 sm:leading-9 text-left gap-[1rem]">
                                 Reschedule Nano Sprint
                             </div>
                         </DialogTitle>
                     </DialogHeader>
 
-                    {/* <div className="text-[#3a3a3a] text-lg font-bold font-['Amazon Ember'] leading-6 sm:leading-[30.60px]">
-                                            Current Booking Details
-                                        </div> */}
-                    <div className="text-[#3a3a3a] text-subTitle1 font-subTitle1-bold leading-6 sm:leading-[30.60px] mb-4">
+                
+                    <div className="text-[#3a3a3a] text-subTitle1 font-subTitle1-bold leading-6 sm:leading-[30.60px] gap-[1rem]">
                         Current Booking Details
                     </div>
 
-                    <DialogDescription className="mt-2 text-gray-600">
-                        <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
-                            <div className="flex items-center space-x-2">
+                    <DialogDescription className="gap-[2rem] text-gray-600">
+                        <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0 ">
+                            <div className="flex items-center space-x-[12px]">
                                 <Image
                                     className="w-8 h-8 relative"
                                     alt="calendar icon"
@@ -47,12 +45,12 @@ const FirstPopup: NextPage<FirstPopupProps> = ({ isOpen, handleClose, handleOpen
                                     width={20}
                                     height={20}
                                 />
-                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px] gap-[2rem]">
                                     24 Sept 2024
                                 </div>
                             </div>
 
-                            <div className="flex items-center space-x-2">
+                            <div className="flex items-center space-x-[12px]">
                                 <Image
                                     className="w-8 h-8 relative"
                                     alt="time icon"
@@ -60,12 +58,12 @@ const FirstPopup: NextPage<FirstPopupProps> = ({ isOpen, handleClose, handleOpen
                                     width={20}
                                     height={20}
                                 />
-                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px] gap-[2rem]">
                                     2 PM to 5 PM
                                 </div>
                             </div>
 
-                            <div className="flex items-center space-x-2">
+                            <div className="flex items-center space-x-[12px]">
                                 <Image
                                     className="w-8 h-8 relative"
                                     alt="students icon"
@@ -73,13 +71,13 @@ const FirstPopup: NextPage<FirstPopupProps> = ({ isOpen, handleClose, handleOpen
                                     width={20}
                                     height={20}
                                 />
-                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px] gap-[2rem]">
                                     30 Students
                                 </div>
                             </div>
                         </div>
         
-                        <div className="whitespace-normal text-[#3a3a3a] text-base sm:text-lg text-lg font-medium font-['Amazon Ember'] leading-7 sm:leading-[30.60px] mt-4">
+                        <div className="whitespace-normal text-[#3a3a3a] text-base sm:text-lg text-lg font-medium font-['Amazon Ember'] leading-7 sm:leading-[30.60px] mt-8">
                             <span className="inline">We recommend to reschedule only in cases of emergencies. Please confirm if you would like to proceed</span>
                         </div>
 
@@ -116,5 +114,7 @@ const FirstPopup: NextPage<FirstPopupProps> = ({ isOpen, handleClose, handleOpen
 };
 
 export default FirstPopup;
+
+
 
 

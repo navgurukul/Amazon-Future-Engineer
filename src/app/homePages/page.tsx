@@ -8,6 +8,7 @@ import CreateAClass from "./CreateAClass";
 import type { NextPage } from "next";
 import { useRouter } from "next/navigation";
 import { useState, useCallback, useEffect } from "react";
+import Cookies from "js-cookie";
 
 
 interface PopupProps {
@@ -20,6 +21,7 @@ interface PopupProps {
 
 }
 const HomePage:  NextPage<PopupProps>  = () => {
+  const router = useRouter();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isHelpDeskPopupOpen, setIsHelpDeskPopupOpen] = useState(false);
   const [offlinePopup, setOfflinePopup] = useState<boolean>(false);
@@ -58,7 +60,6 @@ const HomePage:  NextPage<PopupProps>  = () => {
     };
   }, []);
 
-  const router = useRouter();
 
   const onFrameContainerClick = useCallback(() => {
     // Add your code here
@@ -66,7 +67,13 @@ const HomePage:  NextPage<PopupProps>  = () => {
 
   // Function to handle button click to open the popup
   const handleBookSessionClick = () => {
-    setIsPopupOpen(true);
+    const cookieData = Cookies.get("loginData");
+    if (cookieData) {
+      router.push("/sprintPages/nanopage");
+    }
+    else{
+      setIsPopupOpen(true);
+    }
   };
 
   // Function to close the popup
