@@ -107,13 +107,14 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ selectedDate,handleBookingPopUp }
         program_id: programId,
         venue_id: venueId,
         booking_batch_size: parseInt(students),
-        students_grade: "Grade 10" // You may need to get this from somewhere else
+        students_grade: "Grade 10"
       };
 
       const response = await bookSlot(bookingData);
       handleBookingPopUp({name:name,status:bookingStatus})
 
       setBookingStatus('Booking successful!');
+      handleBookingPopUp({ name, status: true });
       // Reset form
       setName('');
       setPhone('');

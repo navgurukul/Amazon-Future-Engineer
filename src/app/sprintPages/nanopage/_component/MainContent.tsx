@@ -13,7 +13,6 @@ const MainContent = ({ handleOfflineBooking }) => {
   });
 
   const handleChange = (name: string) => {
-    console.log(name);
     if (name === "nano") {
       router.push("/sprintPages/nanopage");
       setPage({

@@ -94,6 +94,8 @@ export const getUserData = async () => {
   }
 };
 
+
+
 //minipage waititngList api
 export const createWaitingList = async (waitingListData) => {
   const userDataString = localStorage.getItem('loginData');
@@ -103,9 +105,8 @@ export const createWaitingList = async (waitingListData) => {
   if (!token) {
     throw new Error('No token found');
   }
-
   try {
-    const response = await api.post('/waitinglist/', waitingListData, {
+    const response = await api.post('/waitinglist', waitingListData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -114,6 +115,28 @@ export const createWaitingList = async (waitingListData) => {
   } catch (error) {
     console.error('Error creating waiting list:', error);
     throw error;
+  }
+};
+
+
+// get program details 
+export const getProgramData = async (venue_id: number) => {
+  const userDataString = localStorage.getItem('loginData');
+  const userData = JSON.parse(userDataString || '{}');
+  const token = userData?.data?.token;
+  if (!token) {
+    return [];
+  }
+
+  try {
+    const response = await api.get(`/programs/${venue_id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.data;
+  } catch (error) {
+    return [];
   }
 };
 

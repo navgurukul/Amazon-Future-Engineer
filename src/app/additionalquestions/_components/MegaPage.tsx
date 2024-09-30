@@ -1,21 +1,72 @@
-"use client"
+"use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import  MegaWaitingListPopup  from './MegaWaitingListPopup';
-
+import MegaWaitingListPopup from './MiniWaitingListPopup';
+import { createWaitingList } from "@/utils/api";
 
 const MegaPage: NextPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [schoolName, setSchoolName] = useState("");
+    const [pinCode, setPinCode] = useState("");
+    const [error, setError] = useState<string | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [programId, setProgramId] = useState<number | null>(null);
+    const [venueId, setVenueId] = useState<number | null>(null);
 
-    const handleJoinWaitingList = () => {
-        setIsModalOpen(true);
+    useEffect(() => {
+        // Retrieve program data from LocalStorage
+        const programData = JSON.parse(localStorage.getItem('programData') || '[]');
+
+        // Find the MEGA program and get its id and venue_id
+        const megaProgram = programData.find(program => program.title === "MEGA");
+        if (megaProgram) {
+            setProgramId(megaProgram.id);
+            setVenueId(megaProgram.venue_id); // Assuming venue_id is the same for all programs
+        }
+    }, []);
+
+    const handleJoinWaitingList = async () => {
+        setIsSubmitting(true);
+        setError(null); 
+        
+        const waitingListData = {
+            name,
+            email,
+            city: "Bangalore",  
+            pin_code: pinCode,
+            school_name: schoolName,
+            venue_id: venueId,  
+            program_id: programId,  
+        };
+
+        try {
+            await createWaitingList(waitingListData);
+            setIsModalOpen(true);
+        } catch (error: any) {
+            setError(error?.response?.data?.message || "Something went wrong. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
+    };
+
+    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
+    };
+
+    const handleSchoolNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSchoolName(e.target.value);
+    };
+
+    const handlePinCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPinCode(e.target.value);
     };
 
     return (
@@ -56,6 +107,8 @@ const MegaPage: NextPage = () => {
                             </div>
                         </div>
 
+                        {error && <div className="text-red-500 text-sm">{error}</div>}
+
                         <div className="w-full flex flex-col gap-2">
                             <label className="text-[#3a3a3a] text-sm font-medium leading-normal">
                                 Name <span className="text-[#f55c38] hidden md:inline">*</span>
@@ -68,23 +121,13 @@ const MegaPage: NextPage = () => {
                         </div>
 
                         <div className="w-full flex flex-col gap-2">
-                            <label className="text-[#2e2e2e] text-sm font-medium leading-normal">
-                                Phone Number <span className="text-[#f55c38] hidden md:inline">*</span>
-                            </label>
-                            <input
-                                className="w-full h-12 md:h-14 px-4 py-2 rounded-full border border-[#2e2e2e] text-[#3a3a3a] text-base md:text-lg font-medium"
-                                placeholder="+918923747563"
-                            />
-                        </div>
-
-                        <div className="w-full flex flex-col gap-2">
                             <label className="text-[#3a3a3a] text-sm font-medium leading-normal">
-                                City <span className="text-[#f55c38] hidden md:inline">*</span>
+                                Email
                             </label>
                             <input
-                                className="w-full h-12 md:h-14 px-4 py-2 bg-[#dedede] rounded-full border border-[#3a3a3a] text-[#3a3a3a] text-base md:text-lg font-medium"
-                                value="Bengaluru"
-                                readOnly
+                                className="w-full h-12 md:h-14 px-4 py-2 rounded-full border border-[#3a3a3a] text-[#000000] text-base md:text-lg font-medium"
+                                placeholder="Eg. prakash@gmail.com"
+                                onChange={handleEmailChange}
                             />
                         </div>
 
@@ -95,19 +138,10 @@ const MegaPage: NextPage = () => {
                             <input
                                 className="w-full h-12 md:h-14 px-4 py-2 rounded-full border border-[#3a3a3a] text-[#000000] text-base md:text-lg font-medium"
                                 placeholder="Eg. Shiksha Bharti"
+                                onChange={handleSchoolNameChange}
                             />
                         </div>
 
-                        <div className="w-full flex flex-col gap-2">
-                            <label className="text-[#3a3a3a] text-sm font-medium leading-normal">
-                                Email
-                            </label>
-                            <input
-                                className="w-full h-12 md:h-14 px-4 py-2 rounded-full border border-[#3a3a3a] text-[#000000] text-base md:text-lg font-medium"
-                                placeholder="Eg. prakash@gmail.com"
-                            />
-                        </div>
-                  
                         <div className="w-full flex flex-col gap-2">
                             <label className="text-[#3a3a3a] text-sm font-medium leading-normal">
                                 Pincode
@@ -115,29 +149,30 @@ const MegaPage: NextPage = () => {
                             <input
                                 className="w-full h-12 md:h-14 px-4 py-2 rounded-full border border-[#3a3a3a] text-[#000000] text-base md:text-lg font-medium"
                                 placeholder="Eg. xxxxxx"
+                                onChange={handlePinCodeChange}
                             />
                         </div>
-
 
                         <div
                             className="w-full md:w-auto h-12 md:h-14 px-6 md:px-8 py-2 bg-[#f55c38] rounded-full flex justify-center items-center cursor-pointer"
                             onClick={handleJoinWaitingList}
+                            disabled={isSubmitting}
                         >
                             <span className="text-white text-base md:text-lg font-medium leading-7 md:leading-[30.60px]">
-                                Join Waiting List
+                                {isSubmitting ? "Submitting..." : "Join Waiting List"}
                             </span>
                         </div>
                     </div>
                 </div>
 
                 <MegaWaitingListPopup isOpen={isModalOpen} name={name} />
-
             </div>
         </>
     );
 };
 
 export default MegaPage;
+
 
 
 
