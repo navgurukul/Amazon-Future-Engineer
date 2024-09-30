@@ -1,9 +1,8 @@
-// components/VerifyOTP.tsx
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from "react";
-import { verifyOtp, resendOtp } from "@/utils/api"; // Import the API functions
-import Cookies from "js-cookie"; // Import js-cookie for cookie handling
+import { verifyOtp, resendOtp } from "@/utils/api"; 
+import Cookies from "js-cookie"; 
 
 interface VerifyOTPProps {
   length?: number;
@@ -74,11 +73,9 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
     setError("");
 
     try {
-      const response = await verifyOtp(phoneNumber, otpString); // Use the API call
-      console.log(response);
+      const response = await verifyOtp(phoneNumber, otpString); 
       localStorage.setItem("loginData", JSON.stringify(response));
-      // Set loginData in cookies
-      Cookies.set("loginData", JSON.stringify(response.data), { expires: 7 }); // Set cookie with expiration of 7 days
+      Cookies.set("loginData", JSON.stringify(response), { expires: 7 }); 
       const userId = JSON.stringify(response.userId);
       localStorage.setItem("LoginId", userId);
       setMessage(response.message);
@@ -91,7 +88,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
 
   const handleResendOTP = async () => {
     try {
-      await resendOtp(phoneNumber); // Use the API call
+      await resendOtp(phoneNumber); 
       setSeconds(119);
       setIsResendAllowed(false);
     } catch (err: any) {
@@ -102,6 +99,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
   const handlePreviousScreen = () => {
     setShowOTPVerification(false);
   };
+
 
   return (
     <div className="px-4 sm:px-4 mx-auto mt-12 md:mx-0 md:mt-0">
@@ -119,7 +117,6 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
             Please enter the OTP sent to your mobile
           </div>
           <div className="flex flex-col gap-6 w-full">
-            {/* OTP Input Fields */}
             <div>
               <div className="flex items-start gap-4 w-full">
                 {otp.map((digit, index) => (
@@ -139,7 +136,6 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
                   />
                 ))}
               </div>
-              {/* Error Message */}
               <div className="mt-2">
                 {error && (
                   <span className="text-[#F44336] font-body2-regular text-body2 leading-[1.4875rem]">
@@ -148,7 +144,6 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
                 )}
               </div>
             </div>
-            {/* Verify Button */}
             <Button
               variant="proceed"
               onClick={handleVerifyOTP}
@@ -156,7 +151,6 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
             >
               Verify OTP
             </Button>
-            {/* Resend Timer */}
             <div className="relative text-lg leading-[170%] font-medium font-['Amazon Ember'] text-left text-darkslategray">
               {isResendAllowed ? (
                 <button

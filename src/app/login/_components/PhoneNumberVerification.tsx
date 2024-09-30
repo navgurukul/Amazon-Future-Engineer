@@ -70,7 +70,6 @@ const PhoneNumberVerification: React.FC = () => {
               />
             </div>
             <div className="flex flex-col items-start gap-6 self-stretch w-full">
-              {/* Title */}
               <div className="relative text-5xl leading-[150%] font-extrabold font-heading4-bold text-midnight-blue-main text-left">
                 Login to AFE Makerspace
               </div>
@@ -108,7 +107,6 @@ const PhoneNumberVerification: React.FC = () => {
               </div>
 
               <div className="w-full">
-                {/* Proceed Button */}
                 <Button
                   onClick={handleProceed}
                   className="w-full h-14 rounded-full bg-incandescent-main text-web-light-background-default font-button1-bold text-lg leading-[170%] hover:bg-incandescent-main hover:text-web-light-background-default"
