@@ -54,14 +54,18 @@ const Page: NextPage = () => {
         handleCloseFirstPopup();
         setIsPhoneSecondPopupOpen(true);
     };
+    
     const handleCloseSecondPopup = () => setIsPhoneSecondPopupOpen(false);
+    const handleBookSessionClick = ()=>{
+      console.log("need to add logic for this")
+    }
     
     return (
         <>
             <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
-                <Header isLoggedIn={true} handleOfflineBooking={function (): void {
+                <Header bgColor=""  openSecondPopup={false}  handleOfflineBooking={function (): void {
                     throw new Error("Function not implemented.");
-                }} offlinePopup={false} openSecondPopup={false} />
+                }} offlinePopup={false} bookingPopup={false} handleBookSessionClick = {handleBookSessionClick}/>
             </div>
             {/* <Header isLoggedIn={true} /> */}
             {/* <div className="mt-[184px] max-w-[90%] sm:max-w-[1216px] h-auto flex flex-col justify-start items-center gap-8 mb-8 mx-auto relative"> */}

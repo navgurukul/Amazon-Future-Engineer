@@ -227,7 +227,7 @@ const Header: NextPage<HeaderProps> = ({
         )}
       </div>
     </div>
-  );
-};
+  )};
+
 
 export default Header;

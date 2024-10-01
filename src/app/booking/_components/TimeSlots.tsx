@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 interface TimeSlotsProps {
   selectedDate: Date | null;
+  handleBookingPopUp : any
 }
 
 interface Event {
@@ -103,7 +104,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ selectedDate,handleBookingPopUp }
       const [programId, venueId] = selectedSlotData.event.title.split(' - ').map(part => parseInt(part.split(' ')[1]));
       
       const bookingData = {
-        slot_id: selectedSlotData.event.id,
+        slot_id: Number(selectedSlotData.event.id),
         program_id: programId,
         venue_id: venueId,
         booking_batch_size: parseInt(students),
