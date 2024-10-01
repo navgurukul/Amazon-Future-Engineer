@@ -16,6 +16,7 @@ export default function Home() {
   };
 
   useEffect(() => {
+    // Cookies.remove('loginData')
     fetchProgramData();
     const localStorageData = localStorage.getItem("loginData");
     const cookieData = Cookies.get("loginData");

@@ -16,10 +16,10 @@ const Page: NextPage = () => {
       ></div>
 
       <PhoneNumberVerification />
-      
     </div>
   );
 };
 
 export default Page;
+
 

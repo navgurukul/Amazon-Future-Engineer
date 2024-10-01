@@ -24,7 +24,7 @@ interface EventData {
 const Page: NextPage = () => {
   const router = useRouter();
   const [userData, setUserData] = useState<EventData[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {

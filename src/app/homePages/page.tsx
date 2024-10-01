@@ -145,7 +145,7 @@ const HomePage: NextPage<PopupProps> = () => {
         handleOfflineBooking={handleOfflineBooking}
         offlinePopup={offlinePopup}
         openSecondPopup={openSecondPopup}
-        bgColor={"transparent"}
+        bgColor="home"
       />
       {/* First Section */}
       {/* <section className="relative w-full min-h-screen text-center text-xl md:text-2xl text-[#3a3a3a] font-['Amazon Ember Display']">
@@ -193,19 +193,16 @@ const HomePage: NextPage<PopupProps> = () => {
         ></video>
 
         <header className="absolute top-[20%] left-0 max-w-[1200px] mx-auto flex flex-col gap-6 items-start text-left px-4">
-          <div className="w-full flex flex-col gap-3 items-start">
-            <h1 className="w-[80%] relative font-bold md:font-extrabold leading-[150%] text-white text-[28px] md:text-[3vw] xs:leading-[120%]">
-              <span className="inline md:hidden">
-                WELCOME TO AFE MAKERSPACE
-              </span>
-              <span className="hidden md:inline">
-              <div className="w-full relative text-23xl leading-[150%] font-extrabold font-webtypestyles-h4 text-bg-surface-default text-left inline-block">Come build the future with us at the Amazon Future Engineer Makerspace</div>
-              </span>
-            </h1>
-            <h2 className="text-white">
-            <div className="w-full relative text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-bg-surface-default text-left">A one-of-a-kind Robotics and AI Lab for students and educators in Bangalore</div>
-            </h2>
+        <div className="w-full flex flex-col gap-4 items-start">
+        <div className="h-[126px] w-[800px]">
+          <div className="text-white text-[42px] font-extrabold font-['Amazon Ember Display'] leading-[63px]">Come build the future with us at the Amazon Future Engineer Makerspace</div>
+        </div>
+        <div className="w-[800px] h-[72px]">
+          <div className="w-full relative text-[1.5rem] leading-[150%] font-extrabold text-white text-left inline-block font-['Amazon Ember Display']">
+            A one-of-a-kind Robotics and AI Lab for students and educators in Bangalore
           </div>
+        </div>
+      </div>
 
           <div className="flex flex-col md:flex-row xs:gap-2 sm:gap-4 md:gap-4 lg:gap-8 items-start text-[14px] md:text-[18px] text-white w-full">
             <button
