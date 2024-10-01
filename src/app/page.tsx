@@ -26,6 +26,7 @@ export default function Home() {
       router.push("/sprintPages/nanopage");
     }
   }, []);
+  
   return (
       <HomePage offlinePopup={false} handleOfflineBookingClose={function (): void {
         throw new Error("Function not implemented.");

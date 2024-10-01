@@ -55,7 +55,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({ setSelect
 
   useEffect(() => {
     updateMonthYear();
-  }, []);
+  }, [updateMonthYear]);
 
   return (
     <div className={styles.calendarContainer}>

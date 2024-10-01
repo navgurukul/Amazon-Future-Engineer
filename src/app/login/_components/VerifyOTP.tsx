@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from "react";
 import { verifyOtp, resendOtp } from "@/utils/api"; 
 import Cookies from "js-cookie"; 
+import Image from "next/image";
 
 interface VerifyOTPProps {
   length?: number;
@@ -105,11 +106,13 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
     <div className="px-4 sm:px-4 mx-auto mt-12 md:mx-0 md:mt-0">
       <div className="flex flex-col items-start gap-8 self-stretch md:self-auto">
         <div>
-          <img
+          <Image
             src="/login/arrow_back.svg"
             alt="back"
             onClick={handlePreviousScreen}
             className="cursor-pointer"
+            width={24} 
+            height={24}
           />
         </div>
         <div className="flex flex-col gap-6 w-full">
