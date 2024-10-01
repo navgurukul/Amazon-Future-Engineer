@@ -110,7 +110,7 @@ const MegaPage: NextPage = () => {
 
   return (
     <>
-      <div className="w-full min-h-screen bg-white flex flex-col justify-center items-center gap-8 md:gap-16">
+      <div className="pt-[120px] w-full min-h-screen bg-white flex flex-col justify-center items-center gap-8 md:gap-16">
       <DialogHeader/>
         <div className="flex justify-center items-center w-full px-4">
           <div className="w-full md:w-[592px] rounded-lg flex flex-col justify-start items-center gap-8 p-4 md:p-6">
