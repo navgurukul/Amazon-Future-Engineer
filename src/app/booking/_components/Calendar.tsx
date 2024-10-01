@@ -23,10 +23,12 @@ const Calendar: React.FC = () => {
         <div>
           <DialogHeader />
           {/* Adjust padding-top to account for the fixed header */}
-          <div className="pt-[10px]">
+          <div className="pt-[120px]">
             <h5 className="text-13xl leading-[150%] font-extrabold font-webtypestyles-h5 text-midnight-blue-main pb-5 text-center">
               Book a Nano Sprint
             </h5>
+            <div>
+            <div className="w-full pl-8 text-lg leading-[170%] font-extrabold font-webtypestyles-subtitle1 text-text-primary text-left ">Available Dates</div>
             <div className="flex w-full h-screen">
               <div className="w-1/2 p-4">
                 <FullCalendarComponent setSelectedDate={setSelectedDate} />
@@ -38,6 +40,7 @@ const Calendar: React.FC = () => {
                   handleBookingPopUp={handleBookingPopUp} 
                 />
               </div>
+            </div>
             </div>
           </div>
         </div>

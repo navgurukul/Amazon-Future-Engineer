@@ -105,20 +105,20 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
   return (
     <div className="px-4 sm:px-4 mx-auto mt-12 md:mx-0 md:mt-0">
       <div className="flex flex-col items-start gap-8 self-stretch md:self-auto">
-        <div>
+        <div className="flex gap-2">
           <Image
-            src="/login/arrow_back.svg"
+            src="/login/chevron_left.svg"
             alt="back"
             onClick={handlePreviousScreen}
-            className="cursor-pointer"
+            className="cursor-pointer overflow-hidden"
             width={24} 
             height={24}
           />
+          <div className="leading-[170%] font-extrabold">Back</div>
+    
         </div>
         <div className="flex flex-col gap-6 w-full">
-          <div className="relative text-5xl leading-[150%] text-heading5 font-heading5-bold text-midnight-blue-main text-left">
-            Please enter the OTP sent to your mobile
-          </div>
+        <div className="text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-midnight-blue-main text-left">Please enter the OTP</div>
           <div className="flex flex-col gap-6 w-full">
             <div>
               <div className="flex items-start gap-4 w-full">
@@ -132,7 +132,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
                     value={digit}
                     onChange={(e) => handleChange(index, e)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
-                    className={`flex h-14 w-full max-w-[3rem] sm:max-w-full px-3 justify-center items-center border rounded-lg text-center text-darkslategray text-lg
+                    className={`sm:max-w-full w-full rounded-lg border-grey-400 border-[1px] border-solid box-border h-14 py-0 px-3 text-center text-lg text-text-primary font-webtypestyles-body1
                       ${error ? "border-error-main" : "border-gray-300"} 
                       md:max-w-[3rem]`}
                     maxLength={1}
@@ -150,11 +150,11 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
             <Button
               variant="proceed"
               onClick={handleVerifyOTP}
-              className="flex w-full sm:w-full md:w-[23rem] h-14 py-2 px-8 justify-center items-center gap-2 rounded-[6.25rem]"
+              className="flex w-full sm:w-full md:w-[23rem] h-14 py-2 px-8 justify-center items-center gap-2 rounded-[6.25rem] font-medium "
             >
               Verify OTP
             </Button>
-            <div className="relative text-lg leading-[170%] font-medium font-['Amazon Ember'] text-left text-darkslategray">
+            <div className="text-lg leading-[170%] font-medium font-['Amazon Ember'] text-left text-darkslategray">
               {isResendAllowed ? (
                 <button
                   onClick={handleResendOTP}

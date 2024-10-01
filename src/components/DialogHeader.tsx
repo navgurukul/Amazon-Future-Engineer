@@ -11,7 +11,7 @@ const DialogHeader: React.FC = () => {
   // fixed top-0 z-5
 
   return (
-    <div className="w-full h-[80px] px-4 md:px-12 bg-white shadow-md flex justify-between items-center">
+    <div className="w-full h-[80px] px-4 md:px-12 bg-white shadow-md flex justify-between items-center fixed top-0 z-50">
     <div className="flex items-center gap-2 cursor-pointer" onClick={handleBackClick}>
       <div className="w-6 h-6 relative">
         <Image
