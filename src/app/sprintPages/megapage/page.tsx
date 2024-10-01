@@ -51,6 +51,10 @@ const Page = () => {
     }
   }, [openSecondPopup]);
 
+  function handleBookSessionClick(): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <div className="min-h-screen pb-20 lg:pb-0">
       {/* <Header
@@ -59,14 +63,18 @@ const Page = () => {
         offlinePopup={offlinePopup}
         openSecondPopup={openSecondPopup}
       /> */}
+
       <Header
         handleOfflineBooking={handleOfflineBooking}
         offlinePopup={offlinePopup}
         openSecondPopup={openSecondPopup}
         bookingPopup={bookingPopup}
+        bgColor = ""
+        handleBookSessionClick={handleBookSessionClick}
+
       />
       {/* <MainContent handleOfflineBooking={handleOfflineBooking} /> */}
-      <MainContent handleOfflineBooking={handleBooking} />
+      <MainContent/>
       <Footer handleOfflineBooking={handleOfflineBooking}/>
       {/* <Popup offlinePopup={offlinePopup} */}
       <Popup offlinePopup={bookingPopup}
@@ -76,8 +84,9 @@ const Page = () => {
       {openSecondPopup && <SecondPopup />}
       <CallPopup
         offlinePopup={offlinePopup}
-        handleClose={handleClose}
-      />
+        handleClose={handleClose} handleOfflineBookingClose={function (): void {
+          throw new Error("Function not implemented.");
+        } }      />
     </div>
   );
 };

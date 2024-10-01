@@ -1,6 +1,11 @@
 import type { NextPage } from "next";
 
-const Footer: NextPage = ({handleOfflineBooking}) => {
+interface FooterProps {
+  handleOfflineBooking: () => void; 
+}
+
+
+const Footer: NextPage<FooterProps> = ({handleOfflineBooking}) => {
   return (
     <div className="w-full bg-[#ffad33] h-auto text-center text-lg text-gray-800 font-amazon-ember py-4">
       <div className="flex flex-col md:flex-row justify-between items-center h-full px-6">

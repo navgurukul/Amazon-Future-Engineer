@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import React from 'react';
 
 const SecondPopup: NextPage = () => {
   return (
@@ -8,9 +9,7 @@ const SecondPopup: NextPage = () => {
 
       {/* Popup Dialog */}
       <div
-        className="fixed w-full md:w-1/3 bg-white z-50 p-8 gap-4 shadow-lg rounded-lg text-left text-gray-500 font-nunito-sans
-        flex flex-col items-center justify-center 
-        md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2"
+        className="fixed w-full md:w-1/3 bg-white z-50 p-8 gap-4 shadow-lg rounded-lg text-left text-gray-500 font-nunito-sans flex flex-col items-center justify-center  md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2"
       >
         <div className="flex flex-col items-center justify-start text-lg text-gray-full font-body-body-reg">
           <div className="w-full flex flex-col items-center justify-start gap-2">

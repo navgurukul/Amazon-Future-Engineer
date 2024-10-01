@@ -45,9 +45,8 @@ const PhoneNumberVerification: React.FC = () => {
     }
   };
 
-  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const charCode = event.key.charCodeAt(0);
-    // Only allow numbers (charCode between 48 and 57)
     if (charCode < 48 || charCode > 57) {
       event.preventDefault();
     }

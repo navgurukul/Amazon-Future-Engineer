@@ -1,30 +1,35 @@
 "use client";
 
-import CreateAClass from "@/app/homePages/CreateAClass";
 // import Popup from "@/app/homePages/_components/Popup";
 import Popup from "./Popup";
+import CreateAClass from "@/app/homePages/CreateAClass";
 import type { NextPage } from "next";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 
 interface HeaderProps {
   isLoggedIn: boolean;
-  handleOfflineBooking : ()=>void;
-  offlinePopup :boolean;
-  openSecondPopup :boolean;
+  handleOfflineBooking: () => void;
+  offlinePopup: boolean;
+  openSecondPopup: boolean;
 }
-const Header: NextPage<HeaderProps> = ({ isLoggedIn, handleOfflineBooking,offlinePopup,openSecondPopup }) => {
+const Header: NextPage<HeaderProps> = ({
+  isLoggedIn,
+  handleOfflineBooking,
+  offlinePopup,
+  openSecondPopup,
+}) => {
   const router = useRouter();
   const [hasShadow, setHasShadow] = useState<boolean>(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isHelpDeskPopupOpen, setIsHelpDeskPopupOpen] = useState(false);
   // const [zIndex,setZIndex] = useState(1000);
-  
+
   const handleScroll = useCallback(() => {
     if (window.scrollY > 0) {
       setHasShadow(true);
       // setZIndex(1000);
-
     } else {
       setHasShadow(false);
       // setZIndex(1000)
@@ -59,13 +64,15 @@ const Header: NextPage<HeaderProps> = ({ isLoggedIn, handleOfflineBooking,offlin
         hasShadow
           ? "shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_1px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)]"
           : ""
-      } z-${offlinePopup||openSecondPopup  ?0:50} px-4 sm:px-8 md:px-12`}
+      } z-${offlinePopup || openSecondPopup ? 0 : 50} px-4 sm:px-8 md:px-12`}
     >
-      <img
+      <Image
         className="absolute top-1/2 left-4 transform -translate-y-1/2 w-12 h-12 sm:w-16 sm:h-16 overflow-hidden cursor-pointer"
         alt="Reshot Icon"
         src="/nanopage/reshot-icon-molecules-YBNSD562JC 1.svg"
         onClick={onReshotIconMoleculesYBNSDClick}
+        width={48}
+        height={48}
       />
       <div className="absolute top-1/2 right-4 transform -translate-y-1/2 flex items-center gap-4 sm:gap-8">
         <div
@@ -98,20 +105,24 @@ const Header: NextPage<HeaderProps> = ({ isLoggedIn, handleOfflineBooking,offlin
               ? "bg-[#FDDED7] text-[#F55C38] cursor-pointer"
               : "bg-[#FFF] text-[#F55C38] cursor-pointer"
           }`}
-          onClick={ handleOfflineBooking}
+          onClick={handleOfflineBooking}
         >
-          <img
+          <Image
             className="w-6 h-6 sm:w-8 sm:h-8 overflow-hidden"
             alt="Helpdesk Icon"
             src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
+            width={32}
+            height={32}
           />
           <div className="font-medium leading-[170%]">Call Us</div>
         </div>
         {isLoggedIn ? (
-          <img
+          <Image
             className="w-10 h-10 sm:w-14 sm:h-14 object-cover rounded-full"
             alt="User Avatar"
             src="/nanopage/Ellipse 1.svg"
+            width={40}
+            height={40}
           />
         ) : (
           <nav
@@ -122,12 +133,12 @@ const Header: NextPage<HeaderProps> = ({ isLoggedIn, handleOfflineBooking,offlin
           </nav>
         )}
       </div>
-   {isLoginPopupOpen && (
+      {isLoginPopupOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <CreateAClass closePopup={closeLoginPopup} />
         </div>
       )}
-        {/*  {isHelpDeskPopupOpen && (
+      {/*  {isHelpDeskPopupOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <Popup closeHelpDeskPopup={closeHelpDeskPopup}  />
         </div>

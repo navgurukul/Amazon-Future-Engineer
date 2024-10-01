@@ -57,7 +57,7 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
           <div className="text-center text-[#3a3a3a] text-base md:text-lg font-medium font-['Amazon Ember'] leading-7 md:leading-[30.60px]">
             Thanks for joining the waiting list {name}. We will contact you via the phone number or email provided when the program is launched.
           </div>
-          <div className="relative w-[240px] h-0 border-t border-t-[1px] opacity-100 rotate-0">
+          <div className="relative w-[240px] h-0  border-t-[1px] opacity-100 rotate-0">
             <Image
               src="/userDashboard/Line 33.svg"
               alt="Line Icon"

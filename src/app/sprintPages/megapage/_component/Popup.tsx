@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { useState } from "react";
 
 interface PopupProps {
@@ -37,11 +38,13 @@ const Popup: React.FC<PopupProps> = ({
           {/* Title and Close Button */}
           <div className="flex items-center justify-between text-lg font-amazon-ember w-full">
             <div className="font-extrabold">Helpdesk</div>
-            <img
+            <Image
               className="w-5 h-5 cursor-pointer"
               alt="close"
               src="/homepage/close.svg"
               onClick={handleClose}
+              width={20}
+              height={20}
             />
           </div>
 

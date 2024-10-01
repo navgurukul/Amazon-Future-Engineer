@@ -7,11 +7,16 @@ const api = axios.create({
   },
 });
 
-// Function to fetch slots
-export const getSlots = async (venueId: number = 1) => {
+// Utility function to get the token
+const getToken = (): string | null => {
   const userDataString = localStorage.getItem('loginData');
   const userData = JSON.parse(userDataString || '{}');
-  const token = userData?.data?.token;
+  return userData?.data?.token || null;
+};
+
+// Function to fetch slots
+export const getSlots = async (venueId: number = 1) => {
+  const token = getToken();
 
   if (!token) {
     throw new Error('No token found');
@@ -38,10 +43,7 @@ export const bookSlot = async (bookingData: {
   booking_batch_size: number;
   students_grade: string;
 }) => {
-  // Retrieve token from localStorage
-  const userDataString = localStorage.getItem('loginData');
-  const userData = JSON.parse(userDataString || '{}');
-  const token = userData?.data?.token;
+  const token = getToken();
 
   if (!token) {
     throw new Error('No token found');
@@ -70,11 +72,9 @@ export const verifyOtp = async (phone: string, otp: string) => {
   }
 };
 
-//UserDashboard 
+// User Dashboard 
 export const getUserData = async () => {
-  const userDataString = localStorage.getItem('loginData');
-  const userData = JSON.parse(userDataString || '{}');
-  const token = userData?.data?.token;
+  const token = getToken();
 
   if (!token) {
     throw new Error('No token found');
@@ -87,16 +87,14 @@ export const getUserData = async () => {
       },
     });
     const upcomingEvents = response.data?.data.upcomingEvents || [];
-    return upcomingEvents ;
+    return upcomingEvents;
   } catch (error) {
     console.error('Error fetching user data:', error);
     throw error;
   }
 };
 
-
-
-//minipage waititngList api
+// Waiting List API
 interface WaitingListData {
   name: string;
   email: string;
@@ -107,15 +105,13 @@ interface WaitingListData {
   school_name: string;
 }
 
-
 export const createWaitingList = async (waitingListData: WaitingListData) => {
-  const userDataString = localStorage.getItem('loginData');
-  const userData = JSON.parse(userDataString || '{}');
-  const token = userData?.data?.token;
+  const token = getToken();
 
   if (!token) {
     throw new Error('No token found');
   }
+
   try {
     const response = await api.post('/waitinglist', waitingListData, {
       headers: {
@@ -123,18 +119,16 @@ export const createWaitingList = async (waitingListData: WaitingListData) => {
       },
     });
     return response.data;
-  } catch (error:any) {
-    alert(error.response.data.details)
-    throw error
+  } catch (error: any) {
+    alert(error.response.data.details);
+    throw error;
   }
 };
 
-
-// get program details 
+// Get program details 
 export const getProgramData = async (venue_id: number) => {
-  const userDataString = localStorage.getItem('loginData');
-  const userData = JSON.parse(userDataString || '{}');
-  const token = userData?.data?.token;
+  const token = getToken();
+  
   if (!token) {
     return [];
   }
@@ -151,10 +145,24 @@ export const getProgramData = async (venue_id: number) => {
   }
 };
 
+// Function to call the booking query API
+export const callBookingQuery = async (bookingData: {
+  name: string;
+  phone: string;
+  program_id: number;
+  venue_id: number;
+  query_type: string;
+}) => {
+  try {
+    const response = await api.post('/queries/call-booking-query', bookingData);
+    return response.data;
+  } catch (error: any) {
+    console.error('Error calling booking query:', error);
+    throw error.response?.data || error;
+  }
+};
 
-
-
-
+// Function to resend OTP
 export const resendOtp = async (phone: string) => {
   try {
     const response = await api.post('/auth/send-otp', { phone });

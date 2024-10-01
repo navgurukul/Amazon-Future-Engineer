@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Image from "next/image";
 import { useCallback } from "react";
 
 interface PopupProps {
@@ -20,11 +21,13 @@ const Popup: NextPage<PopupProps> = ({ closeHelpDeskPopup }) => {
       <div className="flex flex-col gap-4 flex-grow">
         <div className="flex items-center justify-between text-lg font-amazon-ember w-full">
           <div className="font-extrabold">Helpdesk</div>
-          <img
+          <Image
             className="w-6 h-6 cursor-pointer"
             alt="close"
             src="/homepage/close.svg"
             onClick={onNoClick}
+            width={24}
+            height={24}
           />
         </div>
         <div className="leading-7 font-medium">

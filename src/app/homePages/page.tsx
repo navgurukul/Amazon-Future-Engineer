@@ -7,17 +7,12 @@ import SecondPopup from "../sprintPages/nanopage/_component/SecondPopup";
 import CreateAClass from "./CreateAClass";
 import Cookies from "js-cookie";
 import type { NextPage } from "next";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useCallback, useEffect } from "react";
 
-interface PopupProps {
-  offlinePopup: boolean;
 
-  handleOfflineBookingClose: () => void;
-
-  handleClose: () => void;
-}
-const HomePage: NextPage<PopupProps> = () => {
+const HomePage: NextPage = () => {
   const router = useRouter();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isHelpDeskPopupOpen, setIsHelpDeskPopupOpen] = useState(false);
@@ -95,8 +90,8 @@ const HomePage: NextPage<PopupProps> = () => {
   //   router.push("/sprintPages/megapage");
   // };
 
-  const handleLearnMoreClick = (type:any) => {
-    const loginData = localStorage.getItem("loginData")
+  const handleLearnMoreClick = (type: any) => {
+    const loginData = localStorage.getItem("loginData");
     if (loginData) {
       if (type === "mini") {
         router.push("/sprintPages/minipage");
@@ -194,16 +189,20 @@ const HomePage: NextPage<PopupProps> = () => {
         ></video>
 
         <header className="absolute top-[20%] left-0 max-w-[1200px] mx-auto flex flex-col gap-6 items-start text-left px-4">
-        <div className="w-full flex flex-col gap-4 items-start">
-        <div className="h-[126px] w-[800px]">
-          <div className="text-white text-[42px] font-extrabold font-['Amazon Ember Display'] leading-[63px]">Come build the future with us at the Amazon Future Engineer Makerspace</div>
-        </div>
-        <div className="w-[800px] h-[72px]">
-          <div className="w-full relative text-[1.5rem] leading-[150%] font-extrabold text-white text-left inline-block font-['Amazon Ember Display']">
-            A one-of-a-kind Robotics and AI Lab for students and educators in Bangalore
+          <div className="w-full flex flex-col gap-4 items-start">
+            <div className="h-[126px] w-[800px]">
+              <div className="text-white text-[42px] font-extrabold font-['Amazon Ember Display'] leading-[63px]">
+                Come build the future with us at the Amazon Future Engineer
+                Makerspace
+              </div>
+            </div>
+            <div className="w-[800px] h-[72px]">
+              <div className="w-full relative text-[1.5rem] leading-[150%] font-extrabold text-white text-left inline-block font-['Amazon Ember Display']">
+                A one-of-a-kind Robotics and AI Lab for students and educators
+                in Bangalore
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
           <div className="flex flex-col md:flex-row xs:gap-2 sm:gap-4 md:gap-4 lg:gap-8 items-start text-[14px] md:text-[18px] text-white w-full">
             <button
@@ -218,10 +217,13 @@ const HomePage: NextPage<PopupProps> = () => {
               className="flex items-center justify-center md:px-4 md:py-4 lg:px-10 lg:py-4 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto gap-4"
               onClick={handleOfflineBooking}
             >
-              <img
+              <Image
                 className="w-6 h-6 sm:w-8 sm:h-8 overflow-hidden"
                 alt="Helpdesk Icon"
                 src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
+                width={24}
+                height={24}
+                sizes="(min-width: 640px) 32px"
               />
               <span className="relative font-medium leading-[170%]">
                 Call Us
@@ -281,7 +283,7 @@ const HomePage: NextPage<PopupProps> = () => {
       </section> */}
       <section className="relative w-full min-h-screen overflow-visible text-left text-xl text-[#29458c] py-12 md:mt-16">
         <article className="w-full flex flex-col items-start justify-start gap-4 px-4 md:px-12 mb-10">
-          <h2 className="relative font-extrabold leading-[150%] text-[20px] text-5xl md:text-[25px]">
+          <h2 className="relative font-heading1-bold leading-[150%] text-heading5">
             What is the AFE Makerspace?
           </h2>
           <div>
@@ -301,24 +303,30 @@ const HomePage: NextPage<PopupProps> = () => {
 
         <div className="w-full overflow-x-auto flex flex-row items-start justify-start gap-4 px-4 md:px-12">
           <figure className="flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[24%] md:h-[360px]">
-            <img
+            <Image
               className="object-cover w-full h-full"
               alt="AFE Hub Image 1"
               src="./homepage/Rectangle 4(2).svg"
+              width={480}
+              height={288}
             />
           </figure>
           <figure className="flex-none w-[calc(100vw-32px)] h-[calc((100vw-32px)*0.6)] md:w-[50%] md:h-[360px]">
-            <img
+            <Image
               className="object-cover w-full h-full"
               alt="AFE Hub Image 2"
               src="./homepage/Rectangle 3-new.svg"
+              width={640}
+              height={360}
             />
           </figure>
           <figure className="flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[24%] md:h-[360px]">
-            <img
+            <Image
               className="object-cover w-full h-full"
               alt="AFE Hub Image 3"
               src="./homepage/Rectangle 5-new.svg"
+              width={480}
+              height={288}
             />
           </figure>
         </div>
@@ -339,28 +347,28 @@ const HomePage: NextPage<PopupProps> = () => {
         <div className="w-full flex flex-col items-center justify-start gap-8 text-[20px] md:text-[24px]">
           <div className="w-full flex items-center justify-start gap-8 gap-y-12">
             <div className="w-full lg:w-[25%] flex flex-col items-center justify-start">
-              <img
+              <Image
                 className="w-[140px] h-[140px] object-cover"
                 alt="Step 1"
                 src="./homepage/Lottie flies.gif"
               />
             </div>
             <div className="w-full lg:w-[25%] flex flex-col items-center justify-start">
-              <img
+              <Image
                 className="w-[140px] h-[140px] object-cover"
                 alt="Step 2"
                 src="./homepage/Lottie flies.gif"
               />
             </div>
             <div className="w-full lg:w-[25%] flex flex-col items-center justify-start">
-              <img
+              <Image
                 className="w-[140px] h-[140px] object-cover"
                 alt="Step 3"
                 src="./homepage/Lottie flies.gif"
               />
             </div>
             <div className="w-full lg:w-[25%] flex flex-col items-center justify-start">
-              <img
+              <Image
                 className="w-[140px] h-[140px] object-cover"
                 alt="Step 4"
                 src="./homepage/Lottie flies.gif"
@@ -368,7 +376,7 @@ const HomePage: NextPage<PopupProps> = () => {
             </div>
           </div>
 
-          <img
+          <Image
             className="w-full md:w-[80%] relative h-[24px]"
             alt="Process Overview"
             src="./homepage/Frame 31704.svg"
@@ -427,30 +435,38 @@ const HomePage: NextPage<PopupProps> = () => {
 
         <div className="w-full overflow-x-auto no-scrollbar">
           <div className="flex flex-row items-start gap-8 w-[full]">
-            <img
+            <Image
               className="w-[30vw] min-w-[220px] h-[180px] object-cover"
               alt="Step 1"
-              src="./homepage/Lottie flies.gif"
+              src="/homepage/Lottie flies.gif"
+              width={300}
+              height={180}
             />
-            <img
+            <Image
               className="w-[30vw] min-w-[220px] h-[180px] object-cover"
               alt="Step 2"
-              src="./homepage/Lottie flies.gif"
+              src="/homepage/Lottie flies.gif"
+              width={300}
+              height={180}
             />
-            <img
+            <Image
               className="w-[30vw] min-w-[220px] h-[180px] object-cover"
               alt="Step 3"
-              src="./homepage/Lottie flies.gif"
+              src="/homepage/Lottie flies.gif"
+              width={300}
+              height={180}
             />
-            <img
+            <Image
               className="w-[30vw] min-w-[220px] h-[180px] object-cover"
               alt="Step 4"
-              src="./homepage/Lottie flies.gif"
+              src="/homepage/Lottie flies.gif"
+              width={300}
+              height={180}
             />
           </div>
 
           {/* <div className="flex justify-center mx-12 ml-8 md:ml-0 w-[880px] lg:w-full">
-      <img
+      <Image
         className="h-[24px] object-contain w-full"
         alt="Process Overview"
         src="./homepage/Frame 31704.svg"
@@ -479,7 +495,7 @@ const HomePage: NextPage<PopupProps> = () => {
               </h3>
               <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center">
                 We offer three programs: Nano, Mini, and Mega sprints. Choose
-                the one that best fit your classroom's learning goals
+                the one that best fit your classrooms learning goals
               </p>
             </article>
 
@@ -536,7 +552,7 @@ const HomePage: NextPage<PopupProps> = () => {
         </p>
         <div className="flex flex-row items-center gap-2">
           <figure className="w-11 h-8">
-            <img src="./homepage/reshot-icon-time-YEDR7WZV2Q.svg" alt="Icon" />
+            <Image src="./homepage/reshot-icon-time-YEDR7WZV2Q.svg" alt="Icon" />
           </figure>
           <p className="leading-[170%] font-medium  text-[14px] md:text-[20px]">
             1 Day (3 hours)
@@ -544,7 +560,7 @@ const HomePage: NextPage<PopupProps> = () => {
         </div>
         <div className="flex flex-row items-center gap-2">
           <figure className="w-[44px] h-[32px]">
-            <img
+            <Image
               src="./homepage/reshot-icon-student-DRC3YF56MU.svg"
               alt="Student icon"
             />
@@ -583,7 +599,7 @@ const HomePage: NextPage<PopupProps> = () => {
           onClick={handleLearnMoreMiniClick}
         >
           <p className="leading-[170%] font-medium">Learn More</p>
-          <img
+          <Image
             className="w-6 h-6 ml-1"
             alt="Chevron"
             src="./homepage/chevron_right.svg"
@@ -609,7 +625,7 @@ const HomePage: NextPage<PopupProps> = () => {
           onClick={handleLearnMoreMegaClick}
         >
           <p className="leading-[170%] font-medium">Learn More</p>
-          <img
+          <Image
             className="w-6 h-6 ml-1"
             alt="Chevron"
             src="./homepage/chevron_right.svg"
@@ -648,9 +664,11 @@ const HomePage: NextPage<PopupProps> = () => {
               </p>
               <div className="flex flex-row items-center gap-2">
                 <figure className="w-11 h-8">
-                  <img
+                  <Image
                     src="./homepage/reshot-icon-time-YEDR7WZV2Q.svg"
                     alt="Icon"
+                    width={44}
+                    height={32}
                   />
                 </figure>
                 <p className="leading-[170%] font-medium text-[14px] md:text-[20px]">
@@ -659,9 +677,11 @@ const HomePage: NextPage<PopupProps> = () => {
               </div>
               <div className="flex flex-row items-center gap-2">
                 <figure className="w-[44px] h-[32px]">
-                  <img
+                  <Image
                     src="./homepage/reshot-icon-student-DRC3YF56MU.svg"
                     alt="Student icon"
+                    width={44}
+                    height={32}
                   />
                 </figure>
                 <p className="leading-[170%] font-medium text-[14px] md:text-[20px]">
@@ -701,7 +721,7 @@ const HomePage: NextPage<PopupProps> = () => {
                 onClick={() => handleLearnMoreClick("mini")}
               >
                 <p className="leading-[170%] font-medium">Learn More</p>
-                {/* <img
+                {/* <Image
             className="w-6 h-6 ml-1"
             alt="Chevron"
             src="./homepage/chevron_right.svg"
@@ -728,7 +748,7 @@ const HomePage: NextPage<PopupProps> = () => {
                 onClick={() => handleLearnMoreClick("mega")}
               >
                 <p className="leading-[170%] font-medium">Learn More</p>
-                {/* <img
+                {/* <Image
             className="w-6 h-6 ml-1"
             alt="Chevron"
             src="./homepage/chevron_right.svg"
@@ -744,11 +764,13 @@ const HomePage: NextPage<PopupProps> = () => {
         id="virtual-tour"
         className="relative min-h-screen text-left text-white flex items-start overflow-hidden mx-4 md:mx-12"
       >
-        <img
+        <Image
           className="absolute top-0 left-0 w-full h-full object-cover brightness-50 rounded"
           alt="Background video"
           // src="./homepage/video 2.svg"
           src="/homepage/Video image.jpeg"
+          width={1920} 
+          height={1080} 
         />
 
         <div className="relative z-10 flex flex-col items-start justify-start gap-8 px-4 md:px-8 py-8 lg:mx-6">
@@ -772,7 +794,7 @@ const HomePage: NextPage<PopupProps> = () => {
 
         <div className="w-full flex items-center justify-between relative">
           <button className="w-12 h-12 flex items-center justify-center overflow-hidden">
-            <img
+            <Image
               className="object-cover"
               alt="Previous"
               src="./homepage/chevron_left.svg"
@@ -781,21 +803,21 @@ const HomePage: NextPage<PopupProps> = () => {
 
           <div className="flex flex-grow overflow-hidden gap-4">
             <figure className="flex-grow relative overflow-hidden">
-              <img
+              <Image
                 className="object-cover w-full h-full"
                 alt="Innovation Hub Image 1"
                 src="./homepage/Rectangle-new1.svg"
               />
             </figure>
             <figure className="flex-grow relative overflow-hidden">
-              <img
+              <Image
                 className="object-cover w-full h-full"
                 alt="Innovation Hub Image 2"
                 src="./homepage/Rectangle-new2.svg"
               />
             </figure>
             <figure className="flex-grow relative overflow-hidden">
-              <img
+              <Image
                 className="object-cover w-full h-full"
                 alt="Innovation Hub Image 3"
                 src="./homepage/Rectangle-new3.svg"
@@ -804,7 +826,7 @@ const HomePage: NextPage<PopupProps> = () => {
           </div>
 
           <button className="w-12 h-12 flex items-center justify-center overflow-hidden">
-            <img
+            <Image
               className="object-cover"
               alt="Next"
               src="./homepage/chevron_right_black.svg"
@@ -819,7 +841,7 @@ const HomePage: NextPage<PopupProps> = () => {
 
   <div className="w-full flex items-center justify-between relative">
     <button className="w-12 h-12 flex items-center justify-center overflow-hidden hidden sm:flex">
-      <img
+      <Image
         className="object-cover"
         alt="Previous"
         src="./homepage/chevron_left.svg"
@@ -828,21 +850,21 @@ const HomePage: NextPage<PopupProps> = () => {
 
     <div className="w-full overflow-x-auto flex flex-row items-start justify-start gap-4 px-4">
       <figure className="flex-none w-[calc(100vw-80px)] h-[calc((100vw-32px)*0.6)] md:w-[32%] md:h-[calc((100vw-32px)*0.22)]">
-        <img
+        <Image
           className="object-cover w-full h-full"
           alt="Innovation Hub Image 1"
           src="./homepage/Rectangle-new1.svg"
         />
       </figure>
       <figure className="flex-none w-[calc(100vw-80px)] h-[calc((100vw-32px)*0.6)] md:w-[33%] md:h-[calc((100vw-32px)*0.22)]">
-        <img
+        <Image
           className="object-cover w-full h-full"
           alt="Innovation Hub Image 2"
           src="./homepage/Rectangle-new2.svg"
         />
       </figure>
       <figure className="flex-none w-[calc(100vw-80px)] h-[calc((100vw-32px)*0.6)] md:w-[32%] md:h-[calc((100vw-32px)*0.22)]">
-        <img
+        <Image
           className="object-cover w-full h-full"
           alt="Innovation Hub Image 3"
           src="./homepage/Rectangle-new3.svg"
@@ -851,7 +873,7 @@ const HomePage: NextPage<PopupProps> = () => {
     </div>
 
     <button className="w-12 h-12 flex items-center justify-center overflow-hidden hidden sm:flex">
-      <img
+      <Image
         className="object-cover"
         alt="Next"
         src="./homepage/chevron_right_black.svg"
@@ -866,14 +888,14 @@ const HomePage: NextPage<PopupProps> = () => {
         </h2>
         <p className="text-base leading-[170%] font-[Amazon Ember] text-[#3a3a3a] md:text-[20px]">
           <strong>
-           {/* <span>Reach out to us at </span>
+            {/* <span>Reach out to us at </span>
             <a href="mailto:afeinnovation@ihub.com" className="text-[#f55c38]">
               afeinnovation@ihub.com
             </a>
             */}
             <span> Call or Whatsapp us on </span>
             <a href="" className="text-[#f55c38]">
-            +916366969292
+              +916366969292
             </a>
           </strong>
         </p>

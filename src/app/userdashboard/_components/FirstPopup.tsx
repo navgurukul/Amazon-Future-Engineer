@@ -9,6 +9,7 @@ import {
     DialogFooter
 } from "@/components/ui/dialog";
 import Image from "next/image";
+import React from 'react';
 
 interface FirstPopupProps {
     isOpen: boolean;
@@ -83,7 +84,7 @@ const FirstPopup: NextPage<FirstPopupProps> = ({ isOpen, handleClose, handleOpen
 
                     </DialogDescription>
 
-                    <DialogFooter className="hidden md:mt-6 md:block flex flex-col sm:flex-row pb-[24px] sm:justify-end space-y-2 sm:space-y-0 sm:space-x-4">
+                    <DialogFooter className="md:mt-6 md:block flex flex-col sm:flex-row pb-[24px] sm:justify-end space-y-2 sm:space-y-0 sm:space-x-4">
 
                         <div className="mt-2 flex flex-col sm:flex-row  sm:justify-end space-y-2 sm:space-y-0 sm:space-x-4">
                             <div
