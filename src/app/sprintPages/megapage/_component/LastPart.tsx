@@ -9,7 +9,7 @@ const LastPart = () => {
         </h1>
         <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
           <span>{`Call Us or Whatsapp on `}</span>
-          <span className="text-tomato">+918764674356</span>
+          <span className="text-tomato">+916366969292</span>
         </p>
       </div>
     </div>

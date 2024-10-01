@@ -1,5 +1,6 @@
 "use client";
 
+import DialogHeader from "@/components/DialogHeader";
 import WaitingListPopup from "./_components/WaitingListPopup";
 import { createWaitingList } from "@/utils/api";
 import type { NextPage } from "next";
@@ -112,27 +113,7 @@ const MiniPage: NextPage = () => {
     <>
       {!isModalOpen ? (
         <div className="w-full min-h-screen bg-white flex flex-col justify-center items-center gap-8 md:gap-16">
-          <div className="w-full h-[80px] px-4 md:px-12 bg-white shadow-md flex justify-between items-center">
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={handleBackClick}
-            >
-              <div className="w-6 h-6 relative">
-                <Image
-                  src="/userDashboard/chevron_left.svg"
-                  alt="Back Icon"
-                  width={7.41}
-                  height={12}
-                  className="w-full h-full"
-                />
-              </div>
-              <div className="text-lg text-[#3a3a3a] font-medium">Back</div>
-            </div>
-            <div className="text-lg text-center font-extrabold text-[#3a3a3a] mx-auto">
-              Mini Sprint
-            </div>
-          </div>
-
+        <DialogHeader/>
           <div className="flex justify-center items-center w-full px-4">
             <div className="w-full md:w-[592px] rounded-lg flex flex-col justify-start items-center gap-8 p-4 md:p-6">
               <div className="w-full flex flex-col gap-4">

@@ -97,7 +97,18 @@ export const getUserData = async () => {
 
 
 //minipage waititngList api
-export const createWaitingList = async (waitingListData) => {
+interface WaitingListData {
+  name: string;
+  email: string;
+  venue_id: number;
+  program_id: number;
+  city: string;
+  pin_code: string;
+  school_name: string;
+}
+
+
+export const createWaitingList = async (waitingListData: WaitingListData) => {
   const userDataString = localStorage.getItem('loginData');
   const userData = JSON.parse(userDataString || '{}');
   const token = userData?.data?.token;
@@ -113,8 +124,8 @@ export const createWaitingList = async (waitingListData) => {
     });
     return response.data;
   } catch (error) {
-    console.error('Error creating waiting list:', error);
-    throw error;
+    alert(error.response.data.details)
+    throw error
   }
 };
 

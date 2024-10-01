@@ -23,7 +23,7 @@ const Calendar: React.FC = () => {
         <div>
           <DialogHeader />
           {/* Adjust padding-top to account for the fixed header */}
-          <div className="pt-[120px]">
+          <div className="pt-[10px]">
             <h5 className="text-13xl leading-[150%] font-extrabold font-webtypestyles-h5 text-midnight-blue-main pb-5 text-center">
               Book a Nano Sprint
             </h5>
