@@ -3,6 +3,8 @@ import React, { useState } from "react";
 interface PopupProps {
   offlinePopup: boolean;
   handleClose: () => void;
+  handleOfflineBookingClose:()=>void
+
 }
 
 const CallPopup: React.FC<PopupProps> = ({

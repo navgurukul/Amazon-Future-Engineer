@@ -123,7 +123,7 @@ export const createWaitingList = async (waitingListData: WaitingListData) => {
       },
     });
     return response.data;
-  } catch (error) {
+  } catch (error:any) {
     alert(error.response.data.details)
     throw error
   }

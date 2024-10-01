@@ -10,7 +10,7 @@ const Calendar: React.FC = () => {
   const [bookingStatus, setBookingStatus] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
 
-  const handleBookingPopUp = ({ name, status }: { name: string, status: boolean }) => {
+  const handleBookingPopUp = ({ name, status }: { name: any, status: any }) => {
     setBookingStatus(status);
     setName(name);
   };

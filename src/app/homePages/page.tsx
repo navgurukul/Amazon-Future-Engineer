@@ -95,7 +95,7 @@ const HomePage: NextPage<PopupProps> = () => {
   //   router.push("/sprintPages/megapage");
   // };
 
-  const handleLearnMoreClick = (type) => {
+  const handleLearnMoreClick = (type:any) => {
     const loginData = localStorage.getItem("loginData")
     if (loginData) {
       if (type === "mini") {
@@ -145,6 +145,7 @@ const HomePage: NextPage<PopupProps> = () => {
         handleOfflineBooking={handleOfflineBooking}
         offlinePopup={offlinePopup}
         openSecondPopup={openSecondPopup}
+        bookingPopup={false}
         bgColor="home"
       />
       {/* First Section */}

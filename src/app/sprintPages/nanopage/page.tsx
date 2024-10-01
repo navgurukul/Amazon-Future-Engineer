@@ -50,6 +50,11 @@ const Page = () => {
     }
   }, [openSecondPopup]);
 
+  const handleBookSessionClick = ()=>{
+        console.log("hello")
+  }
+
+
   return (
     <div className="min-h-screen pb-32 lg:pb-0">
       <Header
@@ -57,6 +62,8 @@ const Page = () => {
         offlinePopup={offlinePopup}
         openSecondPopup={openSecondPopup}
         bookingPopup={bookingPopup}
+        bgColor=""
+        handleBookSessionClick={handleBookSessionClick}
       />
       <MainContent handleOfflineBooking={handleBooking} />
       <Footer handleOfflineBooking={handleOfflineBooking}/>
@@ -70,6 +77,7 @@ const Page = () => {
       <CallPopup
         offlinePopup={offlinePopup}
         handleClose={handleClose}
+        handleOfflineBookingClose={handleOfflineBookingClose}
       />
     </div>
   );
