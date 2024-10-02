@@ -60,7 +60,7 @@ const BookingPopup: React.FC<WaitingListPopupProps> = ({
           the phone number or email provided when the program is launched.
         </div>
 
-        <div className="relative w-[240px] h-0 border-t border-t-[1px] opacity-100 rotate-0">
+        <div className="relative w-[240px] h-0 border-t-[1px] opacity-100 rotate-0">
           <Image
             src="/userDashboard/Line 33.svg"
             alt="Line Icon"
