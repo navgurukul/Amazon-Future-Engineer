@@ -117,9 +117,6 @@ const MiniPage: NextPage = () => {
               <div className="text-[#3a3a3a] text-[1.25rem] md:text-[24px] font-extrabold leading-[30px] md:leading-[36px]">
                 Join Mini Sprint Waiting List
               </div>
-              <div className="hidden md:block text-[#3a3a3a] text-base md:text-lg font-bold leading-[25px] md:leading-[30.60px]">
-                Innovation Hub - Bengaluru
-              </div>
               <div className="w-full relative text-[#6d6d6d] text-[1rem] leading-[170%] font-[500] font-['Amazon Ember'] text-left inline-block">
                 Please share the following details below and we will connect with you as soon as the Mini Sprint program is launched at the lab.
               </div>

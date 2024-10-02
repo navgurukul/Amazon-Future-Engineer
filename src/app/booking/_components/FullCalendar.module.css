@@ -44,15 +44,6 @@
   }
   
 
-  /* FullCalendar.module.css */
-
-.calendarContainer {
-  /* Custom styles for the calendar container */
-}
-
-.calendarHeader {
-  /* Custom styles for the header */
-}
 
 .monthYearTitle {
   font-size: 18px;
@@ -67,10 +58,6 @@
   /* background-color: yellow; Example highlight for event days */
   /* border-radius: 50%; */
   color: white;
-}
-
-.calendarFooter {
-  /* Footer styles */
 }
 
 /* Style for non-current month cells (these will be hidden when showNonCurrentDates=false) */
@@ -102,10 +89,6 @@
   
   .navButton {
     cursor: pointer;
-  }
-  
-  .calendarFooter {
-    /* Style for the footer */
   }
   
 

@@ -28,7 +28,6 @@ const Calendar: React.FC = () => {
               Book a Nano Sprint
             </h5>
             <div>
-            <div className="w-full pl-8 text-lg leading-[170%] font-extrabold font-webtypestyles-subtitle1 text-text-primary text-left ">Available Dates</div>
             <div className="flex w-full h-screen">
               <div className="w-1/2 p-4">
                 <FullCalendarComponent setSelectedDate={setSelectedDate} />
