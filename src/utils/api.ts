@@ -29,8 +29,8 @@ export const getSlots = async (venueId: number = 1) => {
       },
     });
     return response.data;
-  } catch (error) {
-    console.error('Error fetching slots:', error);
+  } catch (error:any) {
+    alert(error.response.data)
     throw error;
   }
 };
@@ -56,7 +56,7 @@ export const bookSlot = async (bookingData: {
       },
     });
     return response.data;
-  } catch (error) {
+  } catch (error:any) {
     console.error('Error booking slot:', error);
     throw error;
   }

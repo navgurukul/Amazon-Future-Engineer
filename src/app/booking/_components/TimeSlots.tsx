@@ -1,76 +1,65 @@
-import React, { useState, useEffect } from 'react';
-import { useAllBookings } from './allBookings';
-import { bookSlot } from '@/utils/api';
-import { useRouter } from "next/navigation";
+import { useAllBookings } from "./allBookings";
+import { bookSlot } from "@/utils/api";
+import React, { useState } from "react";
 
 interface TimeSlotsProps {
   selectedDate: Date | null;
-  handleBookingPopUp : any
+  handleBookingPopUp: any;
 }
 
-interface Event {
-  id: number;
-  title: string;
-  start: string;
-  end: string;
-  extendedProps: {
-    availableCapacity: number;
-    status: string;
-  };
-}
-
-const TimeSlots: React.FC<TimeSlotsProps> = ({ selectedDate,handleBookingPopUp }) => {
-  const router = useRouter();
+const TimeSlots: React.FC<TimeSlotsProps> = ({
+  selectedDate,
+  handleBookingPopUp,
+}) => {
   const allEvents = useAllBookings();
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
-  const [dateStatus, setDateStatus] = useState<'valid' | 'past' | 'future' | null>(null);
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [students, setStudents] = useState('');
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [students, setStudents] = useState("");
+  const [phoneError, setPhoneError] = useState<string | null>(null);
+  const [studentsError, setStudentsError] = useState<string | null>(null);
   const [bookingStatus, setBookingStatus] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (selectedDate) {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      
-      const currentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-      const threeMonthsLater = new Date(today.getFullYear(), today.getMonth() + 3, 0);
-      
-      if (selectedDate < today) {
-        setDateStatus('past');
-      } else if (selectedDate >= currentMonth && selectedDate <= threeMonthsLater) {
-        setDateStatus('valid');
-      } else {
-        setDateStatus('future');
-      }
-    } else {
-      setDateStatus(null);
-    }
-  }, [selectedDate]);
+  interface Slot {
+    time: string;
+    available: boolean;
+    status: string;
+    event?: any;
+  }
 
-  const getAvailableSlots = () => {
-    if (!selectedDate || dateStatus !== 'valid') return [];
-
-    const eventsForDate = allEvents.filter(event => 
-      new Date(event.start).toDateString() === selectedDate.toDateString()
-    );
-
+  const getAvailableSlots = (): Slot[] => {
     const fixedSlots = [
-      { time: '10 AM to 1 PM', apiTime: '10:00' },
-      { time: '1:30 to 4:30 PM', apiTime: '13:30' }
+      { time: "10 AM to 1 PM", apiTime: "10:00" },
+      { time: "1:30 to 4:30 PM", apiTime: "13:30" },
     ];
 
-    return fixedSlots.map(fixedSlot => {
-      const matchingEvent = eventsForDate.find(event => 
+    if (!selectedDate) {
+      return fixedSlots.map((fixedSlot) => ({
+        time: fixedSlot.time,
+        available: true,
+        status: "",
+      }));
+    }
+
+    const eventsForDate = allEvents.filter(
+      (event) =>
+        new Date(event.start).toDateString() === selectedDate.toDateString()
+    );
+
+    return fixedSlots.map((fixedSlot) => {
+      const matchingEvent = eventsForDate.find((event) =>
         new Date(event.start).toTimeString().startsWith(fixedSlot.apiTime)
       );
 
       return {
         time: fixedSlot.time,
-        available: matchingEvent ? matchingEvent.extendedProps.availableCapacity > 0 : false,
-        status: matchingEvent ? matchingEvent.extendedProps.status : 'Not Available',
-        event: matchingEvent
+        available: matchingEvent
+          ? matchingEvent.extendedProps.availableCapacity > 0
+          : false,
+        status: matchingEvent
+          ? matchingEvent.extendedProps.status
+          : "Not Available",
+        event: matchingEvent,
       };
     });
   };
@@ -81,80 +70,91 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ selectedDate,handleBookingPopUp }
     setSelectedSlot(slot === selectedSlot ? null : slot);
   };
 
-  if (!selectedDate) {
-    return <div>Please select a date to view available time slots.</div>;
-  }
-
-  if (dateStatus === 'past') {
-    return <div>Bookings are not available for past dates.</div>;
-  }
-
-  if (dateStatus === 'future') {
-    return <div>Bookings are only available for the current month and the next two months.</div>;
-  }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedSlot) return;
 
-    const selectedSlotData = slots.find(slot => slot.time === selectedSlot);
+    setPhoneError(null);
+    setStudentsError(null);
+
+    const phonePattern = /^[6-9]\d{9}$/;
+    if (phone.length !== 10) {
+      setPhoneError("Please enter a 10-digit phone number.");
+      return;
+    }
+    if (!phonePattern.test(phone)) {
+      setPhoneError("Please enter a phone number starting with 6 or above.");
+      return;
+    }
+
+    const studentCount = parseInt(students);
+    if (studentCount < 12 || studentCount > 40) {
+      setStudentsError("Please enter a number between 12 and 40.");
+      return;
+    }
+
+    const selectedSlotData = slots.find((slot) => slot.time === selectedSlot);
     if (!selectedSlotData || !selectedSlotData.event) return;
 
     try {
-      const [programId, venueId] = selectedSlotData.event.title.split(' - ').map(part => parseInt(part.split(' ')[1]));
-      
+      const [programId, venueId] = selectedSlotData.event.title
+        .split(" - ")
+        .map((part: string) => parseInt(part.split(" ")[1]));
+
       const bookingData = {
         slot_id: Number(selectedSlotData.event.id),
         program_id: programId,
         venue_id: venueId,
-        booking_batch_size: parseInt(students),
-        students_grade: "Grade 10"
+        booking_batch_size: studentCount,
+        students_grade: "Grade 10",
       };
 
       const response = await bookSlot(bookingData);
-      handleBookingPopUp({name:name,status:bookingStatus})
 
-      setBookingStatus('Booking successful!');
+      setBookingStatus("Booking successful!");
       handleBookingPopUp({ name, status: true });
-      // Reset form
-      setName('');
-      setPhone('');
-      setStudents('');
+
+      setName("");
+      setPhone("");
+      setStudents("");
       setSelectedSlot(null);
     } catch (error) {
-      console.error('Error booking slot:', error);
-      setBookingStatus('Booking failed. Please try again.');
+      console.error("Error booking slot:", error);
+      setBookingStatus("Booking failed. Please try again.");
     }
   };
 
+  const displayDate = selectedDate || new Date();
+
   return (
-    <div className="w-[400px] flex flex-col items-start justify-start gap-8">
+    <div className="w-full flex flex-col items-start justify-start gap-8">
       <div className="self-stretch flex flex-col items-start justify-start gap-4">
-        <div className="self-stretch relative leading-[170%] font-extrabold text-lg">
-          {selectedDate.toDateString()}
-        </div>
+        {displayDate && (
+          <div className="self-stretch relative leading-[170%] font-extrabold text-lg text-midnight-blue-main">
+            Booking for {displayDate.toDateString()}
+          </div>
+        )}
         <div className="self-stretch relative leading-[170%] font-extrabold text-lg">
           Choose a Time Slot
         </div>
         <div className="self-stretch flex flex-col items-start justify-start gap-4 text-center">
-          <div className="self-stretch flex flex-row items-start justify-start flex-wrap content-start gap-4">
+          <div className="self-stretch flex flex-col lg:flex-row items-start justify-start flex-wrap content-start gap-4">
             {slots.map((slot, index) => (
               <button
                 key={index}
-                className={`flex-1 rounded-lg h-14 flex flex-row items-center justify-center py-2 px-8 ${
-                  selectedSlot === slot.time
-                    ? "bg-mistyrose border-incandescent-main border-[1px] border-solid text-incandescent-main"
+                className={`w-full sm:flex-1 rounded-lg h-14 flex flex-row items-center justify-center py-2 px-8 ${
+                  slot.status === "Booked"
+                    ? "bg-grey-300 text-[#6d6d6d]"
+                    : selectedSlot === slot.time
+                    ? "bg-[#fdded7] text-incandescent-main border-[1px] border-incandescent-main border-solid box-border"
                     : slot.available
                     ? "border-text-primary1 border-[1px] border-solid text-text-primary1 cursor-pointer"
-                    : "bg-red-100 border-red-300 border-[1px] border-solid text-red-500 cursor-not-allowed"
+                    : "bg-red-100 border-[#fdded7] border-[1px] border-solid text-incandescent-main cursor-not-allowed"
                 }`}
                 onClick={() => slot.available && handleSlotSelection(slot.time)}
                 disabled={!slot.available}
               >
                 <div className="relative leading-[170%] font-medium">
                   {slot.time}
-                  <br />
-                  <span className="text-sm">{slot.status}</span>
                 </div>
               </button>
             ))}
@@ -163,7 +163,10 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ selectedDate,handleBookingPopUp }
       </div>
 
       {selectedSlot && (
-        <form onSubmit={handleSubmit} className="w-[400px] flex flex-col items-start justify-start gap-4 text-sm">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full flex flex-col items-start justify-start gap-4 text-sm"
+        >
           <div className="self-stretch relative text-lg leading-[170%] font-extrabold">
             Almost Done!
           </div>
@@ -180,7 +183,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ selectedDate,handleBookingPopUp }
               onChange={(e) => setName(e.target.value)}
               placeholder="Eg. Prakash"
               required
-              className="self-stretch rounded-81xl border-text-primary1 border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-lg"
+              className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-lg w-full"
             />
           </div>
 
@@ -194,15 +197,19 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ selectedDate,handleBookingPopUp }
               name="phone"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              pattern="[0-9]{10}" 
-              placeholder="Eg. xxxxxxxxxx"
+              pattern="[0-9]{10}"
+              placeholder="+91 xxxxxxxxxx"
               required
-              className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-lg"
+              className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-lg w-full"
             />
+            {phoneError && (
+              <span className="text-red-500 text-sm">{phoneError}</span>
+            )}
           </div>
+
           <div className="self-stretch flex flex-col items-start justify-start gap-2">
             <div className="relative leading-[170%] font-medium">
-              <span>No. of Students</span>
+              <span>No. of Students (Min: 12 and Max: 40)</span>
               <span className="text-incandescent-main">*</span>
             </div>
             <input
@@ -210,27 +217,26 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ selectedDate,handleBookingPopUp }
               name="students"
               value={students}
               onChange={(e) => setStudents(e.target.value)}
-              placeholder="Eg. 4"
-              min={1}
-              max={slots.find(slot => slot.time === selectedSlot)?.event?.extendedProps.availableCapacity || 1}
+              placeholder="Please enter a number between 12 and 40"
+              // min={12}
+              // max={40}
+
               required
-              className="self-stretch rounded-81xl border-text-primary1 border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-lg"
+              className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 py-2 px-4 "
             />
+            {studentsError && (
+              <span className="text-red-500 text-sm">{studentsError}</span>
+            )}
           </div>
+
           <button
             type="submit"
-            className="rounded-81xl bg-incandescent-main h-14 flex flex-row items-center justify-center py-2 px-8 box-border text-center text-midnight-blue-contrasttext w-full"
+            className="w-full md:w-auto rounded-81xl bg-incandescent-main h-14 flex flex-row items-center justify-center py-2 px-8 box-border text-center text-midnight-blue-contrasttext"
           >
             <div className="relative leading-[170%] font-medium">
               Request Booking
             </div>
           </button>
-
-          {bookingStatus && (
-            <div className={`text-center w-full ${bookingStatus.includes('failed') ? 'text-red-500' : 'text-green-500'}`}>
-              {bookingStatus}
-            </div>
-          )}
         </form>
       )}
     </div>
@@ -238,7 +244,3 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ selectedDate,handleBookingPopUp }
 };
 
 export default TimeSlots;
-
-
-
-
