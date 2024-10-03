@@ -188,7 +188,7 @@ const HomePage: NextPage = () => {
           muted
         ></video>
 
-        <header className="absolute top-[20%] left-0 max-w-[1200px] mx-auto flex flex-col gap-6 items-start text-left px-4">
+        <header className="absolute top-[20%] left-0 max-w-[1200px] mx-auto flex flex-col gap-6 items-start text-left px-4 md:px-12">
           <div className="w-full flex flex-col gap-4 items-start">
             <div className="h-[126px] w-[800px]">
               <div className="text-white text-[42px] font-extrabold font-['Amazon Ember Display'] leading-[63px]">
@@ -229,11 +229,11 @@ const HomePage: NextPage = () => {
                 Call Us
               </span>
             </button>
-            <button className="flex items-center justify-center md:px-4 md:py-4 lg:px-10 lg:py-4 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto">
+            <button className="flex items-center justify-center md:px-4 md:py-4 lg:px-10 lg:py-4 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto font-medium leading-[170%]">
               <a href="#virtual-tour">
-                <span className="relative font-medium leading-[170%]">
+                {/* <span className="relative font-medium leading-[170%]"> */}
                   Take Virtual Tour
-                </span>
+                {/* </span> */}
               </a>
             </button>
           </div>
@@ -283,17 +283,20 @@ const HomePage: NextPage = () => {
       </section> */}
       <section className="relative w-full min-h-screen overflow-visible text-left text-xl text-[#29458c] py-12 md:mt-16">
         <article className="w-full flex flex-col items-start justify-start gap-4 px-4 md:px-12 mb-10">
-          <h2 className="relative font-heading1-bold leading-[150%] text-heading5">
+          {/* <h2 className="relative leading-[150%] text-5xl md:text-[25px] font-extrabold"> */}
+          <h2 className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold">
             What is the AFE Makerspace?
           </h2>
           <div>
-            <p className="w-full md:w-1/2 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
+            {/* <p className="w-full md:w-1/2 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']"> */}
+            <p className="w-full md:w-1/2 relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
               At the AFE Makerspace, we provide exciting learning opportunities
               in robotics and computer science for students. Our goal is to give
               them a glimpse into the careers of the future, encouraging them to
               think big while exploring and creating
             </p>
-            <p className="w-full md:w-1/2 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember'] mt-4">
+            {/* <p className="w-full md:w-1/2 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember'] mt-4"> */}
+            <p className="w-full md:w-1/2 relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4">
               By prioritizing government school students, we ensure equitable
               access and support diverse talent in shaping the future of
               technology
@@ -423,41 +426,43 @@ const HomePage: NextPage = () => {
         </div>
       </section> */}
       <section className="relative w-full bg-[#29458c] flex flex-col items-start justify-start py-[80px] px-4 md:px-12 gap-[48px] text-white">
-        <header className="w-full lg:w-[1000px] flex flex-col items-start justify-start gap-[16px]">
-          <h2 className="relative leading-[150%] font-extrabold text-[28px] md:text-[32px]">
+        <header className="w-full lg:w-[50vw] flex flex-col items-start justify-start gap-[16px]">
+          {/* <h2 className="relative leading-[150%] font-extrabold text-[28px] md:text-[32px]"> */}
+          <h2 className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold">
             Are You a Government School Teacher in or around Bengaluru?
           </h2>
-          <p className="self-stretch relative text-[16px] md:text-[22px] leading-[170%] font-medium font-[Amazon Ember]">
+          {/* <p className="self-stretch relative text-[16px] md:text-[22px] leading-[170%] font-medium font-[Amazon Ember]"> */}
+          <p className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
             Help inspire the next generation of tech leaders by registering your
             students to visit the AFE Makerspace in a few simple steps:
           </p>
         </header>
 
         <div className="w-full overflow-x-auto no-scrollbar">
-          <div className="flex flex-row items-start gap-8 w-[full]">
+          <div className="flex flex-row items-start justify-between gap-8 w-full">
             <Image
-              className="w-[30vw] min-w-[220px] h-[180px] object-cover"
+              className="w-[20vw] min-w-[180px] h-[170px] object-cover"
               alt="Step 1"
               src="/homepage/Lottie flies.gif"
               width={300}
               height={180}
             />
             <Image
-              className="w-[30vw] min-w-[220px] h-[180px] object-cover"
+              className="w-[20vw] min-w-[180px] h-[170px] object-cover"
               alt="Step 2"
               src="/homepage/Lottie flies.gif"
               width={300}
               height={180}
             />
             <Image
-              className="w-[30vw] min-w-[220px] h-[180px] object-cover"
+              className="w-[20vw] min-w-[180px] h-[170px] object-cover"
               alt="Step 3"
               src="/homepage/Lottie flies.gif"
               width={300}
               height={180}
             />
             <Image
-              className="w-[30vw] min-w-[220px] h-[180px] object-cover"
+              className="w-[20vw] min-w-[180px] h-[170px] object-cover"
               alt="Step 4"
               src="/homepage/Lottie flies.gif"
               width={300}
@@ -474,11 +479,13 @@ const HomePage: NextPage = () => {
     </div> */}
 
           <div className="flex flex-row items-start gap-8 mt-4 w-full">
-            <article className="flex flex-col items-center w-[80vw] min-w-[220px]">
-              <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3">
+            <article className="flex flex-col items-center w-[80vw] min-w-[180px]">
+              {/* <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3"> */}
+              <h3 className="text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-center mb-3">
                 Visit AFE Makerspace Virtually
               </h3>
-              <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center">
+              {/* <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center"> */}
+              <p className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-center">
                 Take a look at the lab through the{" "}
                 <a
                   href="#virtual-tour"
@@ -489,32 +496,45 @@ const HomePage: NextPage = () => {
               </p>
             </article>
 
-            <article className="flex flex-col items-center w-[80vw] min-w-[220px]">
-              <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3">
+            <article className="flex flex-col items-center w-[80vw] min-w-[180px]">
+              {/* <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3"> */}
+              <h3 className="text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-center mb-3">
                 Discover Our Programs
               </h3>
-              <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center">
+              {/* <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center"> */}
+              <p className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-center">
                 We offer three programs: Nano, Mini, and Mega sprints. Choose
                 the one that best fit your classrooms learning goals
               </p>
             </article>
 
-            <article className="flex flex-col items-center w-[80vw] min-w-[220px]">
-              <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3">
+            <article className="flex flex-col items-center w-[80vw] min-w-[180px]">
+              {/* <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3"> */}
+              <h3 className="text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-center mb-3">
                 Book Your Session
               </h3>
-              <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center">
+              {/* <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center"> */}
+              <p className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-center">
                 Select a time slot and book your session through our online
-                system or by calling us on +919875466343. Currently, we are only
+                system or by calling us on 
+                <a
+                  href="#"
+                  className="text-[#f55c38] cursor-pointer"
+                >
+                   {" "}+919875466343
+                </a>
+                  . Currently, we are only
                 taking bookings for Nano sprints
               </p>
             </article>
 
-            <article className="flex flex-col items-center w-[80vw] min-w-[220px]">
-              <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3">
+            <article className="flex flex-col items-center w-[80vw] min-w-[180px]">
+              {/* <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3"> */}
+              <h3 className="text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-center mb-3">
                 Visit and Start Learning
               </h3>
-              <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center">
+              {/* <p className="lg:text-[19px] md:text-[16px] text-[13px] leading-[150%] font-medium font-[Amazon Ember] text-center"> */}
+              <p className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-center">
                 Bring your students to AFE Makerspace and enjoy a hands-on
                 experience with robotics and AI!
               </p>
@@ -637,7 +657,8 @@ const HomePage: NextPage = () => {
 </section> */}
       <section className="relative w-full flex flex-col items-start justify-start gap-12 text-[#29458c] px-4 mt-16 mb-16 md:px-12">
         <article className="w-full max-w-screen-lg flex flex-col items-start justify-start gap-6">
-          <h2 className="w-full leading-[150%] font-extrabold text-5xl md:text-[25px]">
+          {/* <h2 className="w-full leading-[150%] font-extrabold text-5xl md:text-[25px]"> */}
+          <h2 className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold">
             Programs at AFE Makerspace
           </h2>
           {/* <p className="w-full md:w-1/2 lg:w-3/4 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
@@ -648,21 +669,23 @@ const HomePage: NextPage = () => {
         </article>
 
         <div className="w-full flex flex-col lg:flex-row items-stretch justify-start gap-6 text-[18px] text-white font-[Amazon Ember]">
-          <section className="flex-1 bg-[#29458c] flex flex-col items-start justify-start p-12 relative gap-8 min-h-[80vh] lg:min-h-[calc(100vh-14.5rem)] rounded-md">
+          <section className="flex-1 bg-[#29458c] flex flex-col items-start justify-start p-4 md:p-12 relative gap-8 lg:min-h-[calc(100vh-14.5rem)] rounded-md">
             <div className="w-full max-w-screen-md flex flex-col items-start justify-start gap-4 z-0">
               <header className="flex flex-row items-center justify-start gap-4 text-[17px] font-bold">
-                <h3 className="leading-[150%] font-bold md:font-extrabold text-white">
+                {/* <h3 className="leading-[150%] font-bold md:font-extrabold text-white"> */}
+                <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold">
                   Nano Sprints
                 </h3>
-                <span className="rounded-full bg-[#049796] h-8 flex items-center justify-center px-4 text-sm font-medium">
+                <span className="rounded-full bg-[#049796] h-8 flex items-center justify-center px-4 text-sm font-medium leading-[170%] text-body2">
                   Active
                 </span>
               </header>
-              <p className="w-full leading-[170%] font-medium text-[14px] md:text-[20px]">
+              {/* <p className="w-full leading-[170%] font-medium text-[14px] md:text-[20px]"> */}
+              <p className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
                 The Nano Sprint Program offers a quick and engaging introduction
                 into the world of Robotics and AI
               </p>
-              <div className="flex flex-row items-center gap-2">
+              <div className="flex flex-row items-center gap-4 mb-[8px] md:mb-[16px]">
                 <figure className="w-11 h-8">
                   <Image
                     src="./homepage/reshot-icon-time-YEDR7WZV2Q.svg"
@@ -671,11 +694,12 @@ const HomePage: NextPage = () => {
                     height={32}
                   />
                 </figure>
-                <p className="leading-[170%] font-medium text-[14px] md:text-[20px]">
+                {/* <p className="leading-[170%] font-medium text-[14px] md:text-[20px]"> */}
+                <p className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
                   1 Day (3 hours)
                 </p>
               </div>
-              <div className="flex flex-row items-center gap-2">
+              <div className="flex flex-row items-center gap-4 mb-[16px]">
                 <figure className="w-[44px] h-[32px]">
                   <Image
                     src="./homepage/reshot-icon-student-DRC3YF56MU.svg"
@@ -684,16 +708,18 @@ const HomePage: NextPage = () => {
                     height={32}
                   />
                 </figure>
-                <p className="leading-[170%] font-medium text-[14px] md:text-[20px]">
+                {/* <p className="leading-[170%] font-medium text-[14px] md:text-[20px]"> */}
+                <p className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
                   30 to 40 students per session
                 </p>
               </div>
-              <p className="w-full leading-[170%] font-medium text-[14px] md:text-[20px]">
+              {/* <p className="w-full leading-[170%] font-medium text-[14px] md:text-[20px]"> */}
+              <p className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
                 Registrations are open!
               </p>
               <div>
                 <button
-                  className="rounded-full bg-white text-[#f55c38] px-4 py-1 md:px-8 md:py-4 text-lg font-bold mt-8"
+                  className="w-[82vw] md:w-auto rounded-full bg-white text-[#f55c38] px-8 py-4 text-lg font-bold mt-8"
                   onClick={handleBookSessionClick}
                 >
                   Book a Session
@@ -702,21 +728,23 @@ const HomePage: NextPage = () => {
             </div>
           </section>
 
-          <aside className="w-full lg:w-[30%] flex flex-col gap-6 min-h-[80vh] lg:min-h-[calc(100vh-14.5rem)]">
-            <article className="w-full bg-[#cdeaea] flex flex-col items-start p-12 gap-6 h-full rounded-md">
+          <aside className="w-full lg:w-[30%] flex flex-col gap-6 lg:min-h-[calc(100vh-14.5rem)]">
+            <article className="w-full bg-[#cdeaea] flex flex-col items-start p-4 md:p-12 gap-6 h-full rounded-md">
               <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
-                <h3 className="leading-[1.5] font-extrabold text-[#29458c]">
+                {/* <h3 className="leading-[1.5] font-extrabold text-[#29458c]"> */}
+                <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#29458c]">
                   Mini Sprints
                 </h3>
                 <span className="rounded-full bg-[#ffad33] h-8 flex items-center justify-center px-4 text-sm text-white font-medium">
                   Upcoming
                 </span>
               </header>
-              <p className="leading-[170%] font-medium text-[#3a3a3a]  text-[14px] md:text-[20px]">
+              {/* <p className="leading-[170%] font-medium text-[#3a3a3a] text-[14px] md:text-[20px]"> */}
+              <p className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
                 Multi-day skill building workshops
               </p>
               <button
-                className="rounded-full bg-white text-[#f55c38] px-4 py-1 md:px-8 md:py-4 text-lg font-bold mt-8"
+                className="w-[82vw] md:w-auto rounded-full bg-white text-[#f55c38] px-8 py-4 text-lg font-bold md:mt-8"
                 // onClick = {handleLearnMoreMiniClick}
                 onClick={() => handleLearnMoreClick("mini")}
               >
@@ -729,21 +757,23 @@ const HomePage: NextPage = () => {
               </button>
             </article>
 
-            <article className="w-full bg-[#fdded7] flex flex-col items-start p-12 gap-6 h-full rounded-md">
+            <article className="w-full bg-[#fdded7] flex flex-col items-start p-4 md:p-12 gap-6 h-full rounded-md">
               <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
-                <h3 className="leading-[150%] font-extrabold text-[#29458c]">
+                {/* <h3 className="leading-[150%] font-extrabold text-[#29458c]"> */}
+                <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#29458c]">
                   Mega Sprints
                 </h3>
-                <span className="rounded-full bg-[#ffad33] h-8 flex items-center justify-center px-2 text-sm text-white font-medium">
+                <span className="rounded-full bg-[#ffad33] h-8 flex items-center justify-center px-4 text-sm text-white font-medium">
                   Upcoming
                 </span>
               </header>
-              <p className="leading-[170%] font-medium text-[#3a3a3a]  text-[14px] md:text-[20px]">
+              {/* <p className="leading-[170%] font-medium text-[#3a3a3a]  text-[14px] md:text-[20px]"> */}
+              <p className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
                 Comprehensive programs leading to exciting competitive robotics
                 challenges
               </p>
               <button
-                className="rounded-full bg-white text-[#f55c38] px-4 py-1 md:px-8 md:py-4 text-lg font-bold mt-8"
+                className="w-[82vw] md:w-auto rounded-full bg-white text-[#f55c38] px-8 py-4 text-lg font-bold md:mt-8"
                 // onClick = {handleLearnMoreMiniClick}
                 onClick={() => handleLearnMoreClick("mega")}
               >
@@ -762,25 +792,26 @@ const HomePage: NextPage = () => {
       {/* Fifth Section */}
       <section
         id="virtual-tour"
-        className="relative min-h-screen text-left text-white flex items-start overflow-hidden mx-4 md:mx-12"
+        className="relative h-[60vh] md:h-screen text-left text-white flex items-start overflow-hidden mx-4 md:mx-12"
       >
         <Image
-          className="absolute top-0 left-0 w-full h-full object-cover brightness-50 rounded"
+          className="absolute top-0 left-0 w-full h-full object-cover brightness-50 rounded-lg"
           alt="Background video"
           // src="./homepage/video 2.svg"
           src="/homepage/Video image.jpeg"
           width={1920} 
-          height={1080} 
+          height={1080}
         />
 
         <div className="relative z-10 flex flex-col items-start justify-start gap-8 px-4 md:px-8 py-8 lg:mx-6">
-          <h2 className="text-13xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
+          {/* <h2 className="leading-[150%] text-5xl md:text-[25px] font-extrabold leading-tight"> */}
+          <h2 className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold leading-tight">
             Take a Sneak Peak at AFE Makerspace
           </h2>
 
           <a
             href="#"
-            className="rounded-full bg-white h-12 md:h-16 flex items-center justify-center px-6 py-3 text-lg text-[#f55c38] font-[Amazon Ember] hover:bg-gray-100 transition-colors duration-300"
+            className="w-full md:w-auto rounded-full bg-white h-12 md:h-16 flex items-center justify-center px-6 py-3 text-lg text-[#f55c38] font-[Amazon Ember] hover:bg-gray-100 transition-colors duration-300"
           >
             <span className="font-medium">Take Virtual Tour</span>
           </a>
@@ -883,10 +914,12 @@ const HomePage: NextPage = () => {
 </section> */}
 
       <section className="relative mx-4 md:mx-12 flex flex-col items-start justify-start gap-4 text-[#29458c] py-8 md:py-16">
-        <h2 className="text-5xl font-extrabold leading-[150%] md:text-[25px]">
+        {/* <h2 className="w-full text-5xl font-extrabold leading-[150%] md:text-[25px]"> */}
+        <h2 className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold">
           Have Questions or Want to Book a Session?
         </h2>
-        <p className="text-base leading-[170%] font-[Amazon Ember] text-[#3a3a3a] md:text-[20px]">
+        {/* <p className="text-base leading-[170%] font-[Amazon Ember] text-[#3a3a3a] md:text-[20px]"> */}
+        <p className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
           <strong>
             {/* <span>Reach out to us at </span>
             <a href="mailto:afeinnovation@ihub.com" className="text-[#f55c38]">

@@ -52,13 +52,13 @@ const MainContent:NextPage  = () => {
       </header>
 
       {/* Adjusted sprint images */}
-      <section className="w-full flex flex-row items-center justify-center gap-8 md:gap-12 text-left text-lg md:text-2xl lg:text-3xl overflow-x-auto no-scrollbar pl-40 md:pl-0">
+      <section className="w-full flex flex-row md:items-center md:justify-center gap-2 md:gap-12 text-left text-lg md:text-2xl lg:text-3xl overflow-x-auto no-scrollbar">
         <article
-          className="flex-shrink-0 w-[36vw] sm:w-[45vw] md:w-[118px] flex flex-col items-center justify-start gap-4 cursor-pointer"
+          className="flex-shrink-0 w-[36vw] md:w-[118px] flex flex-col items-center justify-start gap-4 cursor-pointer"
           onClick={() => handleChange("nano")}
         >
           <Image
-            className={`w-[50%] h-auto object-cover rounded-md ${
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
               page.nano ? "" : "mix-blend-luminosity"
             }`}
             alt="Nano Sprints"
@@ -81,11 +81,11 @@ const MainContent:NextPage  = () => {
           </p>
         </article>
         <article
-          className="flex-shrink-0 w-[36vw] sm:w-[45vw] md:w-[118px] flex flex-col items-center justify-start gap-4"
+          className="flex-shrink-0 w-[36vw] md:w-[118px] flex flex-col items-center justify-start gap-4"
           onClick={() => handleChange("mini")}
         >
           <Image
-            className={`w-[50%] h-auto object-cover rounded-md ${
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
               page.mini ? "" : "mix-blend-luminosity"
             }`}
             alt="Mini Sprints"
@@ -108,11 +108,11 @@ const MainContent:NextPage  = () => {
           </p>
         </article>
         <article
-          className="flex-shrink-0 w-[36vw] sm:w-[45vw] md:w-[118px] flex flex-col items-center justify-start gap-4 cursor-pointer"
+          className="flex-shrink-0 w-[36vw] md:w-[118px] flex flex-col items-center justify-start gap-4 cursor-pointer"
           onClick={() => handleChange("mega")}
         >
           <Image
-            className={`w-[50%] h-auto object-cover rounded-md ${
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
               page.mega ? "" : "mix-blend-luminosity"
             }`}
             alt="Mega Sprints"
