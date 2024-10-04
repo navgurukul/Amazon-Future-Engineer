@@ -12,14 +12,22 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
       <div className="flex flex-col md:flex-row justify-between items-center h-full px-6">
         {/* Logo Section */}
         <div className="flex flex-row items-center gap-4 text-xl font-amazon-ember-display">
-          <Image
-            className="w-9 h-9 object-cover"
-            alt="AFE Makerspace Logo"
-            src="/nanopage/reshot-icon-molecules-YBNSD562JC 1.svg"
-            width={32} 
-            height={32} 
-          />
-          <div className="font-extrabold">AFE Makerspace</div>
+        <div className="hidden md:flex items-center gap-[5px]">
+        <Image
+          className="object-contain cursor-pointer mt-2"
+          alt="Reshot Icon"
+          src="/login/Group (2).svg"
+          width={64}
+          height={64}
+        />
+        <Image
+          className="object-contain cursor-pointer"
+          alt="Reshot Icon"
+           src="/login/Group (3).svg"
+          width={150}
+          height={70}
+        />
+      </div>
         </div>
 
         {/* Privacy Policy */}

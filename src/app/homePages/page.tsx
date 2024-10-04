@@ -407,7 +407,8 @@ const HomePage: NextPage = () => {
                 Book and Get Ready
               </h3>
               <p className="relative text-center text-[20px] leading-[150%] font-medium font-['Amazon Ember']">
-                Easily find suitable slots and book via our system or call us.
+                Easily find suitable slots and book via our system or 
+                .
               </p>
             </article>
 
