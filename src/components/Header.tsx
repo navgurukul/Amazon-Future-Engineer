@@ -96,11 +96,10 @@ const Header: NextPage<HeaderProps> = ({
     router.push("/");
   };
 
-  const googleTranslateBaseURL = "https://translate.google.com/translate";
-
+  const googleTranslateBaseURL = "https://translate.google.com/translate?hl=";
   const redirectToGoogleTranslator = (targetLang: string) => {
     const currentUrl = window.location.href;
-    const translatedUrl = `${googleTranslateBaseURL}?_x_tr_sl=auto&_x_tr_tl=${targetLang}&_x_tr_hl=en&_x_tr_pto=wapp&_x_tr_hist=true&u=${encodeURIComponent(
+    const translatedUrl = `${googleTranslateBaseURL}${targetLang}&sl=auto&tl=${targetLang}&u=${encodeURIComponent(
       currentUrl
     )}`;
     window.location.href = translatedUrl;
