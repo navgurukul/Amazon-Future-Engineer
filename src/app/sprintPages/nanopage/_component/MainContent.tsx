@@ -238,12 +238,13 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
           <figure className="w-full sm:w-[50%] h-auto">
             <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 4.jpeg" alt="First Image" />
           </figure>
-          <figure className="w-full sm:w-[50%] h-auto">
+          <figure className="w-full sm:w-[50%] h-auto z-10">
             <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Second Image" />
           </figure>
+          <img className="hidden md:block w-full absolute m-0 max-w-[100%] top-[30rem] left-[38rem] h-[6rem] z-0" src="/nanopage/brackets.svg" alt="brackets" />
         </div>
         <div className="flex flex-row gap-6 justify-between">
-          <figure className="w-full sm:w-[33.33%] h-auto">
+          <figure className="w-full sm:w-[33.33%] h-auto z-10">
             <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 4.jpeg" alt="Third Image" />
           </figure>
           <figure className="w-full sm:w-[33.33%] h-auto">
@@ -252,6 +253,7 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
           <figure className="w-full sm:w-[33.33%] h-auto">
             <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Fifth Image" />
           </figure>
+          <img className="hidden md:block w-full absolute m-0 max-w-[100%] top-[61rem] left-[-39rem] h-[6rem] z-0" src="/nanopage/colon.svg" alt="colon" />
         </div>
       </section>
       <section className="flex md:hidden overflow-x-auto no-scrollbar">

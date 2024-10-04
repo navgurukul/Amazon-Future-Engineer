@@ -303,6 +303,7 @@ const HomePage: NextPage = () => {
               access and support diverse talent in shaping the future of
               technology
             </p>
+            <img className="md:block hidden absolute m-0 top-[7.5rem] left-[63.3rem] max-w-full h-[18.369rem] z-0" src="./homepage/Frame 31751.svg" alt="Coding symbols 1" />
           </div>
         </article>
 
@@ -317,7 +318,7 @@ const HomePage: NextPage = () => {
               height={288}
             />
           </figure>
-          <figure className="flex-none w-[calc(100vw-32px)] h-[calc((100vw-32px)*0.6)] md:w-[50%] md:h-[360px]">
+          <figure className="flex-none w-[calc(100vw-32px)] h-[calc((100vw-32px)*0.6)] md:w-[50%] md:h-[360px] z-10">
             <Image
               className="object-cover w-full h-full rounded-md"
               alt="AFE Hub Image 2"
@@ -327,7 +328,7 @@ const HomePage: NextPage = () => {
               height={360}
             />
           </figure>
-          <figure className="flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[24%] md:h-[360px]">
+          <figure className="flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[24%] md:h-[360px] z-10">
             <Image
               className="object-cover w-full h-full rounded-md"
               alt="AFE Hub Image 3"
@@ -544,7 +545,7 @@ const HomePage: NextPage = () => {
                 Select a time slot and book your session through our online
                 system or by calling us on 
                 <a
-                  href="#"
+                  href="tel:+919875466343"
                   className="text-[#f55c38] cursor-pointer"
                 >
                    {" "}+919875466343
@@ -759,6 +760,8 @@ const HomePage: NextPage = () => {
                 </button>
               </div>
             </div>
+            <img className="hidden md:block absolute m-0 top-[33.5rem] left-[52rem] max-w-full h-[8rem] z-0" src="/homepage/Frame 31749.svg" alt="Coding Symbols 2" />
+            <img className="md:hidden block absolute m-0 top-[0.2px] left-[16.9rem] max-w-full h-[4rem] z-0" src="/homepage/Frame 31750.svg" alt="Coding Symbols 2" />
           </section>
 
           <aside className="w-full lg:w-[30%] flex flex-col gap-6 lg:min-h-[calc(100vh-14.5rem)]">
@@ -960,7 +963,7 @@ const HomePage: NextPage = () => {
             </a>
             */}
             <span> Call or Whatsapp us on </span>
-            <a href="" className="text-[#f55c38]">
+            <a href="tel:+919875466343" className="text-[#f55c38]">
               +916366969292
             </a>
           </strong>
