@@ -105,13 +105,18 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
         program_id: programId,
         venue_id: venueId,
         booking_batch_size: studentCount,
-        students_grade: "Grade 10",
+        // students_grade: "Grad 10",
       };
 
       const response = await bookSlot(bookingData);
 
       setBookingStatus("Booking successful!");
-      handleBookingPopUp({ name, status: true });
+      handleBookingPopUp({
+        name: name,
+        date: selectedDate ? selectedDate.toDateString() : 'Date not selected',
+        time: selectedSlot || 'Time not selected',
+        students: studentCount,
+      });
 
       setName("");
       setPhone("");
