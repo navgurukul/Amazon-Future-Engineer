@@ -24,13 +24,15 @@ const LastPart = () => {
           and start a transformative STEM journey!{" "}
         </div>
       </div> */}
-      <div className="flex flex-col w-full mt-4 gap-4">
-        <h1 className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left">
+      <div className="flex flex-col w-full mt-0 md:mt-4 gap-4">
+        {/* <h1 className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left"> */}
+        <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main">
           Have Questions?
         </h1>
-        <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
+        {/* <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']"> */}
+        <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
           <span>{`Call Us or Whatsapp on `}</span>
-          <span className="text-tomato">+916366969292</span>
+          <a href="tel:+919875466343" className="text-tomato">+916366969292</a>
         </p>
       </div>
     </div>

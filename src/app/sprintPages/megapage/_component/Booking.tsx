@@ -10,16 +10,18 @@ const Booking = () => {
   return (
     <>
       <div className="relative flex flex-col items-center w-full">
-        <div className="relative flex justify-between w-full gap-8 mt-8">
+        <div className="relative flex justify-between w-full gap-8 mt-4 md:mt-8">
           <div
             className="flex flex-col w-full lg:w-2/3 gap-8"
             // md:h-[900px] lg:h-[70%]
           >
-            <div className="w-full mt-8">
-              <h1 className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left">
+            <div className="w-full">
+              {/* <h1 className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left"> */}
+              <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
                 Why Schedule a Mega Sprint?{" "}
               </h1>
-              <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember'] mt-4">
+              {/* <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember'] mt-4"> */}
+              <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4">
                 Select students who demonstrate interest and skill will have the
                 opportunity to participate in Mega Sprints—intensive programs
                 lasting several months that provide a solid foundation in
@@ -28,13 +30,15 @@ const Booking = () => {
                 Championship
               </p>
             </div>
-            <div className="flex flex-col w-full mt-4 gap-4">
-              <h1 className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left">
+            <div className="flex flex-col w-full mt-0 md:mt-8 gap-4">
+              {/* <h1 className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left"> */}
+              <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
                 Have Questions?
               </h1>
-              <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
+              {/* <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']"> */}
+              <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
                 <span>{`Call Us or Whatsapp on `}</span>
-                <span className="text-tomato">+916366969292</span>
+                <a href="tel:+919875466343" className="text-tomato">+916366969292</a>
               </p>
             </div>
             {/* <div className="w-full mt-4">
@@ -93,10 +97,12 @@ const Booking = () => {
           {/* Adjacent Section (for Larger Screens) */}
           <div className="hidden lg:block lg:w-1/3 w-full sticky top-32 h-full">
             <div className="w-full relative rounded-lg bg-incandescent-light border-[2px] border-incandescent-main p-8 gap-8">
-              <h1 className="text-darkslategray leading-[150%] lg:text-[20px] md:text-[16px] text-[12px] font-extrabold font-[Amazon Ember]">
+              {/* <h1 className="text-darkslategray leading-[150%] lg:text-[20px] md:text-[16px] text-[12px] font-extrabold font-[Amazon Ember]"> */}
+              <h1 className="text-darkslategray leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">
                 Coming Soon!
               </h1>
-              <p className="text-darkslategray leading-[150%] font-extrabold font-[Amazon Ember] lg:text-[17px] md:text-[12px] text-[10px] font-medium mt-4 mb-8">
+              {/* <p className="text-darkslategray leading-[150%] font-extrabold font-[Amazon Ember] lg:text-[17px] md:text-[12px] text-[10px] font-medium mt-4 mb-8"> */}
+              <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4 mb-8">
                 Be the first to know when Mega Sprints launch. Leave your
                 details to receive updates
               </p>
