@@ -29,7 +29,7 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
               onClick={handleClose}
             />
           </div>
-
+          
           {/* Description Text */}
           <div className="w-full relative text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-primary text-left inline-block">
             Need help with booking a session, learning about our program

@@ -200,6 +200,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           align-items: center;
           position: static !important;
           margin: auto;
+          cursor: pointer;
         }
 
         .fc-event {
