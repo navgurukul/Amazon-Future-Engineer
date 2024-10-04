@@ -123,7 +123,7 @@ const Page: NextPage = () => {
                                 height={20}
                               />
                               <div className="text-[#3a3a3a] flex items-center text-lg gap-[2rem] font-medium font-['Amazon Ember'] leading-[30.60px]">
-                                {`${event.booking_batch_size} Students (${event.students_grade})`}
+                                {`${event.booking_batch_size} Students`}
                               </div>
                             </div>
                           </div>

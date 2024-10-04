@@ -34,7 +34,7 @@ const PhoneNumberVerification: React.FC = () => {
     }
 
     try {
-      await fetch("http://13.127.216.196/api/v1/auth/send-otp", {
+      await fetch("https://dev-afe.samyarth.org/api/v1/auth/send-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone: phoneNumber }),

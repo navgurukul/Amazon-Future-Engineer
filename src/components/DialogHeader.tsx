@@ -1,12 +1,18 @@
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 const DialogHeader: React.FC = () => {
   const router = useRouter();
+  const pathname = usePathname(); 
 
   const handleBackClick = () => {
-    router.back();
+    if (pathname === '/booking') {
+      router.push('/userdashboard');
+    }
+    else{
+      router.back();
+    }
   };
   // fixed top-0 z-5
 
