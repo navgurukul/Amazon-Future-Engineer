@@ -188,23 +188,25 @@ const HomePage: NextPage = () => {
           muted
         ></video>
 
-        <header className="absolute top-[20%] left-0 max-w-[1200px] mx-auto flex flex-col gap-6 items-start text-left px-4 md:px-12">
+        <header className="absolute top-[20%] left-0 max-w-[1000px] mx-auto flex flex-col gap-6 items-start text-left px-4 md:px-12">
           <div className="w-full flex flex-col gap-4 items-start">
-            <div className="h-[126px] w-[800px]">
-              <div className="text-white text-[42px] font-extrabold font-['Amazon Ember Display'] leading-[63px]">
+            {/* <div className="h-[126px] w-[800px]"> */}
+              {/* <div className="text-white text-[42px] font-extrabold font-['Amazon Ember Display'] leading-[63px]"> */}
+              <div className="text-[#f0f0f0] md:text-web-light-background-default text-heading5 md:text-heading4 font-heading4-bold leading-[150%]">
                 Come build the future with us at the Amazon Future Engineer
                 Makerspace
               </div>
-            </div>
-            <div className="w-[800px] h-[72px]">
-              <div className="w-full relative text-[1.5rem] leading-[150%] font-extrabold text-white text-left inline-block font-['Amazon Ember Display']">
+            {/* </div> */}
+            {/* <div className="w-[800px] h-[72px]"> */}
+              {/* <div className="w-full relative text-[1.5rem] leading-[150%] font-extrabold text-white text-left inline-block font-['Amazon Ember Display']"> */}
+              <div className="text-[#f0f0f0] md:text-web-light-background-default text-heading6 font-heading6-bold leading-[150%]">
                 A one-of-a-kind Robotics and AI Lab for students and educators
                 in Bangalore
               </div>
-            </div>
+            {/* </div> */}
           </div>
 
-          <div className="flex flex-col md:flex-row xs:gap-2 sm:gap-4 md:gap-4 lg:gap-8 items-start text-[14px] md:text-[18px] text-white w-full">
+          <div className="flex flex-col md:flex-row xs:gap-2 sm:gap-4 md:gap-4 lg:gap-8 items-start text-[16px] md:text-[18px] text-white w-full">
             <button
               className="flex items-center justify-center md:px-2 md:py-2 lg:px-10 lg:py-4 bg-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto cursor-pointer"
               onClick={handleBookSessionClick}
@@ -281,7 +283,7 @@ const HomePage: NextPage = () => {
           </figure>
         </div>
       </section> */}
-      <section className="relative w-full min-h-screen overflow-visible text-left text-xl text-[#29458c] py-12 md:mt-16">
+      <section className="relative w-full overflow-visible text-left text-xl text-[#29458c] py-12 md:mt-16">
         <article className="w-full flex flex-col items-start justify-start gap-4 px-4 md:px-12 mb-10">
           {/* <h2 className="relative leading-[150%] text-5xl md:text-[25px] font-extrabold"> */}
           <h2 className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold">
@@ -307,27 +309,30 @@ const HomePage: NextPage = () => {
         <div className="w-full overflow-x-auto flex flex-row items-start justify-start gap-4 px-4 md:px-12">
           <figure className="flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[24%] md:h-[360px]">
             <Image
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full rounded-md"
               alt="AFE Hub Image 1"
-              src="./homepage/Rectangle 4(2).svg"
+              // src="./homepage/Rectangle 4(2).svg"
+              src="/homepage/Rectangle4-2.jpeg"
               width={480}
               height={288}
             />
           </figure>
           <figure className="flex-none w-[calc(100vw-32px)] h-[calc((100vw-32px)*0.6)] md:w-[50%] md:h-[360px]">
             <Image
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full rounded-md"
               alt="AFE Hub Image 2"
-              src="./homepage/Rectangle 3-new.svg"
+              // src="./homepage/Rectangle 3-new.svg"
+              src="/homepage/Rectangle3-2.jpeg"
               width={640}
               height={360}
             />
           </figure>
           <figure className="flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[24%] md:h-[360px]">
             <Image
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full rounded-md"
               alt="AFE Hub Image 3"
-              src="./homepage/Rectangle 5-new.svg"
+              // src="./homepage/Rectangle 5-new.svg"
+              src="/homepage/Rectangle5-2.jpeg"
               width={480}
               height={288}
             />
@@ -425,7 +430,7 @@ const HomePage: NextPage = () => {
           </div>
         </div>
       </section> */}
-      <section className="relative w-full bg-[#29458c] flex flex-col items-start justify-start py-[80px] px-4 md:px-12 gap-[48px] text-white">
+      <section className="relative w-full bg-[#29458c] flex flex-col items-start justify-start py-[48px] md:py-[64px] px-4 md:px-12 gap-[48px] text-white">
         <header className="w-full lg:w-[50vw] flex flex-col items-start justify-start gap-[16px]">
           {/* <h2 className="relative leading-[150%] font-extrabold text-[28px] md:text-[32px]"> */}
           <h2 className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold">
