@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://13.127.216.196/api/v1',
+  baseURL: 'https://dev-afe.samyarth.org/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -41,7 +41,7 @@ export const bookSlot = async (bookingData: {
   program_id: number;
   venue_id: number;
   booking_batch_size: number;
-  students_grade: string;
+  // students_grade: string;
 }) => {
   const token = getToken();
 
@@ -50,7 +50,7 @@ export const bookSlot = async (bookingData: {
   }
 
   try {
-    const response = await api.post('/bookings/', bookingData, {
+    const response = await api.post('/bookings', bookingData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

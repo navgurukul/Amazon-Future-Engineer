@@ -135,8 +135,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           font-weight: bold;
           color: #333;
         }
-md:pl-[20px]
-        .fc-col-header {
+        md:pl-[20px] .fc-col-header {
           padding-bottom: 20px !important;
         }
 
