@@ -444,7 +444,7 @@ const HomePage: NextPage = () => {
         </header>
 
         <div className="w-full overflow-x-auto no-scrollbar">
-          <div className="flex flex-row items-start justify-between gap-8 w-full">
+          {/* <div className="flex flex-row items-start justify-between gap-8 w-full">
             <Image
               className="w-[20vw] min-w-[180px] h-[170px] object-cover"
               alt="Step 1"
@@ -473,7 +473,7 @@ const HomePage: NextPage = () => {
               width={300}
               height={180}
             />
-          </div>
+          </div> */}
 
           {/* <div className="flex justify-center mx-12 ml-8 md:ml-0 w-[880px] lg:w-full">
       <Image
@@ -485,6 +485,13 @@ const HomePage: NextPage = () => {
 
           <div className="flex flex-row items-start gap-8 mt-4 w-full">
             <article className="flex flex-col items-center w-[80vw] min-w-[180px]">
+              <Image
+              className="w-[15vw] min-w-[180px] h-[170px] object-cover"
+              alt="Step 1"
+              src="/homepage/Lottie flies.gif"
+              width={300}
+              height={180}
+            />
               {/* <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3"> */}
               <h3 className="text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-center mb-3">
                 Visit AFE Makerspace Virtually
@@ -502,6 +509,13 @@ const HomePage: NextPage = () => {
             </article>
 
             <article className="flex flex-col items-center w-[80vw] min-w-[180px]">
+              <Image
+              className="w-[15vw] min-w-[180px] h-[170px] object-cover"
+              alt="Step 2"
+              src="/homepage/Lottie flies.gif"
+              width={300}
+              height={180}
+            />
               {/* <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3"> */}
               <h3 className="text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-center mb-3">
                 Discover Our Programs
@@ -514,6 +528,13 @@ const HomePage: NextPage = () => {
             </article>
 
             <article className="flex flex-col items-center w-[80vw] min-w-[180px]">
+              <Image
+              className="w-[15vw] min-w-[180px] h-[170px] object-cover"
+              alt="Step 3"
+              src="/homepage/Lottie flies.gif"
+              width={300}
+              height={180}
+            />
               {/* <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3"> */}
               <h3 className="text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-center mb-3">
                 Book Your Session
@@ -534,6 +555,13 @@ const HomePage: NextPage = () => {
             </article>
 
             <article className="flex flex-col items-center w-[80vw] min-w-[180px]">
+              <Image
+              className="w-[15vw] min-w-[180px] h-[170px] object-cover"
+              alt="Step 4"
+              src="/homepage/Lottie flies.gif"
+              width={300}
+              height={180}
+            />
               {/* <h3 className="font-extrabold lg:text-[24px] md:text-[18px] text-[15px] leading-[150%] text-center mb-3"> */}
               <h3 className="text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-center mb-3">
                 Visit and Start Learning
