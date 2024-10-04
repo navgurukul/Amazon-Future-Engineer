@@ -39,7 +39,7 @@ const MainContent:NextPage = () => {
     }
   };
   return (
-    <main className="pt-[104px] py-16 w-[90%] md:max-w-[70%] mx-auto flex flex-col gap-8">
+    <main className="pt-[150px] md:pb-16 pb-12 w-[90%] md:max-w-[70%] mx-auto flex flex-col gap-8">
       <header className="flex flex-col md:flex-row justify-start gap-8 md:gap-16 text-xl md:text-2xl lg:text-3xl">
         <nav className="text-sm md:text-lg leading-[150%] text-left inline-block">
           <span className="text-darkslateblue text-[#29458c]">
@@ -53,13 +53,13 @@ const MainContent:NextPage = () => {
       </header>
 
       {/* Adjusted sprint images */}
-      <section className="w-full flex flex-row items-center justify-center gap-8 md:gap-12 text-left text-lg md:text-2xl lg:text-3xl overflow-x-auto no-scrollbar pl-40 md:pl-0">
+      <section className="w-full flex flex-row md:items-center md:justify-center gap-2 md:gap-12 text-left text-lg md:text-2xl lg:text-3xl overflow-x-auto no-scrollbar">
         <article
-          className="flex-shrink-0 w-[36vw] sm:w-[45vw] md:w-[118px] flex flex-col items-center justify-start gap-4 cursor-pointer"
+          className="flex-shrink-0 w-[36vw] md:w-[118px] flex flex-col items-center justify-start gap-4 cursor-pointer"
           onClick={() => handleChange("nano")}
         >
           <Image
-            className={`w-[50%] h-auto object-cover rounded-md ${
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
               page.nano ? "" : "mix-blend-luminosity"
             }`}
             alt="Nano Sprints"
@@ -82,11 +82,11 @@ const MainContent:NextPage = () => {
           </p>
         </article>
         <article
-          className="flex-shrink-0 w-[36vw] sm:w-[45vw] md:w-[118px] flex flex-col items-center justify-start gap-4 cursor-pointer"
+          className="flex-shrink-0 w-[36vw] md:w-[118px] flex flex-col items-center justify-start gap-4 cursor-pointer"
           onClick={() => handleChange("mini")}
         >
           <Image
-            className={`w-[50%] h-auto object-cover rounded-md ${
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
               page.mini ? "" : "mix-blend-luminosity"
             }`}
             alt="Mini Sprints"
@@ -109,11 +109,11 @@ const MainContent:NextPage = () => {
           </p>
         </article>
         <article
-          className="flex-shrink-0 w-[36vw] sm:w-[45vw] md:w-[118px] flex flex-col items-center justify-start gap-4"
+          className="flex-shrink-0 w-[36vw] md:w-[118px] flex flex-col items-center justify-start gap-4"
           onClick={() => handleChange("mega")}
         >
           <Image
-            className={`w-[50%] h-auto object-cover rounded-md ${
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
               page.mega ? "" : "mix-blend-luminosity"
             }`}
             alt="Mega Sprints"
@@ -138,10 +138,11 @@ const MainContent:NextPage = () => {
       </section>
 
       {/* Increased heading size */}
-      <section className="md:max-w-[100%] text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold font-['Amazon Ember'] text-[#29458c] text-left mt-6 md:mt-10">
+      {/* <section className="md:max-w-[100%] text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold font-['Amazon Ember'] text-[#29458c] text-left mt-6 md:mt-10">
         Mega Sprints: Comprehensive programs that typically span several months,
         culminating in exciting robotics challenges
-      </section>
+      </section> */}
+      <h2 className="md:max-w-[100%] text-[#29458c] leading-[150%] text-heading6 md:text-heading5 font-['Amazon Ember'] text-left mt-6 md:mt-10">Mega Sprints: Comprehensive programs that typically span several months, culminating in exciting robotics challenges</h2>
 
       {/* First two images in the same row */}
       {/* <div className="flex flex-col sm:flex-row gap-6 justify-between">
@@ -176,7 +177,7 @@ const MainContent:NextPage = () => {
         />
       </div> */}
 
-      <section className="hidden md:flex flex-col gap-6">
+      {/* <section className="hidden md:flex flex-col gap-6">
         <div className="flex flex-row gap-6 justify-between">
           <figure className="w-full sm:w-[48%] h-auto rounded-md">
             <Image src="/nanopage/Rectangle 4.jpeg" alt="First Image"
@@ -235,8 +236,49 @@ const MainContent:NextPage = () => {
             height={300}/>
           </figure>
         </div>
+      </section> */}
+<section className="hidden md:flex flex-col gap-6">
+        <div className="flex flex-row gap-6 justify-between">
+          <figure className="w-full sm:w-[50%] h-auto">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 4.jpeg" alt="First Image" />
+          </figure>
+          <figure className="w-full sm:w-[50%] h-auto z-10">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Second Image" />
+          </figure>
+          <img className="hidden md:block w-full absolute m-0 max-w-[100%] top-[30rem] left-[38rem] h-[6rem] z-0" src="/nanopage/brackets.svg" alt="brackets" />
+        </div>
+        <div className="flex flex-row gap-6 justify-between">
+          <figure className="w-full sm:w-[33.33%] h-auto z-10">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 4.jpeg" alt="Third Image" />
+          </figure>
+          <figure className="w-full sm:w-[33.33%] h-auto">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Fourth Image" />
+          </figure>
+          <figure className="w-full sm:w-[33.33%] h-auto">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Fifth Image" />
+          </figure>
+          <img className="hidden md:block w-full absolute m-0 max-w-[100%] top-[61rem] left-[-39rem] h-[6rem] z-0" src="/nanopage/colon.svg" alt="colon" />
+        </div>
       </section>
-
+      <section className="flex md:hidden overflow-x-auto no-scrollbar">
+        <div className="flex flex-row gap-6">
+          <figure className="w-[80%] h-auto flex-shrink-0">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 4.jpeg" alt="First Image" />
+          </figure>
+          <figure className="w-[80%] h-auto flex-shrink-0">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Second Image" />
+          </figure>
+          <figure className="w-[80%] h-auto flex-shrink-0">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 4.jpeg" alt="Third Image" />
+          </figure>
+          <figure className="w-[80%] h-auto flex-shrink-0">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Fourth Image" />
+          </figure>
+          <figure className="w-[80%] h-auto flex-shrink-0">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Fifth Image" />
+          </figure>
+        </div>
+      </section>
       <Booking/>
     </main>
   );
