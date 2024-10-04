@@ -42,7 +42,7 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
   };
 
   return (
-    <main className="pt-[104px] py-16 w-[90%] md:max-w-[70%] mx-auto flex flex-col gap-8">
+    <main className="pt-[150px] md:pb-16 pb-12 w-[90%] md:max-w-[70%] mx-auto flex flex-col gap-8">
       <header className="flex flex-col md:flex-row justify-start gap-8 md:gap-16 text-xl md:text-2xl lg:text-3xl">
         <nav className="text-sm md:text-lg leading-[150%] text-left inline-block">
           <span className="text-darkslateblue text-[#29458c]">
@@ -207,10 +207,11 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
       </section>
 
       {/* Second Section */}
-      <section className="md:max-w-[100%] text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold font-['Amazon Ember'] text-[#29458c] text-left mt-6 md:mt-10">
+      {/* <section className="md:max-w-[100%] text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold font-['Amazon Ember'] text-[#29458c] text-left mt-6 md:mt-10">
         Nano Sprints: One-day experiential learning sessions to ignite interest
         and aspirations in Robotics and AI
-      </section>
+      </section> */}
+      <h2 className="md:max-w-[100%] text-[#29458c] leading-[150%] text-heading6 md:text-heading5 font-['Amazon Ember'] text-left mt-6 md:mt-10">Nano Sprints: One-day experiential learning sessions to ignite interest and aspirations in Robotics and AI</h2>
 
       {/* Third Section */}
       {/* <section className="flex flex-col sm:flex-row gap-6 justify-between">
@@ -234,41 +235,41 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
       </section> */}
       <section className="hidden md:flex flex-col gap-6">
         <div className="flex flex-row gap-6 justify-between">
-          <figure className="w-full sm:w-[48%] h-auto rounded-md">
-            <img src="/nanopage/Rectangle 4.jpeg" alt="First Image" />
+          <figure className="w-full sm:w-[50%] h-auto">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 4.jpeg" alt="First Image" />
           </figure>
-          <figure className="w-full sm:w-[48%] h-auto rounded-md">
-            <img src="/nanopage/Rectangle 32.jpeg" alt="Second Image" />
+          <figure className="w-full sm:w-[50%] h-auto">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Second Image" />
           </figure>
         </div>
         <div className="flex flex-row gap-6 justify-between">
-          <figure className="w-full sm:w-[32%] h-auto rounded-md">
-            <img src="/nanopage/Rectangle 4.jpeg" alt="Third Image" />
+          <figure className="w-full sm:w-[33.33%] h-auto">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 4.jpeg" alt="Third Image" />
           </figure>
-          <figure className="w-full sm:w-[32%] h-auto rounded-md">
-            <img src="/nanopage/Rectangle 32.jpeg" alt="Fourth Image" />
+          <figure className="w-full sm:w-[33.33%] h-auto">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Fourth Image" />
           </figure>
-          <figure className="w-full sm:w-[32%] h-auto rounded-md">
-            <img src="/nanopage/Rectangle 32.jpeg" alt="Fifth Image" />
+          <figure className="w-full sm:w-[33.33%] h-auto">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Fifth Image" />
           </figure>
         </div>
       </section>
       <section className="flex md:hidden overflow-x-auto no-scrollbar">
         <div className="flex flex-row gap-6">
-          <figure className="w-[80%] h-auto flex-shrink-0 rounded-md">
-            <img src="/nanopage/Rectangle 4.jpeg" alt="First Image" />
+          <figure className="w-[80%] h-auto flex-shrink-0">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 4.jpeg" alt="First Image" />
           </figure>
-          <figure className="w-[80%] h-auto flex-shrink-0 rounded-md">
-            <img src="/nanopage/Rectangle 32.jpeg" alt="Second Image" />
+          <figure className="w-[80%] h-auto flex-shrink-0">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Second Image" />
           </figure>
-          <figure className="w-[80%] h-auto flex-shrink-0 rounded-md">
-            <img src="/nanopage/Rectangle 4.jpeg" alt="Third Image" />
+          <figure className="w-[80%] h-auto flex-shrink-0">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 4.jpeg" alt="Third Image" />
           </figure>
-          <figure className="w-[80%] h-auto flex-shrink-0 rounded-md">
-            <img src="/nanopage/Rectangle 32.jpeg" alt="Fourth Image" />
+          <figure className="w-[80%] h-auto flex-shrink-0">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Fourth Image" />
           </figure>
-          <figure className="w-[80%] h-auto flex-shrink-0 rounded-md">
-            <img src="/nanopage/Rectangle 32.jpeg" alt="Fifth Image" />
+          <figure className="w-[80%] h-auto flex-shrink-0">
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Fifth Image" />
           </figure>
         </div>
       </section>
