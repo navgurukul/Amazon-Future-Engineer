@@ -116,7 +116,7 @@ const Header: NextPage<HeaderProps> = ({
     }
   };
 
-  const whatsappLink = `https://wa.me/${9329796819}`;
+  const whatsappLink = `https://wa.me/${6366969292}`;
 
   return (
     <>
@@ -175,34 +175,6 @@ const Header: NextPage<HeaderProps> = ({
           <div className="flex items-center gap-4 sm:gap-8">
             {isMobile ? (
               <>
-                {/* Language Selector for mobile */}
-                <div className="flex items-center h-10 rounded-full p-1 gap-1 bg-[#FFF]">
-                  <div
-                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${
-                      currentLang === "en"
-                        ? "bg-[#F55C38] text-white"
-                        : "text-[#F55C38]"
-                    }`}
-                    onClick={handleLanguageToggle}
-                  >
-                    <div className="text-sm font-medium cursor-pointer">
-                      Eng
-                    </div>
-                  </div>
-                  <div
-                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${
-                      currentLang === "kn"
-                        ? "bg-[#F55C38] text-white"
-                        : "text-[#F55C38]"
-                    }`}
-                    onClick={handleLanguageToggle}
-                  >
-                    <div className="text-sm font-medium cursor-pointer">
-                      ಅಇಈ
-                    </div>
-                  </div>
-                </div>
-
                 {/* Hamburger icon */}
                 <div
                   className="h-[32px] flex flex-col items-end justify-center p-2 px-1 gap-[6px] cursor-pointer"
@@ -226,7 +198,7 @@ const Header: NextPage<HeaderProps> = ({
                 </div>
 
                 {isDropdownOpen && (
-                  <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-lg p-4">
+                  <div className="absolute w-full top-full right-0 mt-2 bg-white shadow-lg rounded-lg p-4">
                     {profileOpen ? (
                       <Image
                         className="w-10 h-10 sm:w-14 sm:h-14 object-cover rounded-full mt-4"
@@ -237,7 +209,7 @@ const Header: NextPage<HeaderProps> = ({
                       />
                     ) : (
                       <nav
-                        className="flex items-center justify-center md:h-12 bg-[#F0F0F0] rounded-full p-2 px-4 sm:px-8 gap-2 sm:gap-3 text-base sm:text-lg text-[#F55C38] cursor-pointer mt-2"
+                        className="w-full flex items-center justify-center md:h-12 bg-[#F0F0F0] rounded-full p-2 px-4 sm:px-8 gap-2 sm:gap-3 text-base sm:text-lg text-[#F55C38] cursor-pointer mt-2"
                         onClick={handleBookSessionClick}
                       >
                         <span className="relative font-medium leading-[170%]">
@@ -245,13 +217,46 @@ const Header: NextPage<HeaderProps> = ({
                         </span>
                       </nav>
                     )}
+                    {/* Language Selector for mobile */}
+                    <div className=" w-auto flex items-center h-10 rounded-full p-1 gap-1 bg-incandescent-light">
+                      <div
+                        className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${
+                          currentLang === "en"
+                            ? "bg-[#F55C38] text-white"
+                            : "text-[#F55C38]"
+                        }`}
+                        onClick={handleLanguageToggle}
+                      >
+                        <div className="text-sm font-medium cursor-pointer">
+                          Eng
+                        </div>
+                      </div>
+                      <div
+                        className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${
+                          currentLang === "kn"
+                            ? "bg-[#F55C38] text-white"
+                            : "text-[#F55C38]"
+                        }`}
+                        onClick={handleLanguageToggle}
+                      >
+                        <div className="text-sm font-medium cursor-pointer">
+                          ಅಇಈ
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
               </>
             ) : (
               <>
                 {/* Language Selector for desktop */}
-                <div className="flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 bg-[#FFF]">
+                <div
+                  className={`flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 bg-${
+                    headerBgColor !== "transparent" || bgColor != "home"
+                      ? "incandescent-light"
+                      : "white"
+                  }`}
+                >
                   <div
                     className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${
                       currentLang === "en"
@@ -299,7 +304,7 @@ const Header: NextPage<HeaderProps> = ({
                   <Image
                     className="w-10 h-10 sm:w-14 sm:h-14 object-cover rounded-full"
                     alt="User Avatar"
-                    src="/nanopage/Ellipse 1.svg"
+                    src="/login/avatarIcon.svg"
                     width={56}
                     height={56}
                   />
@@ -327,22 +332,22 @@ const Header: NextPage<HeaderProps> = ({
               showCallUs ? "justify-between" : "justify-center"
             } p-4`}
           >
-
-          {showCallUs || bgColor!=="home" && (
-            <div
-              className="flex items-center justify-center h-12 rounded-full p-2 px-4 gap-2 bg-white text-[#F55C38] border-2 border-[#F55C38] cursor-pointer ml-4 shadow-md"
-              onClick={handleOfflineBooking}
-            >
-              <Image
-                className="w-6 h-6 overflow-hidden"
-                alt="Helpdesk Icon"
-                src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
-                width={24}
-                height={24}
-              />
-              <div className="font-medium leading-[170%]">Call Us</div>
-            </div>
-          )}
+            {showCallUs ||
+              (bgColor !== "home" && (
+                <div
+                  className="flex items-center justify-center h-12 rounded-full p-2 px-4 gap-2 bg-white text-[#F55C38] border-2 border-[#F55C38] cursor-pointer ml-4 shadow-md"
+                  onClick={handleOfflineBooking}
+                >
+                  <Image
+                    className="w-6 h-6 overflow-hidden"
+                    alt="Helpdesk Icon"
+                    src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
+                    width={24}
+                    height={24}
+                  />
+                  <div className="font-medium leading-[170%]">Call Us</div>
+                </div>
+              ))}
             <a
               href={whatsappLink}
               className="flex-1 rounded-full bg-white h-12 flex flex-row items-center justify-center py-2 px-4 box-border gap-3 no-underline text-inherit shadow-md"
