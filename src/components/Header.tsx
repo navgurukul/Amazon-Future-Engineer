@@ -30,6 +30,8 @@ const Header: NextPage<HeaderProps> = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [headerBgColor, setHeaderBgColor] = useState<string>("transparent");
+  const [currentLang, setCurrentLang] = useState<'en' | 'kn'>('en');
+
 
   const isLandingPage = pathname === "/";
 
@@ -89,15 +91,32 @@ const Header: NextPage<HeaderProps> = ({
     router.push("/");
   };
 
+  //tranlateToggle
+  const googleTranslateBaseURL = 'https://translate.google.com/translate';
+
+  const redirectToGoogleTranslator = (targetLang: string) => {
+    const currentUrl = window.location.href;
+    const translatedUrl = `${googleTranslateBaseURL}?_x_tr_sl=auto&_x_tr_tl=${targetLang}&_x_tr_hl=en&_x_tr_pto=wapp&_x_tr_hist=true&u=${encodeURIComponent(currentUrl)}`;
+    window.location.href = translatedUrl;
+  };
+
+  const handleLanguageToggle = () => {
+    if (currentLang === 'en') {
+      setCurrentLang('kn'); // Switch to Kannada
+      redirectToGoogleTranslator('kn');
+    } else {
+      setCurrentLang('en'); // Switch to English
+      redirectToGoogleTranslator('en');
+    }
+  };
+
   return (
     <div
-      className={`fixed w-full h-[104px] ${headerBgColor} text-center text-[14px] text-white transition-shadow duration-300 ${
-        hasShadow
-          ? "shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_1px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)]"
-          : ""
-      } z-${
-        offlinePopup || openSecondPopup || bookingPopup ? 0 : 50
-      } px-4 sm:px-8 md:px-12 py-6`}
+      className={`fixed w-full h-[104px] ${headerBgColor} text-center text-[14px] text-white transition-shadow duration-300 ${hasShadow
+        ? "shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_1px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)]"
+        : ""
+        } z-${offlinePopup || openSecondPopup || bookingPopup ? 0 : 50
+        } px-4 sm:px-8 md:px-12 py-6`}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center h-full">
         {/* Reshot Icon */}
@@ -105,9 +124,8 @@ const Header: NextPage<HeaderProps> = ({
           <Image
             className="object-contain cursor-pointer mt-2"
             alt="Reshot Icon"
-            src={`/login/Group (${
-              headerBgColor === "transparent" && bgColor === "home" ? "8" : "2"
-            }).svg`}
+            src={`/login/Group (${headerBgColor === "transparent" && bgColor === "home" ? "8" : "2"
+              }).svg`}
             onClick={onReshotIconClick}
             width={64}
             height={64}
@@ -115,9 +133,8 @@ const Header: NextPage<HeaderProps> = ({
           <Image
             className="object-contain cursor-pointer"
             alt="Reshot Icon"
-            src={`/login/Group (${
-              headerBgColor === "transparent" && bgColor === "home" ? "9" : "3"
-            }).svg`}
+            src={`/login/Group (${headerBgColor === "transparent" && bgColor === "home" ? "9" : "3"
+              }).svg`}
             onClick={onReshotIconClick}
             width={150}
             height={70}
@@ -127,9 +144,8 @@ const Header: NextPage<HeaderProps> = ({
           <Image
             className="object-contain cursor-pointer"
             alt="Reshot Icon"
-            src={`/login/Group(${
-              headerBgColor === "transparent" && bgColor === "home" ? "11" : "12"
-            }).svg`}
+            src={`/login/Group(${headerBgColor === "transparent" && bgColor === "home" ? "11" : "12"
+              }).svg`}
             onClick={onReshotIconClick}
             width={120}
             height={40}
@@ -141,11 +157,10 @@ const Header: NextPage<HeaderProps> = ({
             <>
               {/* Mobile-specific "Call Us" button */}
               <div
-                className={`flex items-center justify-center h-12 rounded-full p-2 px-4 sm:px-8 gap-2 sm:gap-3 text-base sm:text-lg ${
-                  profileOpen
-                    ? "bg-[#FDDED7] text-[#F55C38]"
-                    : "bg-[#FFF] text-[#F55C38]"
-                } cursor-pointer`}
+                className={`flex items-center justify-center h-12 rounded-full p-2 px-4 sm:px-8 gap-2 sm:gap-3 text-base sm:text-lg ${profileOpen
+                  ? "bg-[#FDDED7] text-[#F55C38]"
+                  : "bg-[#FFF] text-[#F55C38]"
+                  } cursor-pointer`}
                 onClick={handleOfflineBooking}
               >
                 <Image
@@ -170,7 +185,7 @@ const Header: NextPage<HeaderProps> = ({
 
               {isDropdownOpen && (
                 <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-lg p-4">
-                  {/* Language Selector */}
+                  {/* //Language Selector
                   <div
                     className={`flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 bg-[#FDDED7]`}
                   >
@@ -180,6 +195,26 @@ const Header: NextPage<HeaderProps> = ({
                       </div>
                     </div>
                     <div className="flex items-center justify-center rounded-full h-8 px-3 py-2 text-[#F55C38]">
+                      <div className="text-sm sm:text-base font-medium cursor-pointer">
+                        ಅಇಈ
+                      </div>
+                    </div>
+                  </div> */}
+
+                  {/* Language Selector */}
+                  <div className="flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 bg-[#FFF]">
+                    <div
+                      className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${currentLang === 'en' ? 'bg-[#F55C38] text-white' : 'text-[#F55C38]'}`}
+                      onClick={handleLanguageToggle}
+                    >
+                      <div className="text-sm sm:text-base font-medium cursor-pointer">
+                        Eng
+                      </div>
+                    </div>
+                    <div
+                      className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${currentLang === 'kn' ? 'bg-[#F55C38] text-white' : 'text-[#F55C38]'}`}
+                      onClick={handleLanguageToggle}
+                    >
                       <div className="text-sm sm:text-base font-medium cursor-pointer">
                         ಅಇಈ
                       </div>
@@ -209,7 +244,7 @@ const Header: NextPage<HeaderProps> = ({
             </>
           ) : (
             <>
-              {/* Language selector and user avatar */}
+              {/* //Language selector and user avatar
               <div className="hidden sm:flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 bg-[#FFF]">
                 <div className="flex items-center justify-center rounded-full h-8 px-3 py-2 bg-[#F55C38] text-white">
                   <div className="text-sm sm:text-base font-medium cursor-pointer">
@@ -221,7 +256,28 @@ const Header: NextPage<HeaderProps> = ({
                     ಅಇಈ
                   </div>
                 </div>
+              </div> */}
+
+              {/* Language Selector */}
+              <div className="flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 bg-[#FFF]">
+                <div
+                  className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${currentLang === 'en' ? 'bg-[#F55C38] text-white' : 'text-[#F55C38]'}`}
+                  onClick={handleLanguageToggle}
+                >
+                  <div className="text-sm sm:text-base font-medium cursor-pointer">
+                    Eng
+                  </div>
+                </div>
+                <div
+                  className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${currentLang === 'kn' ? 'bg-[#F55C38] text-white' : 'text-[#F55C38]'}`}
+                  onClick={handleLanguageToggle}
+                >
+                  <div className="text-sm sm:text-base font-medium cursor-pointer">
+                    ಅಇಈ
+                  </div>
+                </div>
               </div>
+
               {/* Helpdesk Section */}
 
               {(headerBgColor === "bg-white" || bgColor !== "home") && (

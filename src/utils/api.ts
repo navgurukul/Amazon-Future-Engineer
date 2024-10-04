@@ -141,7 +141,8 @@ export const getProgramData = async (venue_id: number) => {
     });
     return response.data.data;
   } catch (error) {
-    return [];
+    // return [];
+    throw error;
   }
 };
 

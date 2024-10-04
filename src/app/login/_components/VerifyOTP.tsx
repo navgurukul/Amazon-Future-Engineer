@@ -1,9 +1,16 @@
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import React, { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from "react";
-import { verifyOtp, resendOtp } from "@/utils/api"; 
-import Cookies from "js-cookie"; 
+import { verifyOtp, resendOtp } from "@/utils/api";
+import { getProgramData } from "@/utils/api";
+import Cookies from "js-cookie";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  ChangeEvent,
+  KeyboardEvent,
+} from "react";
 
 interface VerifyOTPProps {
   length?: number;
@@ -29,6 +36,13 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
       inputRefs.current[0].focus();
     }
   }, []);
+
+  const fetchProgramData = async () => {
+    const programId: number = 2;
+    const programData = await getProgramData(programId);
+    console.log(programData);
+    localStorage.setItem("programData", JSON.stringify(programData));
+  };
 
   useEffect(() => {
     if (seconds > 0) {
@@ -74,11 +88,12 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
     setError("");
 
     try {
-      const response = await verifyOtp(phoneNumber, otpString); 
+      const response = await verifyOtp(phoneNumber, otpString);
       localStorage.setItem("loginData", JSON.stringify(response));
-      Cookies.set("loginData", JSON.stringify(response), { expires: 7 }); 
+      Cookies.set("loginData", JSON.stringify(response), { expires: 7 });
       const userId = JSON.stringify(response.userId);
       localStorage.setItem("LoginId", userId);
+      fetchProgramData()
       setMessage(response.message);
       router.push("/sprintPages/nanopage");
     } catch (err: any) {
@@ -89,7 +104,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
 
   const handleResendOTP = async () => {
     try {
-      await resendOtp(phoneNumber); 
+      await resendOtp(phoneNumber);
       setSeconds(119);
       setIsResendAllowed(false);
     } catch (err: any) {
@@ -101,7 +116,6 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
     setShowOTPVerification(false);
   };
 
-
   return (
     <div className="px-4 sm:px-4 mx-auto mt-12 md:mx-0 md:mt-0">
       <div className="flex flex-col items-start gap-8 self-stretch md:self-auto">
@@ -111,14 +125,15 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
             alt="back"
             onClick={handlePreviousScreen}
             className="cursor-pointer overflow-hidden"
-            width={24} 
+            width={24}
             height={24}
           />
           <div className="leading-[170%] font-extrabold">Back</div>
-    
         </div>
         <div className="flex flex-col gap-6 w-full">
-        <div className="text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-midnight-blue-main text-left">Please enter the OTP</div>
+          <div className="text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-midnight-blue-main text-left">
+            Please enter the OTP
+          </div>
           <div className="flex flex-col gap-6 w-full">
             <div>
               <div className="flex items-start gap-4 w-full">
