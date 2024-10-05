@@ -96,37 +96,56 @@ const Header: NextPage<HeaderProps> = ({
     router.push("/");
   };
 
-  const googleTranslateBaseURL = "https://translate.google.com/translate?hl=";
+  // const googleTranslateBaseURL = "https://translate.google.com/translate?hl=";
+  // const redirectToGoogleTranslator = (targetLang: string) => {
+  //   const currentUrl = window.location.href;
+  //   const translatedUrl = `${googleTranslateBaseURL}${targetLang}&sl=auto&tl=${targetLang}&u=${encodeURIComponent(
+  //     currentUrl
+  //   )}`;
+  //   window.location.href = translatedUrl;
+  // };
+
+  const googleTranslateBaseURL = 'https://translate.google.com/translate?hl=';
+
   const redirectToGoogleTranslator = (targetLang: string) => {
     const currentUrl = window.location.href;
-    const translatedUrl = `${googleTranslateBaseURL}${targetLang}&sl=auto&tl=${targetLang}&u=${encodeURIComponent(
-      currentUrl
-    )}`;
-    window.location.href = translatedUrl;
-  };
 
-  const handleLanguageToggle = () => {
-    if (currentLang === "en") {
-      setCurrentLang("kn");
-      redirectToGoogleTranslator("kn");
+    if (targetLang === 'en') {
+      // Remove any translation and reload the page
+      window.location.href = window.location.origin + window.location.pathname;
     } else {
-      setCurrentLang("en");
-      redirectToGoogleTranslator("en");
+      // Translate to the target language
+      const translatedUrl = `${googleTranslateBaseURL}${targetLang}&sl=auto&tl=${targetLang}&u=${encodeURIComponent(currentUrl)}&client=webapp`;
+      window.location.href = translatedUrl;
     }
   };
+
+
+  // const handleLanguageToggle = () => {
+  //   if (currentLang === "en") {
+  //     setCurrentLang("kn");
+  //     redirectToGoogleTranslator("kn");
+  //   } else {
+  //     setCurrentLang("en");
+  //     redirectToGoogleTranslator("en");
+  //   }
+  // };
+  const handleLanguageToggle = (selectedLang: "en" | "kn") => {
+    setCurrentLang(selectedLang);
+    redirectToGoogleTranslator(selectedLang);
+  };
+  
 
   const whatsappLink = `https://wa.me/${6366969292}`;
 
   return (
     <>
       <div
-        className={`fixed w-full h-[104px] ${headerBgColor} text-center text-[14px] text-white transition-shadow duration-300 ${
-          hasShadow
-            ? "shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_1px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)]"
-            : ""
-        } z-${
-          offlinePopup || openSecondPopup || bookingPopup ? 0 : 50
-        } px-4 sm:px-8 md:px-12 py-6`}
+        className={`fixed w-full h-[104px] ${headerBgColor} text-center text-[14px] text-white transition-shadow duration-300 ${hasShadow
+          ? "shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_1px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)]"
+          : ""
+          } z-${offlinePopup || openSecondPopup || bookingPopup ? 0 : 50
+          } px-4 sm:px-8 md:px-12 py-6`}
       >
         <div className="mx-auto flex justify-between items-center h-full">
           {/* Reshot Icon */}
@@ -134,11 +153,10 @@ const Header: NextPage<HeaderProps> = ({
             <Image
               className="object-contain cursor-pointer mt-2"
               alt="Reshot Icon"
-              src={`/login/Group (${
-                headerBgColor === "transparent" && bgColor === "home"
-                  ? "8"
-                  : "2"
-              }).svg`}
+              src={`/login/Group (${headerBgColor === "transparent" && bgColor === "home"
+                ? "8"
+                : "2"
+                }).svg`}
               onClick={onReshotIconClick}
               width={64}
               height={64}
@@ -146,11 +164,10 @@ const Header: NextPage<HeaderProps> = ({
             <Image
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
-              src={`/login/Group (${
-                headerBgColor === "transparent" && bgColor === "home"
-                  ? "9"
-                  : "3"
-              }).svg`}
+              src={`/login/Group (${headerBgColor === "transparent" && bgColor === "home"
+                ? "9"
+                : "3"
+                }).svg`}
               onClick={onReshotIconClick}
               width={150}
               height={70}
@@ -160,11 +177,10 @@ const Header: NextPage<HeaderProps> = ({
             <Image
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
-              src={`/login/Group(${
-                headerBgColor === "transparent" && bgColor === "home"
-                  ? "11"
-                  : "12"
-              }).svg`}
+              src={`/login/Group(${headerBgColor === "transparent" && bgColor === "home"
+                ? "11"
+                : "12"
+                }).svg`}
               onClick={onReshotIconClick}
               width={120}
               height={40}
@@ -180,19 +196,16 @@ const Header: NextPage<HeaderProps> = ({
                   onClick={toggleDropdown}
                 >
                   <div
-                    className={`w-[24px] h-[2px] relative rounded-full ${
-                      headerBgColor === "transparent" ? "bg-white" : "bg-black"
-                    }`}
+                    className={`w-[24px] h-[2px] relative rounded-full ${headerBgColor === "transparent" ? "bg-white" : "bg-black"
+                      }`}
                   />
                   <div
-                    className={`w-[16px] h-[2px] relative rounded-full ${
-                      headerBgColor === "transparent" ? "bg-white" : "bg-black"
-                    }`}
+                    className={`w-[16px] h-[2px] relative rounded-full ${headerBgColor === "transparent" ? "bg-white" : "bg-black"
+                      }`}
                   />
                   <div
-                    className={`w-[8px] h-[2px] relative rounded-full ${
-                      headerBgColor === "transparent" ? "bg-white" : "bg-black"
-                    }`}
+                    className={`w-[8px] h-[2px] relative rounded-full ${headerBgColor === "transparent" ? "bg-white" : "bg-black"
+                      }`}
                   />
                 </div>
 
@@ -217,13 +230,12 @@ const Header: NextPage<HeaderProps> = ({
                       </nav>
                     )}
                     {/* Language Selector for mobile */}
-                    <div className=" w-auto flex items-center h-10 rounded-full p-1 gap-1 bg-incandescent-light">
+                    {/* <div className=" w-auto flex items-center h-10 rounded-full p-1 gap-1 bg-incandescent-light">
                       <div
-                        className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${
-                          currentLang === "en"
+                        className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${currentLang === "en"
                             ? "bg-[#F55C38] text-white"
                             : "text-[#F55C38]"
-                        }`}
+                          }`}
                         onClick={handleLanguageToggle}
                       >
                         <div className="text-sm font-medium cursor-pointer">
@@ -231,37 +243,49 @@ const Header: NextPage<HeaderProps> = ({
                         </div>
                       </div>
                       <div
-                        className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${
-                          currentLang === "kn"
+                        className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${currentLang === "kn"
                             ? "bg-[#F55C38] text-white"
                             : "text-[#F55C38]"
-                        }`}
+                          }`}
                         onClick={handleLanguageToggle}
                       >
                         <div className="text-sm font-medium cursor-pointer">
                           ಅಇಈ
                         </div>
                       </div>
+                    </div> */}
+                    <div className="flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 bg-incandescent-light">
+                      <div
+                        className={`flex items-center justify-center rounded-full h-8 px-3 py-2 cursor-pointer ${currentLang === "en" ? "bg-[#F55C38] text-white" : "text-[#F55C38]"}`}
+                        onClick={() => handleLanguageToggle("en")}
+                      >
+                        <div className="text-sm sm:text-base font-medium">Eng</div>
+                      </div>
+                      <div
+                        className={`flex items-center justify-center rounded-full h-8 px-3 py-2 cursor-pointer ${currentLang === "kn" ? "bg-[#F55C38] text-white" : "text-[#F55C38]"}`}
+                        onClick={() => handleLanguageToggle("kn")}
+                      >
+                        <div className="text-sm sm:text-base font-medium">ಅಇಈ</div>
+                      </div>
                     </div>
+
                   </div>
                 )}
               </>
             ) : (
               <>
                 {/* Language Selector for desktop */}
-                <div
-                  className={`flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 bg-${
-                    headerBgColor !== "transparent" || bgColor != "home"
+                {/* <div
+                  className={`flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 bg-${headerBgColor !== "transparent" || bgColor != "home"
                       ? "incandescent-light"
                       : "white"
-                  }`}
+                    }`}
                 >
                   <div
-                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${
-                      currentLang === "en"
+                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${currentLang === "en"
                         ? "bg-[#F55C38] text-white"
                         : "text-[#F55C38]"
-                    }`}
+                      }`}
                     onClick={handleLanguageToggle}
                   >
                     <div className="text-sm sm:text-base font-medium cursor-pointer">
@@ -269,16 +293,36 @@ const Header: NextPage<HeaderProps> = ({
                     </div>
                   </div>
                   <div
-                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${
-                      currentLang === "kn"
+                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${currentLang === "kn"
                         ? "bg-[#F55C38] text-white"
                         : "text-[#F55C38]"
-                    }`}
+                      }`}
                     onClick={handleLanguageToggle}
                   >
                     <div className="text-sm sm:text-base font-medium cursor-pointer">
                       ಅಇಈ
                     </div>
+                  </div>
+                </div> */}
+                <div
+                  className={`flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 bg-${headerBgColor !== "transparent" || bgColor != "home" ? "incandescent-light" : "white"
+                    }`}
+                >
+                  <div
+                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 cursor-pointer ${currentLang === "en" ? "bg-[#F55C38] text-white" : "text-[#F55C38]"
+                      }`}
+                    // onClick={handleLanguageToggle}
+                    onClick={() => handleLanguageToggle("en")}
+                  >
+                    <div className="text-sm sm:text-base font-medium">Eng</div>
+                  </div>
+                  <div
+                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 cursor-pointer ${currentLang === "kn" ? "bg-[#F55C38] text-white" : "text-[#F55C38]"
+                      }`}
+                    // onClick={handleLanguageToggle}
+                    onClick={() => handleLanguageToggle("kn")}
+                  >
+                    <div className="text-sm sm:text-base font-medium">ಅಇಈ</div>
                   </div>
                 </div>
 
@@ -327,9 +371,8 @@ const Header: NextPage<HeaderProps> = ({
       {isMobile ? (
         <div className="fixed w-full top-[104px] z-40">
           <div
-            className={`flex ${
-              showCallUs ? "justify-between" : "justify-center"
-            } p-4`}
+            className={`flex ${showCallUs ? "justify-between" : "justify-center"
+              } p-4`}
           >
             {showCallUs ||
               (bgColor !== "home" && (
