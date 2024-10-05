@@ -165,6 +165,14 @@ const config: Config = {
         xs: "320px",
         sm: "375px",
       },
+      // screens: {
+      //   'xs': '425px', // Add a custom breakpoint for 425px
+      //   'sm': '640px',
+      //   'md': '768px',
+      //   'lg': '1024px',
+      //   'xl': '1280px',
+      //   '2xl': '1536px',
+      // },
     },
     fontSize: {
       lg: "18px",

@@ -83,55 +83,55 @@ const Page: NextPage = () => {
           userData?.map((event, index) => (
             <div
               key={index}
-              className="bg-white p-4 rounded-md flex flex-col sm:flex-row sm:justify-between sm:items-center shadow-md h-auto sm:h-[132px] border border-gray-200 w-full"
+              className="bg-white p-4 rounded-md flex flex-col md:flex-row md:justify-between md:items-center shadow-md h-auto md:h-[132px] border border-gray-200 w-full"
             >
-              <div className="space-y-2 text-left sm:text-right">
-                <div className="text-left leading-[150%] font-bold text-[1.5rem]  md:font-extrabold">
+              <div className="space-y-2 text-left md:text-right w-full md:w-auto">
+                <div className="text-left leading-[150%] font-bold text-[1.25rem] sm:text-[1.5rem] md:text-[1.75rem] md:font-extrabold">
                   Nano Sprint
                 </div>
-                <div className="flex flex-col gap-[1rem] sm:flex-row space-x-0 sm:space-x-4 space-y-2 sm:space-y-0">
+                <div className="flex flex-col gap-[1rem] md:flex-row space-x-0 md:space-x-4 space-y-2 md:space-y-0">
                   <div className="flex items-center space-x-[12px]">
                     <Image
-                      className="w-6 sm:w-8 h-6 sm:h-8"
+                      className="w-5 sm:w-6 md:w-8 h-5 sm:h-6 md:h-8"
                       alt="calendar icon"
                       src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg"
                       width={20}
                       height={20}
                     />
-                    <div className="text-[#3a3a3a] flex items-center gap-[2rem] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                    <div className="text-[#3a3a3a] flex items-center gap-[1rem] text-sm sm:text-base md:text-lg font-medium font-['Amazon Ember'] leading-[25px] sm:leading-[30px]">
                       {new Date(event.booking_for).toLocaleDateString()}
                     </div>
                   </div>
                   <div className="flex items-center space-x-[12px]">
                     <Image
-                      className="w-6 sm:w-8 h-6 sm:h-8"
+                      className="w-5 sm:w-6 md:w-8 h-5 sm:h-6 md:h-8"
                       alt="time icon"
                       src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg"
                       width={20}
                       height={20}
                     />
-                    <div className="text-[#3a3a3a] flex items-center gap-[2rem] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                    <div className="text-[#3a3a3a] flex items-center gap-[1rem] text-sm sm:text-base md:text-lg font-medium font-['Amazon Ember'] leading-[25px] sm:leading-[30px]">
                       {`${event.start_time} to ${event.end_time}`}
                     </div>
                   </div>
                   <div className="flex items-center space-x-[12px]">
                     <Image
-                      className="w-6 sm:w-8 h-6 sm:h-8"
+                      className="w-5 sm:w-6 md:w-8 h-5 sm:h-6 md:h-8"
                       alt="students icon"
                       src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg"
                       width={20}
                       height={20}
                     />
-                    <div className="text-[#3a3a3a] flex items-center text-lg gap-[2rem] font-medium font-['Amazon Ember'] leading-[30.60px]">
+                    <div className="text-[#3a3a3a] flex items-center gap-[1rem] text-sm sm:text-base md:text-lg font-medium font-['Amazon Ember'] leading-[25px] sm:leading-[30px]">
                       {`${event.booking_batch_size} Students`}
                     </div>
                   </div>
                 </div>
               </div>
-              <div>
-                <div className="h-14 px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full sm:w-48 sm:px-6 sm:py-2 mt-4">
+              <div className="mt-4 md:mt-0 md:w-auto w-full flex justify-center md:justify-end">
+                <div className="h-12 sm:h-14 px-6 sm:px-8 py-2 rounded-full border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full sm:w-48 cursor-pointer">
                   <div
-                    className="text-center text-[#f55c38] text-lg font-medium font-['Amazon Ember'] leading-[30.60px] sm:text-base sm:leading-7 cursor-pointer"
+                    className="text-center text-[#f55c38] text-sm sm:text-base md:text-lg font-medium leading-6 sm:leading-[25px] md:leading-[30.60px]"
                     onClick={handleOpenFirstPopup}
                   >
                     Reschedule
@@ -139,12 +139,14 @@ const Page: NextPage = () => {
                 </div>
               </div>
             </div>
+
+
           ))
         ) : (
           <div>No upcoming events found.</div>
         )}
       </div>
-      
+
       <FirstPopup
         isOpen={isFirstPopupOpen}
         handleClose={handleCloseFirstPopup}
