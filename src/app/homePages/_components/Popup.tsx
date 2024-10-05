@@ -20,7 +20,7 @@ const Popup: NextPage<PopupProps> = ({ closeHelpDeskPopup }) => {
       {/* Popup header and content */}
       <div className="flex flex-col gap-4 flex-grow">
         <div className="flex items-center justify-between text-lg font-amazon-ember w-full">
-          <div className="font-extrabold">Helpdesk</div>
+          <div className="font-extrabold">Call Us</div>
           <Image
             className="w-6 h-6 cursor-pointer"
             alt="close"
@@ -31,8 +31,10 @@ const Popup: NextPage<PopupProps> = ({ closeHelpDeskPopup }) => {
           />
         </div>
         <div className="leading-7 font-medium">
-          You can talk to our representative for sprint information, booking
-          sprints, or any general queries.
+          {/* You can talk to our representative for sprint information, booking
+          sprints, or any general queries. */}
+          Need help with booking a session, learning about our program offerings, 
+          or have any general questions? We’re here for you!
         </div>
         <div className="leading-7">
           <b>Response Time:</b>{" "}

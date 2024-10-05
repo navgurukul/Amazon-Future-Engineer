@@ -1,24 +1,79 @@
-"use client";
+// "use client";
+// import Footer from "@/components/Footer";
+// import Header from "@/components/Header";
+// import MainContent from "./_component/MainContent";
+// import React, { useState, useEffect } from "react";
+// import SecondPopup from "./_component/SecondPopup";
+// import Popup from "./_component/Popup";
 
-import Footer from "../../../components/Footer";
-import Header from "../../../components/Header";
-import CallPopup from "./_component/CallPopup";
+// const Page = () => {
+//   const [offlinePopup, setOfflinePopup] = useState<boolean>(false);
+//   const [openSecondPopup, setOpenSecondPopup] = useState<boolean>(false);
+
+//   const handleOfflineBooking : ()=> void = () => {
+//     setOfflinePopup(true);
+//     window.scrollTo({ top: 0, behavior: "smooth" });
+//     document.body.classList.add("overflow-hidden");
+//   };
+
+//   const handleOfflineBookingClose = () => {
+//     setOfflinePopup(false);
+//     setOpenSecondPopup(true);
+//     window.scrollTo({ top: 0, behavior: "smooth" });
+//     document.body.classList.add("overflow-hidden");
+//   };
+
+//   const handleClose = ()=>{
+//     setOfflinePopup(false);
+//     document.body.classList.remove("overflow-hidden");
+
+//   }
+//   // Close the second popup after 2 seconds
+//   useEffect(() => {
+//     if (openSecondPopup) {
+//       const timer = setTimeout(() => {
+//         setOpenSecondPopup(false);
+//         document.body.classList.remove("overflow-hidden");
+//       }, 5000);
+
+//       return () => clearTimeout(timer); // Clean up the timer on unmount or change
+//     }
+//   }, [openSecondPopup]);
+
+//   return (
+//     <div className="min-h-screen">
+//       <Header
+//         isLoggedIn={true}
+//         handleOfflineBooking={handleOfflineBooking}
+//         offlinePopup={offlinePopup}
+//         openSecondPopup={openSecondPopup}
+//       />
+//       <MainContent handleOfflineBooking={handleOfflineBooking} />
+//       <Footer />
+//       <Popup offlinePopup={offlinePopup}
+//       handleOfflineBookingClose={handleOfflineBookingClose}
+//       // openSecondPopup={openSecondPopup}
+//       handleClose={handleClose}/>
+//       {openSecondPopup && <SecondPopup />}
+//     </div>
+//   );
+// };
+
+// export default Page;
+
+
+
+"use client";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import MainContent from "./_component/MainContent";
-import Popup from "./_component/Popup";
-import SecondPopup from "./_component/SecondPopup";
 import React, { useState, useEffect } from "react";
+import SecondPopup from "./_component/SecondPopup";
+import Popup from "./_component/Popup";
 
 const Page = () => {
   const [offlinePopup, setOfflinePopup] = useState<boolean>(false);
   const [openSecondPopup, setOpenSecondPopup] = useState<boolean>(false);
-  const [bookingPopup,setBookingPopup] = useState<boolean>(false)
-
-
-  const handleBooking: () => void = () => {
-    setBookingPopup(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    document.body.classList.add("overflow-hidden");
-  };
 
   const handleOfflineBooking: () => void = () => {
     setOfflinePopup(true);
@@ -27,7 +82,7 @@ const Page = () => {
   };
 
   const handleOfflineBookingClose = () => {
-    setBookingPopup(false);
+    setOfflinePopup(false);
     setOpenSecondPopup(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
     document.body.classList.add("overflow-hidden");
@@ -35,52 +90,37 @@ const Page = () => {
 
   const handleClose = () => {
     setOfflinePopup(false);
-    setBookingPopup(false);
     document.body.classList.remove("overflow-hidden");
   };
-  // Close the second popup after 2 seconds
+
+  // Remove the timer and directly trigger the "Go to Sprint" button action
   useEffect(() => {
     if (openSecondPopup) {
-      const timer = setTimeout(() => {
-        setOpenSecondPopup(false);
-        document.body.classList.remove("overflow-hidden");
-      }, 5000);
-
-      return () => clearTimeout(timer); // Clean up the timer on unmount or change
+      document.body.classList.add("overflow-hidden");  
     }
   }, [openSecondPopup]);
 
-  const handleBookSessionClick = ()=>{
-        console.log("hello")
-  }
-
+  
 
   return (
-    <div className="min-h-screen pb-32 lg:pb-0">
+    <div className="min-h-screen">
       <Header
+        isLoggedIn={true}
         handleOfflineBooking={handleOfflineBooking}
         offlinePopup={offlinePopup}
         openSecondPopup={openSecondPopup}
-        bookingPopup={bookingPopup}
-        bgColor=""
-        handleBookSessionClick={handleBookSessionClick}
       />
-      <MainContent handleOfflineBooking={handleBooking} />
-      <Footer handleOfflineBooking={handleOfflineBooking}/>
+      <MainContent handleOfflineBooking={handleOfflineBooking} />
+      <Footer />
       <Popup
-        offlinePopup={bookingPopup}
+        offlinePopup={offlinePopup}
         handleOfflineBookingClose={handleOfflineBookingClose}
-        // openSecondPopup={openSecondPopup}
         handleClose={handleClose}
       />
       {openSecondPopup && <SecondPopup />}
-      <CallPopup
-        offlinePopup={offlinePopup}
-        handleClose={handleClose}
-        handleOfflineBookingClose={handleOfflineBookingClose}
-      />
     </div>
   );
 };
 
 export default Page;
+
