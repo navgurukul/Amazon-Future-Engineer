@@ -35,8 +35,8 @@ const FirstPopup: NextPage<FirstPopupProps> = ({ isOpen, handleClose, handleOpen
 
     return (
         <>
-            <Dialog open={isOpen} onOpenChange={handleClose} className="flex justify-end items-end">
-                <DialogContent className="bg-white w-full fixed bottom-[0%] md:top-[50%] max-w-[592px] sm:w-[592px] h-auto h-[377px] p-6">
+            <Dialog open={isOpen} onOpenChange={handleClose}>
+                <DialogContent className="bg-white w-full sm:fixed top-[75%] md:top-[50%] max-w-[592px] sm:w-[592px] h-auto sm:h-[377px] p-6">
                     <DialogHeader>
                         <DialogTitle>
                             <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold text-heading5 font-heading5-bold leading-7 sm:leading-9 text-left gap-[1rem]">
@@ -125,7 +125,3 @@ const FirstPopup: NextPage<FirstPopupProps> = ({ isOpen, handleClose, handleOpen
 };
 
 export default FirstPopup;
-
-
-
-
