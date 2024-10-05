@@ -111,7 +111,7 @@ const MegaPage: NextPage = () => {
   return (
     <>
       <div className="pt-[120px] w-full min-h-screen bg-white flex flex-col justify-center items-center gap-8 md:gap-16">
-      <DialogHeader/>
+        <DialogHeader />
         <div className="flex justify-center items-center w-full px-4">
           <div className="w-full md:w-[592px] rounded-lg flex flex-col justify-start items-center gap-8 p-4 md:p-6">
             <div className="w-full flex flex-col gap-4">
@@ -127,7 +127,9 @@ const MegaPage: NextPage = () => {
               (field) => (
                 <div key={field} className="w-full flex flex-col gap-2">
                   <label className="text-[#3a3a3a] text-sm font-medium leading-normal">
-                    {field.charAt(0).toUpperCase() +
+                    {field === "schoolName"
+                      ? "School Name" :
+                      field.charAt(0).toUpperCase() +
                       field.slice(1).replace("No", " Number")}
                     {field === "name" || field === "phoneNo" ? (
                       <span className="text-[#f55c38]">*</span>
@@ -142,17 +144,16 @@ const MegaPage: NextPage = () => {
                   ) : (
                     <input
                       className="w-full h-12 md:h-14 px-4 py-2 rounded-full border border-[#3a3a3a] text-[#000000] text-base md:text-lg font-medium"
-                      placeholder={`Eg. ${
-                        field === "name"
+                      placeholder={`Eg. ${field === "name"
                           ? "Prakash"
                           : field === "phoneNo"
-                          ? "+916366969292"
-                          : field === "schoolName"
-                          ? "Shiksha Bharti"
-                          : field === "email"
-                          ? "prakash@gmail.com"
-                          : "560034"
-                      }`}
+                            ? "+916366969292"
+                            : field === "schoolName"
+                              ? "Shiksha Bharti"
+                              : field === "email"
+                                ? "prakash@gmail.com"
+                                : "560034"
+                        }`}
                       name={field}
                       value={formData[field as keyof typeof formData]}
                       onChange={handleInputChange}
