@@ -109,17 +109,18 @@ const Header: NextPage<HeaderProps> = ({
 
   const redirectToGoogleTranslator = (targetLang: string) => {
     const currentUrl = window.location.href;
-
+    console.log('Current URL:', currentUrl);
+    console.log('Target language:', targetLang);
+  
     if (targetLang === 'en') {
-      // Remove any translation and reload the page
       window.location.href = window.location.origin + window.location.pathname;
     } else {
-      // Translate to the target language
       const translatedUrl = `${googleTranslateBaseURL}${targetLang}&sl=auto&tl=${targetLang}&u=${encodeURIComponent(currentUrl)}&client=webapp`;
+      console.log('Translated URL:', translatedUrl);
       window.location.href = translatedUrl;
     }
   };
-
+  
 
   // const handleLanguageToggle = () => {
   //   if (currentLang === "en") {
@@ -131,6 +132,7 @@ const Header: NextPage<HeaderProps> = ({
   //   }
   // };
   const handleLanguageToggle = (selectedLang: "en" | "kn") => {
+    console.log("Selected language:", selectedLang);
     setCurrentLang(selectedLang);
     redirectToGoogleTranslator(selectedLang);
   };
