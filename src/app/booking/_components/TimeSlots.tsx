@@ -105,7 +105,6 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
         program_id: programId,
         venue_id: venueId,
         booking_batch_size: studentCount,
-        // students_grade: "Grad 10",
       };
 
       const response = await bookSlot(bookingData);
@@ -197,16 +196,18 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               <span>Phone Number</span>
               <span className="text-incandescent-main">*</span>
             </div>
-            <input
-              type="tel"
-              name="phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              pattern="[0-9]{10}"
-              placeholder="+91 xxxxxxxxxx"
-              required
-              className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-lg w-full"
-            />
+            <div className="relative flex items-center w-full">
+              <span className="absolute left-4 text-[#3a3a3a] text-lg font-medium">+91</span>
+              <input
+                type="tel"
+                name="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="xxxxxxxxxx"
+                required
+                className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 pl-12 pr-4 text-lg w-full"
+              />
+            </div>
             {phoneError && (
               <span className="text-red-500 text-sm">{phoneError}</span>
             )}
@@ -223,11 +224,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               value={students}
               onChange={(e) => setStudents(e.target.value)}
               placeholder="Please enter a number between 12 and 40"
-              // min={12}
-              // max={40}
-
               required
-              className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 py-2 px-4 "
+              className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 py-2 px-4"
             />
             {studentsError && (
               <span className="text-red-500 text-sm">{studentsError}</span>
