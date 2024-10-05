@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 import { NextPage } from "next";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
@@ -31,7 +30,7 @@ const Header: NextPage<HeaderProps> = ({
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [headerBgColor, setHeaderBgColor] = useState<string>("transparent");
   const [currentLang, setCurrentLang] = useState<"en" | "kn">("en");
-  const [showCallUs, setShowCallUs] = useState<boolean>(false);
+  const [showBothButtons, setShowBothButtons] = useState<boolean>(false);
 
   const isLandingPage = pathname === "/";
 
@@ -75,13 +74,14 @@ const Header: NextPage<HeaderProps> = ({
     if (isLandingPage) {
       if (scrollPosition > windowHeight) {
         setHeaderBgColor("bg-white");
-        setShowCallUs(true);
+        setShowBothButtons(true);
       } else {
         setHeaderBgColor("transparent");
-        setShowCallUs(false);
+        setShowBothButtons(false);
       }
     } else {
       setHeaderBgColor("bg-white");
+      setShowBothButtons(true);
     }
   }, [isLandingPage]);
 
@@ -96,74 +96,39 @@ const Header: NextPage<HeaderProps> = ({
     router.push("/");
   };
 
-  // const googleTranslateBaseURL = "https://translate.google.com/translate?hl=";
-  // const redirectToGoogleTranslator = (targetLang: string) => {
-  //   const currentUrl = window.location.href;
-  //   const translatedUrl = `${googleTranslateBaseURL}${targetLang}&sl=auto&tl=${targetLang}&u=${encodeURIComponent(
-  //     currentUrl
-  //   )}`;
-  //   window.location.href = translatedUrl;
-  // };
-
-  const googleTranslateBaseURL = 'https://translate.google.com/translate?hl=';
-
-  // const redirectToGoogleTranslator = (targetLang: string) => {
-  //   const currentUrl = window.location.href;
-  //   console.log('Current URL:', currentUrl);
-  //   console.log('Target language:', targetLang);
-  
-  //   if (targetLang === 'en') {
-  //     window.location.href = window.location.origin + window.location.pathname;
-  //   } else {
-  //     const translatedUrl = `${googleTranslateBaseURL}${targetLang}&sl=auto&tl=${targetLang}&u=${encodeURIComponent(currentUrl)}&client=webapp`;
-  //     console.log('Translated URL:', translatedUrl);
-  //     window.location.href = translatedUrl;
-  //   }
-  // };
+  const googleTranslateBaseURL = "https://translate.google.com/translate?hl=";
   const redirectToGoogleTranslator = (targetLang: string) => {
     const currentUrl = window.location.href;
-    const baseUrl = "https://dev-m.d18dcwfvrl5hpd.amplifyapp.com";
-    console.log('Current URL:', currentUrl);
-    console.log('Target language:', targetLang);
+    const translatedUrl = `${googleTranslateBaseURL}${targetLang}&sl=auto&tl=${targetLang}&u=${encodeURIComponent(
+      currentUrl
+    )}`;
+    window.location.href = translatedUrl;
+  };
 
-    let urlPath = currentUrl.replace(baseUrl, "");
-    
-    if (targetLang === 'en') {
-      window.location.href = `${baseUrl}${urlPath}`;
+  const handleLanguageToggle = () => {
+    if (currentLang === "en") {
+      setCurrentLang("kn");
+      redirectToGoogleTranslator("kn");
     } else {
-      const translatedUrl = `${googleTranslateBaseURL}${targetLang}&sl=auto&tl=${targetLang}&u=${encodeURIComponent(baseUrl + urlPath)}&client=webapp`;
-      console.log('Translated URL:', translatedUrl);
-      window.location.href = translatedUrl;
+      setCurrentLang("en");
+      redirectToGoogleTranslator("en");
     }
   };
-  
-
-  // const handleLanguageToggle = () => {
-  //   if (currentLang === "en") {
-  //     setCurrentLang("kn");
-  //     redirectToGoogleTranslator("kn");
-  //   } else {
-  //     setCurrentLang("en");
-  //     redirectToGoogleTranslator("en");
-  //   }
-  // };
-  const handleLanguageToggle = (selectedLang: "en" | "kn") => {
-    console.log("Selected language:", selectedLang);
-    setCurrentLang(selectedLang);
-    redirectToGoogleTranslator(selectedLang);
-  };
-  
 
   const whatsappLink = `https://wa.me/${6366969292}`;
 
   return (
     <>
       <div
-        className={`fixed w-full h-[104px] ${headerBgColor} text-center text-[14px] text-white transition-shadow duration-300 ${hasShadow
-          ? "shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_1px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)]"
-          : ""
-          } z-${offlinePopup || openSecondPopup || bookingPopup ? 0 : 50
-          } px-4 sm:px-8 md:px-12 py-6`}
+        className={`fixed w-full h-[104px] ${
+          isDropdownOpen ? "bg-white" : headerBgColor
+        } text-center text-[14px] text-white transition-shadow duration-300 ${
+          hasShadow && !isDropdownOpen
+            ? "shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_1px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)]"
+            : ""
+        } z-${
+          offlinePopup || openSecondPopup || bookingPopup ? 0 : 50
+        } px-4 sm:px-8 md:px-12 py-6`}
       >
         <div className="mx-auto flex justify-between items-center h-full">
           {/* Reshot Icon */}
@@ -171,10 +136,11 @@ const Header: NextPage<HeaderProps> = ({
             <Image
               className="object-contain cursor-pointer mt-2"
               alt="Reshot Icon"
-              src={`/login/Group (${headerBgColor === "transparent" && bgColor === "home"
-                ? "8"
-                : "2"
-                }).svg`}
+              src={`/login/Group (${
+                headerBgColor === "transparent" && bgColor === "home" && !isDropdownOpen
+                  ? "8"
+                  : "2"
+              }).svg`}
               onClick={onReshotIconClick}
               width={64}
               height={64}
@@ -182,10 +148,11 @@ const Header: NextPage<HeaderProps> = ({
             <Image
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
-              src={`/login/Group (${headerBgColor === "transparent" && bgColor === "home"
-                ? "9"
-                : "3"
-                }).svg`}
+              src={`/login/Group (${
+                headerBgColor === "transparent" && bgColor === "home" && !isDropdownOpen
+                  ? "9"
+                  : "3"
+              }).svg`}
               onClick={onReshotIconClick}
               width={150}
               height={70}
@@ -195,10 +162,11 @@ const Header: NextPage<HeaderProps> = ({
             <Image
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
-              src={`/login/Group(${headerBgColor === "transparent" && bgColor === "home"
-                ? "11"
-                : "12"
-                }).svg`}
+              src={`/login/Group(${
+                headerBgColor === "transparent" && bgColor === "home" && !isDropdownOpen
+                  ? "11"
+                  : "12"
+              }).svg`}
               onClick={onReshotIconClick}
               width={120}
               height={40}
@@ -214,96 +182,38 @@ const Header: NextPage<HeaderProps> = ({
                   onClick={toggleDropdown}
                 >
                   <div
-                    className={`w-[24px] h-[2px] relative rounded-full ${headerBgColor === "transparent" ? "bg-white" : "bg-black"
-                      }`}
+                    className={`w-[24px] h-[2px] relative rounded-full ${
+                      headerBgColor === "transparent" && !isDropdownOpen ? "bg-white" : "bg-black"
+                    }`}
                   />
                   <div
-                    className={`w-[16px] h-[2px] relative rounded-full ${headerBgColor === "transparent" ? "bg-white" : "bg-black"
-                      }`}
+                    className={`w-[16px] h-[2px] relative rounded-full ${
+                      headerBgColor === "transparent" && !isDropdownOpen ? "bg-white" : "bg-black"
+                    }`}
                   />
                   <div
-                    className={`w-[8px] h-[2px] relative rounded-full ${headerBgColor === "transparent" ? "bg-white" : "bg-black"
-                      }`}
+                    className={`w-[8px] h-[2px] relative rounded-full ${
+                      headerBgColor === "transparent" && !isDropdownOpen ? "bg-white" : "bg-black"
+                    }`}
                   />
                 </div>
-
-                {isDropdownOpen && (
-                  <div className="absolute w-full top-full right-0 mt-2 bg-white shadow-lg rounded-lg p-4">
-                    {profileOpen ? (
-                      <Image
-                        className="w-10 h-10 sm:w-14 sm:h-14 object-cover rounded-full mt-4"
-                        alt="User Avatar"
-                        src="/nanopage/Ellipse 1.svg"
-                        width={40}
-                        height={40}
-                      />
-                    ) : (
-                      <nav
-                        className="w-full flex items-center justify-center md:h-12 bg-[#F0F0F0] rounded-full p-2 px-4 sm:px-8 gap-2 sm:gap-3 text-base sm:text-lg text-[#F55C38] cursor-pointer mt-2"
-                        onClick={handleBookSessionClick}
-                      >
-                        <span className="relative font-medium leading-[170%]">
-                          Login
-                        </span>
-                      </nav>
-                    )}
-                    {/* Language Selector for mobile */}
-                    {/* <div className=" w-auto flex items-center h-10 rounded-full p-1 gap-1 bg-incandescent-light">
-                      <div
-                        className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${currentLang === "en"
-                            ? "bg-[#F55C38] text-white"
-                            : "text-[#F55C38]"
-                          }`}
-                        onClick={handleLanguageToggle}
-                      >
-                        <div className="text-sm font-medium cursor-pointer">
-                          Eng
-                        </div>
-                      </div>
-                      <div
-                        className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${currentLang === "kn"
-                            ? "bg-[#F55C38] text-white"
-                            : "text-[#F55C38]"
-                          }`}
-                        onClick={handleLanguageToggle}
-                      >
-                        <div className="text-sm font-medium cursor-pointer">
-                          ಅಇಈ
-                        </div>
-                      </div>
-                    </div> */}
-                    <div className="flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 bg-incandescent-light">
-                      <div
-                        className={`flex items-center justify-center rounded-full h-8 px-3 py-2 cursor-pointer ${currentLang === "en" ? "bg-[#F55C38] text-white" : "text-[#F55C38]"}`}
-                        onClick={() => handleLanguageToggle("en")}
-                      >
-                        <div className="text-sm sm:text-base font-medium">Eng</div>
-                      </div>
-                      <div
-                        className={`flex items-center justify-center rounded-full h-8 px-3 py-2 cursor-pointer ${currentLang === "kn" ? "bg-[#F55C38] text-white" : "text-[#F55C38]"}`}
-                        onClick={() => handleLanguageToggle("kn")}
-                      >
-                        <div className="text-sm sm:text-base font-medium">ಅಇಈ</div>
-                      </div>
-                    </div>
-
-                  </div>
-                )}
               </>
             ) : (
               <>
                 {/* Language Selector for desktop */}
-                {/* <div
-                  className={`flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 bg-${headerBgColor !== "transparent" || bgColor != "home"
+                <div
+                  className={`flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 bg-${
+                    headerBgColor !== "transparent" || bgColor != "home"
                       ? "incandescent-light"
                       : "white"
-                    }`}
+                  }`}
                 >
                   <div
-                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${currentLang === "en"
+                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${
+                      currentLang === "en"
                         ? "bg-[#F55C38] text-white"
                         : "text-[#F55C38]"
-                      }`}
+                    }`}
                     onClick={handleLanguageToggle}
                   >
                     <div className="text-sm sm:text-base font-medium cursor-pointer">
@@ -311,36 +221,16 @@ const Header: NextPage<HeaderProps> = ({
                     </div>
                   </div>
                   <div
-                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${currentLang === "kn"
+                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${
+                      currentLang === "kn"
                         ? "bg-[#F55C38] text-white"
                         : "text-[#F55C38]"
-                      }`}
+                    }`}
                     onClick={handleLanguageToggle}
                   >
                     <div className="text-sm sm:text-base font-medium cursor-pointer">
                       ಅಇಈ
                     </div>
-                  </div>
-                </div> */}
-                <div
-                  className={`flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 bg-${headerBgColor !== "transparent" || bgColor != "home" ? "incandescent-light" : "white"
-                    }`}
-                >
-                  <div
-                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 cursor-pointer ${currentLang === "en" ? "bg-[#F55C38] text-white" : "text-[#F55C38]"
-                      }`}
-                    // onClick={handleLanguageToggle}
-                    onClick={() => handleLanguageToggle("en")}
-                  >
-                    <div className="text-sm sm:text-base font-medium">Eng</div>
-                  </div>
-                  <div
-                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 cursor-pointer ${currentLang === "kn" ? "bg-[#F55C38] text-white" : "text-[#F55C38]"
-                      }`}
-                    // onClick={handleLanguageToggle}
-                    onClick={() => handleLanguageToggle("kn")}
-                  >
-                    <div className="text-sm sm:text-base font-medium">ಅಇಈ</div>
                   </div>
                 </div>
 
@@ -385,32 +275,72 @@ const Header: NextPage<HeaderProps> = ({
         </div>
       </div>
 
-      {/* WhatsApp Chat Button for small screens */}
-      {isMobile ? (
-        <div className="fixed w-full top-[104px] z-40">
-          <div
-            className={`flex ${showCallUs ? "justify-between" : "justify-center"
-              } p-4`}
-          >
-            {showCallUs ||
-              (bgColor !== "home" && (
-                <div
-                  className="flex items-center justify-center h-12 rounded-full p-2 px-4 gap-2 bg-white text-[#F55C38] border-2 border-[#F55C38] cursor-pointer ml-4 shadow-md"
-                  onClick={handleOfflineBooking}
-                >
-                  <Image
-                    className="w-6 h-6 overflow-hidden"
-                    alt="Helpdesk Icon"
-                    src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
-                    width={24}
-                    height={24}
-                  />
-                  <div className="font-medium leading-[170%]">Call Us</div>
-                </div>
-              ))}
+      {isMobile && isDropdownOpen && (
+        <div className="fixed w-full top-[104px] left-0 bg-white shadow-lg z-40 rounded-b-2xl">
+          <div className="p-4 flex flex-col items-center gap-4">
+            {profileOpen ? (
+              <Image
+                className="w-10 h-10 object-cover rounded-full"
+                alt="User Avatar"
+                src="/login/avatarIcon.svg"
+                width={40}
+                height={40}
+              />
+            ) : (
+              <button
+                className="w-full h-12 bg-[#F55C38] rounded-full text-white font-medium"
+                onClick={handleBookSessionClick}
+              >
+                Login
+              </button>
+            )}
+            <div className="w-auto mx-auto flex items-center h-10 rounded-full p-1 gap-1 bg-incandescent-light">
+              <div
+                className={`flex-1 flex items-center justify-center rounded-full h-8 px-3 ${
+                  currentLang === "en"
+                    ? "bg-[#F55C38] text-white"
+                    : "text-[#F55C38]"
+                }`}
+                onClick={handleLanguageToggle}
+              >
+                <div className="text-sm font-medium cursor-pointer">Eng</div>
+              </div>
+              <div
+                className={`flex-1 flex items-center justify-center rounded-full h-8 px-3 ${
+                  currentLang === "kn"
+                    ? "bg-[#F55C38] text-white"
+                    : "text-[#F55C38]"
+                }`}
+                onClick={handleLanguageToggle}
+              >
+                <div className="text-sm font-medium cursor-pointer">ಅಇಈ</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isMobile && (
+        <div className="fixed w-full top-[104px] z-30">
+          <div className={`flex justify-between p-4 ${showBothButtons ? 'space-x-2' : ''}`}>
+            {showBothButtons && (
+              <button
+                className="flex-1 flex items-center justify-center h-12 rounded-full p-2 px-4 gap-2 bg-white text-[#F55C38] border-2 border-[#F55C38] shadow-md"
+                onClick={handleOfflineBooking}
+              >
+                <Image
+                  className="w-6 h-6 overflow-hidden"
+                  alt="Helpdesk Icon"
+                  src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
+                  width={24}
+                  height={24}
+                />
+                <div className="font-medium leading-[170%]">Call Us</div>
+              </button>
+            )}
             <a
               href={whatsappLink}
-              className="flex-1 rounded-full bg-white h-12 flex flex-row items-center justify-center py-2 px-4 box-border gap-3 no-underline text-inherit shadow-md"
+              className={`${showBothButtons ? 'flex-1' : 'w-full'} rounded-full bg-white h-12 flex flex-row items-center justify-center py-2 px-4 box-border gap-3 no-underline text-inherit shadow-md`}
             >
               <Image
                 className="w-6 relative h-6 overflow-hidden shrink-0"
@@ -425,8 +355,6 @@ const Header: NextPage<HeaderProps> = ({
             </a>
           </div>
         </div>
-      ) : (
-        ""
       )}
     </>
   );
