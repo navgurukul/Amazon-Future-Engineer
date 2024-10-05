@@ -107,15 +107,31 @@ const Header: NextPage<HeaderProps> = ({
 
   const googleTranslateBaseURL = 'https://translate.google.com/translate?hl=';
 
+  // const redirectToGoogleTranslator = (targetLang: string) => {
+  //   const currentUrl = window.location.href;
+  //   console.log('Current URL:', currentUrl);
+  //   console.log('Target language:', targetLang);
+  
+  //   if (targetLang === 'en') {
+  //     window.location.href = window.location.origin + window.location.pathname;
+  //   } else {
+  //     const translatedUrl = `${googleTranslateBaseURL}${targetLang}&sl=auto&tl=${targetLang}&u=${encodeURIComponent(currentUrl)}&client=webapp`;
+  //     console.log('Translated URL:', translatedUrl);
+  //     window.location.href = translatedUrl;
+  //   }
+  // };
   const redirectToGoogleTranslator = (targetLang: string) => {
     const currentUrl = window.location.href;
+    const baseUrl = "https://dev-m.d18dcwfvrl5hpd.amplifyapp.com";
     console.log('Current URL:', currentUrl);
     console.log('Target language:', targetLang);
-  
+
+    let urlPath = currentUrl.replace(baseUrl, "");
+    
     if (targetLang === 'en') {
-      window.location.href = window.location.origin + window.location.pathname;
+      window.location.href = `${baseUrl}${urlPath}`;
     } else {
-      const translatedUrl = `${googleTranslateBaseURL}${targetLang}&sl=auto&tl=${targetLang}&u=${encodeURIComponent(currentUrl)}&client=webapp`;
+      const translatedUrl = `${googleTranslateBaseURL}${targetLang}&sl=auto&tl=${targetLang}&u=${encodeURIComponent(baseUrl + urlPath)}&client=webapp`;
       console.log('Translated URL:', translatedUrl);
       window.location.href = translatedUrl;
     }
