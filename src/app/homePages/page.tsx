@@ -2,6 +2,7 @@
 
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
+import ErrorBookingPopup from "../booking/_components/ErrorBookingPopup";
 import CallPopup from "../sprintPages/nanopage/_component/CallPopup";
 import SecondPopup from "../sprintPages/nanopage/_component/SecondPopup";
 import CreateAClass from "./CreateAClass";
@@ -245,6 +246,7 @@ const HomePage: NextPage = () => {
       {isPopupOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <CreateAClass closePopup={closePopup} />
+          {/* <ErrorBookingPopup closePopup={closePopup} /> */}
         </div>
       )}
 
