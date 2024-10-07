@@ -121,7 +121,7 @@ const Header: NextPage<HeaderProps> = ({
     <>
       <div
         className={`fixed w-full h-[104px] ${
-          isDropdownOpen ? "bg-white" : headerBgColor
+          (isDropdownOpen || bgColor!=="home") ? "bg-white" : headerBgColor
         } text-center text-[14px] text-white transition-shadow duration-300 ${
           hasShadow && !isDropdownOpen
             ? "shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_1px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)]"
@@ -321,7 +321,7 @@ const Header: NextPage<HeaderProps> = ({
       )}
 
       {isMobile && (
-        <div className="fixed w-full top-[104px] z-30">
+        <div className="fixed w-full top-[104px]">
           <div className={`flex justify-between p-4 ${showBothButtons ? 'space-x-2' : ''}`}>
             {showBothButtons && (
               <button
