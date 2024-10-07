@@ -31,16 +31,16 @@
 /* Define the Amazon Ember and Amazon Ember Display fonts with local .ttf files */
 @font-face {
   font-family: 'Amazon Ember';
-  src: url('/path-to-your-fonts/amazon-ember.woff2') format('woff2'),
-       url('/path-to-your-fonts/amazon-ember.woff') format('woff');
+  src: url('./fonts/AmazonEmber_W_Rg.woff2') format('woff2'),
+       url('./fonts/AmazonEmber_W_Rg.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Amazon Ember Display';
-  src: url('/path-to-your-fonts/amazon-ember-display.woff2') format('woff2'),
-       url('/path-to-your-fonts/amazon-ember-display.woff') format('woff');
+  src: url('./fonts/AmazonEmberDisplay_W_He.woff2') format('woff2'),
+       url('./fonts/AmazonEmberDisplay_W_He.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }

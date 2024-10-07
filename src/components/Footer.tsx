@@ -39,6 +39,24 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
               height={70}
             />
           </div>
+          <div className="md:hidden">
+          <Image
+              className="object-contain cursor-pointer mt-2"
+              alt="Reshot Icon"
+              src="/login/Group (2).svg"
+              onClick={onReshotIconClick}
+              width={34}
+              height={34}
+            />
+          <Image
+              className="object-contain cursor-pointer"
+              alt="Reshot Icon"
+              src="/login/Group (3).svg"
+              onClick={onReshotIconClick}
+              width={120}
+              height={40}
+            />
+          </div>
         </div>
 
         {/* Privacy Policy */}
