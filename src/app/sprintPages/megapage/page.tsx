@@ -1,12 +1,11 @@
 "use client";
 
 import CallPopup from "../nanopage/_component/CallPopup";
-import Footer from "./_component/Footer";
 import MainContent from "./_component/MainContent";
 import Popup from "./_component/Popup";
 import SecondPopup from "./_component/SecondPopup";
-// import Header from "./_component/Header";
-import Header from "@/components/Header";
+import Footer from "../../../components/Footer";
+import Header from "../../../components/Header";
 import React, { useState, useEffect } from "react";
 
 
