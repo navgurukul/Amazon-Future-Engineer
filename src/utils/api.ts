@@ -120,8 +120,9 @@ export const createWaitingList = async (waitingListData: WaitingListData) => {
     });
     return response.data;
   } catch (error: any) {
-    alert(error.response.data.details);
-    throw error;
+    // alert(error.response.data.details);
+    // throw error;
+    throw new Error(error.response?.data?.details || 'An error occurred');
   }
 };
 
@@ -140,9 +141,10 @@ export const getProgramData = async (venue_id: number) => {
       },
     });
     return response.data.data;
-  } catch (error) {
+  } catch (error:any) {
     // return [];
-    throw error;
+    // throw error;
+    throw new Error(error.response?.data?.details || 'An error occurred');
   }
 };
 

@@ -5,10 +5,14 @@ import { useRouter } from "next/navigation";
 import DialogHeader from "@/components/DialogHeader";
 import WaitingListPopup from "./_components/WaitingListPopup";
 import { createWaitingList } from "@/utils/api";
+import ErrorHighDemand from "../additionalquestions/_components/ErrorHighDemand";
 
 const MegaPage = () => {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showErrorPopup, setShowErrorPopup] = useState(false); // State for error popup
+  const [errorMessage, setErrorMessage] = useState(''); // State for error message
+
   const [formData, setFormData] = useState({
     name: "",
     phoneNo: "",
@@ -26,6 +30,7 @@ const MegaPage = () => {
   }
   
   const [errors, setErrors] = useState<FormErrors>({});
+
   interface MegaProgram {
     id: number;
     title: string;
@@ -71,10 +76,17 @@ const MegaPage = () => {
         };
         await createWaitingList(waitingListData);
         setIsModalOpen(true);
-      } catch (error) {
+      } catch (error:any) {
         console.error('Error joining waiting list:', error);
+        setErrorMessage(error.message);
+        setShowErrorPopup(true);
       }
     }
+  };
+
+  const closeErrorPopup = () => {
+    setShowErrorPopup(false);
+    setErrorMessage('');
   };
 
   return (
@@ -131,6 +143,7 @@ const MegaPage = () => {
         </button>
       </div>
       <WaitingListPopup isOpen={isModalOpen} name={formData.name} />
+      {showErrorPopup && <ErrorHighDemand closePopup={closeErrorPopup} errorMessage={errorMessage} />}
     </div>
   );
 };

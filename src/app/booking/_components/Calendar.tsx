@@ -4,15 +4,35 @@ import BookingPopup from "./BookingPopup";
 import FullCalendarComponent from "./FullCalendarComponent";
 import TimeSlots from "./TimeSlots";
 import DialogHeader from "@/components/DialogHeader";
+import ErrorBookingPopup from "./ErrorBookingPopup";
 
 const Calendar: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [bookingStatus, setBookingStatus] = useState<boolean>(false);
   const [bookingData, setBookingData] = useState<any>(null);
 
+  const [showErrorPopup, setShowErrorPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // const handleBookingPopUp = (data: any) => {
+  //   setBookingStatus(true);
+  //   setBookingData(data);
+  // };
+
   const handleBookingPopUp = (data: any) => {
-    setBookingStatus(true);
-    setBookingData(data);
+    if (data.success) {
+      setBookingStatus(true);
+      setBookingData(data);
+    } else {
+      // Handle booking error
+      setErrorMessage(data.errorMessage || "An error occurred during booking.");
+      setShowErrorPopup(true);
+    }
+  };
+
+  const closeErrorPopup = () => {
+    setShowErrorPopup(false);
+    setErrorMessage('');
   };
 
   return (
@@ -43,6 +63,10 @@ const Calendar: React.FC = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {showErrorPopup && (
+        <ErrorBookingPopup closePopup={closeErrorPopup} errorMessage={errorMessage} />
       )}
     </div>
   );
