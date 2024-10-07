@@ -29,7 +29,7 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
               onClick={handleClose}
             />
           </div>
-          
+
           {/* Description Text */}
           <div className="w-full relative text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-primary text-left inline-block">
             Need help with booking a session, learning about our program
@@ -45,13 +45,17 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
           {/* Operational Time */}
 
           <div className=" w-full mt-0 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center">
-          <div className="relative text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-text-primary text-center">+916366969292</div>
+            <div className="relative text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-text-primary text-center">
+              <a href="tel:+919875466343" >
+                +916366969292
+              </a>
+            </div>
             <div className="relative text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-primary text-center">
               Monday to Friday, 9 AM to 6 PM
             </div>
           </div>
           <div className="w-full flex flex-row items-center justify-end mt-2">
-          {/* <button className="md:w-auto relative rounded-[100px] border-incandescent-main border-[1px] border-solid box-border h-14  py-2 px-4 text-center text-lg bg-incandescent-main text-[#fff] font-webtypestyles-buttonlarge w-full">
+            {/* <button className="md:w-auto relative rounded-[100px] border-incandescent-main border-[1px] border-solid box-border h-14  py-2 px-4 text-center text-lg bg-incandescent-main text-[#fff] font-webtypestyles-buttonlarge w-full">
             <div className="relative text-lg leading-[170%] font-medium font-webtypestyles-buttonlarge text-incandescent-contrasttext text-center">
               Request a Callback
             </div>
