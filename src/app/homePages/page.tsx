@@ -305,7 +305,12 @@ const HomePage: NextPage = () => {
               access and support diverse talent in shaping the future of
               technology
             </p>
-            <img className="md:block hidden absolute m-0 top-[7.5rem] left-[63.3rem] max-w-full h-[18.369rem] z-0" src="./homepage/Frame 31751.svg" alt="Coding symbols 1" />
+            {/* <img className="md:block hidden absolute m-0 top-[7.5rem] left-[63.3rem] max-w-full h-[18.369rem] z-0" src="./homepage/Frame 31751.svg" alt="Coding symbols 1" /> */}
+            <img 
+  className="hidden md:block absolute top-[7.5vw] left-[59.8vw] w-[30vw] h-auto max-w-full z-0"
+  src="./homepage/Frame 31751.svg"
+  alt="Coding symbols 1"
+/>
           </div>
         </article>
 
@@ -763,8 +768,22 @@ const HomePage: NextPage = () => {
                 </button>
               </div>
             </div>
-            <img className="hidden md:block absolute m-0 top-[33.5rem] left-[52rem] max-w-full h-[8rem] z-0" src="/homepage/Frame 31749.svg" alt="Coding Symbols 2" />
-            <img className="md:hidden block absolute m-0 top-[0.2px] left-[16.9rem] max-w-full h-[4rem] z-0" src="/homepage/Frame 31750.svg" alt="Coding Symbols 2" />
+            {/* <img className="hidden md:block absolute m-0 top-[33.5rem] left-[52rem] max-w-full h-[8rem] z-0" src="/homepage/Frame 31749.svg" alt="Coding Symbols 2" />
+            <img className="md:hidden block absolute m-0 top-[0.2px] left-[16.9rem] max-w-full h-[4rem] z-0" src="/homepage/Frame 31750.svg" alt="Coding Symbols 2" /> */}
+
+            {/* Image for larger screens */}
+      <img
+        className="hidden md:block absolute bottom-0 right-[10%] h-[8rem] z-0"
+        src="/homepage/Frame 31749.svg"
+        alt="Coding Symbols 2"
+      />
+
+      {/* Image for smaller screens */}
+      <img
+        className="md:hidden block absolute top-0 right-0 h-[4rem] z-0"
+        src="/homepage/Frame 31750.svg"
+        alt="Coding Symbols 2"
+      />
           </section>
 
           <aside className="w-full lg:w-[30%] flex flex-col gap-6 lg:min-h-[calc(100vh-14.5rem)]">
