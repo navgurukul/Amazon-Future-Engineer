@@ -51,11 +51,11 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
             </div>
           </div>
           <div className="w-full flex flex-row items-center justify-end mt-2">
-          <button className="md:w-auto relative rounded-[100px] border-incandescent-main border-[1px] border-solid box-border h-14  py-2 px-4 text-center text-lg bg-incandescent-main text-[#fff] font-webtypestyles-buttonlarge w-full">
+          {/* <button className="md:w-auto relative rounded-[100px] border-incandescent-main border-[1px] border-solid box-border h-14  py-2 px-4 text-center text-lg bg-incandescent-main text-[#fff] font-webtypestyles-buttonlarge w-full">
             <div className="relative text-lg leading-[170%] font-medium font-webtypestyles-buttonlarge text-incandescent-contrasttext text-center">
               Request a Callback
             </div>
-          </button>
+          </button> */}
           </div>
         </div>
       </div>

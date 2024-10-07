@@ -546,10 +546,10 @@ const HomePage: NextPage = () => {
                 Select a time slot and book your session through our online
                 system or by calling us on 
                 <a
-                  href="tel:+919875466343"
+                  href="tel:+916366969292"
                   className="text-[#f55c38] cursor-pointer"
                 >
-                   {" "}+919875466343
+                   {" "}+916366969292
                 </a>
                   . Currently, we are only
                 taking bookings for Nano sprints
