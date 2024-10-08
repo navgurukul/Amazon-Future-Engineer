@@ -29,8 +29,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
 
   const getAvailableSlots = (): Slot[] => {
     const fixedSlots = [
-      { time: "10 AM to 1 PM", apiTime: "10:00" },
-      { time: "1:30 to 4:30 PM", apiTime: "13:30" },
+      { time: "10:00 AM to 1:00 PM", apiTime: "10:00" },
+      { time: "1:30 PM to 4:30 PM", apiTime: "13:30" },
     ];
 
     if (!selectedDate) {
