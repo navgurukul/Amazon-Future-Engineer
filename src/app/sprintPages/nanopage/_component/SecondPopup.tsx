@@ -86,6 +86,7 @@ const SecondPopup: NextPage = () => {
   const handleGoToSprints = () => {
     router.push("/sprintPages/nanopage");
     setIsOpen(false);
+
     console.log('Go to Sprints button clicked');
   };
   const [isOpen, setIsOpen] = useState(true);
