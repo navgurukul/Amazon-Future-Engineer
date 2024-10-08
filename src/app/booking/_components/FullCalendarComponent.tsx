@@ -359,7 +359,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
       />
 
       <div className="self-stretch flex flex-col items-start justify-start gap-4 px-2 md:pl-[20px]">
-        <div className="self-stretch relative leading-[170%] font-extrabold">
+        <div className="w-full text-lg leading-[170%] font-extrabold font-webtypestyles-subtitle1 text-text-primary text-left">
           Have Questions?
         </div>
         <div className="relative leading-[170%]">
@@ -372,5 +372,4 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
     </div>
   );
 };
-
 export default FullCalendarComponent;
