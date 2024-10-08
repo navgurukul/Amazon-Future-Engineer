@@ -2,6 +2,7 @@ import { useAllBookings } from "./allBookings";
 import { bookSlot } from "@/utils/api";
 import React, { useState } from "react";
 import ErrorBookingPopup from "./ErrorBookingPopup";
+import axios from "axios";
 
 interface TimeSlotsProps {
   selectedDate: Date | null;
