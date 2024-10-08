@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getSlots } from "@/utils/api";
+import ErrorBookingPopup from "./ErrorBookingPopup";
 
 // Define the Event interface
 interface Event {
@@ -17,6 +18,7 @@ interface Event {
 // Custom hook to handle fetching slots
 export const useAllBookings = () => {
   const [events, setEvents] = useState<Event[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchApiData = async () => {
@@ -57,6 +59,7 @@ export const useAllBookings = () => {
 
         setEvents(mappedSlots); // Set the mapped slots to state
       } catch (error) {
+        setError("We are experiencing a very high demand right now. Please try again in a few minutes.");
         console.error("Error fetching slots:", error);
       }
     };
@@ -64,5 +67,9 @@ export const useAllBookings = () => {
     fetchApiData();
   }, []);
 
-  return events;
+  const closePopup = () => setError(null);
+
+  return { events, error, closePopup };
+
+  // return events;
 };
