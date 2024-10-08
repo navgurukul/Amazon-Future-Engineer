@@ -69,11 +69,12 @@ const Page: NextPage = () => {
       </div>
       {/* <Header isLoggedIn={true} /> */}
       {/* <div className="mt-[184px] max-w-[90%] sm:max-w-[1216px] h-auto flex flex-col justify-start items-center gap-8 mb-8 mx-auto relative"> */}
-      <div className=" pt-[184px] max-w-[90%] sm:max-w-[1216px] h-auto flex flex-col justify-start items-center gap-8 mb-8 mx-auto relative">
+      <div className=" pt-[184px] max-w-[90%] md:max-w-[90%] lg:max-w-[70%] h-auto flex flex-col justify-start items-center gap-8 mb-8 mx-auto relative">
         {/* <Header isLoggedIn={true} /> */}
-        <div className="text-[#29458c]  text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px] self-stretch">
+        {/* <div className="text-[#29458c]  text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px] self-stretch">
           My Bookings
-        </div>
+        </div> */}
+        <h2 className="self-stretch leading-[150%] text-heading6 md:text-heading5 text-[#29458c]">My Bookings</h2>
         {/* <div className="text-[#29458c] text-heading4 font-heading4-bold  sm:text-[32px]  leading-[48px] sm:leading-[48px] self-stretch">
                     My Bookings
                 </div> */}
@@ -83,13 +84,15 @@ const Page: NextPage = () => {
           userData?.map((event, index) => (
             <div
               key={index}
-              className="bg-white p-4 rounded-md flex flex-col sm:flex-row sm:justify-between sm:items-center shadow-md h-auto sm:h-[132px] border border-gray-200 w-full"
+              // className="bg-white p-4 rounded-md flex flex-col sm:flex-row sm:justify-between sm:items-center shadow-md h-auto sm:h-[132px] border border-gray-200 w-full"
+              className="bg-white p-4 rounded-md flex flex-col md:flex-row md:justify-between md:items-center shadow-md h-auto border border-gray-200 w-full"
             >
-              <div className="space-y-2 text-left sm:text-right">
-                <div className="text-left leading-[150%] font-bold text-[1.5rem]  md:font-extrabold">
+              <div className="space-y-2 text-left md:text-right">
+                {/* <div className="text-left leading-[150%] font-bold text-[1.5rem] md:font-extrabold">
                   Nano Sprint
-                </div>
-                <div className="flex flex-col gap-[1rem] sm:flex-row space-x-0 sm:space-x-4 space-y-2 sm:space-y-0">
+                </div> */}
+                <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#3a3a3a] text-left">Nano Sprint</h3>
+                <div className="flex flex-col gap-[1rem] md:flex-row space-x-0 space-y-2 sm:space-y-0">
                   <div className="flex items-center space-x-[12px]">
                     <Image
                       className="w-6 sm:w-8 h-6 sm:h-8"
@@ -98,9 +101,10 @@ const Page: NextPage = () => {
                       width={20}
                       height={20}
                     />
-                    <div className="text-[#3a3a3a] flex items-center gap-[2rem] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                    {/* <div className="text-[#3a3a3a] flex items-center gap-[2rem] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
                       {new Date(event.booking_for).toLocaleDateString()}
-                    </div>
+                    </div> */}
+                    <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{new Date(event.booking_for).toLocaleDateString()}</p>
                   </div>
                   <div className="flex items-center space-x-[12px]">
                     <Image
@@ -110,9 +114,10 @@ const Page: NextPage = () => {
                       width={20}
                       height={20}
                     />
-                    <div className="text-[#3a3a3a] flex items-center gap-[2rem] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
+                    {/* <div className="text-[#3a3a3a] flex items-center gap-[2rem] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
                       {`${event.start_time} to ${event.end_time}`}
-                    </div>
+                    </div> */}
+                    <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{`${event.start_time} to ${event.end_time}`}</p>
                   </div>
                   <div className="flex items-center space-x-[12px]">
                     <Image
@@ -122,22 +127,23 @@ const Page: NextPage = () => {
                       width={20}
                       height={20}
                     />
-                    <div className="text-[#3a3a3a] flex items-center text-lg gap-[2rem] font-medium font-['Amazon Ember'] leading-[30.60px]">
+                    {/* <div className="text-[#3a3a3a] flex items-center text-lg gap-[2rem] font-medium font-['Amazon Ember'] leading-[30.60px]">
                       {`${event.booking_batch_size} Students`}
-                    </div>
+                    </div> */}
+                    <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{`${event.booking_batch_size} Students`}</p>
                   </div>
                 </div>
               </div>
-              <div>
-                <div className="h-14 px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full sm:w-48 sm:px-6 sm:py-2 mt-4">
+              {/* <div> */}
+                {/* <div className="h-14 px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full sm:w-48 sm:px-6 sm:py-2 mt-4"> */}
                   <div
-                    className="text-center text-[#f55c38] text-lg font-medium font-['Amazon Ember'] leading-[30.60px] sm:text-base sm:leading-7 cursor-pointer"
+                    className="text-center text-[#f55c38] text-lg font-medium font-['Amazon Ember'] cursor-pointer px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full md:w-auto mt-4 md:mt-0"
                     onClick={handleOpenFirstPopup}
                   >
                     Reschedule
                   </div>
-                </div>
-              </div>
+                {/* </div> */}
+              {/* </div> */}
             </div>
           ))
         ) : (
@@ -158,42 +164,56 @@ const Page: NextPage = () => {
       />
 
 
-      <div className="w-full max-w-[90%] sm:max-w-[1216px] h-auto mx-auto relative flex flex-col items-center gap-8 ">
-        <div className="text-[#29458c] text-[24px] font-extrabold leading-[36px] text-left sm:text-[32px] sm:leading-[48px] self-start">
-          How to Reach AFE<span className="block sm:hidden"></span>
-          <span className="sm:ml-2">Makerspace</span>
-        </div>
-        <div className="flex flex-col sm:flex-row items-start gap-[33px] w-full">
-          <Image
-            className="w-full sm:w-[592px] h-[13.75rem] sm:h-[440px] rounded-lg object-cover"
+      <div className="w-full max-w-[90%] lg:max-w-[70%] md:max-w-[90%] h-auto mx-auto relative flex flex-col items-center gap-8 mt-12">
+        {/* <div className="text-[#29458c] text-[24px] font-extrabold leading-[36px] text-left sm:text-[32px] sm:leading-[48px] self-start"> */}
+        <h2 className="leading-[150%] text-heading6 md:text-heading5 text-[#29458c] text-left self-start w-full max-w-[90%]">
+          How to Reach AFE Makerspace
+          {/* <span className="block sm:hidden"></span>
+          <span className="sm:ml-2">Makerspace</span> */}
+        </h2>
+        <div className="flex flex-col xl:flex-row items-start gap-[33px] w-full">
+          <img
+            // className="w-full sm:w-[592px] h-[13.75rem] sm:h-[440px] rounded-lg object-cover"
+            className="lg:w-[50%] w-full h-auto rounded-lg object-cover"
             alt="innovation hub map"
             src="/userDashboard/map.png"
-            width={592}
-            height={440}
+            // width={592}
+            // height={440}
           />
-          <div className="w-full sm:w-[487px] flex flex-col gap-4">
-            <div className="text-[#3a3a3a] text-[24px] sm:text-xl font-extrabold leading-9">Amazon Future Engineer Makerspace</div>
-            <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]">
+          <div className="w-full flex flex-col gap-4">
+            {/* <div className="text-[#3a3a3a] text-[24px] sm:text-xl font-extrabold leading-9"> */}
+            <div className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-[#3a3a3a]">
+              Amazon Future Engineer Makerspace</div>
+            {/* <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
+            <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
               #41, 3rd Floor, Above Maruti Suzuki Arena, 15th Cross, Margosa Road, Malleshwaram, Bangalore - 560003
             </div>
-            <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]">
+            {/* <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
+            <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
               Landmark: Near Veena Stores
             </div>
-            <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]">
-              For queries, please call or Whatsapp us on<br />
-              <span className="text-[#f55c38] text-base font-extrabold font-['Amazon Ember'] leading-7">+916366969292</span>
+            {/* <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
+            <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+              For queries, please call or Whatsapp us on {" "}
+              <strong>
+              <a href="tel:+919875466343" className="text-[#f55c38]">
+              +916366969292
+            </a>
+            </strong>
             </div>
           </div>
         </div>
       </div>
-      <div className=" max-w-[90%] sm:w-[1216px] h-auto flex flex-col justify-center items-start gap-8 mx-auto relative mt-8">
+      <div className=" max-w-[90%] lg:max-w-[70%] md:max-w-[90%] h-auto flex flex-col justify-center items-start gap-8 mx-auto relative mt-8">
         <div className="flex flex-col justify-start items-start gap-4">
-          <div className="text-left text-[#29458c] text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px]">
+          {/* <div className="text-left text-[#29458c] text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px]"> */}
+          <div className="leading-[150%] text-heading6 md:text-heading5 text-[#29458c] text-left self-start">
             Planned for future sprints?
           </div>
-          <div className="text-left text-[#3a3a3a] text-lg font-medium leading-[30.60px]">
+          {/* <div className="text-left text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
+          <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
             Checkout the sprint details and book
-            <br className="block sm:hidden" />
+            {/* <br className="block sm:hidden" /> */}
             one for your students today!
           </div>
         </div>
