@@ -204,7 +204,9 @@ const Page: NextPage = () => {
           </div>
         </div>
       </div>
-      <div className=" max-w-[90%] lg:max-w-[70%] md:max-w-[90%] h-auto flex flex-col justify-center items-start gap-8 mx-auto relative mt-8">
+      {/* <div className=" max-w-[90%] lg:max-w-[70%] md:max-w-[90%] h-auto flex flex-col justify-center items-start gap-8 mx-auto relative mt-8"> */}
+      <div className="max-w-[90%] lg:max-w-[70%] md:max-w-[90%] h-auto flex justify-between items-start gap-8 mx-auto relative mt-8 md:mb-16">
+        <div className="h-auto flex flex-col justify-center items-start gap-8 relative md:mt-8 text-left">
         <div className="flex flex-col justify-start items-start gap-4">
           {/* <div className="text-left text-[#29458c] text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px]"> */}
           <div className="leading-[150%] text-heading6 md:text-heading5 text-[#29458c] text-left self-start">
@@ -222,6 +224,10 @@ const Page: NextPage = () => {
           <div className="text-center text-white text-sm sm:text-base font-medium leading-[170%] font-['Amazon Ember']">
             View Sprint Details
           </div>
+        </div>
+        </div>
+        <div>
+          <img className="hidden md:block mt-16 w-[80%] float-right" src="/userDashboard/Frame 31752.svg" alt="Coding symbol" />
         </div>
       </div>
     </>
