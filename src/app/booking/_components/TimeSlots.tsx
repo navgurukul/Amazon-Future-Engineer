@@ -2,6 +2,7 @@ import { useAllBookings } from "./allBookings";
 import { bookSlot } from "@/utils/api";
 import React, { useState } from "react";
 import ErrorBookingPopup from "./ErrorBookingPopup";
+import axios from "axios";
 
 interface TimeSlotsProps {
   selectedDate: Date | null;
@@ -21,13 +22,30 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [studentsError, setStudentsError] = useState<string | null>(null);
   const [bookingStatus, setBookingStatus] = useState<string | null>(null);
+  const [availableCapacity, setAvailableCapacity] = useState<number>(0);
 
   interface Slot {
     time: string;
     available: boolean;
     status: string;
     event?: any;
+    id?: number;
   }
+
+  const getSlotDetails = async (slotId: number) => {
+    try {
+      const response = await axios.get(`https://dev-afe.samyarth.org/api/v1/slotmanagement/slot/${slotId}`, {
+        headers: {
+          'accept': 'application/json',
+          'authorization': 'your-token',
+        }
+      });
+      return response.data.data[0].available_capacity;
+    } catch (error) {
+      console.error("Error fetching slot details:", error);
+      return 0;
+    }
+  };
 
   const getAvailableSlots = (): Slot[] => {
     const fixedSlots = [
@@ -62,14 +80,19 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
           ? matchingEvent.extendedProps.status
           : "Not Available",
         event: matchingEvent,
+        id: matchingEvent ? Number(matchingEvent.id) : undefined,
       };
     });
   };
 
   const slots = getAvailableSlots();
 
-  const handleSlotSelection = (slot: string) => {
-    setSelectedSlot(slot === selectedSlot ? null : slot);
+  const handleSlotSelection = async (slot: Slot) => {
+    if (slot.id) {
+      const capacity = await getSlotDetails(slot.id);
+      setAvailableCapacity(capacity);
+    }
+    setSelectedSlot(slot.time === selectedSlot ? null : slot.time);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -89,8 +112,13 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     }
 
     const studentCount = parseInt(students);
-    if (studentCount < 12 || studentCount > 40) {
+    
+    // Logic to check the number of students based on available capacity
+    if (availableCapacity === 40 && (studentCount < 12 || studentCount > 40)) {
       setStudentsError("Please enter a number between 12 and 40.");
+      return;
+    } else if (availableCapacity < 40 && (studentCount < 1 || studentCount > availableCapacity)) {
+      setStudentsError(`Please enter a number between 1 and ${availableCapacity}.`);
       return;
     }
 
@@ -156,7 +184,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
                     ? "border-text-primary1 border-[1px] border-solid text-text-primary1 cursor-pointer"
                     : "bg-red-100 border-[#fdded7] border-[1px] border-solid text-incandescent-main cursor-not-allowed"
                 }`}
-                onClick={() => slot.available && handleSlotSelection(slot.time)}
+                onClick={() => slot.available && handleSlotSelection(slot)}
                 disabled={!slot.available}
               >
                 <div className="relative leading-[170%] font-medium">
@@ -207,17 +235,17 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="xxxxxxxxxx"
                 required
-                className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 pl-12 pr-4 text-lg w-full"
+                className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-lg w-full pl-12"
               />
             </div>
             {phoneError && (
-              <span className="text-red-500 text-sm">{phoneError}</span>
+              <div className="text-red-500 text-sm">{phoneError}</div>
             )}
           </div>
 
           <div className="self-stretch flex flex-col items-start justify-start gap-2">
             <div className="relative leading-[170%] font-medium">
-              <span>No. of Students (Min: 12 and Max: 40)</span>
+              <span>Number of Students</span>
               <span className="text-incandescent-main">*</span>
             </div>
             <input
@@ -225,24 +253,30 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               name="students"
               value={students}
               onChange={(e) => setStudents(e.target.value)}
-              placeholder="Please enter a number between 12 and 40"
+              placeholder={`Enter students (max ${availableCapacity})`}
               required
-              className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 py-2 px-4"
+              className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-lg w-full"
             />
             {studentsError && (
-              <span className="text-red-500 text-sm">{studentsError}</span>
+              <div className="text-red-500 text-sm">{studentsError}</div>
             )}
           </div>
 
-          <button
-            type="submit"
-            className="w-full md:w-auto rounded-81xl bg-incandescent-main h-14 flex flex-row items-center justify-center py-2 px-8 box-border text-center text-midnight-blue-contrasttext"
-          >
-            <div className="relative leading-[170%] font-medium">
-              Request Booking
-            </div>
-          </button>
+          <div className="self-stretch flex items-start justify-start gap-4 mt-6">
+            <button
+              type="submit"
+              className="cursor-pointer rounded-xl bg-text-primary1 w-[159px] h-14 shrink-0 flex flex-row items-center justify-center py-2 px-4"
+            >
+              <div className="relative text-[22px] font-semibold text-white text-center">
+                Book Now
+              </div>
+            </button>
+          </div>
         </form>
+      )}
+
+      {bookingStatus && (
+        <div className="self-stretch text-red-500 text-sm">{bookingStatus}</div>
       )}
     </div>
   );

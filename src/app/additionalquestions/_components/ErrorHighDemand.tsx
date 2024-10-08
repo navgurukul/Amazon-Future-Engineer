@@ -44,7 +44,7 @@ const ErrorHighDemand: NextPage<ErrorHighDemandProps> = ({ closePopup, errorMess
 
                 <div className="self-stretch font-amazon-ember font-medium leading-7 text-gray-700">
                     <p className="self-stretch relative leading-[170%] font-medium md:text-center mb-4">
-                        We're experiencing a very high demand right now. Please try joining the waitlist in a few minutes. We apologize for the inconvenience
+                        We are experiencing a very high demand right now. Please try joining the waitlist in a few minutes. We apologize for the inconvenience
                     </p>
                     <p className="self-stretch relative leading-[170%] md:text-center">
                         <span className="font-medium">In the meantime, feel free to call or Whatsapp on </span>

@@ -174,3 +174,27 @@ export const resendOtp = async (phone: string) => {
     throw error;
   }
 };
+
+
+
+// Get slot by slotId
+
+export const getSlotDetails = async (slotId: number) => {
+  try {
+    const token = getToken();
+    if (!token) {
+      throw new Error('No token found');
+    }
+
+    const response = await axios.get(`https://dev-afe.samyarth.org/api/v1/slotmanagement/slot/${slotId}`, {
+      headers: {
+        'accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response;
+  } catch (error) {
+    console.error("Error fetching slot details:", error);
+    return 0;
+  }
+};
