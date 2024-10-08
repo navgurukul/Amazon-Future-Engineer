@@ -221,7 +221,8 @@ const Page: NextPage = () => {
         </div>
         <div className="w-full sm:w-auto h-12 sm:h-12 bg-[#f55c38] rounded-[100px] flex items-center justify-center px-4 sm:px-8 py-2 mb-4 cursor-pointer"
           onClick={handleViewSprintDetails}>
-          <div className="text-center text-white text-sm sm:text-base font-medium leading-[170%] font-['Amazon Ember']">
+          {/* <div className="text-center text-white text-sm sm:text-base font-medium leading-[170%] font-['Amazon Ember']"> */}
+          <div className="text-center text-white text-body1 font-medium leading-[170%] font-['Amazon Ember']">
             View Sprint Details
           </div>
         </div>
