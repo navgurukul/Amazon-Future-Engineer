@@ -33,7 +33,9 @@ const HomePage: NextPage = () => {
         const section = document.querySelector("#virtual-tour");
 
         if (section) {
-          const headerHeight = 120;
+          // const headerHeight = 120;
+          const isMobile = window.innerWidth <= 425;
+        const headerHeight = isMobile ? 180 : 120;
           const sectionPosition =
             section.getBoundingClientRect().top + window.pageYOffset;
           window.scrollTo({
@@ -189,7 +191,7 @@ const HomePage: NextPage = () => {
           muted
         ></video>
 
-        <header className="absolute top-[20%] left-0 max-w-[1000px] mx-auto flex flex-col gap-6 items-start text-left px-4 md:px-12">
+        <header className="absolute top-[20%] left-0 max-w-[900px] mx-auto flex flex-col gap-6 items-start text-left px-4 md:px-12">
           <div className="w-full flex flex-col gap-4 items-start">
             {/* <div className="h-[126px] w-[800px]"> */}
               {/* <div className="text-white text-[42px] font-extrabold font-['Amazon Ember Display'] leading-[63px]"> */}
@@ -217,7 +219,7 @@ const HomePage: NextPage = () => {
               </span>
             </button>
             <button
-              className="flex items-center justify-center md:px-4 md:py-4 lg:px-10 lg:py-4 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto gap-4"
+              className="flex items-center justify-center md:px-4 md:py-4 lg:px-10 lg:py-4 bg-[#fff] text-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto gap-4"
               onClick={handleOfflineBooking}
             >
               <Image
@@ -232,7 +234,7 @@ const HomePage: NextPage = () => {
                 Call Us
               </span>
             </button>
-            <button className="flex items-center justify-center md:px-4 md:py-4 lg:px-10 lg:py-4 bg-gray-200 text-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto font-medium leading-[170%]">
+            <button className="flex items-center justify-center md:px-4 md:py-4 lg:px-10 lg:py-4 bg-[#fff] text-[#f55c38] rounded-full h-12 md:h-14 lg:h-16 w-full md:w-auto font-medium leading-[170%]">
               <a href="#virtual-tour">
                 {/* <span className="relative font-medium leading-[170%]"> */}
                   Take Virtual Tour
@@ -314,7 +316,7 @@ const HomePage: NextPage = () => {
           </div>
         </article>
 
-        <div className="w-full overflow-x-auto flex flex-row items-start justify-start gap-4 px-4 md:px-12">
+        <div className="w-full overflow-x-auto flex flex-row items-start justify-start gap-4 px-4 md:px-12 no-scrollbar">
           <figure className="flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[24%] md:h-[360px]">
             <Image
               className="object-cover w-full h-full rounded-md"
@@ -452,7 +454,8 @@ const HomePage: NextPage = () => {
           </p>
         </header>
 
-        <div className="w-full overflow-x-auto no-scrollbar">
+        {/* <div className="w-full overflow-x-auto no-scrollbar"> */}
+        <div className="w-full">
           {/* <div className="flex flex-row items-start justify-between gap-8 w-full">
             <Image
               className="w-[20vw] min-w-[180px] h-[170px] object-cover"
@@ -492,7 +495,7 @@ const HomePage: NextPage = () => {
       />
     </div> */}
 
-          <div className="flex flex-row items-start gap-8 mt-4 w-full">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-8 mt-4 w-full">
             <article className="flex flex-col items-center w-[80vw] min-w-[180px]">
               <Image
               className="w-[15vw] min-w-[180px] h-[170px] object-cover"
