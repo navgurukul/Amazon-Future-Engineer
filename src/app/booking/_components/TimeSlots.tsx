@@ -1,6 +1,7 @@
 import { useAllBookings } from "./allBookings";
 import { bookSlot } from "@/utils/api";
 import React, { useState } from "react";
+import ErrorBookingPopup from "./ErrorBookingPopup";
 
 interface TimeSlotsProps {
   selectedDate: Date | null;
@@ -11,7 +12,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
   selectedDate,
   handleBookingPopUp,
 }) => {
-  const allEvents = useAllBookings();
+  // const allEvents = useAllBookings();
+  const { events, error, closePopup } = useAllBookings();
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -29,8 +31,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
 
   const getAvailableSlots = (): Slot[] => {
     const fixedSlots = [
-      { time: "10 AM to 1 PM", apiTime: "10:00" },
-      { time: "1:30 to 4:30 PM", apiTime: "13:30" },
+      { time: "10:00 AM to 1:00 PM", apiTime: "10:00" },
+      { time: "1:30 PM to 4:30 PM", apiTime: "13:30" },
     ];
 
     if (!selectedDate) {
@@ -41,7 +43,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
       }));
     }
 
-    const eventsForDate = allEvents.filter(
+    const eventsForDate = events.filter(
       (event) =>
         new Date(event.start).toDateString() === selectedDate.toDateString()
     );
@@ -105,7 +107,6 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
         program_id: programId,
         venue_id: venueId,
         booking_batch_size: studentCount,
-        // students_grade: "Grad 10",
       };
 
       const response = await bookSlot(bookingData);
@@ -197,16 +198,18 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               <span>Phone Number</span>
               <span className="text-incandescent-main">*</span>
             </div>
-            <input
-              type="tel"
-              name="phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              pattern="[0-9]{10}"
-              placeholder="+91 xxxxxxxxxx"
-              required
-              className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-lg w-full"
-            />
+            <div className="relative flex items-center w-full">
+              <span className="absolute left-4 text-[#3a3a3a] text-lg font-medium">+91</span>
+              <input
+                type="tel"
+                name="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="xxxxxxxxxx"
+                required
+                className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 pl-12 pr-4 text-lg w-full"
+              />
+            </div>
             {phoneError && (
               <span className="text-red-500 text-sm">{phoneError}</span>
             )}
@@ -223,11 +226,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               value={students}
               onChange={(e) => setStudents(e.target.value)}
               placeholder="Please enter a number between 12 and 40"
-              // min={12}
-              // max={40}
-
               required
-              className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 py-2 px-4 "
+              className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 py-2 px-4"
             />
             {studentsError && (
               <span className="text-red-500 text-sm">{studentsError}</span>

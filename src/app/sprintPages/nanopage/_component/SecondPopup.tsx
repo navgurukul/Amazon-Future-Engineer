@@ -88,11 +88,8 @@ import { useState } from 'react';
 const SecondPopup: NextPage = () => {
   const router = useRouter();
   const handleGoToSprints = () => {
-    router.push("/sprintPages/nanopage"); 
-    // handleClose();
-
-    
-    // console.log('Go to Sprints button clicked');
+    router.push("/sprintPages/nanopage");
+    console.log('Go to Sprints button clicked');
   };
   const [isOpen, setIsOpen] = useState(true);
   const handleClose = () => {
@@ -135,13 +132,21 @@ const SecondPopup: NextPage = () => {
                 <Image src="/symbols/Vector (7).svg" alt="Arrow Left" width={20} height={20} className="mt-2" />
                 <Image src="/symbols/Vector (4).svg" alt="Arrow Right" width={20} height={20} className="ml-1 mt-4" />
               </div>
-              <Image src="/symbols/colon.svg" alt="colon" width={32} height={32} className='self-start' mt-4/>
-              <Image src="/symbols/Vector (2).svg" alt="Image 2" width={32} height={32} className="self-end md:hidden" />
-              <Image src="/symbols/Vector (5).svg" alt="Image 3" width={30} height={30} className="self-center" />
+
+              <div>
+                <Image src="symbols/colon (1).svg" alt="Colon" width={32} height={32} className="self-end mb-4" />
+              </div>
+
+              <div>
+                <Image src="/symbols/Vector (2).svg" alt="Image 2" width={32} height={32} className="self-end md:hidden" />
+                <Image src="/symbols/Vector (5).svg" alt="Image 3" width={30} height={30} className="self-center" />
+              </div>
+
               <div className="items-center self-start mt-2 hidden md:flex">
                 <Image src="/symbols/Vector (9).svg" alt="Arrow Left" width={16} height={16} className="mt-2" />
                 <Image src="/symbols/Vector (6).svg" alt="Arrow Right" width={16} height={16} className="ml-1 mt-4" />
               </div>
+              
             </div>
 
             <div className="relative leading-[30.60px] w-full text-left md:text-center text-lg text-[#3a3a3a] font-medium mt-8 gap-8">

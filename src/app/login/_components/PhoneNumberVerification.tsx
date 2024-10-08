@@ -62,7 +62,7 @@ const PhoneNumberVerification: React.FC = () => {
       ) : (
         <div className="mt-12 md:mt-0">
           <div className="flex flex-col w-[20rem] md:w-[24rem] mx-auto items-start gap-8">
-            <div>
+            {/* <div>
               <Image
                 className="w-16 h-16"
                 alt="Logo"
@@ -70,7 +70,7 @@ const PhoneNumberVerification: React.FC = () => {
                 width={64}  
                 height={64} 
               />
-            </div>
+            </div> */}
             <div className="flex flex-col items-start gap-6 self-stretch w-full">
               <div className="relative text-5xl leading-[150%] font-extrabold font-heading4-bold text-midnight-blue-main text-left">
                 Login to AFE Makerspace
