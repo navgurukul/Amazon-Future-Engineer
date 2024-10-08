@@ -179,6 +179,7 @@ const config: Config = {
       sm: "14px",
       "5xl": "24px",
       "13xl": "32px",
+      "23xl": "42px",
       inherit: "inherit",
       // Sizes corresponding to each style metioned above
       heading1: ["96px", { fontWeight: "800" }],
