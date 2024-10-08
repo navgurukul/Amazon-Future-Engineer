@@ -16,10 +16,11 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
 
       {/* Popup Dialog */}
       <div className="fixed inset-0 flex items-end md:items-center justify-center z-50">
-        <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-6 flex flex-col items-start gap-4 text-left text-gray-500 font-nunito-sans">
+        <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-4 md:p-8 flex flex-col items-start gap-4 text-left text-gray-500">
           {/* Title and Close Button */}
-          <div className="flex items-center justify-between text-lg font-amazon-ember w-full">
-            <div className="relative text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-text-primary text-left">
+          <div className="flex items-center justify-between w-full">
+            {/* <div className="relative text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-text-primary text-left"> */}
+            <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-heading6-bold">
               Call Us
             </div>
             <img
@@ -31,35 +32,37 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
           </div>
 
           {/* Description Text */}
-          <div className="w-full relative text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-primary text-left inline-block">
-            Need help with booking a session, learning about our program
-            offerings, or have any general questions? We are here for you!
+          {/* <div className="w-full relative text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-primary text-left inline-block"> */}
+          <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+            Need help with booking a session, learning about our program offerings, or have any general questions? We're here for you!
           </div>
 
           {/* Response Time */}
-          <div className="w-full relative text-[18px] leading-[170%] text-text-primary text-left inline-block font-amazon-ember">
+          <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
             <b>Response Time:</b>
-            <span className="font-medium"> Within 24 hours</span>
+            <span className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray"> Within 24 hours</span>
           </div>
 
           {/* Operational Time */}
 
           <div className=" w-full mt-0 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center">
-            <div className="relative text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-text-primary text-center">
+            <div className="relative leading-[150%] text-center text-heading6 font-heading6-bold text-[#3a3a3a]">
               <a href="tel:+919875466343" >
                 +916366969292
               </a>
             </div>
-            <div className="relative text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-primary text-center">
+            <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
               Monday to Friday, 9 AM to 6 PM
             </div>
           </div>
-          <div className="w-full flex flex-row items-center justify-end mt-2">
-            {/* <button className="md:w-auto relative rounded-[100px] border-incandescent-main border-[1px] border-solid box-border h-14  py-2 px-4 text-center text-lg bg-incandescent-main text-[#fff] font-webtypestyles-buttonlarge w-full">
-            <div className="relative text-lg leading-[170%] font-medium font-webtypestyles-buttonlarge text-incandescent-contrasttext text-center">
+          <div className="w-full flex flex-row items-center justify-end mt-2 md:mt-4">
+            <div className="w-full lg:w-auto">
+            <button className="w-full bg-[#f55c38] rounded-[100px] flex justify-center items-center cursor-pointer text-white">
+            <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
               Request a Callback
             </div>
-          </button> */}
+          </button>
+          </div>
           </div>
         </div>
       </div>

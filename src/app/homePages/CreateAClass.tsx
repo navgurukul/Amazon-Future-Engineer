@@ -25,15 +25,15 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
 
   return (
     <div className="fixed inset-0 flex items-end justify-center lg:items-center z-50">
-      <div className="relative w-full lg:w-1/3 shadow-lg rounded-t-lg lg:rounded-lg bg-white flex flex-col justify-start items-end p-4 md:p-auto gap-8 text-left text-lg text-gray-600 font-nunito max-h-[90vh] lg:max-h-[80vh] overflow-y-auto">
+      <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-4 md:p-8 flex flex-col items-start gap-4 text-left text-gray-500">
         {/* Popup content */}
-        <div className="w-full relative flex flex-row items-center justify-between text-left text-5xl text-text-primary font-webtypestyles-h6">
-        <div className="relative leading-[150%] font-extrabold">Welcome to AFE Makerspace</div>
+        <div className="flex items-center justify-between w-full mb-4">
+        <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">Welcome to AFE Makerspace</div>
                 {/* Close button */}
-        <Image className="w-6 relative h-6 overflow-hidden shrink-0" alt="" src="/homepage/close.svg" width={24} height={24} onClick={onNoClick}/>
+        <Image className="w-6 relative h-6 overflow-hidden shrink-0 cursor-pointer" alt="" src="/homepage/close.svg" width={24} height={24} onClick={onNoClick}/>
         </div>
 
-        <div className="w-full max-w-[592px] h-[75px] flex items-stretch justify-between px-4 relative md:text-center">
+        {/* <div className="w-full max-w-[592px] h-[75px] flex items-stretch justify-between px-4 relative md:text-center">
           <Image
             src="/symbols/Vector (8).svg"
             alt="Image 1"
@@ -94,9 +94,12 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
               className="ml-1 mt-8"
             />
           </div>
+        </div> */}
+        <div className="w-full mb-4">
+        <img src="/symbols/Frame 31751.svg" alt="coding symbols" />
         </div>
 
-        <div className="self-stretch font-amazon-ember font-medium leading-7 text-gray-700">
+        <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
           Thank you for your interest in the AFE Makerspace. While the AFE
           Makerspace is for all, we currently prioritize lab bookings for
           students from government schools to ensure equitable access and
@@ -124,13 +127,22 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
         <div className="w-full flex flex-row items-center justify-between gap-0 text-center">
 
           {/* Proceed to Login button */}
-          <div className="flex-grow flex justify-end">
+          {/* <div className="flex-grow flex justify-end">
             <div
               className="rounded-full bg-[#f55c38] h-14 flex items-center justify-center px-8 py-2 text-white cursor-pointer w-full lg:w-auto"
               onClick={onYesClick}
             >
               <div className="font-medium leading-7">Proceed to Login</div>
             </div>
+          </div> */}
+          <div className="w-full flex flex-row items-center justify-end mt-2 md:mt-4">
+            <div className="w-full lg:w-auto">
+            <button className="w-full bg-[#f55c38] rounded-[100px] flex justify-center items-center cursor-pointer text-white" onClick={onYesClick}>
+            <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
+              Proceed to Login
+            </div>
+          </button>
+          </div>
           </div>
         </div>
       </div>
