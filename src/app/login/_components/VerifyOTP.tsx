@@ -162,13 +162,6 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
                 )}
               </div>
             </div>
-            <Button
-              variant="proceed"
-              onClick={handleVerifyOTP}
-              className="flex w-full sm:w-full md:w-[23rem] h-14 py-2 px-8 justify-center items-center gap-2 rounded-[6.25rem] font-medium "
-            >
-              Verify OTP
-            </Button>
             <div className="text-lg leading-[170%] font-medium font-['Amazon Ember'] text-left text-darkslategray">
               {isResendAllowed ? (
                 <button
@@ -187,6 +180,16 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
                 </span>
               )}
             </div>
+            <div className="w-full fixed bottom-0 mb-4 px-4 md:mb-0 md:px-0 left-0 md:static">
+            <Button
+              variant="proceed"
+              onClick={handleVerifyOTP}
+              className="flex w-full sm:w-full md:w-[23rem] h-14 py-2 px-8 justify-center items-center gap-2 rounded-[6.25rem] font-medium "
+            >
+              Verify OTP
+            </Button>
+            </div>
+          
           </div>
         </div>
       </div>
