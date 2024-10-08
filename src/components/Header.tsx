@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { NextPage } from "next";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
@@ -120,8 +120,8 @@ const Header: NextPage<HeaderProps> = ({
   return (
     <>
       <div
-        className={`fixed w-full h-[104px] ${
-          (isDropdownOpen || bgColor!=="home") ? "bg-white" : headerBgColor
+        className={`fixed w-full ${
+          isDropdownOpen || bgColor !== "home" ? "bg-white" : headerBgColor
         } text-center text-[14px] text-white transition-shadow duration-300 ${
           hasShadow && !isDropdownOpen
             ? "shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_1px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)]"
@@ -137,7 +137,9 @@ const Header: NextPage<HeaderProps> = ({
               className="object-contain cursor-pointer mt-2"
               alt="Reshot Icon"
               src={`/login/Group (${
-                headerBgColor === "transparent" && bgColor === "home" && !isDropdownOpen
+                headerBgColor === "transparent" &&
+                bgColor === "home" &&
+                !isDropdownOpen
                   ? "8"
                   : "2"
               }).svg`}
@@ -149,7 +151,9 @@ const Header: NextPage<HeaderProps> = ({
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
               src={`/login/Group (${
-                headerBgColor === "transparent" && bgColor === "home" && !isDropdownOpen
+                headerBgColor === "transparent" &&
+                bgColor === "home" &&
+                !isDropdownOpen
                   ? "9"
                   : "3"
               }).svg`}
@@ -163,7 +167,9 @@ const Header: NextPage<HeaderProps> = ({
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
               src={`/login/Group(${
-                headerBgColor === "transparent" && bgColor === "home" && !isDropdownOpen
+                headerBgColor === "transparent" &&
+                bgColor === "home" &&
+                !isDropdownOpen
                   ? "11"
                   : "12"
               }).svg`}
@@ -181,21 +187,38 @@ const Header: NextPage<HeaderProps> = ({
                   className="h-[32px] flex flex-col items-end justify-center p-2 px-1 gap-[6px] cursor-pointer"
                   onClick={toggleDropdown}
                 >
-                  <div
-                    className={`w-[24px] h-[2px] relative rounded-full ${
-                      headerBgColor === "transparent" && !isDropdownOpen ? "bg-white" : "bg-black"
-                    }`}
-                  />
-                  <div
-                    className={`w-[16px] h-[2px] relative rounded-full ${
-                      headerBgColor === "transparent" && !isDropdownOpen ? "bg-white" : "bg-black"
-                    }`}
-                  />
-                  <div
-                    className={`w-[8px] h-[2px] relative rounded-full ${
-                      headerBgColor === "transparent" && !isDropdownOpen ? "bg-white" : "bg-black"
-                    }`}
-                  />
+                  {isDropdownOpen ? (
+                    <Image
+                      src="/login/close.svg"
+                      alt="Close"
+                      width={24}
+                      height={24}
+                    />
+                  ) : (
+                    <>
+                      <div
+                        className={`w-[24px] h-[2px] relative rounded-full ${
+                          headerBgColor === "transparent" && !isDropdownOpen
+                            ? "bg-white"
+                            : "bg-black"
+                        }`}
+                      />
+                      <div
+                        className={`w-[16px] h-[2px] relative rounded-full ${
+                          headerBgColor === "transparent" && !isDropdownOpen
+                            ? "bg-white"
+                            : "bg-black"
+                        }`}
+                      />
+                      <div
+                        className={`w-[8px] h-[2px] relative rounded-full ${
+                          headerBgColor === "transparent" && !isDropdownOpen
+                            ? "bg-white"
+                            : "bg-black"
+                        }`}
+                      />
+                    </>
+                  )}
                 </div>
               </>
             ) : (
@@ -273,6 +296,43 @@ const Header: NextPage<HeaderProps> = ({
             )}
           </div>
         </div>
+        {/* chat with us and call us button for small screens*/}
+        {isMobile && !isDropdownOpen && (
+          <div className={`fixed w-full left-0 right-0 ${headerBgColor} ${hasShadow ? "shadow-md" : ""}`} style={{top: "104px"}}>
+            <div className="flex justify-between px-4 space-x-2 py-2">
+              {(headerBgColor === "bg-white" || bgColor !== "home") && (
+                <button
+                  className="flex-1 flex items-center justify-center h-12 rounded-full p-2 px-4 gap-2 bg-white text-[#F55C38] border-2 border-[#F55C38] shadow-md"
+                  onClick={handleOfflineBooking}
+                >
+                  <Image
+                    className="w-6 h-6 overflow-hidden"
+                    alt="Helpdesk Icon"
+                    src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
+                    width={24}
+                    height={24}
+                  />
+                  <div className="font-medium leading-[170%]">Call Us</div>
+                </button>
+              )}
+              <a
+                href={whatsappLink}
+                className="flex-1 relative rounded-[100px] border-text-primary border-[1px] border-solid box-border w-full h-12 flex flex-row items-center justify-center py-2 px-4 gap-3 text-center text-base text-text-primary font-mobiletypestyles-buttonlarge bg-white"
+              >
+                <Image
+                  className="w-6 relative h-6 overflow-hidden shrink-0"
+                  alt=""
+                  src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
+                  height={24}
+                  width={24}
+                />
+                <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-text-primary text-center">
+                  Chat with Us
+                </div>
+              </a>
+            </div>
+          </div>
+        )}
       </div>
 
       {isMobile && isDropdownOpen && (
@@ -319,43 +379,10 @@ const Header: NextPage<HeaderProps> = ({
           </div>
         </div>
       )}
-
-      {isMobile && (
-        <div className="fixed w-full top-[104px]">
-          <div className={`flex justify-between p-4 ${showBothButtons ? 'space-x-2' : ''}`}>
-            {showBothButtons && (
-              <button
-                className="flex-1 flex items-center justify-center h-12 rounded-full p-2 px-4 gap-2 bg-white text-[#F55C38] border-2 border-[#F55C38] shadow-md"
-                onClick={handleOfflineBooking}
-              >
-                <Image
-                  className="w-6 h-6 overflow-hidden"
-                  alt="Helpdesk Icon"
-                  src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
-                  width={24}
-                  height={24}
-                />
-                <div className="font-medium leading-[170%]">Call Us</div>
-              </button>
-            )}
-            <a
-              href={whatsappLink}
-              className={`${showBothButtons ? 'flex-1' : 'w-full'} rounded-full bg-white h-12 flex flex-row items-center justify-center py-2 px-4 box-border gap-3 no-underline text-inherit shadow-md`}
-            >
-              <Image
-                className="w-6 relative h-6 overflow-hidden shrink-0"
-                alt=""
-                src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
-                height={24}
-                width={24}
-              />
-              <div className="relative leading-[170%] font-medium">
-                Chat with Us
-              </div>
-            </a>
-          </div>
-        </div>
-      )}
+        {/* Added conditional rendering for spacing */}
+    {isMobile && bgColor !== "home" && (
+      <div className="h-[64px]"></div>
+    )}
     </>
   );
 };
