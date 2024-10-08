@@ -15,7 +15,8 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   const calendarRef = useRef<any>(null);
   const [currentMonthYear, setCurrentMonthYear] = useState<string>("");
   const [selectedDateState, setSelectedDateState] = useState<Date | null>(null);
-  const allEvents = useAllBookings();
+  // const events = useAllBookings();
+  const { events } = useAllBookings();
 
   const getMonthYear = (date: Date) => {
     const monthNames = [
@@ -62,7 +63,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   };
 
   const handleDateClick = (arg: any) => {
-    const isAvailableDate = allEvents.some(
+    const isAvailableDate = events.some(
       (event) =>
         arg.date.toDateString() ===
         new Date(event.start as unknown as string).toDateString()
@@ -334,12 +335,12 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
         initialView="dayGridMonth"
         headerToolbar={false}
         dateClick={handleDateClick}
-        events={allEvents}
+        events={events}
         height="auto"
         dayCellClassNames={(arg) => {
           const classes = [];
           if (
-            allEvents.some(
+            events.some(
               (event) =>
                 arg.date.toDateString() ===
                 new Date(event.start as unknown as string).toDateString()

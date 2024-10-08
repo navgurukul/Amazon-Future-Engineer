@@ -5,7 +5,7 @@ import Header from "../../../components/Header";
 import CallPopup from "./_component/CallPopup";
 import MainContent from "./_component/MainContent";
 import Popup from "./_component/Popup";
-import SecondPopup from "./_component/SecondPopup";
+import SecondPopup from "./_component/secPopup";
 import React, { useState, useEffect } from "react";
 
 const Page = () => {
@@ -36,19 +36,20 @@ const Page = () => {
   const handleClose = () => {
     setOfflinePopup(false);
     setBookingPopup(false);
+    setOpenSecondPopup(false);
     document.body.classList.remove("overflow-hidden");
   };
   // Close the second popup after 2 seconds
-  useEffect(() => {
-    if (openSecondPopup) {
-      const timer = setTimeout(() => {
-        setOpenSecondPopup(false);
-        document.body.classList.remove("overflow-hidden");
-      }, 5000);
+  // useEffect(() => {
+  //   if (openSecondPopup) {
+  //     const timer = setTimeout(() => {
+  //       setOpenSecondPopup(false);
+  //       document.body.classList.remove("overflow-hidden");
+  //     },20000);
 
-      return () => clearTimeout(timer); // Clean up the timer on unmount or change
-    }
-  }, [openSecondPopup]);
+  //     return () => clearTimeout(timer); // Clean up the timer on unmount or change
+  //   }
+  // }, [openSecondPopup]);
 
   const handleBookSessionClick = ()=>{
         console.log("hello")
