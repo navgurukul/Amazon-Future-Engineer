@@ -1,9 +1,11 @@
+
 "use client";
 import { NextPage } from "next";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
+import Cookies from 'js-cookie';
 
 interface HeaderProps {
   bgColor: string;
@@ -31,6 +33,7 @@ const Header: NextPage<HeaderProps> = ({
   const [headerBgColor, setHeaderBgColor] = useState<string>("transparent");
   const [currentLang, setCurrentLang] = useState<"en" | "kn">("en");
   const [showBothButtons, setShowBothButtons] = useState<boolean>(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState<boolean>(false);
 
   const isLandingPage = pathname === "/";
 
@@ -113,6 +116,23 @@ const Header: NextPage<HeaderProps> = ({
       setCurrentLang("en");
       redirectToGoogleTranslator("en");
     }
+  };
+
+  const handleProfileClick = () => {
+    setIsProfileDropdownOpen((prev) => !prev);
+  };
+
+  const handleDashboardClick = () => {
+    router.push('/userdashboard');
+    setIsProfileDropdownOpen(false);
+  };
+
+  const handleLogoutClick = () => {
+    Cookies.remove('loginData')
+    localStorage.removeItem('loginData');
+    setProfileOpen(null);
+    setIsProfileDropdownOpen(false);
+    router.push('/');
   };
 
   const whatsappLink = `https://wa.me/${6366969292}`;
@@ -275,13 +295,34 @@ const Header: NextPage<HeaderProps> = ({
                 )}
 
                 {profileOpen ? (
-                  <Image
-                    className="w-10 h-10 sm:w-14 sm:h-14 object-cover rounded-full"
-                    alt="User Avatar"
-                    src="/login/avatarIcon.svg"
-                    width={56}
-                    height={56}
-                  />
+                  <div className="relative">
+                    <Image
+                      className="w-10 h-10 sm:w-14 sm:h-14 object-cover rounded-full cursor-pointer"
+                      alt="User Avatar"
+                      src="/login/avatarIcon.svg"
+                      width={56}
+                      height={56}
+                      onClick={handleProfileClick}
+                    />
+                    {isProfileDropdownOpen && (
+                      <div className={`absolute right-0 mt-2 ${isMobile ? 'w-screen' : 'w-48'} bg-white rounded-md shadow-lg z-50`}>
+                        <div className="py-2">
+                          <button
+                            onClick={handleDashboardClick}
+                            className="block w-full text-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition duration-150 ease-in-out"
+                          >
+                          <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-text-primary text-center">Dashboard</div>
+                          </button>
+                          <button
+                            onClick={handleLogoutClick}
+                            className="block w-full text-center px-4 py-3 text-sm text-red-600 hover:bg-gray-100 transition duration-150 ease-in-out"
+                          >
+                          <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-incandescent-main text-center">Logout</div>
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 ) : (
                   <nav
                     className="flex items-center justify-center h-12 bg-[#FFF] rounded-full p-2 px-4 sm:px-8 gap-2 sm:gap-3 text-base sm:text-lg text-[#F55C38] cursor-pointer"
@@ -379,11 +420,8 @@ const Header: NextPage<HeaderProps> = ({
         )}
       </div>
 
-      
-        {/* Added conditional rendering for spacing */}
-    {isMobile && bgColor !== "home" && (
-      <div className="h-[64px]"></div>
-    )}
+      {/* Added conditional rendering for spacing */}
+      {isMobile && bgColor !== "home" && <div className="h-[64px]"></div>}
     </>
   );
 };

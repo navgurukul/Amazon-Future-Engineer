@@ -43,7 +43,7 @@ const Calendar: React.FC = () => {
         <div>
           <DialogHeader />
           <div className="pt-[120px] px-4 md:px-8 pb-[48px]">
-            <h5 className="text-13xl leading-[150%] font-extrabold font-webtypestyles-h5 text-midnight-blue-main pb-6 md:text-center">
+            <h5 className="text-13xl leading-[150%] font-extrabold font-webtypestyles-h5 text-midnight-blue-main pb-[32px] md:text-center">
               Book a Nano Sprint
             </h5>
             <div className="flex flex-col lg:flex-row w-full justify-center">
@@ -53,8 +53,8 @@ const Calendar: React.FC = () => {
               <div className="block lg:hidden py-6">
                 <hr className="border-gray-300 my-4" />
               </div>
-              <div className="hidden lg:block w-[2px] bg-gray-300 h-auto mx-4"></div>
-              <div className="w-full lg:w-[400px]">
+              <div className="hidden lg:block w-[2px] bg-gray-300 h-auto mx-[32px]"></div>
+              <div className="w-full lg:w-[450px]">
                 <TimeSlots
                   selectedDate={selectedDate}
                   handleBookingPopUp={handleBookingPopUp}
