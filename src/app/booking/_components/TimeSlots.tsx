@@ -1,6 +1,7 @@
 import { useAllBookings } from "./allBookings";
 import { bookSlot } from "@/utils/api";
 import React, { useState } from "react";
+import ErrorBookingPopup from "./ErrorBookingPopup";
 
 interface TimeSlotsProps {
   selectedDate: Date | null;
@@ -11,7 +12,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
   selectedDate,
   handleBookingPopUp,
 }) => {
-  const allEvents = useAllBookings();
+  // const allEvents = useAllBookings();
+  const { events, error, closePopup } = useAllBookings();
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -41,7 +43,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
       }));
     }
 
-    const eventsForDate = allEvents.filter(
+    const eventsForDate = events.filter(
       (event) =>
         new Date(event.start).toDateString() === selectedDate.toDateString()
     );
