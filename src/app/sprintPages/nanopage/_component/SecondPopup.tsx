@@ -89,7 +89,10 @@ const SecondPopup: NextPage = () => {
   const router = useRouter();
   const handleGoToSprints = () => {
     router.push("/sprintPages/nanopage"); 
-    console.log('Go to Sprints button clicked');
+    // handleClose();
+
+    
+    // console.log('Go to Sprints button clicked');
   };
   const [isOpen, setIsOpen] = useState(true);
   const handleClose = () => {
@@ -132,11 +135,7 @@ const SecondPopup: NextPage = () => {
                 <Image src="/symbols/Vector (7).svg" alt="Arrow Left" width={20} height={20} className="mt-2" />
                 <Image src="/symbols/Vector (4).svg" alt="Arrow Right" width={20} height={20} className="ml-1 mt-4" />
               </div>
-              <div>
-                <Image src="symbols/colon (1).svg" alt="Colon" width={32} height={32} className="self-end mb-4" />
-
-              </div>
-
+              <Image src="/symbols/colon.svg" alt="colon" width={32} height={32} className='self-start' mt-4/>
               <Image src="/symbols/Vector (2).svg" alt="Image 2" width={32} height={32} className="self-end md:hidden" />
               <Image src="/symbols/Vector (5).svg" alt="Image 3" width={30} height={30} className="self-center" />
               <div className="items-center self-start mt-2 hidden md:flex">

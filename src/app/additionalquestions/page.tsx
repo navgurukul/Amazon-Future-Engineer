@@ -122,7 +122,7 @@ const MiniPage: NextPage = () => {
               </div>
             </div>
 
-            {["name", "phoneNo", "city", "schoolName", "email", "pincode"].map(
+            {["name", "phoneNo", "city", "school Name", "email", "pincode"].map(
               (field) => (
                 <div key={field} className="w-full flex flex-col gap-2">
                   <label className="text-[#3a3a3a] text-sm font-medium leading-normal">

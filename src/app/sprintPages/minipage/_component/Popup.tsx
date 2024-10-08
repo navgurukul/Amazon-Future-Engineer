@@ -90,7 +90,7 @@ const Popup: React.FC<PopupProps> = ({
                 id="phone"
                 type="tel"
                 className="w-full h-12 flex items-center justify-start px-4 border border-gray-700 rounded-full text-base text-gray-700"
-                placeholder="Eg. xxxx-xxxxxxx"
+                placeholder="+91 xxxx-xxxxxxx"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 required

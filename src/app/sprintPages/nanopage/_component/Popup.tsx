@@ -80,7 +80,7 @@ const Popup: React.FC<PopupProps> = ({
       <div className="mt-20 fixed inset-0 flex items-end md:items-center justify-center z-50">
         <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-6 flex flex-col items-start gap-4 text-left text-gray-500 font-nunito-sans">
           <div className="flex items-center justify-between text-lg font-amazon-ember w-full">
-            <div className="font-extrabold text-[#3a3a3a] leading-9 text-xl md:text-2xl lg:text-3xl md:leading-10 lg:leading-[40px]">
+            <div className=" font-extrabold text-[#3a3a3a] leading-9 text-[1.5rem] md:text-2xl lg:text-3xl md:leading-10 lg:leading-[40px]">
               Call Us
             </div>
 
@@ -130,7 +130,7 @@ const Popup: React.FC<PopupProps> = ({
                 id="phone"
                 type="tel"
                 className="w-full h-12 flex items-center justify-start px-4 border border-gray-700 rounded-full text-base text-gray-700"
-                placeholder="Eg. xxxx-xxxxxxx"
+                placeholder="+91 xxxx-xxxxxxx"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 required
