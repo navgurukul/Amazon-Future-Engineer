@@ -295,6 +295,50 @@ const Header: NextPage<HeaderProps> = ({
               </>
             )}
           </div>
+          {isMobile && isDropdownOpen && (
+            <div className="fixed w-full top-[104px] bg-[#FFF] left-0 shadow-lg z-40 rounded-b-2xl">
+              <div className="p-4 flex flex-col items-center gap-4">
+                {profileOpen ? (
+                  <Image
+                    className="w-10 h-10 object-cover rounded-full"
+                    alt="User Avatar"
+                    src="/login/avatarIcon.svg"
+                    width={40}
+                    height={40}
+                  />
+                ) : (
+                  <button
+                    className="w-full h-12 bg-[#F55C38] rounded-full text-white font-medium"
+                    onClick={handleBookSessionClick}
+                  >
+                    Login
+                  </button>
+                )}
+                <div className="w-auto mx-auto flex items-center h-10 rounded-full p-1 gap-1 bg-incandescent-light">
+                  <div
+                    className={`flex-1 flex items-center justify-center rounded-full h-8 px-3 ${
+                      currentLang === "en"
+                        ? "bg-[#F55C38] text-white"
+                        : "text-[#F55C38]"
+                    }`}
+                    onClick={handleLanguageToggle}
+                  >
+                    <div className="text-sm font-medium cursor-pointer">Eng</div>
+                  </div>
+                  <div
+                    className={`flex-1 flex items-center justify-center rounded-full h-8 px-3 ${
+                      currentLang === "kn"
+                        ? "bg-[#F55C38] text-white"
+                        : "text-[#F55C38]"
+                    }`}
+                    onClick={handleLanguageToggle}
+                  >
+                    <div className="text-sm font-medium cursor-pointer">ಅಇಈ</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         {/* chat with us and call us button for small screens*/}
         {isMobile && !isDropdownOpen && (
@@ -335,50 +379,7 @@ const Header: NextPage<HeaderProps> = ({
         )}
       </div>
 
-      {isMobile && isDropdownOpen && (
-        <div className="fixed w-full top-[104px] left-0 bg-white shadow-lg z-40 rounded-b-2xl">
-          <div className="p-4 flex flex-col items-center gap-4">
-            {profileOpen ? (
-              <Image
-                className="w-10 h-10 object-cover rounded-full"
-                alt="User Avatar"
-                src="/login/avatarIcon.svg"
-                width={40}
-                height={40}
-              />
-            ) : (
-              <button
-                className="w-full h-12 bg-[#F55C38] rounded-full text-white font-medium"
-                onClick={handleBookSessionClick}
-              >
-                Login
-              </button>
-            )}
-            <div className="w-auto mx-auto flex items-center h-10 rounded-full p-1 gap-1 bg-incandescent-light">
-              <div
-                className={`flex-1 flex items-center justify-center rounded-full h-8 px-3 ${
-                  currentLang === "en"
-                    ? "bg-[#F55C38] text-white"
-                    : "text-[#F55C38]"
-                }`}
-                onClick={handleLanguageToggle}
-              >
-                <div className="text-sm font-medium cursor-pointer">Eng</div>
-              </div>
-              <div
-                className={`flex-1 flex items-center justify-center rounded-full h-8 px-3 ${
-                  currentLang === "kn"
-                    ? "bg-[#F55C38] text-white"
-                    : "text-[#F55C38]"
-                }`}
-                onClick={handleLanguageToggle}
-              >
-                <div className="text-sm font-medium cursor-pointer">ಅಇಈ</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      
         {/* Added conditional rendering for spacing */}
     {isMobile && bgColor !== "home" && (
       <div className="h-[64px]"></div>
