@@ -69,7 +69,9 @@ const HomePage: NextPage = () => {
         const section = document.querySelector("#virtual-tour");
 
         if (section) {
-          const headerHeight = 120;
+          // const headerHeight = 120;
+          const isMobile = window.innerWidth <= 425;
+        const headerHeight = isMobile ? 180 : 120;
           const sectionPosition =
             section.getBoundingClientRect().top + window.pageYOffset;
           window.scrollTo({
