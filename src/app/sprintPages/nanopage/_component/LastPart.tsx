@@ -2,7 +2,7 @@ import React from "react";
 
 const LastPart = () => {
   return (
-    <div className="flex flex-col gap-8 md:mt-4 max-w-full sm:max-w-[70%]">
+    <div className="flex flex-col mt-8 max-w-full sm:max-w-[70%]">
       {/* <div className="w-full">
         <div className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left">
           Why Schedule a Nano Sprint?{" "}
@@ -24,7 +24,7 @@ const LastPart = () => {
           and start a transformative STEM journey!{" "}
         </div>
       </div> */}
-      <div className="flex flex-col w-full mt-0 md:mt-4 gap-4">
+      <div className="flex flex-col w-full gap-4">
         {/* <h1 className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left"> */}
         <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main">
           Have Questions?

@@ -2,7 +2,7 @@ import React from "react";
 
 const LastPart = () => {
   return (
-    <div className="flex flex-col gap-8 mt-0 md:mt-8 max-w-full sm:max-w-[70%]">
+    <div className="flex flex-col mt-8 max-w-full sm:max-w-[70%]">
       {/* <div className="w-full">
         <div className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left">
           Why Schedule a Mini Sprint?{" "}
