@@ -138,7 +138,7 @@ const SecondPopup: NextPage = () => {
 
     {/* Text Section */}
     <div className="relative text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-4 leading-[170%]">
-      Thank you for requesting a callback! We'll reach out to you shortly to discuss and confirm your booking plans.
+      Thank you for requesting a callback! We will reach out to you shortly to discuss and confirm your booking plans.
     </div>
 
     {/* Contact Information */}
