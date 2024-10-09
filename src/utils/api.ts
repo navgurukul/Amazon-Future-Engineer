@@ -30,7 +30,6 @@ export const getSlots = async (venueId: number = 1) => {
     });
     return response.data;
   } catch (error:any) {
-    alert(error.response.data)
     throw error;
   }
 };
@@ -57,7 +56,7 @@ export const bookSlot = async (bookingData: {
     });
     return response.data;
   } catch (error:any) {
-    console.error('Error booking slot:', error);
+    // console.error('Error booking slot:', error);
     throw error;
   }
 };
@@ -89,7 +88,7 @@ export const getUserData = async () => {
     const upcomingEvents = response.data?.data.upcomingEvents || [];
     return upcomingEvents;
   } catch (error) {
-    console.error('Error fetching user data:', error);
+    // console.error('Error fetching user data:', error);
     throw error;
   }
 };
@@ -192,9 +191,10 @@ export const getSlotDetails = async (slotId: number) => {
         'Authorization': `Bearer ${token}`
       }
     });
-    return response;
+    return response.data.data[0].available_capacity;
   } catch (error) {
-    console.error("Error fetching slot details:", error);
+    // console.error("Error fetching slot details:", error);
     return 0;
   }
 };
+

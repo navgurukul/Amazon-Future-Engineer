@@ -1,8 +1,9 @@
 import { useAllBookings } from "./allBookings";
-import { bookSlot } from "@/utils/api";
+import { bookSlot,getSlotDetails} from "@/utils/api";
 import React, { useState } from "react";
 import ErrorBookingPopup from "./ErrorBookingPopup";
 import axios from "axios";
+import { Button } from "@/components/ui/button";
 
 interface TimeSlotsProps {
   selectedDate: Date | null;
@@ -32,20 +33,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     id?: number;
   }
 
-  const getSlotDetails = async (slotId: number) => {
-    try {
-      const response = await axios.get(`https://dev-afe.samyarth.org/api/v1/slotmanagement/slot/${slotId}`, {
-        headers: {
-          'accept': 'application/json',
-          'authorization': 'your-token',
-        }
-      });
-      return response.data.data[0].available_capacity;
-    } catch (error) {
-      console.error("Error fetching slot details:", error);
-      return 0;
-    }
-  };
+
 
   const getAvailableSlots = (): Slot[] => {
     const fixedSlots = [
@@ -90,6 +78,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
   const handleSlotSelection = async (slot: Slot) => {
     if (slot.id) {
       const capacity = await getSlotDetails(slot.id);
+      console.log("Tamanna",capacity)
       setAvailableCapacity(capacity);
     }
     setSelectedSlot(slot.time === selectedSlot ? null : slot.time);
@@ -262,16 +251,14 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
             )}
           </div>
 
-          <div className="self-stretch flex items-start justify-start gap-4 mt-6">
-            <button
-              type="submit"
-              className="cursor-pointer rounded-xl bg-text-primary1 w-[159px] h-14 shrink-0 flex flex-row items-center justify-center py-2 px-4"
-            >
-              <div className="relative text-[22px] font-semibold text-white text-center">
-                Book Now
-              </div>
-            </button>
-          </div>
+          <div className="w-full">
+          <Button
+            type="submit"
+            className="w-full h-14 rounded-full bg-incandescent-main text-web-light-background-default font-button1-bold text-lg leading-[170%] hover:bg-incandescent-main hover:text-web-light-background-default"
+          >
+            Book Now
+          </Button>
+        </div>
         </form>
       )}
 
