@@ -99,22 +99,22 @@ const Header: NextPage<HeaderProps> = ({
     router.push("/");
   };
 
-  const googleTranslateBaseURL = "https://translate.google.com/translate?hl=";
-  const redirectToGoogleTranslator = (targetLang: string) => {
-    const currentUrl = window.location.href;
-    const translatedUrl = `${googleTranslateBaseURL}${targetLang}&sl=auto&tl=${targetLang}&u=${encodeURIComponent(
-      currentUrl
-    )}`;
-    window.location.href = translatedUrl;
-  };
+  // const googleTranslateBaseURL = "https://translate.google.com/translate?hl=";
+  // const redirectToGoogleTranslator = (targetLang: string) => {
+  //   const currentUrl = window.location.href;
+  //   const translatedUrl = `${googleTranslateBaseURL}${targetLang}&sl=auto&tl=${targetLang}&u=${encodeURIComponent(
+  //     currentUrl
+  //   )}`;
+  //   window.location.href = translatedUrl;
+  // };
 
   const handleLanguageToggle = () => {
     if (currentLang === "en") {
       setCurrentLang("kn");
-      redirectToGoogleTranslator("kn");
+      // redirectToGoogleTranslator("kn");
     } else {
       setCurrentLang("en");
-      redirectToGoogleTranslator("en");
+      // redirectToGoogleTranslator("en");
     }
   };
 
