@@ -1,14 +1,17 @@
 import LastPart from "./LastPart";
 import { NextPage } from "next";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import React from "react";
+
 
 interface BookingProps {
   handleOfflineBooking: () => void;
 }
 
 const Booking: NextPage<BookingProps> = ({ handleOfflineBooking }) => {
+  const [hasShadow, setHasShadow] = useState<boolean>(true);
   const router = useRouter();
 
   const handleOnlineBooking = () => {
@@ -110,10 +113,17 @@ const Booking: NextPage<BookingProps> = ({ handleOfflineBooking }) => {
             </div>
           </div>
 
-          <div className="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl">
+          {/* <div className="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl"> */}
+          <div
+  className={`lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl ${
+    hasShadow
+      ? "shadow-[-1px_-2px_2px_rgba(0,0,0,0.06),-2px_-1px_1px_rgba(0,0,0,0.04),-1px_-5px_5px_rgba(0,0,0,0.08)]"
+      : ""
+  }`}
+>
             <div className="flex flex-col gap-4 text-center">
               <div 
-                className="w-full h-10 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer"
+                className="w-full h-12 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer"
                 onClick={handleOnlineBooking}
               >
                 <div className="leading-[170%] font-medium text-white">
@@ -121,7 +131,7 @@ const Booking: NextPage<BookingProps> = ({ handleOfflineBooking }) => {
                 </div>
               </div>
               <div
-                className="w-full h-10 flex items-center justify-center rounded-81xl bg-orange-main py-2 px-8 cursor-pointer"
+                className="w-full h-12 flex items-center justify-center rounded-81xl bg-orange-main py-2 px-8 cursor-pointer"
                 onClick={handleOfflineBooking}
               >
                 <div className="leading-[170%] font-medium text-text-primary">

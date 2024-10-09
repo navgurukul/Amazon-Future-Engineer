@@ -364,12 +364,12 @@ const HomePage: NextPage = () => {
             <article className="flex flex-col items-center w-full md:w-1/4">
               <Image
                 alt="Step 1"
-                src="/homepage/Lottie flies.gif"
-                width={120}
-                height={120}
+                src="/homepage/reshot-icon-family-visit-95EYAPUK63.svg"
+                width={64}
+                height={64}
               />
               <div>
-                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mb-2">
+                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2">
                   Visit AFE Makerspace Virtually
                 </div>
                 <div className="text-bodyM md:text-body1 leading-[170%] text-center inline-block text-white font-body1-regular">
@@ -382,12 +382,12 @@ const HomePage: NextPage = () => {
             <article className="flex flex-col items-center w-full md:w-1/4">
               <Image
                 alt="Step 2"
-                src="/homepage/Lottie flies.gif"
-                width={120}
-                height={120}
+                src="/homepage/reshot-icon-sprinting-68QMTNKEPC.svg"
+                width={64}
+                height={64}
               />
               <div>
-                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mb-2">
+                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2">
                   Discover Our Programs
                 </div>
                 <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-center">
@@ -400,12 +400,12 @@ const HomePage: NextPage = () => {
             <article className="flex flex-col items-center w-full md:w-1/4">
               <Image
                 alt="Step 3"
-                src="/homepage/Lottie flies.gif"
-                width={120}
-                height={120}
+                src="/homepage/reshot-icon-shape-click-UR7J3LH2YE.svg"
+                width={64}
+                height={64}
               />
               <div>
-                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mb-2">
+                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2">
                   Book Your Session
                 </div>
                 <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-center">
@@ -426,12 +426,12 @@ const HomePage: NextPage = () => {
             <article className="flex flex-col items-center w-full md:w-1/4">
               <Image
                 alt="Step 4"
-                src="/homepage/Lottie flies.gif"
-                width={120}
-                height={120}
+                src="/homepage/reshot-icon-deep-learning-UY68HJABWD.svg"
+                width={64}
+                height={64}
               />
               <div>
-                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mb-2">
+                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2">
                   Visit and Start Learning
                 </div>
                 <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-center">
