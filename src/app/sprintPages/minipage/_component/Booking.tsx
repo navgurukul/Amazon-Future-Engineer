@@ -1,4 +1,5 @@
 import LastPart from "./LastPart";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import React from "react";
@@ -13,7 +14,7 @@ const Booking = () => {
   return (
     <>
       <div className="relative flex flex-col items-center w-full">
-        <div className="relative flex justify-between w-full gap-8 mt-4 md:mt-8">
+        <div className="relative flex justify-between w-full gap-8 mt-8">
           <div className="flex flex-col w-full lg:w-2/3 gap-8">
             <div className="w-full text-left text-[#29458c]">
               {/* <h1 className="text-2xl md:text-3xl lg:text-13xl font-extrabold font-['Amazon Ember']"> */}
@@ -23,35 +24,38 @@ const Booking = () => {
             </div>
             <div className="flex flex-row items-center gap-4 text-darkslategray">
               <img
-                className="w-[67px] h-12 overflow-hidden relative"
+                className="w-[67px] h-12 relative"
                 src="/nanopage/reshot-icon-time-YEDR7WZV2Q.svg"
                 alt="Time Icon"
               />
               <div className="flex flex-col">
                 {/* <b className="leading-[170%] text-extrabold">Duration</b> */}
-                <h1 className="text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember']">Duration</h1>
+                <b className="w-full relative text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-darkslategray">Duration</b>
                 {/* <div className="leading-[170%] font-medium"> */}
-                <div className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+                <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
                   2 Days (3 hours per day)
                 </div>
               </div>
             </div>
             <div className="flex flex-row items-center gap-4 text-darkslategray">
-              <img
-                className="w-[67px] h-12 overflow-hidden relative"
+              <div className="w-[67px] h-12 relative">
+              <Image
                 alt="Batch Strength Icon"
                 src="/nanopage/reshot-icon-student-DRC3YF56MU.svg"
+                layout="fill"
+                  objectFit="contain"
               />
+              </div>
               <div className="flex flex-col">
                 {/* <b className="leading-[170%] text-extrabold">Batch Strength</b> */}
-                <h1 className="text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember']">Batch Strength</h1>
+                <b className="w-full relative text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-darkslategray">Batch Strength</b>
                 {/* <div className="leading-[170%] font-medium"> */}
-                <div className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+                <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
                   30 to 40 students per session
                 </div>
               </div>
             </div>
-            <div className="w-full mt-4 md:mt-8">
+            <div className="w-full mt-8">
               {/* <h1 className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left"> */}
               <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
                 Why Schedule a Mini Sprint?{" "}
@@ -173,7 +177,7 @@ const Booking = () => {
               onClick={handleRoute}
             >
               <div className="w-full h-12 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer">
-                <div className="leading-[170%] font-medium text-white text-[16px]">
+                <div className="leading-[170%] font-medium text-white">
                   Join Waiting List
                 </div>
               </div>
