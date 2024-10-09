@@ -77,10 +77,11 @@ const Popup: React.FC<PopupProps> = ({
   return (
     <>
       <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
-      <div className="mt-20 fixed inset-0 flex items-end md:items-center justify-center z-50">
-        <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-6 flex flex-col items-start gap-4 text-left text-gray-500 font-nunito-sans">
-          <div className="flex items-center justify-between text-lg font-amazon-ember w-full">
-            <div className="font-extrabold text-[#3a3a3a] leading-9 text-xl md:text-2xl lg:text-3xl md:leading-10 lg:leading-[40px]">
+      <div className="fixed inset-0 flex items-end md:items-center justify-center z-50">
+        <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-4 md:p-8 flex flex-col items-start gap-4 text-left text-gray-500">
+          <div className="flex items-center justify-between w-full mb:2 md:mb-4">
+            {/* <div className="font-extrabold text-[#3a3a3a] leading-9 text-xl md:text-2xl lg:text-3xl md:leading-10 lg:leading-[40px]"> */}
+            <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-heading6-bold">
               Call Us
             </div>
 
@@ -93,23 +94,25 @@ const Popup: React.FC<PopupProps> = ({
               height={20}
             />
           </div>
-          <div className="font-['Amazon Ember'] text-[#3a3a3a] leading-[30.60px] font-medium text-lg">
-            Need assistance with booking a Nano session or have general queries? We’re here to help!
+          {/* <div className="font-['Amazon Ember'] text-[#3a3a3a] leading-[30.60px] font-medium text-lg"> */}
+          <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+            Need assistance with booking a Nano session or have general queries? We're here to help!
           </div>
-          <div className="text-lg font-['Amazon Ember'] leading-[30.60px] text-[#3a3a3a] font-bold">
+          <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
             <b>Response Time:</b>
-            <span className="font-medium leading-[30.60px] text-[#3a3a3a] text-lg"> Within 24 hours</span>
+            <span className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray"> Within 24 hours</span>
           </div>
-           <div className="leading-[30.60px] text-lg text-[#3a3a3a] font-['Amazon Ember'] ">
+           <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
             <b>Operational Time:</b>
-            <span className="font-medium leading-[30.60px] text-[#3a3a3a] text-lg"> Monday to Friday, from 9 AM to 6 PM</span>
+            <span className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray"> Monday to Friday, 9 AM to 6 PM</span>
           </div>
-          <div className="leading-6 font-['Amazon Ember'] font-medium text-[#3a3a3a] text-lg">
-            Please provide your name and phone number, and we’ll get back to you shortly.
+          <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray md:mb-4">
+            Please provide your name and phone number, and we'll get back to you shortly.
           </div>
           <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
-            <div className="flex flex-col gap-1 w-full">
-              <label className="font-medium text-[#3a3a3a] leading-normal text-sm" htmlFor="name">
+            <div className="flex flex-col gap-2 w-full">
+              {/* <label className="font-medium text-[#3a3a3a] leading-normal text-sm" htmlFor="name"> */}
+              <label className="font-medium text-[#3a3a3a] leading-[170%] text-body2" htmlFor="name">
                 Name <span className="text-[#f55c38]">*</span>
               </label>
               <input
@@ -122,8 +125,8 @@ const Popup: React.FC<PopupProps> = ({
                 required
               />
             </div>
-              <div className="flex flex-col gap-1 w-full">
-              <label className="font-medium leading-normal text-[#3a3a3a] text-sm" htmlFor="phone">
+              <div className="flex flex-col gap-2 w-full">
+              <label className="font-medium leading-[170%] text-[#3a3a3a] text-body2" htmlFor="phone">
                 Phone Number <span className="text-[#f55c38]">*</span>
               </label>
               <input
@@ -138,13 +141,13 @@ const Popup: React.FC<PopupProps> = ({
               {error && <div className="text-red-500 text-sm">{error}</div>}
               {errorMessage && <div className="text-red-500 text-sm">{errorMessage}</div>}
             </div>
-            <div className="w-full flex justify-end">
+            <div className="w-full flex justify-end mt-2 md:mt-4">
               <div className="w-full lg:w-auto">
                 <button
                   type="submit"
-                  className="h-12 lg:h-14 w-full px-8 py-2 bg-[#f55c38] rounded-[100px] flex justify-center items-center gap-2 cursor-pointer text-white font-amazon-ember"
+                  className="w-full bg-[#f55c38] rounded-[100px] flex justify-center items-center cursor-pointer text-white"
                 >
-                  <div className="text-center text-white text-base font-medium font-['Amazon Ember'] leading-7">
+                  <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
                     Request a Callback
                   </div>
                 </button>
