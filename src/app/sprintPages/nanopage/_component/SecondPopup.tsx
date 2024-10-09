@@ -102,38 +102,43 @@ const SecondPopup: NextPage = () => {
 
   {/* Popup */}
   <div
-    className="fixed w-full max-w-sm md:max-w-md lg:max-w-lg bg-white z-50 p-4 sm:p-6 md:p-8 shadow-lg rounded-lg text-left text-gray-500 font-nunito-sans
-    flex flex-col items-end sm:items-center justify-center
-    bottom-0 sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2"
+    className="fixed inset-0 flex items-end md:items-center justify-center z-50"
   >
+    <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-4 md:p-8 flex flex-col items-start gap-4 text-left text-gray-500">
     {/* Header Section */}
     <div className="w-full flex items-center justify-between mb-4">
-      <div className="font-extrabold text-[#3a3a3a] text-heading6">
+      <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-heading6-bold">
         Call Us
       </div>
 
-      <Image
+      {/* <Image
         className="w-5 h-5 cursor-pointer"
         alt="close"
         src="/userDashboard/close.svg"
         width={20}
         height={20}
         onClick={handleClose}
-      />
+      /> */}
+      <img
+              className="w-5 h-5 cursor-pointer"
+              alt="close"
+              src="/homepage/close.svg"
+              onClick={handleClose}
+            />
     </div>
 
     {/* Image Section */}
     <div className="w-full flex items-center justify-center mt-4">
       <img
-        className="w-full h-auto"
+        className="w-full h-[75px]"
         src="/userDashboard/Frame 31751.svg"
         alt="Coding Symbol"
       />
     </div>
 
     {/* Text Section */}
-    <div className="relative text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-8 mb-4 leading-relaxed">
-      Thank you for requesting a callback! We will reach out to you shortly to discuss and confirm your booking plans.
+    <div className="relative text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-4 leading-[170%]">
+      Thank you for requesting a callback! We'll reach out to you shortly to discuss and confirm your booking plans.
     </div>
 
     {/* Contact Information */}
@@ -145,12 +150,22 @@ const SecondPopup: NextPage = () => {
     </div>
 
     {/* Button */}
-    <button
-      className="h-12 px-6 py-2 rounded-full border border-[#f55c38] text-[#f55c38] font-medium mt-6 w-full sm:w-auto"
+    {/* <button
+      className="h-12 px-6 py-2 rounded-full border border-[#f55c38] text-[#f55c38] font-medium mt-2 md:mt-4 w-full sm:w-auto"
       onClick={handleGoToSprints}
     >
       Go to Sprints
-    </button>
+    </button> */}
+    <div className="w-full flex flex-row items-center justify-center mt-2 md:mt-4">
+            <div className="w-full lg:w-auto">
+            <button className="w-full rounded-[100px] flex justify-center items-center cursor-pointer border border-[#f55c38] text-[#f55c38]">
+            <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
+              Go to Sprints
+            </div>
+          </button>
+          </div>
+          </div>
+  </div>
   </div>
 </>
 

@@ -5,7 +5,7 @@ import Header from "../../../components/Header";
 import CallPopup from "./_component/CallPopup";
 import MainContent from "./_component/MainContent";
 import Popup from "./_component/Popup";
-import SecondPopup from "./_component/secPopup";
+import SecondPopup from "./_component/SecondPopup";
 import React, { useState, useEffect } from "react";
 
 const Page = () => {
