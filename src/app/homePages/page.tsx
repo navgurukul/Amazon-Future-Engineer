@@ -412,7 +412,8 @@ const HomePage: NextPage = () => {
                   Select a time slot and book your session through our online
                   system or by calling us on
                   <a
-                    href="tel:+916366969292"
+                    href={whatsappLink}
+                    target="_blank"
                     className="text-[#f55c38] cursor-pointer"
                   >
                     {" "}
@@ -624,7 +625,7 @@ const HomePage: NextPage = () => {
         <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray">
           <strong>
             <span> Call or Whatsapp us on </span>
-            <a href={whatsappLink} className="text-[#f55c38]">
+            <a href={whatsappLink} target="_blank" className="text-[#f55c38]">
               +916366969292
             </a>
           </strong>

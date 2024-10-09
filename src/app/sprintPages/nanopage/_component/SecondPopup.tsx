@@ -159,7 +159,7 @@ const SecondPopup: NextPage = () => {
     </button> */}
     <div className="w-full flex flex-row items-center justify-center mt-2 md:mt-4">
             <div className="w-full lg:w-auto">
-            <button className="w-full rounded-[100px] flex justify-center items-center cursor-pointer border border-[#f55c38] text-[#f55c38]">
+            <button className="w-full rounded-[100px] flex justify-center items-center cursor-pointer border border-[#f55c38] text-[#f55c38]" onClick={handleGoToSprints}>
             <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
               Go to Sprints
             </div>

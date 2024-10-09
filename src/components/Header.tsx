@@ -142,7 +142,7 @@ const Header: NextPage<HeaderProps> = ({
   return (
     <>
       <div
-        className={`fixed w-full ${
+        className={`fixed z-50 w-full ${
           isDropdownOpen || bgColor !== "home" ? "bg-white" : headerBgColor
         } text-center text-[14px] text-white transition-shadow duration-300 ${
           hasShadow && !isDropdownOpen
@@ -496,6 +496,7 @@ const Header: NextPage<HeaderProps> = ({
                 />
                 <a
                   href={whatsappLink}
+                  target="_blank"
                   className="relative font-medium leading-[170%] text-base text-darkslategray"
                 >
                   Chat with Us
