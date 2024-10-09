@@ -46,7 +46,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
               src="/login/afe_subbrand_logo_horizontal_blue.svg"
-              onClick={onReshotIconClick}
+              // onClick={onReshotIconClick}
               width={254}
               height={40}
             />
@@ -56,7 +56,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
               src="/login/Group(12).svg"
-              onClick={onReshotIconClick}
+              // onClick={onReshotIconClick}
               width={120}
               height={40}
             />
@@ -90,7 +90,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
           {isMobile && (
             <Button
               variant="proceedWhite"
-              onClick={handleOfflineBooking}
+              // onClick={handleOfflineBooking}
               className="flex-grow flex justify-center items-center gap-3 px-4 py-2"
             >
               <Image
@@ -99,9 +99,9 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
                 width={24}
                 height={24}
               />
-              <span className="relative font-medium leading-[170%] text-base text-darkslategray">
+              <a href={whatsappLink} className="relative font-medium leading-[170%] text-base text-darkslategray">
                 Chat with Us
-              </span>
+              </a>
             </Button>
           )}
         </div>
