@@ -103,7 +103,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     const studentCount = parseInt(students);
     
     // Logic to check the number of students based on available capacity
-    if (availableCapacity === 40 && (studentCount < 12 || studentCount > 40)) {
+    if ((availableCapacity === 40 && studentCount >=12  )) {
       setStudentsError("Please enter a number between 12 and 40.");
       return;
     } else if (availableCapacity < 40 && (studentCount < 1 || studentCount > availableCapacity)) {
@@ -234,7 +234,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
 
           <div className="self-stretch flex flex-col items-start justify-start gap-2">
             <div className="relative leading-[170%] font-medium">
-              <span>Number of Students</span>
+              <span>Number of Students (max {availableCapacity})</span>
               <span className="text-incandescent-main">*</span>
             </div>
             <input
@@ -242,7 +242,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               name="students"
               value={students}
               onChange={(e) => setStudents(e.target.value)}
-              placeholder={`Enter students (max ${availableCapacity})`}
+              placeholder={`Enter students`}
               required
               className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-lg w-full"
             />
