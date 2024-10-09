@@ -55,7 +55,7 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
               Monday to Friday, 9 AM to 6 PM
             </div>
           </div>
-          <div className="w-full flex flex-row items-center justify-end mt-2 md:mt-4">
+          {/* <div className="w-full flex flex-row items-center justify-end mt-2 md:mt-4">
             <div className="w-full lg:w-auto">
             <button className="w-full bg-[#f55c38] rounded-[100px] flex justify-center items-center cursor-pointer text-white">
             <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
@@ -63,7 +63,7 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
             </div>
           </button>
           </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
