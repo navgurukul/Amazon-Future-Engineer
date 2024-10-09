@@ -11,22 +11,17 @@ const buttonVariants = cva(
       variant: {
         default:
           "bg-primary text-primary-foreground shadow hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
-        outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-        // details: "h-14 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center inline-flex mb-4",
-        // contained: "h-14 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center gap-2 inline-flex",
-        // reschedule:"px-4 py-2 text-red-500 border border-red-500 rounded-full transition-colors duration-200",
-        proceed:"w-full relative rounded-[100px] bg-incandescent-main h-14 flex flex-row items-center justify-center py-2 px-8 box-border cursor-pointer text-center  text-button1 text-lg font-button1-bold bg-[#f55c38] text-[#fff]",
-        // details: "h-14 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center gap-2 inline-flex",
-        // contained: "h-14 px-8 py-2 bg-[#f55c38] rounded-[100px] justify-center items-center gap-2 inline-flex",
-        // reschedule:"px-4 py-2 text-red-500 border border-red-500 rounded-full transition-colors duration-200",
-
+        // destructive:
+        //   "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+        // outline:
+        //   "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+        // secondary:
+        //   "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
+        // ghost: "hover:bg-accent hover:text-accent-foreground",
+        // link: "text-primary underline-offset-4 hover:underline",
+        // proceed:"w-full relative rounded-[100px] bg-incandescent-main h-14 flex flex-row items-center justify-center py-2 px-8 box-border cursor-pointer text-center  text-button1 text-lg font-button1-bold bg-[#f55c38] text-[#fff]",
+        proceed:"w-full md:w-auto flex items-center font-button1-bold  leading-[170%] text-button1 cursor-pointer justify-center py-2 px-8 text-incandescent-contrasttext text-center rounded-81xl bg-incandescent-main h-14 hover:bg-incandescent-dark",
+        proceedWhite:"w-full md:w-auto flex items-center font-button1-bold  leading-[170%] text-button1 cursor-pointer justify-center py-2 px-8 text-incandescent-main text-center rounded-81xl bg-incandescent-contrasttext h-14 hover:bg-grey-300"
       },
       size: {
         default: "h-9 px-4 py-2",
@@ -63,3 +58,4 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button"
 
 export { Button, buttonVariants }
+

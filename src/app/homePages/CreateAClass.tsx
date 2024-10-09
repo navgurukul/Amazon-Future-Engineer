@@ -16,7 +16,7 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
 
   useEffect(()=>{
     window.scrollTo({ top: 0, behavior: "smooth" });
-    document.body.classList.add("overflow-hidden");
+    // document.body.classList.add("overflow-hidden");
   },[])
 
   const onNoClick = useCallback(() => {
