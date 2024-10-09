@@ -34,7 +34,7 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
           {/* Description Text */}
           {/* <div className="w-full relative text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-primary text-left inline-block"> */}
           <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-            Need help with booking a session, learning about our program offerings, or have any general questions? We're here for you!
+            Need help with booking a session, learning about our program offerings, or have any general questions? We are here for you!
           </div>
 
           {/* Response Time */}

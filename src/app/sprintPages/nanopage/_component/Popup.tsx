@@ -96,7 +96,7 @@ const Popup: React.FC<PopupProps> = ({
           </div>
           {/* <div className="font-['Amazon Ember'] text-[#3a3a3a] leading-[30.60px] font-medium text-lg"> */}
           <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-            Need assistance with booking a Nano session or have general queries? We're here to help!
+            Need assistance with booking a Nano session or have general queries? We are here to help!
           </div>
           <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
             <b>Response Time:</b>
@@ -107,7 +107,7 @@ const Popup: React.FC<PopupProps> = ({
             <span className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray"> Monday to Friday, 9 AM to 6 PM</span>
           </div>
           <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray md:mb-4">
-            Please provide your name and phone number, and we'll get back to you shortly.
+            Please provide your name and phone number, and we all get back to you shortly.
           </div>
           <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
             <div className="flex flex-col gap-2 w-full">
