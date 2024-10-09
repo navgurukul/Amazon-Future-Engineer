@@ -1,8 +1,10 @@
 import LastPart from "./LastPart";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import React from "react";
 
 const Booking = () => {
+  const [hasShadow, setHasShadow] = useState<boolean>(true);
   const router = useRouter();
   const handleRoute = () => {
     router.push("/additionalquestionsMegaPage");
@@ -155,13 +157,20 @@ const Booking = () => {
               </div>
             </div>
           </div>
-          <div className="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl">
+          {/* <div className="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl"> */}
+          <div
+  className={`lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl ${
+    hasShadow
+      ? "shadow-[-1px_-2px_2px_rgba(0,0,0,0.06),-2px_-1px_1px_rgba(0,0,0,0.04),-1px_-5px_5px_rgba(0,0,0,0.08)]"
+      : ""
+  }`}
+>
             <div
               className="flex flex-col gap-4 text-center"
               onClick={handleRoute}
             >
-              <div className="w-full h-10 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer">
-                <div className="leading-[170%] font-medium text-white">
+              <div className="w-full h-12 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer">
+                <div className="leading-[170%] font-medium text-white text-[16px]">
                   Join Waiting List
                 </div>
               </div>
