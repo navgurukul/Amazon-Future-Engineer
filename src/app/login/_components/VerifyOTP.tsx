@@ -119,7 +119,20 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
   return (
     <div className="px-4 sm:px-4 mx-auto mt-12 md:mx-0 md:mt-0">
       <div className="flex flex-col items-start gap-8 self-stretch md:self-auto">
-        <div className="flex gap-2">
+
+        <div className="justify-center items-center block md:hidden lg:hidden mt-0">
+          <Image
+            className="w-[84px] "
+            alt="Logo"
+            src="/login/AFE_subbrand_logo_stacked_white.svg"
+            width={84}
+            height={56}
+          />
+        </div>
+
+
+
+        <div className=" gap-2 hidden md:flex">
           <Image
             src="/login/chevron_left.svg"
             alt="back"
@@ -162,13 +175,24 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
                 )}
               </div>
             </div>
-            <Button
-              variant="proceed"
-              onClick={handleVerifyOTP}
-              className="flex w-full sm:w-full md:w-[23rem] h-14 py-2 px-8 justify-center items-center gap-2 rounded-[6.25rem] font-medium "
-            >
-              Verify OTP
-            </Button>
+            <div className="fixed bottom-0 left-0 w-full px-6 py-4 sm:block md:hidden">
+              <Button
+                variant="proceed"
+                onClick={handleVerifyOTP}
+                className="flex w-full sm:w-full md:w-[23rem] h-14 py-2 px-8 justify-center items-center gap-2 rounded-[6.25rem] font-medium "
+              >
+                Verify OTP
+              </Button>
+            </div>
+            <div className="w-full md:block lg:block sm:hidden">
+              <Button
+                variant="proceed"
+                onClick={handleVerifyOTP}
+                className="flex w-full sm:w-full md:w-[23rem] h-14 py-2 px-8 justify-center items-center gap-2 rounded-[6.25rem] font-medium "
+              >
+                Verify OTP
+              </Button>
+            </div>
             <div className="text-lg leading-[170%] font-medium font-['Amazon Ember'] text-left text-darkslategray">
               {isResendAllowed ? (
                 <button
@@ -181,9 +205,8 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
                 <span>
                   Taking too long?{" "}
                   <span className="text-incandescent-main">Resend code</span> in{" "}
-                  {`${Math.floor(seconds / 60)}:${
-                    seconds % 60 < 10 ? `0${seconds % 60}` : seconds % 60
-                  } s`}
+                  {`${Math.floor(seconds / 60)}:${seconds % 60 < 10 ? `0${seconds % 60}` : seconds % 60
+                    } s`}
                 </span>
               )}
             </div>

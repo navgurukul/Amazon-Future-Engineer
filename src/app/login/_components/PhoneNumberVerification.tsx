@@ -60,17 +60,28 @@ const PhoneNumberVerification: React.FC = () => {
           setShowOTPVerification={setShowOTPVerification}
         />
       ) : (
-        <div className="mt-12 md:mt-0">
-          <div className="flex flex-col w-[20rem] md:w-[24rem] mx-auto items-start gap-8">
-            {/* <div>
+        <div className="mt-12 md:mt-0 ">
+          <div className="flex flex-col w-[20rem] md:w-[24rem] mx-auto items-start gap-12">
+            <div className="w-[354px] h-10 justify-center items-center  hidden md:flex ">
               <Image
-                className="w-16 h-16"
+                className="w-354 h-10"
                 alt="Logo"
-                src="/login/reshot-icon-molecules-YBNSD562JC 1.svg"
-                width={64}  
-                height={64} 
+                src="/login/afe_subbrand_logo_horizontal_blue.png"
+                width={354}  
+                height={10} 
               />
-            </div> */}
+            </div>
+            <div className="justify-center items-center block md:hidden lg:hidden mt-0">
+              <Image
+                className="w-84 "
+                alt="Logo"
+                src="/login/AFE_subbrand_logo_stacked_white.svg"
+                width={84}  
+                height={56} 
+              />
+            </div>
+            
+
             <div className="flex flex-col items-start gap-6 self-stretch w-full">
               <div className="relative text-5xl leading-[150%] font-extrabold font-heading4-bold text-midnight-blue-main text-left">
                 Login to AFE Makerspace
@@ -107,15 +118,27 @@ const PhoneNumberVerification: React.FC = () => {
                   </span>
                 )}
               </div>
+              <div className="fixed bottom-0 left-0 w-full px-6 py-4 sm:block md:hidden">
 
-              <div className="w-full">
-                <Button
-                  onClick={handleProceed}
-                  className="w-full h-14 rounded-full bg-incandescent-main text-web-light-background-default font-button1-bold text-lg leading-[170%] hover:bg-incandescent-main hover:text-web-light-background-default"
-                >
-                  Proceed
-                </Button>
+                <div className="w-full">
+                  <Button
+                    onClick={handleProceed}
+                    className="w-full h-14 rounded-full bg-incandescent-main text-web-light-background-default font-button1-bold text-lg leading-[170%] hover:bg-incandescent-main hover:text-web-light-background-default"
+                  >
+                    Proceed
+                  </Button>
+                </div>
               </div>
+
+              <div className="w-full md:block lg:block sm:hidden">
+                  <Button
+                    onClick={handleProceed}
+                    className="w-full h-14 rounded-full bg-incandescent-main text-web-light-background-default font-button1-bold text-lg leading-[170%] hover:bg-incandescent-main hover:text-web-light-background-default"
+                  >
+                    Proceed
+                  </Button>
+                </div>
+
             </div>
           </div>
         </div>
