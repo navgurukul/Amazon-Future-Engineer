@@ -33,7 +33,7 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 flex justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex justify-center bg-black bg-opacity-70">
       <div className="w-full h-auto p-4 md:px-12 bg-white shadow-md min-h-screen bg-bg-surface-default flex flex-col items-center pb-[64px] px-8 sm:px-[16px]">
         <div className="w-full max-w-[592px] h-[75px] mt-[120px] flex items-stretch justify-between px-4 relative md:text-center">
           <Image

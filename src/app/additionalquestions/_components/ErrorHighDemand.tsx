@@ -28,7 +28,7 @@ const ErrorHighDemand: NextPage<ErrorHighDemandProps> = ({ closePopup, errorMess
     };
 
     return (
-        <div className="fixed inset-0 flex bg-black bg-opacity-50 items-end justify-center lg:items-center z-50">
+        <div className="fixed inset-0 flex bg-black bg-opacity-70 items-end justify-center lg:items-center z-50">
             <div className="relative w-full lg:w-1/3 shadow-lg rounded-t-lg lg:rounded-lg bg-white flex flex-col justify-start items-center p-4 md:p-auto gap-8 text-left text-lg text-gray-600 font-nunito max-h-[90vh] lg:max-h-[80vh] overflow-y-auto">
 
                 <div className="w-full relative flex justify-end text-5xl text-text-primary font-webtypestyles-h6 cursor-pointer">

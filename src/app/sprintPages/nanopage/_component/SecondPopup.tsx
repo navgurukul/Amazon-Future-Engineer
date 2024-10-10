@@ -100,11 +100,11 @@ const SecondPopup: NextPage = () => {
   return (
 <>
   {/* Overlay background dimming */}
-  <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+  {/* <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div> */}
 
   {/* Popup */}
   <div
-    className="fixed inset-0 flex items-end md:items-center justify-center z-50"
+    className="fixed inset-0 bg-black bg-opacity-70 flex items-end md:items-center justify-center z-50"
   >
     <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-4 md:p-8 flex flex-col items-start gap-4 text-left text-gray-500">
     {/* Header Section */}

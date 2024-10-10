@@ -249,7 +249,7 @@ const HomePage: NextPage = () => {
       </section>
 
       {isPopupOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
           <CreateAClass closePopup={closePopup} />
           {/* <ErrorBookingPopup closePopup={closePopup} /> */}
         </div>
