@@ -374,7 +374,8 @@ const HomePage: NextPage = () => {
                 </div>
                 <div className="text-bodyM md:text-body1 leading-[170%] text-center inline-block text-white font-body1-regular">
                   <span className="font-medium">{`Take a look at the lab through the `}</span>
-                  <b className="text-tomato">virtual tour</b>
+                  {/* <b className="text-tomato">virtual tour</b> */}
+                  <a href="#virtual-tour" className="text-tomato">virtual tour</a>
                 </div>
               </div>
             </article>
@@ -607,11 +608,11 @@ const HomePage: NextPage = () => {
           </div>
           <div className="w-full md:w-auto">
 
-          <a
+          {/* <a
             href="#"
-          >
+          > */}
             <Button variant="proceedWhite" >Take Virtual Tour</Button>
-          </a>
+          {/* </a> */}
           </div>
         </div>
       </section>
