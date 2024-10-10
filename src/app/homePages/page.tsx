@@ -374,7 +374,8 @@ const HomePage: NextPage = () => {
                 </div>
                 <div className="text-bodyM md:text-body1 leading-[170%] text-center inline-block text-white font-body1-regular">
                   <span className="font-medium">{`Take a look at the lab through the `}</span>
-                  <b className="text-tomato">virtual tour</b>
+                  {/* <b className="text-tomato">virtual tour</b> */}
+                  <a href="#virtual-tour" className="text-tomato">virtual tour</a>
                 </div>
               </div>
             </article>
@@ -412,7 +413,8 @@ const HomePage: NextPage = () => {
                   Select a time slot and book your session through our online
                   system or by calling us on
                   <a
-                    href="tel:+916366969292"
+                    href={whatsappLink}
+                    target="_blank"
                     className="text-[#f55c38] cursor-pointer"
                   >
                     {" "}
@@ -545,8 +547,8 @@ const HomePage: NextPage = () => {
               <Button
               variant='proceedWhite'
                 // onClick = {handleLearnMoreMiniClick}
-                // onClick={() => handleLearnMoreClick("mini")}
-                onClick={handleBookSessionClick}
+                onClick={() => handleLearnMoreClick("mini")}
+                // onClick={handleBookSessionClick}
               >
               Learn More
 
@@ -573,8 +575,8 @@ const HomePage: NextPage = () => {
               <Button
               variant='proceedWhite'
                 // onClick = {handleLearnMoreMiniClick}
-                // onClick={() => handleLearnMoreClick("mega")}
-                onClick={handleBookSessionClick}
+                onClick={() => handleLearnMoreClick("mega")}
+                // onClick={handleBookSessionClick}
               >
               Learn More
 
@@ -606,11 +608,11 @@ const HomePage: NextPage = () => {
           </div>
           <div className="w-full md:w-auto">
 
-          <a
+          {/* <a
             href="#"
-          >
+          > */}
             <Button variant="proceedWhite" >Take Virtual Tour</Button>
-          </a>
+          {/* </a> */}
           </div>
         </div>
       </section>
@@ -621,13 +623,14 @@ const HomePage: NextPage = () => {
           Have Questions or Want to Book a Session?
         </div>
         {/* <p className="text-base leading-[170%] font-[Amazon Ember] text-[#3a3a3a] md:text-[20px]"> */}
-        <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray">
-          <strong>
+        {/* <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray"> */}
+        <div className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+          <p>
             <span> Call or Whatsapp us on </span>
-            <a href={whatsappLink} className="text-[#f55c38]">
+            <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
               +916366969292
             </a>
-          </strong>
+          </p>
         </div>
       </section>
       <Footer handleOfflineBooking={handleOfflineBooking} />

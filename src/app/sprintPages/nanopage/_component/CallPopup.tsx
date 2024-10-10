@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+
 interface PopupProps {
   offlinePopup: boolean;
   handleClose: () => void;
@@ -8,6 +9,8 @@ interface PopupProps {
 
 const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
   if (!offlinePopup) return null;
+
+const whatsappLink = `https://wa.me/${6366969292}`;
 
   return (
     <>
@@ -47,7 +50,7 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
 
           <div className=" w-full mt-0 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center">
             <div className="relative leading-[150%] text-center text-heading6 font-heading6-bold text-[#3a3a3a]">
-              <a href="tel:+919875466343" >
+              <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
                 +916366969292
               </a>
             </div>

@@ -1,6 +1,8 @@
 import React from "react";
 
+
 const LastPart = () => {
+  const whatsappLink = `https://wa.me/${6366969292}`;
   return (
     <div className="flex flex-col gap-8 md:mt-4 max-w-full sm:max-w-[70%]">
       <div className="flex flex-col w-full mt-4 gap-4">
@@ -9,7 +11,8 @@ const LastPart = () => {
         </h1>
         <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
           <span>{`Call Us or Whatsapp on `}</span>
-          <a href="tel:+919875466343" className="text-tomato">+916366969292</a>
+          {/* <a href="tel:+919875466343" className="text-tomato">+916366969292</a> */}
+          <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+916366969292</a>
         </p>
       </div>
     </div>
