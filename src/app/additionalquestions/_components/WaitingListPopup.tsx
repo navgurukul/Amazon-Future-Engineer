@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
+
 interface WaitingListPopupProps {
   isOpen: boolean;
   name: string;
@@ -12,6 +13,8 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
   name,
 }) => {
   const router = useRouter();
+
+  const whatsappLink = `https://wa.me/${6366969292}`;
 
   useEffect(() => {
     if (isOpen) {
@@ -112,9 +115,10 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
             <span className="font-medium font-amazon-ember text-darkslategray">{`In the meantime, feel free to call or Whatsapp on `}</span>
             </div>
             <div>
-            <span className="font-extrabold font-amazon-ember text-tomato">
+            {/* <span className="font-extrabold font-amazon-ember text-tomato">
               +916366969292
-            </span>
+            </span> */}
+            <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+916366969292</a>
             </div>
             </div>
           </div>

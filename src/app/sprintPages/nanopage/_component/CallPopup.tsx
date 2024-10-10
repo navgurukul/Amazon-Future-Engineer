@@ -50,7 +50,7 @@ const whatsappLink = `https://wa.me/${6366969292}`;
 
           <div className=" w-full mt-0 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center">
             <div className="relative leading-[150%] text-center text-heading6 font-heading6-bold text-[#3a3a3a]">
-              <a href={whatsappLink} target="_blank">
+              <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
                 +916366969292
               </a>
             </div>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
 
+
 interface ErrorHighDemandProps {
     closePopup: () => void;
     errorMessage: string;
@@ -10,6 +11,8 @@ interface ErrorHighDemandProps {
 
 const ErrorHighDemand: NextPage<ErrorHighDemandProps> = ({ closePopup, errorMessage }) => {
     const router = useRouter();
+
+    const whatsappLink = `https://wa.me/${6366969292}`;
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -48,7 +51,8 @@ const ErrorHighDemand: NextPage<ErrorHighDemandProps> = ({ closePopup, errorMess
                     </p>
                     <p className="self-stretch relative leading-[170%] md:text-center">
                         <span className="font-medium">In the meantime, feel free to call or Whatsapp on </span>
-                        <span className="font-extrabold text-tomato">+916366969292</span>
+                        {/* <span className="font-extrabold text-tomato">+916366969292</span> */}
+                        <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+916366969292</a>
                     </p>
                 </div>
 

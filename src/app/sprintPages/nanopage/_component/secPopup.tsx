@@ -1,4 +1,3 @@
-
 "use client";
 
 import type { NextPage } from 'next';
@@ -6,9 +5,12 @@ import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+
 const SecondPopup: NextPage = () => {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(true);
+
+    const whatsappLink = `https://wa.me/${6366969292}`;
 
     const handleGoToSprints = () => {
         router.push("/sprintPages/nanopage");
@@ -86,7 +88,10 @@ const SecondPopup: NextPage = () => {
                         <div className="self-stretch bg-gainsboro" />
                         <div className="w-full relative text-left md:text-center inline-block text-lg leading-[30.60px]">
                             <span className="text-[#3a3a3a] text-lg font-medium ">In the meantime, feel free to call or Whatsapp on </span>
-                            <span className="text-[#f55c38] text-lg font-extrabold  whitespace-nowrap md:whitespace-normal ">+916366969292</span>
+                            {/* <span className="text-[#f55c38] text-lg font-extrabold  whitespace-nowrap md:whitespace-normal ">+916366969292</span> */}
+                            <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
+                +916366969292
+              </a>
                         </div>
                     </div>
                     <button
