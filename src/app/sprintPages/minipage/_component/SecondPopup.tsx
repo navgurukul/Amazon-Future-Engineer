@@ -5,7 +5,7 @@ const SecondPopup: NextPage = () => {
   return (
     <>
       {/* Backdrop Overlay */}
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+      <div className="fixed inset-0 bg-black bg-opacity-70 z-40"></div>
 
       {/* Popup Dialog */}
       <div

@@ -101,7 +101,7 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
                 </DialogContent>
             </Dialog> */}
             {isOpen && (
-    <div className="fixed inset-0 flex items-end md:items-center justify-center z-50 bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-end md:items-center justify-center z-50 bg-black bg-opacity-70">
         <div className="w-full max-w-[592px] h-auto p-8 bg-white rounded-lg shadow-lg">
             <div className="flex justify-between items-center">
                 <h2 className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold leading-7 sm:leading-9">

@@ -483,7 +483,7 @@ const Header: NextPage<HeaderProps> = ({
                 </Button>
               )}
 
-              <Button
+              {/* <Button
                 variant="proceedWhite"
                 // onClick={handleOfflineBooking}
                 className="flex-1  flex-grow flex justify-center items-center gap-3 px-4 py-2 border-text-primary border-[1px] border-solid box-border"
@@ -501,7 +501,23 @@ const Header: NextPage<HeaderProps> = ({
                 >
                   Chat with Us
                 </a>
-              </Button>
+              </Button> */}
+              <Button
+  variant="proceedWhite"
+  className="flex-1 flex-grow flex justify-center items-center gap-3 px-4 py-2 border-text-primary border-[1px] border-solid box-border"
+  onClick={() => window.open(whatsappLink, '_blank')}
+>
+  <Image
+    alt="WhatsApp Icon"
+    src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
+    width={24}
+    height={24}
+  />
+  <span className="relative font-medium leading-[170%] text-base text-darkslategray">
+    Chat with Us
+  </span>
+</Button>
+
             </div>
           </div>
         )}

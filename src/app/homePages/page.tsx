@@ -13,6 +13,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useCallback, useEffect } from "react";
 
+
 const HomePage: NextPage = () => {
   const router = useRouter();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -105,6 +106,22 @@ const HomePage: NextPage = () => {
     }
   };
 
+  const handleLearnMoreClick = (type: any) => {
+    // const loginData = localStorage.getItem("loginData");
+    // if (loginData) {
+    const cookieData = Cookies.get("loginData");
+    if (cookieData) {
+      if (type === "mini") {
+        router.push("/sprintPages/minipage");
+      } else if (type === "mega") {
+        router.push("/sprintPages/megapage");
+      }
+    } else {
+      // alert("Please login to continue");
+      setIsPopupOpen(true);
+    }
+  };
+
   // Function to close the popup
   const closePopup = () => {
     setIsPopupOpen(false);
@@ -128,19 +145,6 @@ const HomePage: NextPage = () => {
   // const handleLearnMoreMegaClick = () => {
   //   router.push("/sprintPages/megapage");
   // };
-
-  const handleLearnMoreClick = (type: any) => {
-    const loginData = localStorage.getItem("loginData");
-    if (loginData) {
-      if (type === "mini") {
-        router.push("/sprintPages/minipage");
-      } else if (type === "mega") {
-        router.push("/sprintPages/megapage");
-      }
-    } else {
-      alert("Please login to continue");
-    }
-  };
 
   const handleOfflineBooking: () => void = () => {
     setOfflinePopup(true);
@@ -249,7 +253,7 @@ const HomePage: NextPage = () => {
       </section>
 
       {isPopupOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
           <CreateAClass closePopup={closePopup} />
           {/* <ErrorBookingPopup closePopup={closePopup} /> */}
         </div>
@@ -472,7 +476,7 @@ const HomePage: NextPage = () => {
                 into the world of Robotics and AI
               </div>
               <div className="flex flex-row items-center gap-4 mb-[8px] md:mb-[16px]">
-                <figure className="w-11 h-8">
+                <figure className="w-11 h-8 flex items-center">
                   <Image
                     src="./homepage/reshot-icon-time-YEDR7WZV2Q.svg"
                     alt="Icon"
@@ -485,8 +489,8 @@ const HomePage: NextPage = () => {
                   1 Day (3 hours)
                 </p>
               </div>
-              <div className="flex flex-row items-center gap-4 mb-[16px]">
-                <figure className="w-[44px] h-[32px]">
+              <div className="flex flex-row items-center gap-4 mb-[8px] md:mb-[16px]">
+                <figure className="w-11 h-8 flex items-center">
                   <Image
                     src="./homepage/reshot-icon-student-DRC3YF56MU.svg"
                     alt="Student icon"
@@ -503,7 +507,7 @@ const HomePage: NextPage = () => {
               <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular">
                 Registrations are open!
               </div>
-              <div className="pt-6 md:pt-8 w-full md:w-auto">
+              <div className="pt-0 md:pt-4 w-full md:w-auto">
                 <Button
                   variant='proceedWhite'
                   onClick={handleBookSessionClick}
