@@ -546,8 +546,8 @@ const HomePage: NextPage = () => {
               <Button
               variant='proceedWhite'
                 // onClick = {handleLearnMoreMiniClick}
-                // onClick={() => handleLearnMoreClick("mini")}
-                onClick={handleBookSessionClick}
+                onClick={() => handleLearnMoreClick("mini")}
+                // onClick={handleBookSessionClick}
               >
               Learn More
 
@@ -574,8 +574,8 @@ const HomePage: NextPage = () => {
               <Button
               variant='proceedWhite'
                 // onClick = {handleLearnMoreMiniClick}
-                // onClick={() => handleLearnMoreClick("mega")}
-                onClick={handleBookSessionClick}
+                onClick={() => handleLearnMoreClick("mega")}
+                // onClick={handleBookSessionClick}
               >
               Learn More
 
