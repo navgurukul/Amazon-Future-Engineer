@@ -13,6 +13,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useCallback, useEffect } from "react";
 
+
 const HomePage: NextPage = () => {
   const router = useRouter();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -105,6 +106,22 @@ const HomePage: NextPage = () => {
     }
   };
 
+  const handleLearnMoreClick = (type: any) => {
+    // const loginData = localStorage.getItem("loginData");
+    // if (loginData) {
+    const cookieData = Cookies.get("loginData");
+    if (cookieData) {
+      if (type === "mini") {
+        router.push("/sprintPages/minipage");
+      } else if (type === "mega") {
+        router.push("/sprintPages/megapage");
+      }
+    } else {
+      // alert("Please login to continue");
+      setIsPopupOpen(true);
+    }
+  };
+
   // Function to close the popup
   const closePopup = () => {
     setIsPopupOpen(false);
@@ -128,19 +145,6 @@ const HomePage: NextPage = () => {
   // const handleLearnMoreMegaClick = () => {
   //   router.push("/sprintPages/megapage");
   // };
-
-  const handleLearnMoreClick = (type: any) => {
-    const loginData = localStorage.getItem("loginData");
-    if (loginData) {
-      if (type === "mini") {
-        router.push("/sprintPages/minipage");
-      } else if (type === "mega") {
-        router.push("/sprintPages/megapage");
-      }
-    } else {
-      alert("Please login to continue");
-    }
-  };
 
   const handleOfflineBooking: () => void = () => {
     setOfflinePopup(true);
