@@ -17,20 +17,20 @@ const Page = () => {
   const handleBooking: () => void = () => {
     setBookingPopup(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
-    document.body.classList.add("overflow-hidden");
+    // document.body.classList.add("overflow-hidden");
   };
 
   const handleOfflineBooking: () => void = () => {
     setOfflinePopup(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
-    document.body.classList.add("overflow-hidden");
+    // document.body.classList.add("overflow-hidden");
   };
 
   const handleOfflineBookingClose = () => {
     setBookingPopup(false);
     setOpenSecondPopup(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
-    document.body.classList.add("overflow-hidden");
+    // document.body.classList.add("overflow-hidden");
   };
 
   const handleClose = () => {

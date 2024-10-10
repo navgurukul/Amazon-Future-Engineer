@@ -3,20 +3,21 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import React from "react";
 
+
 const Booking = () => {
   const [hasShadow, setHasShadow] = useState<boolean>(true);
   const router = useRouter();
+
+  const whatsappLink = `https://wa.me/${6366969292}`;
+
   const handleRoute = () => {
     router.push("/additionalquestionsMegaPage");
   };
   return (
     <>
       <div className="relative flex flex-col items-center w-full">
-        <div className="relative flex justify-between w-full gap-8 mt-4 md:mt-8">
-          <div
-            className="flex flex-col w-full lg:w-2/3 gap-8"
-            // md:h-[900px] lg:h-[70%]
-          >
+        <div className="relative flex justify-between w-full gap-8 mt-8">
+          <div className="flex flex-col w-full lg:w-2/3 gap-8">
             <div className="w-full">
               {/* <h1 className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left"> */}
               <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
@@ -32,7 +33,7 @@ const Booking = () => {
                 Championship
               </p>
             </div>
-            <div className="flex flex-col w-full mt-0 md:mt-8 gap-4">
+            <div className="flex flex-col w-full mt-8 gap-4">
               {/* <h1 className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left"> */}
               <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
                 Have Questions?
@@ -40,7 +41,7 @@ const Booking = () => {
               {/* <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']"> */}
               <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
                 <span>{`Call Us or Whatsapp on `}</span>
-                <a href="tel:+919875466343" className="text-tomato">+916366969292</a>
+                <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+916366969292</a>
               </p>
             </div>
             {/* <div className="w-full mt-4">
@@ -170,7 +171,7 @@ const Booking = () => {
               onClick={handleRoute}
             >
               <div className="w-full h-12 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer">
-                <div className="leading-[170%] font-medium text-white text-[16px]">
+                <div className="leading-[170%] font-medium text-white">
                   Join Waiting List
                 </div>
               </div>
