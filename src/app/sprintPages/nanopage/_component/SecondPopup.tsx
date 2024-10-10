@@ -139,13 +139,13 @@ const SecondPopup: NextPage = () => {
     </div>
 
     {/* Text Section */}
-    <div className="relative text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-4 leading-[170%]">
+    <div className="relative md:text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-4 leading-[170%]">
       Thank you for requesting a callback! We will reach out to you shortly to discuss and confirm your booking plans.
     {/* <div className="relative text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-8 mb-4 leading-relaxed"> */}
     </div>
 
     {/* Contact Information */}
-    <div className="text-center text-bodyM md:text-body1">
+    <div className="md:text-center text-bodyM md:text-body1">
       <span className="text-[#3a3a3a] font-medium">
         In the meantime, feel free to call or WhatsApp on{" "}
       </span>
@@ -162,7 +162,7 @@ const SecondPopup: NextPage = () => {
     </button> */}
     <div className="w-full flex flex-row items-center justify-center mt-2 md:mt-4">
             <div className="w-full lg:w-auto">
-            <button className="w-full rounded-[100px] flex justify-center items-center cursor-pointer border border-[#f55c38] text-[#f55c38]" onClick={handleGoToSprints}>
+            <button className="w-full rounded-[100px] flex justify-center items-center cursor-pointer border border-[#f55c38] text-[#f55c38] text-bodyM md:text-body1" onClick={handleGoToSprints}>
             <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
               Go to Sprints
             </div>
