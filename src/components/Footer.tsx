@@ -99,7 +99,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
                 width={24}
                 height={24}
               />
-              <a href={whatsappLink} className="relative font-medium leading-[170%] text-base text-darkslategray">
+              <a href={whatsappLink} target="_blank" className="relative font-medium leading-[170%] text-base text-darkslategray">
                 Chat with Us
               </a>
             </Button>
