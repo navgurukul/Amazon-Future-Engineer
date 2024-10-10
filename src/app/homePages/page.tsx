@@ -472,7 +472,7 @@ const HomePage: NextPage = () => {
                 into the world of Robotics and AI
               </div>
               <div className="flex flex-row items-center gap-4 mb-[8px] md:mb-[16px]">
-                <figure className="w-11 h-8">
+                <figure className="w-11 h-8 flex items-center">
                   <Image
                     src="./homepage/reshot-icon-time-YEDR7WZV2Q.svg"
                     alt="Icon"
@@ -485,8 +485,8 @@ const HomePage: NextPage = () => {
                   1 Day (3 hours)
                 </p>
               </div>
-              <div className="flex flex-row items-center gap-4 mb-[16px]">
-                <figure className="w-[44px] h-[32px]">
+              <div className="flex flex-row items-center gap-4 mb-[8px] md:mb-[16px]">
+                <figure className="w-11 h-8 flex items-center">
                   <Image
                     src="./homepage/reshot-icon-student-DRC3YF56MU.svg"
                     alt="Student icon"
@@ -503,7 +503,7 @@ const HomePage: NextPage = () => {
               <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular">
                 Registrations are open!
               </div>
-              <div className="pt-6 md:pt-8 w-full md:w-auto">
+              <div className="pt-0 md:pt-4 w-full md:w-auto">
                 <Button
                   variant='proceedWhite'
                   onClick={handleBookSessionClick}
