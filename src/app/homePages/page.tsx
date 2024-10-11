@@ -191,7 +191,7 @@ const HomePage: NextPage = () => {
 
       <section className="relative w-full h-[868px] md:h-auto md:min-h-screen">
         <video
-          src="./homepage/video.mp4"
+          src="./homepage/video-m.mp4"
           className="absolute top-0 left-0 w-full h-full object-cover brightness-50 bg-black-600"
           autoPlay
           muted
@@ -291,7 +291,7 @@ const HomePage: NextPage = () => {
 
         <div className="relative w-full overflow-hidden flex flex-row items-start justify-start gap-4 px-4 md:px-12">
           {/* Figures for medium and large screens */}
-          <figure className="hidden md:block flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[32.5%] md:h-[360px]">
+          <figure className="hidden md:block flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[25%] md:h-[360px]">
             <Image
               className="object-cover w-full h-full rounded-md"
               alt={images[0].alt}
@@ -300,7 +300,7 @@ const HomePage: NextPage = () => {
               height={images[0].height}
             />
           </figure>
-          <figure className="hidden md:block flex-none w-[calc(100vw-32px)] h-[calc((100vw-32px)*0.6)] md:w-[32.5%] md:h-[360px] z-10">
+          <figure className="hidden md:block flex-none w-[calc(100vw-32px)] h-[calc((100vw-32px)*0.6)] md:w-[48%] md:h-[360px] z-10">
             <Image
               className="object-cover w-full h-full rounded-md"
               alt={images[1].alt}
@@ -309,7 +309,7 @@ const HomePage: NextPage = () => {
               height={images[1].height}
             />
           </figure>
-          <figure className="hidden md:block flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[32.5%] md:h-[360px] z-10">
+          <figure className="hidden md:block flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[25%] md:h-[360px] z-10">
             <Image
               className="object-cover w-full h-full rounded-md"
               alt={images[2].alt}
