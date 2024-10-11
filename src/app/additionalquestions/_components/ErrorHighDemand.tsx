@@ -83,7 +83,7 @@ const ErrorHighDemand: NextPage<ErrorHighDemandProps> = ({ closePopup, errorMess
 
     <div className="w-full flex items-center justify-center mt-4">
                     <Image
-                        className="w-full max-w-full h-[160px] relative max-w-full overflow-hidden shrink-0"
+                        className="w-full  h-[160px] relative max-w-full overflow-hidden shrink-0"
                         alt=""
                         src="/nanopage/HighDemandError.svg"
                         width={160}
