@@ -2,9 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import React, { useState, ChangeEvent } from "react";
-import { Eye, EyeOff } from "lucide-react"; // Import shadcn icons
+import { Eye, EyeOff } from "lucide-react";
+import { adminLogin } from "@/utils/api"
+import { useRouter } from "next/navigation";
 
 const UserLogin: React.FC = () => {
+  const router = useRouter()
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -15,6 +18,17 @@ const UserLogin: React.FC = () => {
     setUsername(event.target.value);
     setUsernameError("");
   };
+
+  const userAuth = async () => {
+    try {
+      const response = await adminLogin(username, password);
+      localStorage.setItem('adminLoginData', JSON.stringify(response));
+      router.push("/admin/dashboard/upcomingBookings")
+    } catch (error) {
+      console.error("Error logging in:", error);
+      setPasswordError("Invalid username or password");
+    }
+  }
 
   const handlePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
@@ -39,17 +53,7 @@ const UserLogin: React.FC = () => {
     }
 
     if (valid) {
-      try {
-        await fetch("https://dev-afe.samyarth.org/api/v1/auth/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password }),
-        });
-        // Handle successful login
-      } catch (error) {
-        console.error("Error logging in:", error);
-        setPasswordError("Invalid username or password");
-      }
+      await userAuth();
     }
   };
 
@@ -137,9 +141,9 @@ const UserLogin: React.FC = () => {
                   onClick={togglePasswordVisibility}
                 >
                   {!showPassword ? (
-                    <EyeOff className="w-5 h-5 text-gray-500" /> // EyeOff icon from shadcn
+                    <EyeOff className="w-5 h-5 text-gray-500" />
                   ) : (
-                    <Eye className="w-5 h-5 text-gray-500" /> // Eye icon from shadcn
+                    <Eye className="w-5 h-5 text-gray-500" />
                   )}
                 </div>
               </div>
