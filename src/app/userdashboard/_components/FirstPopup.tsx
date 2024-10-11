@@ -119,7 +119,7 @@ const FirstPopup: NextPage<FirstPopupProps> = ({
 // </Dialog>
 <>
 {isOpen && (
-  <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black bg-opacity-50">
+  <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black bg-opacity-70">
     {/* Modal Content */}
     <div className="bg-white w-full md:max-w-lg p-4 md:p-6 md:h-auto rounded-t-lg md:rounded-lg shadow-lg relative">
       
