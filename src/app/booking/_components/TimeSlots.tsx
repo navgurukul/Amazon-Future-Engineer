@@ -40,6 +40,13 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     }
   }, [selectedDate, events]);
 
+  useEffect(()=>{
+    const phoneNumber = localStorage.getItem("loginData")
+    ? JSON.parse(localStorage.getItem("loginData") || "{}").data.phone
+    : "";
+    setPhone(phoneNumber)
+  },[])
+
   const getAvailableSlots = (): Slot[] => {
     const fixedSlots = [
       { time: "10:00 AM to 1:00 PM", apiTime: "10:00" },
@@ -91,15 +98,15 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     setPhoneError(null);
     setStudentsError(null);
 
-    const phonePattern = /^[6-9]\d{9}$/;
-    if (phone.length !== 10) {
-      setPhoneError("Please enter a 10-digit phone number.");
-      return;
-    }
-    if (!phonePattern.test(phone)) {
-      setPhoneError("Please enter a phone number starting with 6 or above.");
-      return;
-    }
+    // const phonePattern = /^[6-9]\d{9}$/;
+    // if (phone.length !== 10) {
+    //   setPhoneError("Please enter a 10-digit phone number.");
+    //   return;
+    // }
+    // if (!phonePattern.test(phone)) {
+    //   setPhoneError("Please enter a phone number starting with 6 or above.");
+    //   return;
+    // }
 
     const studentCount = parseInt(students);
     const minStudents = selectedSlot?.capacity === 40 ? 12 : 1;
@@ -212,8 +219,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               <span>Phone Number</span>
               <span className="text-incandescent-main">*</span>
             </div>
-            <div className="relative flex items-center w-full">
-              <span className="absolute left-4 text-[#3a3a3a] text-lg font-medium">+91</span>
+            <div className="relative flex items-center w-full bg-[#dedede] rounded-full">
+              {/*<span className="absolute left-4 text-[#3a3a3a] text-lg font-medium">+91</span>*/}
               <input
                 type="tel"
                 name="phone"
@@ -221,7 +228,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="xxxxxxxxxx"
                 required
-                className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-lg w-full pl-12"
+                disabled
+                className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-lg w-full"
               />
             </div>
             {phoneError && (

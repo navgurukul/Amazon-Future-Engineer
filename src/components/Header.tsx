@@ -232,9 +232,8 @@ const Header: NextPage<HeaderProps> = ({
                         </>
                       ) : (
                         <div className="flex gap-4 justify-center items-center">
-                          <Button
-                            variant="proceedWhite"
-                            className="w-auto mx-auto flex items-center h-10 rounded-full p-1 gap-1 bg-incandescent-light"
+                          <div
+                            className="w-auto mx-auto p-2 h-[48px] flex items-center rounded-full md:gap-1 gap-2  bg-incandescent-light"
                           >
                             <Button
                               variant={
@@ -245,7 +244,7 @@ const Header: NextPage<HeaderProps> = ({
                               className={`${
                                 currentLang !== "en" &&
                                 "text-black bg-transparent"
-                              } h-8`}
+                              } h-8 py-2 px-3`}
                               onClick={handleLanguageToggle}
                             >
                               Eng
@@ -259,12 +258,12 @@ const Header: NextPage<HeaderProps> = ({
                               className={`${
                                 currentLang === "en" &&
                                 "text-black bg-transparent"
-                              } h-8`}
+                              } h-8 py-2 px-3`}
                               onClick={handleLanguageToggle}
                             >
                               ಅಇಈ
                             </Button>
-                          </Button>
+                          </div>
                           <Image
                             className="object-cover rounded-full cursor-pointer"
                             alt="User Avatar"
@@ -282,9 +281,9 @@ const Header: NextPage<HeaderProps> = ({
             ) : (
               <>
                 {/* Language Selector for desktop */}
-                <Button
-                  variant="proceedWhite"
-                  className={`flex items-center rounded-full md:gap-1 gap-2  bg-${
+                <div
+                 
+                  className={` p-2  h-[48px] flex items-center rounded-full md:gap-1 gap-2  bg-${
                     headerBgColor !== "transparent" || bgColor != "home"
                       ? "incandescent-light"
                       : "white"
@@ -294,7 +293,7 @@ const Header: NextPage<HeaderProps> = ({
                     variant={currentLang === "en" ? "proceed" : "proceedWhite"}
                     className={`${
                       currentLang !== "en" && "text-black bg-transparent"
-                    } h-8`}
+                    } h-8 py-2 px-3`}
                     onClick={handleLanguageToggle}
                   >
                     Eng
@@ -303,12 +302,12 @@ const Header: NextPage<HeaderProps> = ({
                     variant={currentLang !== "en" ? "proceed" : "proceedWhite"}
                     className={`${
                       currentLang === "en" && "text-black bg-transparent"
-                    } h-8`}
+                    } h-8 py-2 px-3`}
                     onClick={handleLanguageToggle}
                   >
                     ಅಇಈ
                   </Button>
-                </Button>
+                </div>
 
                 {/* Helpdesk Section */}
                 {(headerBgColor === "bg-white" || bgColor !== "home") && (
@@ -424,9 +423,9 @@ const Header: NextPage<HeaderProps> = ({
                       Login
                     </Button>
                   )}
-                  <Button
-                    variant="proceedWhite"
-                    className="w-auto mx-auto flex items-center h-10 rounded-full p-1 gap-1 bg-incandescent-light"
+                  <div
+                 
+                    className="w-auto mx-auto p-2 h-[48px] flex items-center rounded-full md:gap-1 gap-2  bg-incandescent-light"
                   >
                     <Button
                       variant={
@@ -434,7 +433,7 @@ const Header: NextPage<HeaderProps> = ({
                       }
                       className={`${
                         currentLang !== "en" && "text-black bg-transparent"
-                      } h-8`}
+                      } h-8 px-8 py-3`}
                       onClick={handleLanguageToggle}
                     >
                       Eng
@@ -445,12 +444,12 @@ const Header: NextPage<HeaderProps> = ({
                       }
                       className={`${
                         currentLang === "en" && "text-black bg-transparent"
-                      } h-8`}
+                      } h-8 px-8 py-3`}
                       onClick={handleLanguageToggle}
                     >
                       ಅಇಈ
                     </Button>
-                  </Button>
+                  </div>
                 </div>
               )}
             </div>

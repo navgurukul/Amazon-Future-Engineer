@@ -10,7 +10,7 @@ const Page: NextPage = () => {
       <div
         className="hidden md:block h-full bg-no-repeat bg-center"
         style={{
-          backgroundImage: 'url("/login/Rectangle 5.svg")',
+          backgroundImage: 'url("/login/Rectangle5-4.jpeg")',
           backgroundSize: "cover",
         }}
       ></div>

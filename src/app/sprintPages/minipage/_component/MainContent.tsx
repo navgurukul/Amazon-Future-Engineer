@@ -236,17 +236,17 @@ const MainContent:NextPage  = () => {
       <section className="hidden md:flex flex-col gap-6">
         <div className="flex flex-row gap-6 justify-between">
           <figure className="w-full sm:w-[50%] h-auto">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 4.jpeg" alt="First Image" />
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMi1.jpeg" alt="First Image" />
           </figure>
           <figure className="w-full sm:w-[50%] h-auto relative">
-            <img className="rounded-md w-full h-full object-cover absolute z-10" src="/nanopage/Rectangle 32.jpeg" alt="Second Image" />
+            <img className="rounded-md w-full h-full object-cover absolute z-10" src="/nanopage/RectangleMi2.jpeg" alt="Second Image" />
             <img className="hidden md:block absolute top-[-10%] right-[-14%] h-auto w-[20%] z-0" src="/nanopage/brackets.svg" alt="Brackets" />
           </figure>
          {/* <img className="hidden md:block w-full absolute m-0 max-w-[100%] top-[27rem] left-[38.1rem] h-[6rem] z-0" src="/nanopage/brackets.svg" alt="brackets" /> */}
         </div>
         <div className="flex flex-row gap-6 justify-between">
           <figure className="w-full sm:w-[33.33%] h-auto relative">
-            <img className="rounded-md w-full h-full object-cover absolute z-10" src="/nanopage/Rectangle 4.jpeg" alt="Third Image" />
+            <img className="rounded-md w-full h-full object-cover absolute z-10" src="/nanopage/RectangleMi3.jpeg" alt="Third Image" />
             <img
         className="hidden md:block absolute bottom-[-5%] left-[-22%] w-[25%] h-auto z-0"
         src="/nanopage/colon.svg"
@@ -254,10 +254,10 @@ const MainContent:NextPage  = () => {
         />
           </figure>
           <figure className="w-full sm:w-[33.33%] h-auto">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Fourth Image" />
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMi4.jpeg" alt="Fourth Image" />
           </figure>
           <figure className="w-full sm:w-[33.33%] h-auto">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Fifth Image" />
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMi5.jpeg" alt="Fifth Image" />
           </figure>
           {/*<img className="hidden md:block w-full absolute m-0 max-w-[100%] top-[58rem] left-[-38.8rem] h-[6rem] z-0" src="/nanopage/colon.svg" alt="colon" /> */}
         </div>
@@ -265,19 +265,19 @@ const MainContent:NextPage  = () => {
       <section className="flex md:hidden overflow-x-auto no-scrollbar">
         <div className="flex flex-row gap-6">
           <figure className="w-[80%] h-auto flex-shrink-0">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 4.jpeg" alt="First Image" />
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMi1.jpeg" alt="First Image" />
           </figure>
           <figure className="w-[80%] h-auto flex-shrink-0">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Second Image" />
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMi2.jpeg" alt="Second Image" />
           </figure>
           <figure className="w-[80%] h-auto flex-shrink-0">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 4.jpeg" alt="Third Image" />
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMi3.jpeg" alt="Third Image" />
           </figure>
           <figure className="w-[80%] h-auto flex-shrink-0">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Fourth Image" />
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMi4.jpeg" alt="Fourth Image" />
           </figure>
           <figure className="w-[80%] h-auto flex-shrink-0">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle 32.jpeg" alt="Fifth Image" />
+            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMi5.jpeg" alt="Fifth Image" />
           </figure>
         </div>
       </section>
