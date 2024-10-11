@@ -83,7 +83,7 @@ const ErrorHighDemand: NextPage<ErrorHighDemandProps> = ({ closePopup, errorMess
 
     <div className="w-full flex items-center justify-center mt-4">
                     <Image
-                        className="w-full max-w-full h-[160px] relative max-w-full overflow-hidden shrink-0"
+                        className="w-full  h-[160px] relative max-w-full overflow-hidden shrink-0"
                         alt=""
                         src="/nanopage/HighDemandError.svg"
                         width={160}
@@ -92,7 +92,7 @@ const ErrorHighDemand: NextPage<ErrorHighDemandProps> = ({ closePopup, errorMess
     </div>
 
     <div className="relative md:text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-4 leading-[170%]">
-      We're experiencing a very high demand right now. Please try booking your sprint again in a few minutes. We apologize for the inconvenience
+      We are experiencing a very high demand right now. Please try booking your sprint again in a few minutes. We apologize for the inconvenience
     </div>
 
     <div className="md:text-center text-bodyM md:text-body1">
