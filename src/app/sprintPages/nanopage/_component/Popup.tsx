@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { callBookingQuery } from "@/utils/api";
 import Image from "next/image";
 
@@ -18,6 +18,14 @@ const Popup: React.FC<PopupProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+
+  useEffect(()=>{
+    const phoneNumber = localStorage.getItem("loginData")
+    ? JSON.parse(localStorage.getItem("loginData") || "{}").data.phone
+    : "";
+    setPhoneNumber(phoneNumber)
+  },[])
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -28,20 +36,20 @@ const Popup: React.FC<PopupProps> = ({
     setErrorMessage(null);
 
     // Phone number validation
-    if (!phoneNumber) {
-      setErrorMessage("Please enter a phone number to proceed");
-      return;
-    }
+    // if (!phoneNumber) {
+    //   setErrorMessage("Please enter a phone number to proceed");
+    //   return;
+    // }
 
-    if (phoneNumber.length !== 10) {
-      setErrorMessage("Please enter a 10-digit phone number");
-      return;
-    }
+    // if (phoneNumber.length !== 10) {
+    //   setErrorMessage("Please enter a 10-digit phone number");
+    //   return;
+    // }
 
-    if (!phonePattern.test(phoneNumber)) {
-      setErrorMessage("Please enter a phone number starting with 6 or above");
-      return;
-    }
+    // if (!phonePattern.test(phoneNumber)) {
+    //   setErrorMessage("Please enter a phone number starting with 6 or above");
+    //   return;
+    // }
     const programData = JSON.parse(localStorage.getItem('programData') || '[]');
     const nanoProgram = programData.find((program: any) => program.title === "NANO");
 
@@ -67,17 +75,17 @@ const Popup: React.FC<PopupProps> = ({
     const phoneInput = e.target.value;
 
     // Allow only numerical characters
-    if (/^\d*$/.test(phoneInput) && phoneInput.length <= 10) {
-      setPhoneNumber(phoneInput);
-    }
+    // if (/^\d*$/.test(phoneInput) && phoneInput.length <= 10) {
+    //   setPhoneNumber(phoneInput);
+    // }
   };
 
   if (!offlinePopup) return null;
 
   return (
     <>
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
-      <div className="fixed inset-0 flex items-end md:items-center justify-center z-50">
+      {/* <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div> */}
+      <div className="fixed inset-0 bg-black bg-opacity-70 flex items-end md:items-center justify-center z-50">
         <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-4 md:p-8 flex flex-col items-start gap-4 text-left text-gray-500">
           <div className="flex items-center justify-between w-full mb:2 md:mb-4">
             {/* <div className="font-extrabold text-[#3a3a3a] leading-9 text-xl md:text-2xl lg:text-3xl md:leading-10 lg:leading-[40px]"> */}
@@ -132,11 +140,12 @@ const Popup: React.FC<PopupProps> = ({
               <input
                 id="phone"
                 type="tel"
-                className="w-full h-12 flex items-center justify-start px-4 border border-gray-700 rounded-full text-base text-gray-700"
+                className="w-full h-12 flex items-center justify-start px-4 border border-gray-700 rounded-full text-base text-gray-700 bg-[#dedede]"
                 placeholder="Eg. xxxx-xxxxxxx"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 required
+                disabled
               />
               {error && <div className="text-red-500 text-sm">{error}</div>}
               {errorMessage && <div className="text-red-500 text-sm">{errorMessage}</div>}

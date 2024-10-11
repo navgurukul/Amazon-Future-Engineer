@@ -1,11 +1,12 @@
-
 "use client";
+
+import { Button } from "./ui/button";
+import Cookies from "js-cookie";
 import { NextPage } from "next";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
-import Cookies from 'js-cookie';
 
 interface HeaderProps {
   bgColor: string;
@@ -33,7 +34,8 @@ const Header: NextPage<HeaderProps> = ({
   const [headerBgColor, setHeaderBgColor] = useState<string>("transparent");
   const [currentLang, setCurrentLang] = useState<"en" | "kn">("en");
   const [showBothButtons, setShowBothButtons] = useState<boolean>(false);
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState<boolean>(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] =
+    useState<boolean>(false);
 
   const isLandingPage = pathname === "/";
 
@@ -123,16 +125,16 @@ const Header: NextPage<HeaderProps> = ({
   };
 
   const handleDashboardClick = () => {
-    router.push('/userdashboard');
+    router.push("/userdashboard");
     setIsProfileDropdownOpen(false);
   };
 
   const handleLogoutClick = () => {
-    Cookies.remove('loginData')
-    localStorage.removeItem('loginData');
+    Cookies.remove("loginData");
+    localStorage.removeItem("loginData");
     setProfileOpen(null);
     setIsProfileDropdownOpen(false);
-    router.push('/');
+    router.push("/");
   };
 
   const whatsappLink = `https://wa.me/${6366969292}`;
@@ -140,7 +142,7 @@ const Header: NextPage<HeaderProps> = ({
   return (
     <>
       <div
-        className={`fixed w-full ${
+        className={`fixed z-50 w-full ${
           isDropdownOpen || bgColor !== "home" ? "bg-white" : headerBgColor
         } text-center text-[14px] text-white transition-shadow duration-300 ${
           hasShadow && !isDropdownOpen
@@ -153,34 +155,20 @@ const Header: NextPage<HeaderProps> = ({
         <div className="mx-auto flex justify-between items-center h-full">
           {/* Reshot Icon */}
           <div className="hidden md:flex items-center gap-[5px]">
-            <Image
-              className="object-contain cursor-pointer mt-2"
-              alt="Reshot Icon"
-              src={`/login/Group (${
-                headerBgColor === "transparent" &&
-                bgColor === "home" &&
-                !isDropdownOpen
-                  ? "8"
-                  : "2"
-              }).svg`}
-              onClick={onReshotIconClick}
-              width={64}
-              height={64}
-            />
-            <Image
-              className="object-contain cursor-pointer"
-              alt="Reshot Icon"
-              src={`/login/Group (${
-                headerBgColor === "transparent" &&
-                bgColor === "home" &&
-                !isDropdownOpen
-                  ? "9"
-                  : "3"
-              }).svg`}
-              onClick={onReshotIconClick}
-              width={150}
-              height={70}
-            />
+            <div className="hidden md:flex">
+              <Image
+                className="object-contain cursor-pointer"
+                alt="Reshot Icon"
+                src={
+                  headerBgColor == "transparent" && bgColor === "home"
+                    ? "/login/afe_subbrand_logo_horizontal_white.svg"
+                    : "/login/afe_subbrand_logo_horizontal_blue.svg"
+                }
+                // onClick={onReshotIconClick}
+                width={254}
+                height={40}
+              />
+            </div>
           </div>
           <div className="md:hidden">
             <Image
@@ -193,18 +181,20 @@ const Header: NextPage<HeaderProps> = ({
                   ? "11"
                   : "12"
               }).svg`}
-              onClick={onReshotIconClick}
-              width={120}
-              height={40}
+              // onClick={onReshotIconClick}
+              // width={120}
+              // height={40}
+              width={100}
+              height={30}
             />
           </div>
           {/* Right side buttons */}
-          <div className="flex items-center gap-4 sm:gap-8">
+          <div className="flex items-center md:gap-4 gap-8">
             {isMobile ? (
               <>
                 {/* Hamburger icon */}
                 <div
-                  className="h-[32px] flex flex-col items-end justify-center p-2 px-1 gap-[6px] cursor-pointer"
+                  className="h-[32px] flex flex-col items-end justify-center p-2 px-1 gap-[6px] cursor-pointer text-darkslategray"
                   onClick={toggleDropdown}
                 >
                   {isDropdownOpen ? (
@@ -216,27 +206,74 @@ const Header: NextPage<HeaderProps> = ({
                     />
                   ) : (
                     <>
-                      <div
-                        className={`w-[24px] h-[2px] relative rounded-full ${
-                          headerBgColor === "transparent" && !isDropdownOpen
-                            ? "bg-white"
-                            : "bg-black"
-                        }`}
-                      />
-                      <div
-                        className={`w-[16px] h-[2px] relative rounded-full ${
-                          headerBgColor === "transparent" && !isDropdownOpen
-                            ? "bg-white"
-                            : "bg-black"
-                        }`}
-                      />
-                      <div
-                        className={`w-[8px] h-[2px] relative rounded-full ${
-                          headerBgColor === "transparent" && !isDropdownOpen
-                            ? "bg-white"
-                            : "bg-black"
-                        }`}
-                      />
+                      {bgColor == "home" ? (
+                        <>
+                          <div
+                            className={`w-[24px] h-[2px] relative rounded-full ${
+                              headerBgColor === "transparent" && !isDropdownOpen
+                                ? "bg-white"
+                                : "bg-black"
+                            }`}
+                          />
+                          <div
+                            className={`w-[16px] h-[2px] relative rounded-full ${
+                              headerBgColor === "transparent" && !isDropdownOpen
+                                ? "bg-white"
+                                : "bg-black"
+                            }`}
+                          />
+                          <div
+                            className={`w-[8px] h-[2px] relative rounded-full ${
+                              headerBgColor === "transparent" && !isDropdownOpen
+                                ? "bg-white"
+                                : "bg-black"
+                            }`}
+                          />
+                        </>
+                      ) : (
+                        <div className="flex gap-4 justify-center items-center">
+                          <div
+                            className="w-auto mx-auto p-2 h-[48px] flex items-center rounded-full md:gap-1 gap-2  bg-incandescent-light"
+                          >
+                            <Button
+                              variant={
+                                currentLang === "en"
+                                  ? "proceed"
+                                  : "proceedWhite"
+                              }
+                              className={`${
+                                currentLang !== "en" &&
+                                "text-black bg-transparent"
+                              } h-8 py-2 px-3`}
+                              onClick={handleLanguageToggle}
+                            >
+                              Eng
+                            </Button>
+                            <Button
+                              variant={
+                                currentLang !== "en"
+                                  ? "proceed"
+                                  : "proceedWhite"
+                              }
+                              className={`${
+                                currentLang === "en" &&
+                                "text-black bg-transparent"
+                              } h-8 py-2 px-3`}
+                              onClick={handleLanguageToggle}
+                            >
+                              ಅಇಈ
+                            </Button>
+                          </div>
+                          <Image
+                            className="object-cover rounded-full cursor-pointer"
+                            alt="User Avatar"
+                            src="/login/avatarIcon.svg"
+                            width={48}
+                            height={48}
+                            onClick={handleProfileClick}
+                          />
+                        </div>
+                      )}
                     </>
                   )}
                 </div>
@@ -245,59 +282,56 @@ const Header: NextPage<HeaderProps> = ({
               <>
                 {/* Language Selector for desktop */}
                 <div
-                  className={`flex items-center h-10 sm:h-12 rounded-full p-1 sm:p-2 gap-1 sm:gap-2 bg-${
+                 
+                  className={` p-2  h-[48px] flex items-center rounded-full md:gap-1 gap-2  bg-${
                     headerBgColor !== "transparent" || bgColor != "home"
                       ? "incandescent-light"
                       : "white"
                   }`}
                 >
-                  <div
-                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${
-                      currentLang === "en"
-                        ? "bg-[#F55C38] text-white"
-                        : "text-[#F55C38]"
-                    }`}
+                  <Button
+                    variant={currentLang === "en" ? "proceed" : "proceedWhite"}
+                    className={`${
+                      currentLang !== "en" && "text-black bg-transparent"
+                    } h-8 py-2 px-3`}
                     onClick={handleLanguageToggle}
                   >
-                    <div className="text-sm sm:text-base font-medium cursor-pointer">
-                      Eng
-                    </div>
-                  </div>
-                  <div
-                    className={`flex items-center justify-center rounded-full h-8 px-3 py-2 ${
-                      currentLang === "kn"
-                        ? "bg-[#F55C38] text-white"
-                        : "text-[#F55C38]"
-                    }`}
+                    Eng
+                  </Button>
+                  <Button
+                    variant={currentLang !== "en" ? "proceed" : "proceedWhite"}
+                    className={`${
+                      currentLang === "en" && "text-black bg-transparent"
+                    } h-8 py-2 px-3`}
                     onClick={handleLanguageToggle}
                   >
-                    <div className="text-sm sm:text-base font-medium cursor-pointer">
-                      ಅಇಈ
-                    </div>
-                  </div>
+                    ಅಇಈ
+                  </Button>
                 </div>
 
                 {/* Helpdesk Section */}
                 {(headerBgColor === "bg-white" || bgColor !== "home") && (
-                  <div
-                    className="hidden sm:flex flex-row items-center justify-center gap-2 px-6 py-2 rounded-full bg-[#FFF] text-[#F55C38] border-2 border-[#F55C38] cursor-pointer"
+                  <Button
+                    variant="proceedWhite"
                     onClick={handleOfflineBooking}
+                    className="flex-grow flex justify-center items-center gap-3 px-4 py-2 border-2 border-[#F55C38] "
                   >
                     <Image
-                      className="w-8 h-8 object-cover"
                       alt="Helpdesk Icon"
                       src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
-                      width={32}
-                      height={32}
+                      width={24}
+                      height={24}
                     />
-                    <div className="font-medium leading-[170%]">Call Us</div>
-                  </div>
+                    <span className="relative font-medium leading-[170%] text-base">
+                      Call Us
+                    </span>
+                  </Button>
                 )}
 
                 {profileOpen ? (
                   <div className="relative">
                     <Image
-                      className="w-10 h-10 sm:w-14 sm:h-14 object-cover rounded-full cursor-pointer"
+                      className="object-cover rounded-full cursor-pointer"
                       alt="User Avatar"
                       src="/login/avatarIcon.svg"
                       width={56}
@@ -305,116 +339,184 @@ const Header: NextPage<HeaderProps> = ({
                       onClick={handleProfileClick}
                     />
                     {isProfileDropdownOpen && (
-                      <div className={`absolute right-0 mt-2 ${isMobile ? 'w-screen' : 'w-48'} bg-white rounded-md shadow-lg z-50`}>
+                      <div
+                        className={`absolute right-0 mt-2 ${
+                          isMobile ? "w-screen" : "w-48"
+                        } bg-white rounded-md shadow-lg z-50`}
+                      >
                         <div className="py-2">
                           <button
                             onClick={handleDashboardClick}
                             className="block w-full text-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition duration-150 ease-in-out"
                           >
-                          <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-text-primary text-center">Dashboard</div>
+                            <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-text-primary text-center">
+                              Dashboard
+                            </div>
                           </button>
                           <button
                             onClick={handleLogoutClick}
                             className="block w-full text-center px-4 py-3 text-sm text-red-600 hover:bg-gray-100 transition duration-150 ease-in-out"
                           >
-                          <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-incandescent-main text-center">Logout</div>
+                            <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-incandescent-main text-center">
+                              Logout
+                            </div>
                           </button>
                         </div>
                       </div>
                     )}
                   </div>
                 ) : (
-                  <nav
-                    className="flex items-center justify-center h-12 bg-[#FFF] rounded-full p-2 px-4 sm:px-8 gap-2 sm:gap-3 text-base sm:text-lg text-[#F55C38] cursor-pointer"
+                  <Button
+                    variant={
+                      headerBgColor === "transparent"
+                        ? "proceedWhite"
+                        : "proceed"
+                    }
                     onClick={handleBookSessionClick}
                   >
-                    <span className="relative font-medium leading-[170%]">
-                      Login
-                    </span>
-                  </nav>
+                    Login
+                  </Button>
                 )}
               </>
             )}
           </div>
           {isMobile && isDropdownOpen && (
             <div className="fixed w-full top-[104px] bg-[#FFF] left-0 shadow-lg z-40 rounded-b-2xl">
-              <div className="p-4 flex flex-col items-center gap-4">
-                {profileOpen ? (
-                  <Image
-                    className="w-10 h-10 object-cover rounded-full"
-                    alt="User Avatar"
-                    src="/login/avatarIcon.svg"
-                    width={40}
-                    height={40}
-                  />
-                ) : (
-                  <button
-                    className="w-full h-12 bg-[#F55C38] rounded-full text-white font-medium"
-                    onClick={handleBookSessionClick}
-                  >
-                    Login
-                  </button>
-                )}
-                <div className="w-auto mx-auto flex items-center h-10 rounded-full p-1 gap-1 bg-incandescent-light">
-                  <div
-                    className={`flex-1 flex items-center justify-center rounded-full h-8 px-3 ${
-                      currentLang === "en"
-                        ? "bg-[#F55C38] text-white"
-                        : "text-[#F55C38]"
-                    }`}
-                    onClick={handleLanguageToggle}
-                  >
-                    <div className="text-sm font-medium cursor-pointer">Eng</div>
-                  </div>
-                  <div
-                    className={`flex-1 flex items-center justify-center rounded-full h-8 px-3 ${
-                      currentLang === "kn"
-                        ? "bg-[#F55C38] text-white"
-                        : "text-[#F55C38]"
-                    }`}
-                    onClick={handleLanguageToggle}
-                  >
-                    <div className="text-sm font-medium cursor-pointer">ಅಇಈ</div>
+              {bgColor !== "home" ? (
+                <div
+                  className={`absolute right-0 mt-2 ${
+                    isMobile ? "w-screen" : "w-48"
+                  } bg-white rounded-md shadow-lg z-50`}
+                >
+                <div className="h-[2px] bg-gray-300 mx-4"></div>
+                  <div className="py-2">
+                    <button
+                      onClick={handleDashboardClick}
+                      className="block w-full text-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition duration-150 ease-in-out"
+                    >
+                      <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-text-primary text-center">
+                        Dashboard
+                      </div>
+                    </button>
+                    <button
+                      onClick={handleLogoutClick}
+                      className="block w-full text-center px-4 py-3 text-sm text-red-600 hover:bg-gray-100 transition duration-150 ease-in-out"
+                    >
+                      <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-incandescent-main text-center">
+                        Logout
+                      </div>
+                    </button>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className="p-4 flex flex-col items-center gap-4">
+                  {profileOpen ? (
+                    <Image
+                      className="w-10 h-10 object-cover rounded-full"
+                      alt="User Avatar"
+                      src="/login/avatarIcon.svg"
+                      width={40}
+                      height={40}
+                    />
+                  ) : (
+                    <Button variant="proceed" onClick={handleBookSessionClick}>
+                      Login
+                    </Button>
+                  )}
+                  <div
+                 
+                    className="w-auto mx-auto p-2 h-[48px] flex items-center rounded-full md:gap-1 gap-2  bg-incandescent-light"
+                  >
+                    <Button
+                      variant={
+                        currentLang === "en" ? "proceed" : "proceedWhite"
+                      }
+                      className={`${
+                        currentLang !== "en" && "text-black bg-transparent"
+                      } h-8 px-8 py-3`}
+                      onClick={handleLanguageToggle}
+                    >
+                      Eng
+                    </Button>
+                    <Button
+                      variant={
+                        currentLang !== "en" ? "proceed" : "proceedWhite"
+                      }
+                      className={`${
+                        currentLang === "en" && "text-black bg-transparent"
+                      } h-8 px-8 py-3`}
+                      onClick={handleLanguageToggle}
+                    >
+                      ಅಇಈ
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
         {/* chat with us and call us button for small screens*/}
         {isMobile && !isDropdownOpen && (
-          <div className={`fixed w-full left-0 right-0 ${headerBgColor} ${hasShadow ? "shadow-md" : ""}`} style={{top: "104px"}}>
+          <div
+            className={`fixed w-full left-0 right-0 ${headerBgColor} ${
+              hasShadow ? "shadow-md" : ""
+            }`}
+            style={{ top: "104px" }}
+          >
             <div className="flex justify-between px-4 space-x-2 py-2">
               {(headerBgColor === "bg-white" || bgColor !== "home") && (
-                <button
-                  className="flex-1 flex items-center justify-center h-12 rounded-full p-2 px-4 gap-2 bg-white text-[#F55C38] border-2 border-[#F55C38] shadow-md"
+                <Button
+                  variant="proceedWhite"
                   onClick={handleOfflineBooking}
+                  className="flex-1 flex-grow flex justify-center items-center gap-3 px-4 py-2 border-2 border-[#F55C38] "
                 >
                   <Image
-                    className="w-6 h-6 overflow-hidden"
                     alt="Helpdesk Icon"
                     src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
                     width={24}
                     height={24}
                   />
-                  <div className="font-medium leading-[170%]">Call Us</div>
-                </button>
+                  <span className="relative font-medium leading-[170%] text-base">
+                    Call Us
+                  </span>
+                </Button>
               )}
-              <a
-                href={whatsappLink}
-                className="flex-1 relative rounded-[100px] border-text-primary border-[1px] border-solid box-border w-full h-12 flex flex-row items-center justify-center py-2 px-4 gap-3 text-center text-base text-text-primary font-mobiletypestyles-buttonlarge bg-white"
+
+              {/* <Button
+                variant="proceedWhite"
+                // onClick={handleOfflineBooking}
+                className="flex-1  flex-grow flex justify-center items-center gap-3 px-4 py-2 border-text-primary border-[1px] border-solid box-border"
               >
                 <Image
-                  className="w-6 relative h-6 overflow-hidden shrink-0"
-                  alt=""
+                  alt="WhatsApp Icon"
                   src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
-                  height={24}
                   width={24}
+                  height={24}
                 />
-                <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-text-primary text-center">
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  className="relative font-medium leading-[170%] text-base text-darkslategray"
+                >
                   Chat with Us
-                </div>
-              </a>
+                </a>
+              </Button> */}
+              <Button
+  variant="proceedWhite"
+  className="flex-1 flex-grow flex justify-center items-center gap-3 px-4 py-2 border-text-primary border-[1px] border-solid box-border"
+  onClick={() => window.open(whatsappLink, '_blank')}
+>
+  <Image
+    alt="WhatsApp Icon"
+    src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
+    width={24}
+    height={24}
+  />
+  <span className="relative font-medium leading-[170%] text-base text-darkslategray">
+    Chat with Us
+  </span>
+</Button>
+
             </div>
           </div>
         )}

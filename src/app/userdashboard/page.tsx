@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useState, useEffect } from "react";
 
+
 interface EventData {
   booking_batch_size: number;
   booking_for: string;
@@ -25,6 +26,8 @@ const Page: NextPage = () => {
   const router = useRouter();
   const [userData, setUserData] = useState<EventData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const whatsappLink = `https://wa.me/${6366969292}`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -196,7 +199,7 @@ const Page: NextPage = () => {
             <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
               For queries, please call or Whatsapp us on {" "}
               <strong>
-              <a href="tel:+919875466343" className="text-[#f55c38]">
+              <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
               +916366969292
             </a>
             </strong>

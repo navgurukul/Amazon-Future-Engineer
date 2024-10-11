@@ -40,6 +40,10 @@ const MiniPage = () => {
   const [miniProgram, setMiniProgram] = useState<MiniProgram | null>(null);
 
   useEffect(() => {
+    const phoneNumber = localStorage.getItem("loginData")
+      ? JSON.parse(localStorage.getItem("loginData") || "{}").data.phone
+      : "";
+      setFormData(prev => ({ ...prev,  phoneNo: phoneNumber }))
     const programData = JSON.parse(localStorage.getItem("programData") || "[]");
     const foundMiniProgram = programData.find((program: { title: string; }) => program.title === "MINI");
     setMiniProgram(foundMiniProgram);
@@ -48,7 +52,7 @@ const MiniPage = () => {
   const validateForm = () => {
     const newErrors: Partial<FormData> = {};
     if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!/^\d{10}$/.test(formData.phoneNo)) newErrors.phoneNo = "Enter a valid 10-digit number";
+    // if (!/^\d{10}$/.test(formData.phoneNo)) newErrors.phoneNo = "Enter a valid 10-digit number";
     if (!formData.schoolName.trim()) newErrors.schoolName = "School name is required";
     if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Enter a valid email";
     if (formData.pincode && !/^\d{6}$/.test(formData.pincode)) newErrors.pincode = "Enter a valid 6-digit pincode";
@@ -64,6 +68,7 @@ const MiniPage = () => {
 
   const handleJoinWaitingList = async () => {
     if (validateForm()) {
+      console.log("Hello")
       try {
         const waitingListData = {
           name: formData.name,
@@ -110,15 +115,16 @@ const MiniPage = () => {
             {key === "city" ? (
               <input className="w-full h-12 md:h-14 px-4 py-2 bg-[#dedede] rounded-full border border-[#3a3a3a]" value={value} readOnly />
             ) : key === "phoneNo" ? (
-              <div className="relative flex items-center">
-                <span className="absolute left-4 text-[#3a3a3a]">+91</span>
+              <div className="relative flex items-center bg-[#dedede] rounded-full">
+                {/*<span className="absolute left-4 text-[#3a3a3a]">+91</span>*/}
                 <input
-                  className="w-full h-12 md:h-14 pl-12 pr-4 py-2 rounded-full border border-[#3a3a3a]"
+                  className="w-full h-12 md:h-14 px-4 py-2 rounded-full border border-[#3a3a3a]"
                   type="tel"
                   name={key}
                   value={value}
                   onChange={handleInputChange}
                   placeholder="xxxxxxxxxx"
+                  disabled
                 />
               </div>
             ) : (

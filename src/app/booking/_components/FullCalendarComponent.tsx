@@ -5,6 +5,7 @@ import FullCalendar from "@fullcalendar/react";
 import Image from "next/image";
 import React, { useRef, useEffect, useState } from "react";
 
+
 interface FullCalendarComponentProps {
   setSelectedDate: (date: Date) => void;
 }
@@ -17,6 +18,8 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   const [selectedDateState, setSelectedDateState] = useState<Date | null>(null);
   // const events = useAllBookings();
   const { events } = useAllBookings();
+
+  const whatsappLink = `https://wa.me/${6366969292}`;
 
   const getMonthYear = (date: Date) => {
     const monthNames = [
@@ -358,7 +361,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
         }}
       />
 
-      <div className="self-stretch flex flex-col items-start justify-start gap-4 px-2 md:pl-[20px]">
+      {/* <div className="self-stretch flex flex-col items-start justify-start gap-4 px-2 md:pl-[20px]">
         <div className="w-full text-lg leading-[170%] font-extrabold font-webtypestyles-subtitle1 text-text-primary text-left">
           Have Questions?
         </div>
@@ -368,6 +371,15 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
             +916366969292
           </span>
         </div>
+      </div> */}
+      <div className="flex flex-col w-full gap-4">
+        <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main font-extrabold">
+          Have Questions?
+        </h1>
+        <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+          <span>{`Call Us or Whatsapp on `}</span>
+          <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+916366969292</a>
+        </p>
       </div>
     </div>
   );

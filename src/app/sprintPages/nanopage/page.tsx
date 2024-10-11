@@ -5,7 +5,7 @@ import Header from "../../../components/Header";
 import CallPopup from "./_component/CallPopup";
 import MainContent from "./_component/MainContent";
 import Popup from "./_component/Popup";
-import SecondPopup from "./_component/secPopup";
+import SecondPopup from "./_component/SecondPopup";
 import React, { useState, useEffect } from "react";
 
 const Page = () => {
@@ -17,20 +17,20 @@ const Page = () => {
   const handleBooking: () => void = () => {
     setBookingPopup(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
-    document.body.classList.add("overflow-hidden");
+    // document.body.classList.add("overflow-hidden");
   };
 
   const handleOfflineBooking: () => void = () => {
     setOfflinePopup(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
-    document.body.classList.add("overflow-hidden");
+    // document.body.classList.add("overflow-hidden");
   };
 
   const handleOfflineBookingClose = () => {
     setBookingPopup(false);
     setOpenSecondPopup(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
-    document.body.classList.add("overflow-hidden");
+    // document.body.classList.add("overflow-hidden");
   };
 
   const handleClose = () => {

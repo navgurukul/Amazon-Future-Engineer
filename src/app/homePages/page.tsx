@@ -13,6 +13,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useCallback, useEffect } from "react";
 
+
 const HomePage: NextPage = () => {
   const router = useRouter();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -25,19 +26,19 @@ const HomePage: NextPage = () => {
   // Array of images
   const images = [
     {
-      src: "/homepage/Rectangle4-2.jpeg",
+      src: "/homepage/Rectangle4-3.jpeg",
       alt: "AFE Hub Image 1",
       width: 480,
       height: 288,
     },
     {
-      src: "/homepage/Rectangle3-2.jpeg",
+      src: "/homepage/Rectangle3-3.jpeg",
       alt: "AFE Hub Image 2",
       width: 640,
       height: 360,
     },
     {
-      src: "/homepage/Rectangle5-2.jpeg",
+      src: "/homepage/Rectangle5-3.jpeg",
       alt: "AFE Hub Image 3",
       width: 480,
       height: 288,
@@ -105,6 +106,22 @@ const HomePage: NextPage = () => {
     }
   };
 
+  const handleLearnMoreClick = (type: any) => {
+    // const loginData = localStorage.getItem("loginData");
+    // if (loginData) {
+    const cookieData = Cookies.get("loginData");
+    if (cookieData) {
+      if (type === "mini") {
+        router.push("/sprintPages/minipage");
+      } else if (type === "mega") {
+        router.push("/sprintPages/megapage");
+      }
+    } else {
+      // alert("Please login to continue");
+      setIsPopupOpen(true);
+    }
+  };
+
   // Function to close the popup
   const closePopup = () => {
     setIsPopupOpen(false);
@@ -128,19 +145,6 @@ const HomePage: NextPage = () => {
   // const handleLearnMoreMegaClick = () => {
   //   router.push("/sprintPages/megapage");
   // };
-
-  const handleLearnMoreClick = (type: any) => {
-    const loginData = localStorage.getItem("loginData");
-    if (loginData) {
-      if (type === "mini") {
-        router.push("/sprintPages/minipage");
-      } else if (type === "mega") {
-        router.push("/sprintPages/megapage");
-      }
-    } else {
-      alert("Please login to continue");
-    }
-  };
 
   const handleOfflineBooking: () => void = () => {
     setOfflinePopup(true);
@@ -237,19 +241,17 @@ const HomePage: NextPage = () => {
               </div>
             </Button>
 
-            <Button variant="proceedWhite">
+            {/* <Button variant="proceedWhite">
               <a href="#virtual-tour">
-                {/* <span className="relative font-medium leading-[170%]"> */}
                 Take Virtual Tour
-                {/* </span> */}
               </a>
-            </Button>
+            </Button> */}
           </div>
         </header>
       </section>
 
       {isPopupOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
           <CreateAClass closePopup={closePopup} />
           {/* <ErrorBookingPopup closePopup={closePopup} /> */}
         </div>
@@ -277,19 +279,19 @@ const HomePage: NextPage = () => {
             </p>
 
             {/* <img className="md:block hidden absolute m-0 top-[7.5rem] left-[63.3rem] max-w-full h-[18.369rem] z-0" src="./homepage/Frame 31751.svg" alt="Coding symbols 1" /> */}
-            <Image
+            {/* <Image
               className="hidden md:block absolute top-[7.5vw] left-[59.8vw] w-[30vw] h-auto max-w-full z-0"
               src="./homepage/Frame 31751.svg"
               alt="Coding symbols 1"
               height={288}
               width={480}
-            />
+            /> */}
           </div>
         </article>
 
         <div className="relative w-full overflow-hidden flex flex-row items-start justify-start gap-4 px-4 md:px-12">
           {/* Figures for medium and large screens */}
-          <figure className="hidden md:block flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[24%] md:h-[360px]">
+          <figure className="hidden md:block flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[32.5%] md:h-[360px]">
             <Image
               className="object-cover w-full h-full rounded-md"
               alt={images[0].alt}
@@ -298,7 +300,7 @@ const HomePage: NextPage = () => {
               height={images[0].height}
             />
           </figure>
-          <figure className="hidden md:block flex-none w-[calc(100vw-32px)] h-[calc((100vw-32px)*0.6)] md:w-[50%] md:h-[360px] z-10">
+          <figure className="hidden md:block flex-none w-[calc(100vw-32px)] h-[calc((100vw-32px)*0.6)] md:w-[32.5%] md:h-[360px] z-10">
             <Image
               className="object-cover w-full h-full rounded-md"
               alt={images[1].alt}
@@ -307,7 +309,7 @@ const HomePage: NextPage = () => {
               height={images[1].height}
             />
           </figure>
-          <figure className="hidden md:block flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[24%] md:h-[360px] z-10">
+          <figure className="hidden md:block flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[32.5%] md:h-[360px] z-10">
             <Image
               className="object-cover w-full h-full rounded-md"
               alt={images[2].alt}
@@ -364,17 +366,18 @@ const HomePage: NextPage = () => {
             <article className="flex flex-col items-center w-full md:w-1/4">
               <Image
                 alt="Step 1"
-                src="/homepage/Lottie flies.gif"
-                width={120}
-                height={120}
+                src="/homepage/reshot-icon-family-visit-95EYAPUK63.svg"
+                width={64}
+                height={64}
               />
               <div>
-                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mb-2">
+                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2">
                   Visit AFE Makerspace Virtually
                 </div>
                 <div className="text-bodyM md:text-body1 leading-[170%] text-center inline-block text-white font-body1-regular">
                   <span className="font-medium">{`Take a look at the lab through the `}</span>
-                  <b className="text-tomato">virtual tour</b>
+                  {/* <b className="text-tomato">virtual tour</b> */}
+                  <a href="#virtual-tour" className="text-tomato">virtual tour</a>
                 </div>
               </div>
             </article>
@@ -382,12 +385,12 @@ const HomePage: NextPage = () => {
             <article className="flex flex-col items-center w-full md:w-1/4">
               <Image
                 alt="Step 2"
-                src="/homepage/Lottie flies.gif"
-                width={120}
-                height={120}
+                src="/homepage/reshot-icon-sprinting-68QMTNKEPC.svg"
+                width={64}
+                height={64}
               />
               <div>
-                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mb-2">
+                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2">
                   Discover Our Programs
                 </div>
                 <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-center">
@@ -400,19 +403,20 @@ const HomePage: NextPage = () => {
             <article className="flex flex-col items-center w-full md:w-1/4">
               <Image
                 alt="Step 3"
-                src="/homepage/Lottie flies.gif"
-                width={120}
-                height={120}
+                src="/homepage/reshot-icon-shape-click-UR7J3LH2YE.svg"
+                width={64}
+                height={64}
               />
               <div>
-                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mb-2">
+                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2">
                   Book Your Session
                 </div>
                 <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-center">
                   Select a time slot and book your session through our online
                   system or by calling us on
                   <a
-                    href="tel:+916366969292"
+                    href={whatsappLink}
+                    target="_blank"
                     className="text-[#f55c38] cursor-pointer"
                   >
                     {" "}
@@ -426,12 +430,12 @@ const HomePage: NextPage = () => {
             <article className="flex flex-col items-center w-full md:w-1/4">
               <Image
                 alt="Step 4"
-                src="/homepage/Lottie flies.gif"
-                width={120}
-                height={120}
+                src="/homepage/reshot-icon-deep-learning-UY68HJABWD.svg"
+                width={64}
+                height={64}
               />
               <div>
-                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mb-2">
+                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2">
                   Visit and Start Learning
                 </div>
                 <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-center">
@@ -470,7 +474,7 @@ const HomePage: NextPage = () => {
                 into the world of Robotics and AI
               </div>
               <div className="flex flex-row items-center gap-4 mb-[8px] md:mb-[16px]">
-                <figure className="w-11 h-8">
+                <figure className="w-11 h-8 flex items-center">
                   <Image
                     src="./homepage/reshot-icon-time-YEDR7WZV2Q.svg"
                     alt="Icon"
@@ -483,8 +487,8 @@ const HomePage: NextPage = () => {
                   1 Day (3 hours)
                 </p>
               </div>
-              <div className="flex flex-row items-center gap-4 mb-[16px]">
-                <figure className="w-[44px] h-[32px]">
+              <div className="flex flex-row items-center gap-4 mb-[8px] md:mb-[16px]">
+                <figure className="w-11 h-8 flex items-center">
                   <Image
                     src="./homepage/reshot-icon-student-DRC3YF56MU.svg"
                     alt="Student icon"
@@ -501,7 +505,7 @@ const HomePage: NextPage = () => {
               <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular">
                 Registrations are open!
               </div>
-              <div className="pt-6 md:pt-8 w-full md:w-auto">
+              <div className="pt-0 md:pt-4 w-full md:w-auto">
                 <Button
                   variant='proceedWhite'
                   onClick={handleBookSessionClick}
@@ -545,8 +549,8 @@ const HomePage: NextPage = () => {
               <Button
               variant='proceedWhite'
                 // onClick = {handleLearnMoreMiniClick}
-                // onClick={() => handleLearnMoreClick("mini")}
-                onClick={handleBookSessionClick}
+                onClick={() => handleLearnMoreClick("mini")}
+                // onClick={handleBookSessionClick}
               >
               Learn More
 
@@ -573,8 +577,8 @@ const HomePage: NextPage = () => {
               <Button
               variant='proceedWhite'
                 // onClick = {handleLearnMoreMiniClick}
-                // onClick={() => handleLearnMoreClick("mega")}
-                onClick={handleBookSessionClick}
+                onClick={() => handleLearnMoreClick("mega")}
+                // onClick={handleBookSessionClick}
               >
               Learn More
 
@@ -606,11 +610,11 @@ const HomePage: NextPage = () => {
           </div>
           <div className="w-full md:w-auto">
 
-          <a
+          {/* <a
             href="#"
-          >
+          > */}
             <Button variant="proceedWhite" >Take Virtual Tour</Button>
-          </a>
+          {/* </a> */}
           </div>
         </div>
       </section>
@@ -621,13 +625,14 @@ const HomePage: NextPage = () => {
           Have Questions or Want to Book a Session?
         </div>
         {/* <p className="text-base leading-[170%] font-[Amazon Ember] text-[#3a3a3a] md:text-[20px]"> */}
-        <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray">
-          <strong>
+        {/* <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray"> */}
+        <div className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+          <p>
             <span> Call or Whatsapp us on </span>
-            <a href={whatsappLink} className="text-[#f55c38]">
+            <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
               +916366969292
             </a>
-          </strong>
+          </p>
         </div>
       </section>
       <Footer handleOfflineBooking={handleOfflineBooking} />
