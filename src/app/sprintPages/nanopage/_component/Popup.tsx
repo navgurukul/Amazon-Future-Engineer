@@ -76,8 +76,8 @@ const Popup: React.FC<PopupProps> = ({
 
   return (
     <>
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
-      <div className="fixed inset-0 flex items-end md:items-center justify-center z-50">
+      {/* <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div> */}
+      <div className="fixed inset-0 bg-black bg-opacity-70 flex items-end md:items-center justify-center z-50">
         <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-4 md:p-8 flex flex-col items-start gap-4 text-left text-gray-500">
           <div className="flex items-center justify-between w-full mb:2 md:mb-4">
             {/* <div className="font-extrabold text-[#3a3a3a] leading-9 text-xl md:text-2xl lg:text-3xl md:leading-10 lg:leading-[40px]"> */}

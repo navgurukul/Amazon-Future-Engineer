@@ -88,21 +88,36 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
           </Button>
 
           {isMobile && (
+            // <Button
+            //   variant="proceedWhite"
+            //   // onClick={handleOfflineBooking}
+            //   className="flex-grow flex justify-center items-center gap-3 px-4 py-2"
+            // >
+            //   <Image
+            //     alt="WhatsApp Icon"
+            //     src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
+            //     width={24}
+            //     height={24}
+            //   />
+            //   <a href={whatsappLink} target="_blank" className="relative font-medium leading-[170%] text-base text-darkslategray">
+            //     Chat with Us
+            //   </a>
+            // </Button>
             <Button
-              variant="proceedWhite"
-              // onClick={handleOfflineBooking}
-              className="flex-grow flex justify-center items-center gap-3 px-4 py-2"
-            >
-              <Image
-                alt="WhatsApp Icon"
-                src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
-                width={24}
-                height={24}
-              />
-              <a href={whatsappLink} className="relative font-medium leading-[170%] text-base text-darkslategray">
-                Chat with Us
-              </a>
-            </Button>
+  variant="proceedWhite"
+  className="flex-grow flex justify-center items-center gap-3 px-4 py-2"
+  onClick={() => window.open(whatsappLink, '_blank')}
+>
+  <Image
+    alt="WhatsApp Icon"
+    src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
+    width={24}
+    height={24}
+  />
+  <span className="relative font-medium leading-[170%] text-base text-darkslategray">
+    Chat with Us
+  </span>
+</Button>
           )}
         </div>
       </div>
