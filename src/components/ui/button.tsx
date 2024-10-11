@@ -21,7 +21,8 @@ const buttonVariants = cva(
         // link: "text-primary underline-offset-4 hover:underline",
         // proceed:"w-full relative rounded-[100px] bg-incandescent-main h-14 flex flex-row items-center justify-center py-2 px-8 box-border cursor-pointer text-center  text-button1 text-lg font-button1-bold bg-[#f55c38] text-[#fff]",
         proceed:"w-full md:w-auto flex items-center font-button1-bold  leading-[170%] text-button1 cursor-pointer justify-center py-2 px-8 text-incandescent-contrasttext text-center rounded-81xl bg-incandescent-main h-14 hover:bg-incandescent-dark",
-        proceedWhite:"w-full md:w-auto flex items-center font-button1-bold  leading-[170%] text-button1 cursor-pointer justify-center py-2 px-8 text-incandescent-main text-center rounded-81xl bg-incandescent-contrasttext h-14 hover:bg-grey-300"
+        proceedWhite:"w-full md:w-auto flex items-center font-button1-bold  leading-[170%] text-button1 cursor-pointer justify-center py-2 px-8 text-incandescent-main text-center rounded-81xl bg-incandescent-contrasttext h-14 hover:bg-grey-300",
+        admin:"w-full md:w-auto flex items-center font-button1-bold  leading-[170%] text-button1 cursor-pointer justify-center py-2 px-8 text-darkslategray text-center rounded-81xl bg-transparent active:bg-incandescent-light active:text-incandescent-main"
       },
       size: {
         default: "h-9 px-4 py-2",
