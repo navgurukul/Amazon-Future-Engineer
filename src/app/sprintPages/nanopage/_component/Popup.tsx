@@ -36,20 +36,20 @@ const Popup: React.FC<PopupProps> = ({
     setErrorMessage(null);
 
     // Phone number validation
-    if (!phoneNumber) {
-      setErrorMessage("Please enter a phone number to proceed");
-      return;
-    }
+    // if (!phoneNumber) {
+    //   setErrorMessage("Please enter a phone number to proceed");
+    //   return;
+    // }
 
-    if (phoneNumber.length !== 10) {
-      setErrorMessage("Please enter a 10-digit phone number");
-      return;
-    }
+    // if (phoneNumber.length !== 10) {
+    //   setErrorMessage("Please enter a 10-digit phone number");
+    //   return;
+    // }
 
-    if (!phonePattern.test(phoneNumber)) {
-      setErrorMessage("Please enter a phone number starting with 6 or above");
-      return;
-    }
+    // if (!phonePattern.test(phoneNumber)) {
+    //   setErrorMessage("Please enter a phone number starting with 6 or above");
+    //   return;
+    // }
     const programData = JSON.parse(localStorage.getItem('programData') || '[]');
     const nanoProgram = programData.find((program: any) => program.title === "NANO");
 
@@ -75,9 +75,9 @@ const Popup: React.FC<PopupProps> = ({
     const phoneInput = e.target.value;
 
     // Allow only numerical characters
-    if (/^\d*$/.test(phoneInput) && phoneInput.length <= 10) {
-      setPhoneNumber(phoneInput);
-    }
+    // if (/^\d*$/.test(phoneInput) && phoneInput.length <= 10) {
+    //   setPhoneNumber(phoneInput);
+    // }
   };
 
   if (!offlinePopup) return null;

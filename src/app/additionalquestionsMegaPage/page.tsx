@@ -52,7 +52,7 @@ const MegaPage = () => {
   const validateForm = () => {
     const newErrors: FormErrors = {};
     if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!/^[6-9]\d{9}$/.test(formData.phoneNo)) newErrors.phoneNo = "Enter a valid 10-digit number starting with 6-9";
+    // if (!/^[6-9]\d{9}$/.test(formData.phoneNo)) newErrors.phoneNo = "Enter a valid 10-digit number starting with 6-9";
     if (!formData.schoolName.trim()) newErrors.schoolName = "School name is required";
     if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Enter a valid email";
     if (formData.pincode && !/^\d{6}$/.test(formData.pincode)) newErrors.pincode = "Enter a valid 6-digit pincode";

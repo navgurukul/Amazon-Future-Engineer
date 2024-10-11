@@ -52,7 +52,7 @@ const MiniPage = () => {
   const validateForm = () => {
     const newErrors: Partial<FormData> = {};
     if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!/^\d{10}$/.test(formData.phoneNo)) newErrors.phoneNo = "Enter a valid 10-digit number";
+    // if (!/^\d{10}$/.test(formData.phoneNo)) newErrors.phoneNo = "Enter a valid 10-digit number";
     if (!formData.schoolName.trim()) newErrors.schoolName = "School name is required";
     if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Enter a valid email";
     if (formData.pincode && !/^\d{6}$/.test(formData.pincode)) newErrors.pincode = "Enter a valid 6-digit pincode";
@@ -68,6 +68,7 @@ const MiniPage = () => {
 
   const handleJoinWaitingList = async () => {
     if (validateForm()) {
+      console.log("Hello")
       try {
         const waitingListData = {
           name: formData.name,

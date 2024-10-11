@@ -98,15 +98,15 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     setPhoneError(null);
     setStudentsError(null);
 
-    const phonePattern = /^[6-9]\d{9}$/;
-    if (phone.length !== 10) {
-      setPhoneError("Please enter a 10-digit phone number.");
-      return;
-    }
-    if (!phonePattern.test(phone)) {
-      setPhoneError("Please enter a phone number starting with 6 or above.");
-      return;
-    }
+    // const phonePattern = /^[6-9]\d{9}$/;
+    // if (phone.length !== 10) {
+    //   setPhoneError("Please enter a 10-digit phone number.");
+    //   return;
+    // }
+    // if (!phonePattern.test(phone)) {
+    //   setPhoneError("Please enter a phone number starting with 6 or above.");
+    //   return;
+    // }
 
     const studentCount = parseInt(students);
     const minStudents = selectedSlot?.capacity === 40 ? 12 : 1;
