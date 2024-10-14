@@ -140,12 +140,12 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
           </div>
         </div>
 
-        <div className="hidden md:block text-center mt-[64px]">
+        {/* <div className="hidden md:block text-center mt-[64px]">
           <span className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray md:text-center">
             Redirecting to Sprint Information page in 5 seconds
           </span>
-        </div>
-        <div className="block md:hidden w-full flex flex-row items-center justify-center mt-2 md:mt-4 mt-[48px]">
+        </div> */}
+        <div className="w-full flex flex-row items-center justify-center mt-2 md:mt-4 mt-[48px]">
             <div className="w-full lg:w-auto">
             <button className="w-full rounded-[100px] flex justify-center items-center cursor-pointer border border-[#f55c38] text-[#f55c38] text-bodyM md:text-body1" onClick={handleGoToSprints}>
             <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">

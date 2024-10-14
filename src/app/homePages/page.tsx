@@ -195,6 +195,7 @@ const HomePage: NextPage = () => {
           className="absolute top-0 left-0 w-full h-full object-cover brightness-50 bg-black-600"
           autoPlay
           muted
+          loop
           preload="metadata"
         ></video>
 
@@ -230,7 +231,7 @@ const HomePage: NextPage = () => {
               <div className="flex gap-3 items-center">
                 <Image
                   alt="Helpdesk Icon"
-                  src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
+                  src="/nanopage/reshot-icon-phone-XZTUCW7SFA 1.svg"
                   width={24}
                   height={24}
                   sizes="(min-width: 640px) 32px"
