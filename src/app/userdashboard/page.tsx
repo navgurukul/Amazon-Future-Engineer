@@ -90,15 +90,15 @@ const Page: NextPage = () => {
               // className="bg-white p-4 rounded-md flex flex-col sm:flex-row sm:justify-between sm:items-center shadow-md h-auto sm:h-[132px] border border-gray-200 w-full"
               className="bg-white p-6 rounded-md flex flex-col md:flex-row md:justify-between md:items-center shadow-md h-auto border border-gray-200 w-full"
             >
-              <div className="space-y-2 text-left md:text-right">
+              <div className="text-left md:text-right">
                 {/* <div className="text-left leading-[150%] font-bold text-[1.5rem] md:font-extrabold">
                   Nano Sprint
                 </div> */}
                 <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#3a3a3a] text-left mb-4">Nano Sprint</h3>
-                <div className="flex flex-col gap-[1rem] md:flex-row space-x-0 space-y-2 sm:space-y-0">
+                <div className="flex flex-col gap-4 md:gap-8 md:flex-row">
                   <div className="flex items-center gap-3">
                     <Image
-                      className="w-6 sm:w-8 h-6 sm:h-8 "
+                      className="w-auto h-8"
                       alt="calendar icon"
                       src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg"
                       width={20}
@@ -107,11 +107,11 @@ const Page: NextPage = () => {
                     {/* <div className="text-[#3a3a3a] flex items-center gap-[2rem] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
                       {new Date(event.booking_for).toLocaleDateString()}
                     </div> */}
-                    <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray gap-8">{new Date(event.booking_for).toLocaleDateString()}</p>
+                    <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{new Date(event.booking_for).toLocaleDateString()}</p>
                   </div>
                   <div className="flex items-center gap-3">
                     <Image
-                      className="w-6 sm:w-8 h-6 sm:h-8 "
+                      className="w-auto h-8"
                       alt="time icon"
                       src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg"
                       width={20}
@@ -120,11 +120,11 @@ const Page: NextPage = () => {
                     {/* <div className="text-[#3a3a3a] flex items-center gap-[2rem] text-lg font-medium font-['Amazon Ember'] leading-[30.60px]">
                       {`${event.start_time} to ${event.end_time}`}
                     </div> */}
-                    <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray gap-8">{`${event.start_time} to ${event.end_time}`}</p>
+                    <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{`${event.start_time} to ${event.end_time}`}</p>
                   </div>
                   <div className="flex items-center gap-3">
                     <Image
-                      className="w-6 sm:w-8 h-6 sm:h-8"
+                      className="w-auto h-8"
                       alt="students icon"
                       src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg"
                       width={20}
@@ -133,14 +133,14 @@ const Page: NextPage = () => {
                     {/* <div className="text-[#3a3a3a] flex items-center text-lg gap-[2rem] font-medium font-['Amazon Ember'] leading-[30.60px]">
                       {`${event.booking_batch_size} Students`}
                     </div> */}
-                    <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray ">{`${event.booking_batch_size} Students`}</p>
+                    <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{`${event.booking_batch_size} Students`}</p>
                   </div>
                 </div>
               </div>
               {/* <div> */}
                 {/* <div className="h-14 px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full sm:w-48 sm:px-6 sm:py-2 mt-4"> */}
                   <div
-                    className="text-center text-[#f55c38] text-lg font-medium font-['Amazon Ember'] cursor-pointer px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full md:w-auto mt-4 md:mt-0"
+                    className="text-center text-[#f55c38] text-lg font-medium font-['Amazon Ember'] cursor-pointer px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full md:w-auto mt-6 md:mt-0 text-bodyM md:text-body1"
                     onClick={handleOpenFirstPopup}
                   >
                     Reschedule
