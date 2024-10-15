@@ -24,8 +24,8 @@ const buttonVariants = cva(
         proceedWhite:"w-full md:w-auto flex items-center font-button1-bold  leading-[170%] text-button1 cursor-pointer justify-center py-2 px-8 text-incandescent-main text-center rounded-81xl bg-incandescent-contrasttext h-14 hover:bg-grey-300"
       },
       size: {
-        default: "h-9 px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-xs",
+        default: "h-14 px-8 py-2 font-button1-bold text-[16px] md:text-[18px]",
+        sm: "h-8 rounded-md px-3 text-button1",
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
       },

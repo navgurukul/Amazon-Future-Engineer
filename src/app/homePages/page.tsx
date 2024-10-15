@@ -13,6 +13,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useCallback, useEffect } from "react";
 
+
 const HomePage: NextPage = () => {
   const router = useRouter();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -25,19 +26,19 @@ const HomePage: NextPage = () => {
   // Array of images
   const images = [
     {
-      src: "/homepage/Rectangle4-2.jpeg",
+      src: "/homepage/Rectangle4-3.jpeg",
       alt: "AFE Hub Image 1",
       width: 480,
       height: 288,
     },
     {
-      src: "/homepage/Rectangle3-2.jpeg",
+      src: "/homepage/Rectangle3-3.jpeg",
       alt: "AFE Hub Image 2",
       width: 640,
       height: 360,
     },
     {
-      src: "/homepage/Rectangle5-2.jpeg",
+      src: "/homepage/Rectangle5-3.jpeg",
       alt: "AFE Hub Image 3",
       width: 480,
       height: 288,
@@ -105,6 +106,22 @@ const HomePage: NextPage = () => {
     }
   };
 
+  const handleLearnMoreClick = (type: any) => {
+    // const loginData = localStorage.getItem("loginData");
+    // if (loginData) {
+    const cookieData = Cookies.get("loginData");
+    if (cookieData) {
+      if (type === "mini") {
+        router.push("/sprintPages/minipage");
+      } else if (type === "mega") {
+        router.push("/sprintPages/megapage");
+      }
+    } else {
+      // alert("Please login to continue");
+      setIsPopupOpen(true);
+    }
+  };
+
   // Function to close the popup
   const closePopup = () => {
     setIsPopupOpen(false);
@@ -128,19 +145,6 @@ const HomePage: NextPage = () => {
   // const handleLearnMoreMegaClick = () => {
   //   router.push("/sprintPages/megapage");
   // };
-
-  const handleLearnMoreClick = (type: any) => {
-    const loginData = localStorage.getItem("loginData");
-    if (loginData) {
-      if (type === "mini") {
-        router.push("/sprintPages/minipage");
-      } else if (type === "mega") {
-        router.push("/sprintPages/megapage");
-      }
-    } else {
-      alert("Please login to continue");
-    }
-  };
 
   const handleOfflineBooking: () => void = () => {
     setOfflinePopup(true);
@@ -187,10 +191,11 @@ const HomePage: NextPage = () => {
 
       <section className="relative w-full h-[868px] md:h-auto md:min-h-screen">
         <video
-          src="./homepage/video.mp4"
+          src="./homepage/video-m.mp4"
           className="absolute top-0 left-0 w-full h-full object-cover brightness-50 bg-black-600"
           autoPlay
           muted
+          loop
           preload="metadata"
         ></video>
 
@@ -226,7 +231,7 @@ const HomePage: NextPage = () => {
               <div className="flex gap-3 items-center">
                 <Image
                   alt="Helpdesk Icon"
-                  src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
+                  src="/nanopage/reshot-icon-phone-XZTUCW7SFA 1.svg"
                   width={24}
                   height={24}
                   sizes="(min-width: 640px) 32px"
@@ -237,19 +242,17 @@ const HomePage: NextPage = () => {
               </div>
             </Button>
 
-            <Button variant="proceedWhite">
+            {/* <Button variant="proceedWhite">
               <a href="#virtual-tour">
-                {/* <span className="relative font-medium leading-[170%]"> */}
                 Take Virtual Tour
-                {/* </span> */}
               </a>
-            </Button>
+            </Button> */}
           </div>
         </header>
       </section>
 
       {isPopupOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
           <CreateAClass closePopup={closePopup} />
           {/* <ErrorBookingPopup closePopup={closePopup} /> */}
         </div>
@@ -277,19 +280,19 @@ const HomePage: NextPage = () => {
             </p>
 
             {/* <img className="md:block hidden absolute m-0 top-[7.5rem] left-[63.3rem] max-w-full h-[18.369rem] z-0" src="./homepage/Frame 31751.svg" alt="Coding symbols 1" /> */}
-            <Image
+            {/* <Image
               className="hidden md:block absolute top-[7.5vw] left-[59.8vw] w-[30vw] h-auto max-w-full z-0"
               src="./homepage/Frame 31751.svg"
               alt="Coding symbols 1"
               height={288}
               width={480}
-            />
+            /> */}
           </div>
         </article>
 
         <div className="relative w-full overflow-hidden flex flex-row items-start justify-start gap-4 px-4 md:px-12">
           {/* Figures for medium and large screens */}
-          <figure className="hidden md:block flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[24%] md:h-[360px]">
+          <figure className="hidden md:block flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[25%] md:h-[360px]">
             <Image
               className="object-cover w-full h-full rounded-md"
               alt={images[0].alt}
@@ -298,7 +301,7 @@ const HomePage: NextPage = () => {
               height={images[0].height}
             />
           </figure>
-          <figure className="hidden md:block flex-none w-[calc(100vw-32px)] h-[calc((100vw-32px)*0.6)] md:w-[50%] md:h-[360px] z-10">
+          <figure className="hidden md:block flex-none w-[calc(100vw-32px)] h-[calc((100vw-32px)*0.6)] md:w-[48%] md:h-[360px] z-10">
             <Image
               className="object-cover w-full h-full rounded-md"
               alt={images[1].alt}
@@ -307,7 +310,7 @@ const HomePage: NextPage = () => {
               height={images[1].height}
             />
           </figure>
-          <figure className="hidden md:block flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[24%] md:h-[360px] z-10">
+          <figure className="hidden md:block flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[25%] md:h-[360px] z-10">
             <Image
               className="object-cover w-full h-full rounded-md"
               alt={images[2].alt}
@@ -472,7 +475,7 @@ const HomePage: NextPage = () => {
                 into the world of Robotics and AI
               </div>
               <div className="flex flex-row items-center gap-4 mb-[8px] md:mb-[16px]">
-                <figure className="w-11 h-8">
+                <figure className="w-11 h-8 flex items-center">
                   <Image
                     src="./homepage/reshot-icon-time-YEDR7WZV2Q.svg"
                     alt="Icon"
@@ -485,8 +488,8 @@ const HomePage: NextPage = () => {
                   1 Day (3 hours)
                 </p>
               </div>
-              <div className="flex flex-row items-center gap-4 mb-[16px]">
-                <figure className="w-[44px] h-[32px]">
+              <div className="flex flex-row items-center gap-4 mb-[8px] md:mb-[16px]">
+                <figure className="w-11 h-8 flex items-center">
                   <Image
                     src="./homepage/reshot-icon-student-DRC3YF56MU.svg"
                     alt="Student icon"
@@ -503,7 +506,7 @@ const HomePage: NextPage = () => {
               <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular">
                 Registrations are open!
               </div>
-              <div className="pt-6 md:pt-8 w-full md:w-auto">
+              <div className="pt-0 md:pt-4 w-full md:w-auto">
                 <Button
                   variant='proceedWhite'
                   onClick={handleBookSessionClick}

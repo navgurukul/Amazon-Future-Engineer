@@ -230,9 +230,9 @@ const Page: NextPage = () => {
           </div>
         </div>
         </div>
-        <div>
+        {/* <div>
           <img className="hidden md:block mt-16 w-[80%] float-right" src="/userDashboard/Frame 31752.svg" alt="Coding symbol" />
-        </div>
+        </div> */}
       </div>
     </>
   );
