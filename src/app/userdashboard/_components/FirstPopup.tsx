@@ -121,7 +121,7 @@ const FirstPopup: NextPage<FirstPopupProps> = ({
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-end  md:items-center justify-center bg-black bg-opacity-50 ">
           {/* Modal Content */}
-          <div className="bg-white w-[592px]  md:p-8 sm:py-6 sm:px-4  md:h-auto rounded-t-lg md:rounded-lg shadow-lg relative">
+          <div className="bg-white w-[592px]  md:p-8 py-6 px-4  md:h-auto rounded-t-lg md:rounded-lg shadow-lg relative">
 
             {/* "X" Button to Close the Popup */}
             {/* <button

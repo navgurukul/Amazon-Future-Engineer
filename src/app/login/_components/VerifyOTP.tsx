@@ -184,7 +184,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
             <Button
               variant="proceed"
               onClick={handleVerifyOTP}
-              className="flex w-full sm:w-full md:w-[23rem] h-14 py-2 px-8 justify-center items-center gap-2 rounded-[6.25rem] font-medium "
+              className="flex w-full md:w-[23rem] h-14 py-2 px-8 justify-center items-center gap-2 rounded-[6.25rem] font-medium "
             >
               Verify OTP
             </Button>
