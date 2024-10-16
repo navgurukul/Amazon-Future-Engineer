@@ -198,3 +198,15 @@ export const getSlotDetails = async (slotId: number) => {
   }
 };
 
+
+
+// Admin login
+
+export const adminLogin = async (email: string, password: string) => {
+  try {
+    const response = await api.post('/auth/admin/login', { email, password });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

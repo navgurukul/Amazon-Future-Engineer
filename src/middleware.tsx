@@ -19,6 +19,6 @@ export function middleware(request: NextRequest) {
 // Apply the middleware only to specific paths (excluding static files and public assets)
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|api|homepage|login|userDashboard|nanopage|symbols|booking|public).*)",
+    "/((?!_next/static|_next/image|favicon.ico|api|homepage|login|userDashboard|nanopage|symbols|booking|assets|admin|public).*)",
   ],
 };
