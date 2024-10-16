@@ -32,7 +32,7 @@ const Navigate = () => {
         </Button>
         <Button
           variant="admin"
-          className={`${isActive("/admin/dashboard/calendar-view") ? "bg-incandescent-light text-incandescent-main" : ""}`}
+          className={`${isActive("/admin/dashboard/calendar") ? "bg-incandescent-light text-incandescent-main" : ""}`}
           onClick={() => handleNavigate("calendar-view")}
         >
           Calendar View
