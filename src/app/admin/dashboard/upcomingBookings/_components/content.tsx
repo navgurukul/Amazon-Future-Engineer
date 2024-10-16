@@ -16,105 +16,59 @@ import {
 } from "@/components/ui/table";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { fetchBookings } from "@/utils/api";
+import { format } from 'date-fns';
 
-const bookings = [
-  {
-    name: "Rahul Prakash",
-    program: "Nano Sprint",
-    phone: "+918975574567",
-    students: 30,
-    timeSlot: "16 Oct 2024 | 4 PM to 6 PM",
-    location: "Bengaluru",
-  },
-  {
-    name: "Rahul Prakash",
-    program: "Nano Sprint",
-    phone: "+918975574567",
-    students: 30,
-    timeSlot: "16 Oct 2024 | 4 PM to 6 PM",
-    location: "Bengaluru",
-  },
-  {
-    name: "Rahul Prakash",
-    program: "Nano Sprint",
-    phone: "+918975574567",
-    students: 30,
-    timeSlot: "16 Oct 2024 | 4 PM to 6 PM",
-    location: "Bengaluru",
-  },
-  {
-    name: "Rahul Prakash",
-    program: "Nano Sprint",
-    phone: "+918975574567",
-    students: 20,
-    timeSlot: "16 Oct 2024 | 4 PM to 6 PM",
-    location: "Bengaluru",
-  },
-  {
-    name: "Rahul Prakash",
-    program: "Nano Sprint",
-    phone: "+918975574567",
-    students: 30,
-    timeSlot: "16 Oct 2024 | 4 PM to 6 PM",
-    location: "Bengaluru",
-  },
-  {
-    name: "Rahul Prakash",
-    program: "Nano Sprint",
-    phone: "+918975574567",
-    students: 30,
-    timeSlot: "16 Oct 2024 | 4 PM to 6 PM",
-    location: "Bengaluru",
-  },
-  {
-    name: "Tamanna Prakash",
-    program: "Nano Sprint",
-    phone: "+918975574567",
-    students: 30,
-    timeSlot: "16 Oct 2024 | 4 PM to 6 PM",
-    location: "Bengaluru",
-  },
-  {
-    name: "Rahul Prakash",
-    program: "Nano Sprint",
-    phone: "+918975574567",
-    students: 30,
-    timeSlot: "16 Oct 2024 | 4 PM to 6 PM",
-    location: "Bengaluru",
-  },
-  {
-    name: "Rahul Prakash",
-    program: "Nano Sprint",
-    phone: "+918975574567",
-    students: 30,
-    timeSlot: "16 Oct 2024 | 4 PM to 6 PM",
-    location: "Bengaluru",
-  },
-  {
-    name: "Rahul Prakash",
-    program: "Nano Sprint",
-    phone: "+919329786819",
-    students: 20,
-    timeSlot: "15 Oct 2024 | 4 PM to 6 PM",
-    location: "Bengaluru",
-  },
-];
-
-const Dashboard: React.FC = () => {
+const Dashboard = () => {
+  interface Booking {
+    id: string;
+    user: {
+      name: string;
+      phone: string;
+    };
+    slot: {
+      venue: {
+        city: string;
+      };
+      program: {
+        title: string;
+      };
+    };
+    booking_for: string;
+    start_time: string;
+    end_time: string;
+    booking_batch_size: number;
+  }
+  
+  const [bookings, setBookings] = useState<Booking[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+
+
+
+  useEffect(() => {
+    const loadBookings = async () => {
+      const fetchedBookings = await fetchBookings();
+      console.log(fetchedBookings  )
+      setBookings(fetchedBookings);
+    };
+    loadBookings();
+  }, []);
+
   const totalItems = bookings.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  const handlePageChange = (page: number) => {
+  const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
     }
   };
 
-  const handleItemsPerPageChange = (value: string) => {
+  const handleItemsPerPageChange = (value) => {
     setItemsPerPage(Number(value));
     setCurrentPage(1);
   };
@@ -122,11 +76,11 @@ const Dashboard: React.FC = () => {
   const filteredBookings = bookings.filter((booking) => {
     const normalizedSearchQuery = searchQuery.toLowerCase();
     return (
-      booking.name.toLowerCase().includes(normalizedSearchQuery) ||
-      booking.phone.includes(searchQuery) ||
-      booking.location.toLowerCase().includes(normalizedSearchQuery) ||
-      booking.program.toLowerCase().includes(normalizedSearchQuery) ||
-      booking.timeSlot.toLowerCase().includes(normalizedSearchQuery)
+      booking.user.name.toLowerCase().includes(normalizedSearchQuery) ||
+      booking.user.phone.includes(searchQuery) ||
+      booking.slot.venue.city.toLowerCase().includes(normalizedSearchQuery) ||
+      booking.slot.program.title.toLowerCase().includes(normalizedSearchQuery) ||
+      `${booking.booking_for} | ${booking.start_time} to ${booking.end_time}`.toLowerCase().includes(normalizedSearchQuery)
     );
   });
 
@@ -134,6 +88,27 @@ const Dashboard: React.FC = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  const handleManageBooking = (booking: Booking) => {
+    router.push({
+      pathname: '/booking-details',
+      query: { id: booking.id },
+    });
+  };
+
+  // Function to format the date as "16 Oct 2024"
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return format(date, 'd MMM yyyy'); 
+};
+
+const formatTime = (time: string) => {
+  const [hours, minutes] = time.split(':');
+  const date = new Date();
+  date.setHours(parseInt(hours, 10), parseInt(minutes, 10));
+
+  return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+};
 
   return (
     <div className="min-h-screen bg-white">
@@ -172,18 +147,22 @@ const Dashboard: React.FC = () => {
               </TableRow>
             </TableHeader>
             <TableBody className="border-b border-grey-300 gap-8 font-body2-regular text-body2 leading-[170%]">
-              {displayedBookings.map((booking, index) => (
-                <TableRow key={index} className="border-t border-b border-transparent">
-                  <TableCell className="border-0">{booking.name}</TableCell>
-                  <TableCell className="border-0">{booking.program}</TableCell>
-                  <TableCell className="border-0">{booking.phone}</TableCell>
-                  <TableCell className="border-0 text-center">{booking.students}</TableCell>
-                  <TableCell className="border-0">{booking.timeSlot}</TableCell>
-                  <TableCell className="border-0">{booking.location}</TableCell>
+              {displayedBookings.map((booking) => (
+                <TableRow key={booking.id} className="border-t border-b border-transparent">
+                  <TableCell className="border-0">{booking.user.name}</TableCell>
+                  <TableCell className="border-0">{booking.slot.program.title}</TableCell>
+                  <TableCell className="border-0">{booking.user.phone}</TableCell>
+                  <TableCell className="border-0 text-center">{booking.booking_batch_size}</TableCell>
+                  <TableCell className="border-0">
+                  {`${formatDate(booking.booking_for)} | ${formatTime(booking.start_time)} to ${formatTime(booking.end_time)}`}
+                </TableCell>
+                
+                  <TableCell className="border-0">{booking.slot.venue.city}</TableCell>
                   <TableCell className="border-0">
                     <a
                       href="#"
                       className="text-incandescent-main hover:text-incandescent-dark"
+                      onClick={() => handleManageBooking(booking)}
                     >
                       Manage Booking
                     </a>

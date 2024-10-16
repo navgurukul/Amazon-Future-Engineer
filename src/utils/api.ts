@@ -14,6 +14,15 @@ const getToken = (): string | null => {
   return userData?.data?.token || null;
 };
 
+
+// Utility function to get the token
+const getAdminToken = (): string | null => {
+  const userDataString = localStorage.getItem('adminLoginData');
+  const userData = JSON.parse(userDataString || '{}');
+  return userData?.data?.token || null;
+};
+
+
 // Function to fetch slots
 export const getSlots = async (venueId: number = 1) => {
   const token = getToken();
@@ -208,5 +217,29 @@ export const adminLogin = async (email: string, password: string) => {
     return response.data;
   } catch (error) {
     throw error;
+  }
+};
+
+
+
+//upcoming booking dashboard data
+
+export const fetchBookings = async () => {
+  const token = getAdminToken();
+
+  if (!token) {
+    throw new Error('No token found');
+  }
+
+  try {
+    const response = await api.get('/bookings/admin', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.data; // Assuming the actual booking data is nested under a 'data' key
+  } catch (error: any) {
+    console.error('Error fetching bookings:', error);
+    throw new Error(error.response?.data?.details || 'An error occurred while fetching bookings');
   }
 };

@@ -13,9 +13,9 @@ const Navigate = () => {
     if (routeId === "upcoming-bookings") {
       router.push("/admin/dashboard/upcomingBookings")
     } else if (routeId === "calendar-view") {
-      router.push("/admin/dashboard/calendar-view")
+      router.push("/admin/dashboard/slotBookings")
     } else if (routeId === "all-users") {
-      router.push("/all-users")
+      router.push("/admin/dashboard/allUsers")
     }
   }
 
@@ -32,14 +32,14 @@ const Navigate = () => {
         </Button>
         <Button
           variant="admin"
-          className={`${isActive("/admin/dashboard/calendar-view") ? "bg-incandescent-light text-incandescent-main" : ""}`}
+          className={`${isActive("/admin/dashboard/slotBookings") ? "bg-incandescent-light text-incandescent-main" : ""}`}
           onClick={() => handleNavigate("calendar-view")}
         >
           Calendar View
         </Button>
         <Button
           variant="admin"
-          className={`${isActive("/all-users") ? "bg-incandescent-light text-incandescent-main" : ""}`}
+          className={`${isActive("/admin/dashboard/allUsers") ? "bg-incandescent-light text-incandescent-main" : ""}`}
           onClick={() => handleNavigate("all-users")}
         >
           All Users
