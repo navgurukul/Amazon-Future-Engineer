@@ -13,7 +13,7 @@ const Navigate = () => {
     if (routeId === "upcoming-bookings") {
       router.push("/admin/dashboard/upcomingBookings")
     } else if (routeId === "calendar-view") {
-      router.push("/admin/dashboard/calendar-view")
+      router.push("/admin/dashboard/calendar")
     } else if (routeId === "all-users") {
       router.push("/all-users")
     }
