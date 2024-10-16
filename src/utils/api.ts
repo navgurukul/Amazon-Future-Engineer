@@ -243,3 +243,65 @@ export const fetchBookings = async () => {
     throw new Error(error.response?.data?.details || 'An error occurred while fetching bookings');
   }
 };
+
+
+
+// New feedback functions
+
+//Feedback api for teacher
+
+export const addTeacherFeedback = async (feedbackData: {
+  user_id: number;
+  slot_id: number;
+  program_id: number;
+  feedback: string;
+  rating: number;
+  is_teacher: boolean;
+}) => {
+  const token = getAdminToken();
+  if (!token) throw new Error('No admin token found');
+  try {
+    const response = await api.post('/feedbacks/admin/add', feedbackData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.details || 'An error occurred while adding teacher feedback');
+  }
+};
+
+
+// Feedback api for students
+
+export const addStudentFeedback = async (feedbackData: {
+  slot_id: number;
+  program_id: number;
+  feedback: string;
+  rating: number;
+  is_teacher: boolean;
+}) => {
+  const token = getAdminToken();
+  if (!token) throw new Error('No token found');
+  try {
+    const response = await api.post('/feedbacks/teacher/add', feedbackData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.details || 'An error occurred while adding student feedback');
+  }
+};
+
+// get all feedback
+export const getFeedback = async (user_id: number, slot_id: number) => {
+  const token =  getAdminToken();
+  if (!token) throw new Error('No token found');
+  try {
+    const response = await api.get(`/feedbacks/get?user_id=${user_id}&slot_id=${slot_id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.details || 'An error occurred while fetching feedback');
+  }
+};

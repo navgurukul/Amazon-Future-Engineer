@@ -22,12 +22,14 @@ interface BookingDetails {
   numberOfStudents: number;
   actualNumberOfStudents: number | null;
   slot: string;
+  userId: string; 
 }
 
 interface Booking {
   id: number;
   user: {
     name: string;
+    id: string; 
     email: string;
     phone: string;
     school_id?: string;
@@ -53,7 +55,7 @@ export default function BookingDetailsPage({ booking: bookingProp }: { booking: 
   const [bookingDetails, setBookingDetails] = useState<BookingDetails | null>(null);
   const [showSprintDetails, setShowSprintDetails] = useState(false); 
   const router = useRouter(); 
-  
+
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -100,7 +102,7 @@ export default function BookingDetailsPage({ booking: bookingProp }: { booking: 
   }
 
   if (showSprintDetails) {
-    return <SprintDetailsComponent bookingDetails={bookingDetails} />; 
+    return <SprintDetailsComponent bookingProp = {bookingProp} bookingDetails={bookingDetails} />; 
   }
 
   return (

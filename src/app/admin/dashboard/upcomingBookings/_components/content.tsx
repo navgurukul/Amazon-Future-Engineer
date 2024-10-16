@@ -1,3 +1,8 @@
+
+
+
+
+
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -87,10 +92,9 @@ const Dashboard = () => {
     currentPage * itemsPerPage
   );
 
-  // Function to handle "Manage Booking" click
   const handleSelectBooking = (booking: Booking) => {
-    setSelectedBooking(booking); // Set the selected booking
-    setShowDetails(true); // Show the BookingDetails component
+    setSelectedBooking(booking);
+    setShowDetails(true);
   };
 
   const handleGoBack = () => {
@@ -109,6 +113,7 @@ const Dashboard = () => {
     date.setHours(parseInt(hours, 10), parseInt(minutes, 10));
     return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
   };
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -215,7 +220,7 @@ const Dashboard = () => {
             </div>
           </>
         ) : (
-          // BookingDetails view
+
           <BookingDetails booking={selectedBooking} onGoBack={handleGoBack} />
         )}
       </div>
@@ -224,4 +229,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
