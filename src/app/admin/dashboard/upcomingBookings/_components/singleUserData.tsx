@@ -1,12 +1,12 @@
-
 'use client';
 
-
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { fetchBookings } from "@/utils/api";
+import SprintDetailsComponent from './sprint-details';
+import { format } from 'date-fns';
 
 interface BookingDetails {
   name: string;
@@ -24,68 +24,111 @@ interface BookingDetails {
   slot: string;
 }
 
-export default function BookingDetailsPage() {
-  const router = useRouter();
-  const { id } = router.query;
+interface Booking {
+  id: number;
+  user: {
+    name: string;
+    email: string;
+    phone: string;
+    school_id?: string;
+  };
+  created_at: string;
+  slot: {
+    program: {
+      title: string;
+    };
+    venue: {
+      city: string;
+      pin_code: string;
+    };
+  };
+  booking_batch_size: number;
+  visited_batch_size: number | null;
+  booking_for: string;
+  start_time: string;
+  end_time: string;
+}
+
+export default function BookingDetailsPage({ booking: bookingProp }: { booking: Booking }) {
   const [bookingDetails, setBookingDetails] = useState<BookingDetails | null>(null);
+  const [showSprintDetails, setShowSprintDetails] = useState(false); 
+  const router = useRouter(); 
+  
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return format(date, 'd MMM yyyy');
+  };
 
   useEffect(() => {
     const loadBookingDetails = async () => {
-      if (id) {
+      if (bookingProp.id) {
         const bookings = await fetchBookings();
-        const booking = bookings.find((b: { id: number; }) => b.id === Number(id));
-        if (booking) {
+        const foundBooking = bookings.find((b: Booking) => b.id === bookingProp.id);
+        if (foundBooking) {
           setBookingDetails({
-            name: booking.user.name,
-            email: booking.user.email,
-            phoneNumber: booking.user.phone,
-            dateOfRequest: new Date(booking.created_at).toLocaleDateString(),
-            programName: booking.slot.program.title,
-            schoolName: booking.user.school_id || 'N/A',
-            udiseCode: 'N/A', // This information is not available in the API response
-            city: booking.slot.venue.city,
-            pincode: booking.slot.venue.pin_code,
-            grade: 'N/A', // This information is not available in the API response
-            numberOfStudents: booking.booking_batch_size,
-            actualNumberOfStudents: booking.visited_batch_size,
-            slot: `${booking.booking_for} | ${booking.start_time} to ${booking.end_time}`,
+            name: foundBooking.user.name,
+            email: foundBooking.user.email,
+            phoneNumber: foundBooking.user.phone,
+            dateOfRequest: new Date(foundBooking.created_at).toLocaleDateString(),
+            programName: foundBooking.slot.program.title,
+            schoolName: foundBooking.user.school_id || 'N/A',
+            udiseCode: 'N/A',
+            city: foundBooking.slot.venue.city,
+            pincode: foundBooking.slot.venue.pin_code,
+            grade: 'N/A',
+            numberOfStudents: foundBooking.booking_batch_size,
+            actualNumberOfStudents: foundBooking.visited_batch_size,
+            slot: `${formatDate(foundBooking.booking_for)} | ${foundBooking.start_time} to ${foundBooking.end_time}`,
           });
         }
       }
     };
     loadBookingDetails();
-  }, [id]);
+  }, [bookingProp.id]);
 
   const handleStartSprint = () => {
-    console.log('Starting sprint...');
+    setShowSprintDetails(false);
+  };
+
+  const handleGoBack = () => {
+    router.back(); 
   };
 
   if (!bookingDetails) {
     return <div>Loading...</div>;
   }
 
+  if (showSprintDetails) {
+    return <SprintDetailsComponent bookingDetails={bookingDetails} />; 
+  }
+
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-8 space-y-16">
-      <div className="space-y-8">
+      <div className="flex items-center mb-4">
+        <button onClick={handleGoBack} className="mr-4">
+          <img src="/path/to/back-arrow.png" alt="Back" className="w-6 h-6" />
+        </button>
         <h1 className="text-4xl font-extrabold text-midnight-blue-main">Booking Details</h1>
-        <Card>
-          <CardContent className="pt-6 space-y-6">
-            {Object.entries(bookingDetails).map(([key, value]) => (
-              <div key={key} className="flex justify-between items-center">
-                <span className="font-extrabold text-text-primary">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
-                <span className="font-medium text-text-primary">
-                  {value !== null ? value.toString() : '-'}
-                </span>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-        <div className="flex justify-center">
-          <Button variant="proceed" onClick={handleStartSprint}>
-            Start Sprint
-          </Button>
-        </div>
       </div>
+      <Card>
+        <CardContent className="pt-6 space-y-6">
+          {Object.entries(bookingDetails).map(([key, value]) => (
+            <div key={key} className="flex justify-between items-center">
+              <span className="font-extrabold text-text-primary">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+              <span className="font-medium text-text-primary">
+                {value !== null ? value.toString() : '-'}
+              </span>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+      <div className="flex justify-center">
+        <Button variant="proceed" onClick={handleStartSprint}>
+          Start Sprint
+        </Button>
+      </div>
+
       <div className="space-y-4">
         <h2 className="text-4xl font-extrabold text-midnight-blue-main">Sprint Feedback</h2>
         <p className="text-lg font-medium text-text-primary">
@@ -95,6 +138,7 @@ export default function BookingDetailsPage() {
     </div>
   );
 }
+
 
 
 
