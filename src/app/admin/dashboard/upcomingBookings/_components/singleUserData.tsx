@@ -88,7 +88,7 @@ export default function BookingDetailsPage({ booking: bookingProp }: { booking: 
   }, [bookingProp.id]);
 
   const handleStartSprint = () => {
-    setShowSprintDetails(false);
+    setShowSprintDetails(true);
   };
 
   const handleGoBack = () => {

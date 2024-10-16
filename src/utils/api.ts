@@ -7,7 +7,7 @@ const api = axios.create({
   },
 });
 
-// Utility function to get the token
+// Utility function to get the user token
 const getToken = (): string | null => {
   const userDataString = localStorage.getItem('loginData');
   const userData = JSON.parse(userDataString || '{}');
@@ -15,7 +15,7 @@ const getToken = (): string | null => {
 };
 
 
-// Utility function to get the token
+// Utility function to get the  admin token
 const getAdminToken = (): string | null => {
   const userDataString = localStorage.getItem('adminLoginData');
   const userData = JSON.parse(userDataString || '{}');
