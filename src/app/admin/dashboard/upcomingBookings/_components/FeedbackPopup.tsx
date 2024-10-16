@@ -53,15 +53,15 @@ const FeedbackPopup: React.FC<FeedbackPopupProps> = ({ isOpen, onClose, onSubmit
           </div>
           <div className="flex flex-row items-start justify-end gap-4 text-center text-lg text-text-primary font-webtypestyles-buttonlarge">
             <Button
-              variant="outline"
+              variant="proceedWhite"
               onClick={onClose}
-              className="rounded-81xl border-text-primary border-[1px] border-solid h-14 px-8"
+              className="border-text-primary border-[1px] border-solid box-border text-text-primary"
             >
               Cancel
             </Button>
             <Button
               onClick={handleSubmit}
-              className="rounded-81xl bg-incandescent-main h-14 px-8 text-web-light-background-elevated2"
+                   variant="proceed"
             >
               Save Feedback
             </Button>
