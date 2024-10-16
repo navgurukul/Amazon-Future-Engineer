@@ -15,7 +15,7 @@ const Navigate = () => {
     } else if (routeId === "calendar-view") {
       router.push("/admin/dashboard/calendar")
     } else if (routeId === "all-users") {
-      router.push("/all-users")
+      router.push("/admin/dashboard/allUsers")
     }
   }
 
@@ -39,7 +39,7 @@ const Navigate = () => {
         </Button>
         <Button
           variant="admin"
-          className={`${isActive("/all-users") ? "bg-incandescent-light text-incandescent-main" : ""}`}
+          className={`${isActive("/admin/dashboard/allUsers") ? "bg-incandescent-light text-incandescent-main" : ""}`}
           onClick={() => handleNavigate("all-users")}
         >
           All Users
