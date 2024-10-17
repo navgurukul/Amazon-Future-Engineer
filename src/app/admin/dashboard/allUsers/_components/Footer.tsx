@@ -6,13 +6,13 @@ export default function Footer() {
   <div className="flex flex-row items-center justify-between">
     <nav aria-label="Sprint actions" className="flex flex-row items-start justify-center gap-4">
       <Button
-        className="h-14 px-8 border rounded-full text-[#3a3a3a] border-[#3a3a3a] bg-white"
+        className="h-14 px-8 border rounded-full text-[#3a3a3a] border-[#3a3a3a] bg-white hover:text-white"
         aria-label="Cancel Sprint"
       >
         Cancel Sprint
       </Button>
       <Button
-        className="h-14 px-8 border rounded-full text-[#3a3a3a] border-[#3a3a3a] bg-white"
+        className="h-14 px-8 border rounded-full text-[#3a3a3a] border-[#3a3a3a] bg-white hover:text-white"
         aria-label="Mark as Not Interested"
       >
         Mark as Not Interested
@@ -33,7 +33,7 @@ export default function Footer() {
         Reschedule Sprint
       </Button>
       <Button
-        className="h-14 px-8 bg-red-500 text-white rounded-full"
+        className="h-14 px-8 bg-[#f55c38] text-white rounded-full"
         aria-label="Confirm Booking"
       >
         Confirm Booking
