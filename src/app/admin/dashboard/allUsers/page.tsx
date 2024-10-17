@@ -1,13 +1,13 @@
 "use client";
 
-import BookingPage from "./_components/bookingPage";
+import SprintDetailsPage from "./_components/sprint-details";
 import React from "react";
 import Footer from "./_components/Footer";
 
 const page = () => {
   return (
     <div>
-      <BookingPage />
+      <SprintDetailsPage />
       <Footer />
     </div>
   );
