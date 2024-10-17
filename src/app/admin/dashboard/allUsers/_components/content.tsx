@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/table";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, {useMemo, useState } from "react";
 
 const bookings = [
   {
@@ -51,6 +51,26 @@ const bookings = [
   },
   {
     name: "Rahul Prakash",
+    program: "Mini Sprint",
+    phone: "+918975574567",
+    students: 30,
+    dateOfRequest: "12 Oct 2024",
+    timeSlot: "16 Oct 2024 | 4 PM to 6 PM",
+    location: "Bengaluru",
+    status: "Confirmed",
+  },
+  {
+    name: "Mahij Prakash",
+    program: "Mini Sprint",
+    phone: "+918975574567",
+    students: 30,
+    dateOfRequest: "12 Oct 2024",
+    timeSlot: "16 Oct 2024 | 4 PM to 6 PM",
+    location: "Bengaluru",
+    status: "Callback Requested",
+  },
+  {
+    name: "John Doe",
     program: "Nano Sprint",
     phone: "+918975574567",
     students: 30,
@@ -60,7 +80,47 @@ const bookings = [
     status: "Confirmed",
   },
   {
-    name: "Rahul Prakash",
+    name: "Mayank Doe",
+    program: "Nano Sprint",
+    phone: "+918975574567",
+    students: 30,
+    dateOfRequest: "12 Oct 2024",
+    timeSlot: "16 Oct 2024 | 4 PM to 6 PM",
+    location: "Bengaluru",
+    status: "Confirmed",
+  },
+  {
+    name: "Alice Smith",
+    program: "Nano Sprint",
+    phone: "+918975574567",
+    students: 30,
+    dateOfRequest: "12 Oct 2024",
+    timeSlot: "16 Oct 2024 | 4 PM to 6 PM",
+    location: "Bengaluru",
+    status: "Callback Requested",
+  },
+  {
+    name: "Bob Johnson",
+    program: "Nano Sprint",
+    phone: "+918975574567",
+    students: 30,
+    dateOfRequest: "12 Oct 2024",
+    timeSlot: "16 Oct 2024 | 4 PM to 6 PM",
+    location: "Bengaluru",
+    status: "Confirmed",
+  },
+  {
+    name: "Eve Williams",
+    program: "Nano Sprint",
+    phone: "+918975574567",
+    students: 30,
+    dateOfRequest: "12 Oct 2024",
+    timeSlot: "16 Oct 2024 | 4 PM to 6 PM",
+    location: "Bengaluru",
+    status: "Confirmed",
+  },
+  {
+    name: "David Brown",
     program: "Nano Sprint",
     phone: "+918975574567",
     students: 30,
@@ -82,6 +142,16 @@ const Dashboard: React.FC = () => {
   const totalItems = bookings.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
+  const handleSprintProgramChange = (value: string) => {
+    setSprintProgram(value);
+    setCurrentPage(1); // Reset to first page when filter changes
+  };
+
+  const handleStatusChange = (value: string) => {
+    setStatus(value);
+    setCurrentPage(1); // Reset to first page when filter changes
+  };
+
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
@@ -93,16 +163,22 @@ const Dashboard: React.FC = () => {
     setCurrentPage(1);
   };
 
-  const filteredBookings = bookings.filter((booking) => {
-    const normalizedSearchQuery = searchQuery.toLowerCase();
-    return (
-      booking.name.toLowerCase().includes(normalizedSearchQuery) ||
-      booking.phone.includes(searchQuery) ||
-      booking.location.toLowerCase().includes(normalizedSearchQuery) ||
-      booking.program.toLowerCase().includes(normalizedSearchQuery) ||
-      booking.timeSlot.toLowerCase().includes(normalizedSearchQuery)
-    );
-  });
+
+  const filteredBookings = useMemo(() => {
+    return bookings.filter((booking) => {
+      const matchesSearch = 
+        booking.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        booking.phone.includes(searchQuery) ||
+        booking.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        booking.program.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        booking.timeSlot.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchesProgram = sprintProgram === "" || sprintProgram === " " || booking.program === sprintProgram;
+      const matchesStatus = status === "" || status === " " || booking.status === status;
+
+      return matchesSearch && matchesProgram && matchesStatus;
+    });
+  }, [searchQuery, sprintProgram, status]);
 
   const displayedBookings = filteredBookings.slice(
     (currentPage - 1) * itemsPerPage,
@@ -144,7 +220,7 @@ const Dashboard: React.FC = () => {
           </div>
           {/* Sprint Program Select */}
           <div className="relative flex items-center w-1/4">
-            <Select onValueChange={setSprintProgram} value={sprintProgram}>
+            <Select onValueChange={handleSprintProgramChange} value={sprintProgram}>
               <SelectTrigger className="w-full border rounded-full px-4 py-6 flex justify-between items-center">
                 <SelectValue placeholder="Sprint Program" />
               </SelectTrigger>
@@ -173,7 +249,7 @@ const Dashboard: React.FC = () => {
 
           {/* Status Select */}
           <div className="relative flex items-center w-1/4">
-            <Select onValueChange={setStatus} value={status}>
+            <Select onValueChange={handleStatusChange} value={status}>
               <SelectTrigger className="w-full border rounded-full px-4 py-6 flex justify-between items-center">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
@@ -196,10 +272,18 @@ const Dashboard: React.FC = () => {
               <TableRow>
                 <TableHead className="font-bold text-black">Name</TableHead>
                 <TableHead className="font-bold text-black">Program</TableHead>
-                <TableHead className="font-bold text-black">Phone Number</TableHead>
-                <TableHead className="font-bold text-black">No. of Students</TableHead>
-                <TableHead className="font-bold text-black">Date of Request</TableHead>
-                <TableHead className="font-bold text-black">Time Slot</TableHead>
+                <TableHead className="font-bold text-black">
+                  Phone Number
+                </TableHead>
+                <TableHead className="font-bold text-black">
+                  No. of Students
+                </TableHead>
+                <TableHead className="font-bold text-black">
+                  Date of Request
+                </TableHead>
+                <TableHead className="font-bold text-black">
+                  Time Slot
+                </TableHead>
                 <TableHead className="font-bold text-black">Location</TableHead>
                 <TableHead className="font-bold text-black">Status</TableHead>
                 <TableHead className="font-bold text-black"></TableHead>
