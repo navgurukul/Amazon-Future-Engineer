@@ -1,16 +1,15 @@
-"use client";
-
-import SprintDetailsPage from "./_components/sprint-details";
-import React from "react";
-import Footer from "./_components/Footer";
+"use client"
+import React from 'react'
+import Content from "./_components/content"
 
 const page = () => {
   return (
-    <div>
-      <SprintDetailsPage />
-      <Footer />
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="w-full max-w-[90vw]">
+        <Content />
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default page
