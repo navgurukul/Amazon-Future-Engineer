@@ -5,15 +5,25 @@ import Image from "next/image";
 import React, { useRef, useEffect, useState } from "react";
 import { useAllBookings } from "./allBookings";
 import EditDatePopup from "./EditDatePopup";
+import EditTimeSlotsPopup from "./EditTimeSlotsPopup";
+
+interface EventSlot {
+    start: string;
+    end: string;
+}
+
 
 const TimeSlotCalendar: React.FC = () => {
     const calendarRef = useRef<any>(null);
     const [currentMonthYear, setCurrentMonthYear] = useState<string>("");
     const { events, error, closePopup } = useAllBookings();
     const [showPopup, setShowPopup] = useState(false);
+    const [showTimeSlotsPopup, setShowTimeSlotsPopup] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [popupPosition, setPopupPosition] = useState<{ top: number; left: number } | null>(null);
+    const [timeSlotsPopupPosition, setTimeSlotsPopupPosition] = useState<{ top: number; left: number } | null>(null);
     const [selectedDayName, setSelectedDayName] = useState<string>("");
+    const [eventSlots, setEventSlots] = useState<EventSlot[]>([]);
 
     const getMonthYear = (date: Date) => {
         const monthNames = [
@@ -47,6 +57,35 @@ const TimeSlotCalendar: React.FC = () => {
     }, []);
 
 
+    const extractEventSlots = (events: any[]) => {
+        return events.map((event) => ({
+            start: event.start.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit', hour12: true }),
+            end: event.end.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit', hour12: true }),
+        }));
+    };
+
+    const getEventSlotsForDate = (date: Date): EventSlot[] => {
+        const filteredEvents = events.filter((event) => {
+            const eventStart = new Date(event.start); // Convert to Date object
+            return eventStart.toDateString() === date.toDateString();
+        });
+
+        return filteredEvents.map((event) => ({
+            start: new Date(event.start).toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
+            }),
+            end: new Date(event.end).toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
+            }),
+        }));
+    };
+
+
+
     // Click handler for day and event
     const handleCalendarClick = (info: any) => {
         let date: Date | null = null;
@@ -64,7 +103,14 @@ const TimeSlotCalendar: React.FC = () => {
             return; // Exit if the date is invalid
         }
 
-        const { el } = info; // Get the clicked element
+        const el = info.el || info.jsEvent?.target?.closest('.fc-daygrid-day, .fc-event');
+        // const { el } = info; // Get the clicked element
+
+        if (!el) {
+            console.error("Could not determine the clicked element.");
+            setPopupPosition(null); // Hide the popup or use default positioning
+            return;
+        }
 
         // Get the position of the clicked date element
         const { top, left } = el.getBoundingClientRect();
@@ -77,13 +123,29 @@ const TimeSlotCalendar: React.FC = () => {
 
         setSelectedDate(date); // Set the date based on click
         setSelectedDayName(date.toLocaleDateString('en-US', { weekday: 'long' })); // Get the day name
+
+        // If clicked on a specific event, show only that event’s slots
+        if (info.event) {
+            const slots = extractEventSlots([info.event]);
+            setEventSlots(slots);
+        } else {
+            // If clicked on the empty space of a date, show all slots for that date
+            const allSlotsForDate = getEventSlotsForDate(date);
+            setEventSlots(allSlotsForDate);
+        }
+
+        setTimeSlotsPopupPosition({
+            top: 50 ,// Adjust Y position slightly above the tile
+            left: 0, // Center the popup above the tile
+        });
+        
         setShowPopup(true); // Show the popup
     };
-
 
     const handleEditThisDate = () => {
         console.log("Editing this date:", selectedDate);
         setShowPopup(false);
+        setShowTimeSlotsPopup(true);
     };
 
     const handleEditAllDays = () => {
@@ -93,6 +155,12 @@ const TimeSlotCalendar: React.FC = () => {
 
     const handleClosePopup = () => {
         setShowPopup(false);
+        setShowTimeSlotsPopup(false);
+    };
+
+    const handleUpdateSlots = (updatedSlots: EventSlot[]) => {
+        console.log("Updated slots:", updatedSlots);
+        // You can now use the updated slots (e.g., send them to the server or update state)
     };
 
     return (
@@ -160,6 +228,21 @@ const TimeSlotCalendar: React.FC = () => {
                             left: `${popupPosition.left}px`,
                             zIndex: 1000 // Ensure it appears above other elements
                         }}
+                    />
+                )}
+
+                {showTimeSlotsPopup  && timeSlotsPopupPosition &&(
+                    <EditTimeSlotsPopup
+                        selectedDate={selectedDate?.toDateString() || ""}
+                        onClose={handleClosePopup}
+                        slots={eventSlots} // Pass the slots
+                        style={{
+                            position: 'absolute',
+                            top: `${timeSlotsPopupPosition.top}px`,
+                            left: `${timeSlotsPopupPosition.left}px`,
+                            zIndex: 1000 // Ensure it appears above other elements
+                        }}
+                        onUpdateSlots={handleUpdateSlots}
                     />
                 )}
             </div>
