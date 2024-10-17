@@ -138,14 +138,14 @@ const Page: NextPage = () => {
                 </div>
               </div>
               {/* <div> */}
-                {/* <div className="h-14 px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full sm:w-48 sm:px-6 sm:py-2 mt-4"> */}
-                  <div
-                    className="text-center text-[#f55c38] text-lg font-medium font-['Amazon Ember'] cursor-pointer px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full md:w-auto mt-6 md:mt-0 text-bodyM md:text-body1"
-                    onClick={handleOpenFirstPopup}
-                  >
-                    Reschedule
-                  </div>
-                {/* </div> */}
+              {/* <div className="h-14 px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full sm:w-48 sm:px-6 sm:py-2 mt-4"> */}
+              <div
+                className="text-center text-[#f55c38] text-lg font-medium font-['Amazon Ember'] cursor-pointer px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full md:w-auto mt-6 md:mt-0 text-bodyM md:text-body1"
+                onClick={handleOpenFirstPopup}
+              >
+                Reschedule
+              </div>
+              {/* </div> */}
               {/* </div> */}
             </div>
           ))
@@ -153,7 +153,7 @@ const Page: NextPage = () => {
           <div>No upcoming events found.</div>
         )}
       </div>
-      
+
       <FirstPopup
         isOpen={isFirstPopupOpen}
         handleClose={handleCloseFirstPopup}
@@ -175,14 +175,23 @@ const Page: NextPage = () => {
           <span className="sm:ml-2">Makerspace</span> */}
         </h2>
         <div className="flex flex-col xl:flex-row items-start gap-[33px] w-full">
-          <img
-            // className="w-full sm:w-[592px] h-[13.75rem] sm:h-[440px] rounded-lg object-cover"
+          {/* <img
             className="lg:w-[50%] w-full h-auto rounded-lg object-cover"
             alt="innovation hub map"
-            src="/userDashboard/map.png"
-            // width={592}
-            // height={440}
-          />
+            src="/userDashboard/map.png"        
+          /> */}
+
+          <div className="flex justify-center">
+            <iframe
+              className="md:w-[592px] md:h-[440px] w-full h-auto rounded-lg object-cover"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d66878.69351961587!2d77.58801335921136!3d13.02144489651538!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1629546751b1%3A0x8eaf5952ecd65934!2sMaruti%20Suzuki%20ARENA%20(Varun%20Motors%2C%20Bengaluru%2C%20Malleshwaram)!5e1!3m2!1sen!2sin!4v1729093732215!5m2!1sen!2sin"             
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade" 
+            >              
+            </iframe>
+          </div>
+
           <div className="w-full flex flex-col gap-4">
             {/* <div className="text-[#3a3a3a] text-[24px] sm:text-xl font-extrabold leading-9"> */}
             <div className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-[#3a3a3a]">
@@ -199,10 +208,10 @@ const Page: NextPage = () => {
             <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
               For queries, please call or Whatsapp us on {" "}
               <strong>
-              <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
-              +916366969292
-            </a>
-            </strong>
+                <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
+                  +916366969292
+                </a>
+              </strong>
             </div>
           </div>
         </div>
@@ -210,29 +219,29 @@ const Page: NextPage = () => {
       {/* <div className=" max-w-[90%] lg:max-w-[70%] md:max-w-[90%] h-auto flex flex-col justify-center items-start gap-8 mx-auto relative mt-8"> */}
       <div className="max-w-[90%] lg:max-w-[70%] md:max-w-[90%] h-auto flex justify-between items-start gap-8 mx-auto relative mt-8 md:mb-16">
         <div className="h-auto flex flex-col justify-center items-start gap-8 relative md:mt-8 text-left">
-        <div className="flex flex-col justify-start items-start gap-4">
-          {/* <div className="text-left text-[#29458c] text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px]"> */}
-          <div className="leading-[150%] text-heading6 md:text-heading5 text-[#29458c] text-left self-start">
-            Planned for future sprints?
+          <div className="flex flex-col justify-start items-start gap-4">
+            {/* <div className="text-left text-[#29458c] text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px]"> */}
+            <div className="leading-[150%] text-heading6 md:text-heading5 text-[#29458c] text-left self-start">
+              Planned for future sprints?
+            </div>
+            {/* <div className="text-left text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
+            <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+              Checkout the sprint details and book
+              {/* <br className="block sm:hidden" /> */}
+              one for your students today!
+            </div>
           </div>
-          {/* <div className="text-left text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
-          <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-            Checkout the sprint details and book
-            {/* <br className="block sm:hidden" /> */}
-            one for your students today!
+          <div className="w-full sm:w-auto h-12 sm:h-12 bg-[#f55c38] rounded-[100px] flex items-center justify-center px-4 sm:px-8 py-2 mb-4 cursor-pointer"
+            onClick={handleViewSprintDetails}>
+            {/* <div className="text-center text-white text-sm sm:text-base font-medium leading-[170%] font-['Amazon Ember']"> */}
+            <div className="text-center text-white text-body1 font-medium leading-[170%] font-['Amazon Ember']">
+              View Sprint Details
+            </div>
           </div>
         </div>
-        <div className="w-full sm:w-auto h-12 sm:h-12 bg-[#f55c38] rounded-[100px] flex items-center justify-center px-4 sm:px-8 py-2 mb-4 cursor-pointer"
-          onClick={handleViewSprintDetails}>
-          {/* <div className="text-center text-white text-sm sm:text-base font-medium leading-[170%] font-['Amazon Ember']"> */}
-          <div className="text-center text-white text-body1 font-medium leading-[170%] font-['Amazon Ember']">
-            View Sprint Details
-          </div>
-        </div>
-        </div>
-        {/* <div>
+        <div>
           <img className="hidden md:block mt-16 w-[80%] float-right" src="/userDashboard/Frame 31752.svg" alt="Coding symbol" />
-        </div> */}
+        </div>
       </div>
     </>
   );
