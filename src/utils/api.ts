@@ -237,7 +237,7 @@ export const fetchBookings = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data.data; // Assuming the actual booking data is nested under a 'data' key
+    return response.data.data; 
   } catch (error: any) {
     console.error('Error fetching bookings:', error);
     throw new Error(error.response?.data?.details || 'An error occurred while fetching bookings');
