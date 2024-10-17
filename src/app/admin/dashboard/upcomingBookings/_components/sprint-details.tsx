@@ -1,4 +1,3 @@
-// SprintDetailsComponent.tsx
 import React, { useState, useCallback, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -24,9 +23,15 @@ interface BookingDetails {
 }
 
 interface Feedback {
-  id: string;
+  id: number;
+  user_id: number;
+  slot_id: number;
+  program_id: number;
+  feedback: string;
   is_teacher: boolean;
-  content: string;
+  rating: number;
+  admin_user_id: number | null;
+  created_at: string;
 }
 
 interface SprintDetailsProps {
@@ -93,6 +98,17 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
     }
   }, [bookingDetails.slot, bookingProp.program_id, fetchFeedbacks]);
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-8 space-y-16">
       {/* Booking Details Section */}
@@ -133,15 +149,16 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
                 Add Feedback
               </Button>
             )}
-            {feedbacks.filter(f => !f.is_teacher).map((feedback, index) => (
-              <div key={index} className="p-4 border rounded">
-                <div className="flex items-center gap-4 mb-2">
-                  <div className="w-12 h-12 rounded-full bg-gray-200"></div>
-                  <span className="font-medium">
-                    {localStorage.getItem('teacherName') || 'Teacher'}
-                  </span>
+            {feedbacks.filter(f => !f.is_teacher).map((feedback) => (
+              <div key={feedback.id} className="p-4  rounded">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-gray-200"></div>
+                    <span className="font-medium">Teacher</span>
+                  </div>
+                  <span className="text-sm text-gray-500">{formatDate(feedback.created_at)}</span>
                 </div>
-                <p className="text-gray-700">{feedback.content}</p>
+                <p className="text-gray-700">{feedback.feedback}</p>
               </div>
             ))}
           </div>
@@ -149,24 +166,25 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
           {/* Student Feedback Section */}
           <div className="space-y-4">
             <h3 className="text-lg font-extrabold">Student Feedback</h3>
-            {feedbacks.filter(f => f.is_teacher).map((feedback, index) => (
-              <div key={index} className="p-4 border rounded">
-                <div className="flex items-center gap-4 mb-2">
-                  <div className="w-12 h-12 rounded-full bg-gray-200"></div>
-                  <span className="font-medium">
-                    {localStorage.getItem('studentName') || 'Student'}
-                  </span>
+            {feedbacks.filter(f => f.is_teacher).map((feedback) => (
+              <div key={feedback.id} className="p-4  rounded">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-gray-200"></div>
+                    <span className="font-medium">Student</span>
+                  </div>
+                  <span className="text-sm text-gray-500">{formatDate(feedback.created_at)}</span>
                 </div>
-                <p className="text-gray-700">{feedback.content}</p>
+                <p className="text-gray-700">{feedback.feedback}</p>
               </div>
             ))}
             <Button
-            variant="proceed"
-            onClick={() => setIsStudentPopupOpen(true)}
-            className="rounded-full border-incandescent-main border text-incandescent-main bg-transparent"
-          >
-            Add Feedback
-          </Button>
+              variant="proceed"
+              onClick={() => setIsStudentPopupOpen(true)}
+              className="rounded-full border-incandescent-main border text-incandescent-main bg-transparent"
+            >
+              Add Feedback
+            </Button>
           </div>
         </div>
       </div>
@@ -200,7 +218,6 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
 };
 
 export default SprintDetailsComponent;
-
 
 
 
