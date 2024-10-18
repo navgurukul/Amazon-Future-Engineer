@@ -23,46 +23,56 @@ interface BookingDetails {
 }
 
 interface Feedback {
-  id: string;
-  type: 'teacher' | 'student';
-  content: string;
+  id: number;
+  user_id: number;
+  slot_id: number;
+  program_id: number;
+  feedback: string;
+  is_teacher: boolean;
+  rating: number;
+  admin_user_id: number | null;
+  created_at: string;
 }
 
 interface SprintDetailsProps {
   bookingDetails: BookingDetails;
-  userId: number;
+  bookingProp: {
+    user: {
+      id: number;
+    };
+    program_id: number;
+  };
 }
 
-const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({bookingProp, bookingDetails }) => {
+const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, bookingDetails }) => {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [isTeacherFeedbackSubmitted, setIsTeacherFeedbackSubmitted] = useState(false);
   const [isTeacherPopupOpen, setIsTeacherPopupOpen] = useState(false);
   const [isStudentPopupOpen, setIsStudentPopupOpen] = useState(false);
 
-
-  useEffect(() => {
-    fetchFeedbacks();
-  }, [bookingDetails.slot]);
-
   const fetchFeedbacks = useCallback(async () => {
     try {
-      const response = await getFeedback( bookingProp.user.id, parseInt(bookingDetails.slot, 10)); 
+      const response = await getFeedback(bookingProp.user.id, parseInt(bookingDetails.slot, 10));
       setFeedbacks(response.data);
-      setIsTeacherFeedbackSubmitted(response.data.some((feedback: Feedback) => feedback.type === 'teacher'));
+      setIsTeacherFeedbackSubmitted(response.data.some((feedback: Feedback) => !feedback.is_teacher));
     } catch (error) {
       console.error('Error fetching feedbacks:', error);
     }
-  }, [bookingDetails.slot]);
+  }, [bookingDetails.slot, bookingProp.user.id]);
+
+  useEffect(() => {
+    fetchFeedbacks();
+  }, [fetchFeedbacks]);
 
   const handleTeacherFeedbackSubmit = useCallback(async (feedbackContent: string) => {
     try {
       const feedbackData = {
         user_id: bookingProp.user.id,
         slot_id: parseInt(bookingDetails.slot, 10),
-        program_id:bookingProp.program_id,
+        program_id: bookingProp.program_id,
         feedback: feedbackContent,
         rating: 5,
-        is_teacher: false,
+        is_teacher: false, 
       };
       await addTeacherFeedback(feedbackData);
       setIsTeacherFeedbackSubmitted(true);
@@ -70,13 +80,13 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({bookingProp, book
     } catch (error) {
       console.error('Error adding teacher feedback:', error);
     }
-  }, [bookingDetails.slot, bookingProp.program_id, fetchFeedbacks]);
+  }, [bookingDetails.slot, bookingProp.program_id, bookingProp.user.id, fetchFeedbacks]);
 
   const handleStudentFeedbackSubmit = useCallback(async (feedbackContent: string) => {
     try {
       const feedbackData = {
         slot_id: parseInt(bookingDetails.slot, 10),
-        program_id:bookingProp.program_id,
+        program_id: bookingProp.program_id,
         feedback: feedbackContent,
         rating: 5,
         is_teacher: true,
@@ -88,8 +98,20 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({bookingProp, book
     }
   }, [bookingDetails.slot, bookingProp.program_id, fetchFeedbacks]);
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-8 space-y-16">
+      {/* Booking Details Section */}
       <div className="space-y-8">
         <h1 className="text-4xl font-extrabold text-midnight-blue-main">Booking Details</h1>
         <Card>
@@ -110,22 +132,52 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({bookingProp, book
         </Card>
       </div>
 
+      {/* Feedback Section */}
       <div className="space-y-8">
         <h2 className="text-4xl font-extrabold text-midnight-blue-main">Sprint Feedback</h2>
+        
+        {/* Teacher Feedback Section */}
         <div className="space-y-6">
           <div className="space-y-4">
             <h3 className="text-lg font-extrabold">Teacher Feedback (Only one allowed)</h3>
-            <Button
-              variant="proceed"
-              onClick={() => setIsTeacherPopupOpen(true)}
-              disabled={isTeacherFeedbackSubmitted}
-              className="rounded-full border-incandescent-main border text-incandescent-main bg-transparent"
-            >
-              {isTeacherFeedbackSubmitted ? 'Feedback Submitted' : 'Add Feedback'}
-            </Button>
+            {!isTeacherFeedbackSubmitted && (
+              <Button
+                variant="proceed"
+                onClick={() => setIsTeacherPopupOpen(true)}
+                className="rounded-full border-incandescent-main border text-incandescent-main bg-transparent"
+              >
+                Add Feedback
+              </Button>
+            )}
+            {feedbacks.filter(f => !f.is_teacher).map((feedback) => (
+              <div key={feedback.id} className="p-4  rounded">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-gray-200"></div>
+                    <span className="font-medium">Teacher</span>
+                  </div>
+                  <span className="text-sm text-gray-500">{formatDate(feedback.created_at)}</span>
+                </div>
+                <p className="text-gray-700">{feedback.feedback}</p>
+              </div>
+            ))}
           </div>
+
+          {/* Student Feedback Section */}
           <div className="space-y-4">
             <h3 className="text-lg font-extrabold">Student Feedback</h3>
+            {feedbacks.filter(f => f.is_teacher).map((feedback) => (
+              <div key={feedback.id} className="p-4  rounded">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-gray-200"></div>
+                    <span className="font-medium">Student</span>
+                  </div>
+                  <span className="text-sm text-gray-500">{formatDate(feedback.created_at)}</span>
+                </div>
+                <p className="text-gray-700">{feedback.feedback}</p>
+              </div>
+            ))}
             <Button
               variant="proceed"
               onClick={() => setIsStudentPopupOpen(true)}
@@ -135,14 +187,9 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({bookingProp, book
             </Button>
           </div>
         </div>
-        {feedbacks.map((feedback) => (
-          <div key={feedback.id} className="p-4 border rounded">
-            <h4 className="font-bold">{feedback.type === 'teacher' ? 'Teacher' : 'Student'} Feedback</h4>
-            <p>{feedback.feedback}</p>
-          </div>
-        ))}
       </div>
 
+      {/* Feedback Popups */}
       <FeedbackPopup
         isOpen={isTeacherPopupOpen}
         onClose={() => setIsTeacherPopupOpen(false)}
@@ -157,8 +204,12 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({bookingProp, book
         type="student"
       />
 
+      {/* Submit Button */}
       <div className="flex justify-center items-center">
-        <Button variant="proceed" onClick={() => console.log("Submit and Complete Sprint")}>
+        <Button 
+          variant="proceed" 
+          onClick={() => console.log("Submit and Complete Sprint")}
+        >
           Submit and Complete Sprint
         </Button>
       </div>
@@ -281,3 +332,5 @@ export default SprintDetailsComponent;
 //     );
 //   }
   
+
+
