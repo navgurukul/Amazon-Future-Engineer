@@ -143,7 +143,7 @@ const Dashboard: React.FC = () => {
 
   const handleStatusChange = (value: string) => {
     setStatus(value);
-    setCurrentPage(1); // Reset to first page when filter changes
+    setCurrentPage(1); // Reset to first page when filter change
   };
 
   const handlePageChange = (page: number) => {
