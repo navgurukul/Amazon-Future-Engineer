@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { updateBookingStatus } from "@/utils/api";
+import { updateBookingStatusAllUsers } from "@/utils/api";
 import { useState } from "react";
 
 interface FooterProps {

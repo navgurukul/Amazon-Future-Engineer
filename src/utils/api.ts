@@ -412,7 +412,7 @@ export const updateBookingStatus = async (bookingId: number, status: string) => 
 
 // Update details of existing booking
 
-export const updateBookingStatus = async (
+export const updateBookingStatusAllUsers = async (
   bookingId: string,
   status: "Confirmed" | "Waiting" | "Cancelled" | "Disinterested" | "Completed",
   // queryType: "Booking" | "Reschedule",
