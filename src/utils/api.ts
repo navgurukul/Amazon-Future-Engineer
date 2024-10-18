@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 const api = axios.create({
   baseURL: 'https://dev-afe.samyarth.org/api/v1',
   headers: {
@@ -406,5 +407,51 @@ export const updateBookingStatus = async (bookingId: number, status: string) => 
   } catch (error: any) {
     console.error('Error updating booking status:', error);
     throw error;
+  }
+};
+
+// Update details of existing booking
+
+export const updateBookingStatusAllUsers = async (
+  bookingId: string,
+  status: "Confirmed" | "Waiting" | "Cancelled" | "Disinterested" | "Completed",
+  // queryType: "Booking" | "Reschedule",
+  // cancellationReason?: string
+) => {
+  const token = getAdminToken(); // Fetch the admin token
+  console.log("Token:", token);
+
+  if (!token) {
+    throw new Error("No token found");
+  }
+  const requestData: any = {
+    status,
+    // queryType,
+    //         ...(status === "Cancelled" || status === "Disinterested"
+    //           ? { cancellationReason }
+    //           : {}),
+  };
+  // Only include cancellationReason if the status is Cancelled or Disinterested, and the API allows it
+  // if (status === "Cancelled" || status === "Disinterested") {
+  //   requestData.cancellationReason = cancellationReason;
+  // }
+  try {
+    const response = await api.put(
+      `https://dev-afe.samyarth.org/api/v1/bookings/${bookingId}/status`,
+      requestData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token in the headers
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return response.data; // Return the response data if successful
+  } catch (error: any) {
+    console.error("Error updating booking status:", error);
+    throw new Error(
+      error.response?.data?.message || "Error updating booking status"
+    );
   }
 };
