@@ -7,12 +7,21 @@ const api = axios.create({
   },
 });
 
-// Utility function to get the token
+// Utility function to get the user token
 const getToken = (): string | null => {
   const userDataString = localStorage.getItem('loginData');
   const userData = JSON.parse(userDataString || '{}');
   return userData?.data?.token || null;
 };
+
+
+// Utility function to get the  admin token
+const getAdminToken = (): string | null => {
+  const userDataString = localStorage.getItem('adminLoginData');
+  const userData = JSON.parse(userDataString || '{}');
+  return userData?.data?.token || null;
+};
+
 
 // Function to fetch slots
 export const getSlots = async (venueId: number = 1) => {
@@ -208,5 +217,134 @@ export const adminLogin = async (email: string, password: string) => {
     return response.data;
   } catch (error) {
     throw error;
+  }
+};
+
+
+
+//upcoming booking dashboard data
+
+export const fetchBookings = async () => {
+  const token = getAdminToken();
+
+  if (!token) {
+    throw new Error('No token found');
+  }
+
+  try {
+    const response = await api.get('/bookings/admin', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.data; 
+  } catch (error: any) {
+    console.error('Error fetching bookings:', error);
+    throw new Error(error.response?.data?.details || 'An error occurred while fetching bookings');
+  }
+};
+
+
+
+// New feedback functions
+
+//Feedback api for teacher
+
+export const addTeacherFeedback = async (feedbackData: {
+  user_id: number;
+  slot_id: number;
+  program_id: number;
+  feedback: string;
+  rating: number;
+  is_teacher: boolean;
+}) => {
+  const token = getAdminToken();
+  if (!token) throw new Error('No admin token found');
+  try {
+    const response = await api.post('/feedbacks/admin/add', feedbackData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.details || 'An error occurred while adding teacher feedback');
+  }
+};
+
+
+// Feedback api for students
+
+export const addStudentFeedback = async (feedbackData: {
+  slot_id: number;
+  program_id: number;
+  feedback: string;
+  rating: number;
+  is_teacher: boolean;
+}) => {
+  const token = getAdminToken();
+  if (!token) throw new Error('No token found');
+  try {
+    const response = await api.post('/feedbacks/teacher/add', feedbackData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.details || 'An error occurred while adding student feedback');
+  }
+};
+
+// get all feedback
+export const getFeedback = async (user_id: number, slot_id: number) => {
+  const token =  getAdminToken();
+  if (!token) throw new Error('No token found');
+  try {
+    const response = await api.get(`/feedbacks/get?user_id=${user_id}&slot_id=${slot_id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.details || 'An error occurred while fetching feedback');
+  }
+};
+
+
+// Update slot details by slotId
+
+export const updateSlotDetails = async (id: number) => {
+  const token = getAdminToken();
+  if (!token) {
+    throw new Error('No token found');
+  }
+  try {
+    const response = await axios.get(`https://dev-afe.samyarth.org/api/v1/slotmanagement/${id}`, {
+      headers: {
+        'accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data.data[0];
+  } catch (error) {
+    return 0;
+  }
+};
+
+// Get slot by slotId
+
+export const getAdminSlotDetails = async (slotId: number) => {
+  try {
+    const token = getToken();
+    if (!token) {
+      throw new Error('No token found');
+    }
+
+    const response = await axios.get(`https://dev-afe.samyarth.org/api/v1/slotmanagement/slot/${slotId}`, {
+      headers: {
+        'accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data.data[0];
+  } catch (error) {
+    // console.error("Error fetching slot details:", error);
+    return 0;
   }
 };

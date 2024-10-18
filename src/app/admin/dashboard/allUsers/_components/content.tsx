@@ -1,22 +1,11 @@
+import CombinedBookingPage from "./bookingPage";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import React, {useMemo, useState } from "react";
+
 
 const bookings = [
   {
@@ -138,6 +127,11 @@ const Dashboard: React.FC = () => {
   const [sprintProgram, setSprintProgram] = useState("");
   const [dateRange, setDateRange] = useState("");
   const [status, setStatus] = useState("");
+  const [showBookingPage, setShowBookingPage] = useState(false);
+
+  const handleManageBookingClick = () => {
+    setShowBookingPage(true); // Show the CombinedBookingPage when clicked
+  };
 
   const totalItems = bookings.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -186,6 +180,8 @@ const Dashboard: React.FC = () => {
   );
 
   return (
+    <>
+    {!showBookingPage ? (
     <div className="min-h-screen bg-white">
       <div className="container mx-auto p-6 space-y-8">
         <h1 className="text-13xl leading-[150%] font-extrabold text-midnight-blue-main">
@@ -331,6 +327,7 @@ const Dashboard: React.FC = () => {
                   <TableCell className="border-0">
                     <a
                       href="#"
+                      onClick={handleManageBookingClick}
                       className="text-incandescent-main hover:text-incandescent-dark"
                     >
                       Manage Booking
@@ -386,6 +383,10 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
     </div>
+    ) : (
+        <CombinedBookingPage />
+      )}
+    </>
   );
 };
 
