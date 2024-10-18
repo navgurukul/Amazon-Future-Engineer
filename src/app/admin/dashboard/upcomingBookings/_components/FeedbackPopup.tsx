@@ -1,5 +1,4 @@
-// FeedbackPopup.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,28 +7,19 @@ import { Input } from "@/components/ui/input";
 interface FeedbackPopupProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (feedback: string) => void;
+  onSubmit: (feedback: string, name: string) => void;
   type: 'teacher' | 'student';
 }
 
 const FeedbackPopup: React.FC<FeedbackPopupProps> = ({ isOpen, onClose, onSubmit, type }) => {
   const [name, setName] = useState('');
   const [feedback, setFeedback] = useState('');
-  
-  useEffect(() => {
-    // Load name from localStorage if exists
-    const storedName = localStorage.getItem(`${type}Name`);
-    if (storedName) {
-      setName(storedName);
-    }
-  }, [type]);
 
   const handleSubmit = () => {
     if (name && feedback) {
-      // Store name in localStorage
-      localStorage.setItem(`${type}Name`, name);
-      onSubmit(feedback);
+      onSubmit(feedback, name);
       setFeedback('');
+      setName('');
       onClose();
     }
   };
