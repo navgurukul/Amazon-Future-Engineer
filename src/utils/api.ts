@@ -251,6 +251,7 @@ export const fetchBookings = async () => {
 //Feedback api for teacher
 
 export const addTeacherFeedback = async (feedbackData: {
+  // name: string,
   user_id: number;
   slot_id: number;
   program_id: number;
@@ -274,6 +275,7 @@ export const addTeacherFeedback = async (feedbackData: {
 // Feedback api for students
 
 export const addStudentFeedback = async (feedbackData: {
+  name: string,
   slot_id: number;
   program_id: number;
   feedback: string;

@@ -32,6 +32,7 @@ interface Feedback {
   rating: number;
   admin_user_id: number | null;
   created_at: string;
+  name: string;
 }
 
 interface SprintDetailsProps {
@@ -64,7 +65,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
     fetchFeedbacks();
   }, [fetchFeedbacks]);
 
-  const handleTeacherFeedbackSubmit = useCallback(async (feedbackContent: string) => {
+  const handleTeacherFeedbackSubmit = useCallback(async (feedbackContent: string, name: string) => {
     try {
       const feedbackData = {
         user_id: bookingProp.user.id,
@@ -72,7 +73,8 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
         program_id: bookingProp.program_id,
         feedback: feedbackContent,
         rating: 5,
-        is_teacher: false, 
+        is_teacher: false,
+        name: name,
       };
       await addTeacherFeedback(feedbackData);
       setIsTeacherFeedbackSubmitted(true);
@@ -82,7 +84,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
     }
   }, [bookingDetails.slot, bookingProp.program_id, bookingProp.user.id, fetchFeedbacks]);
 
-  const handleStudentFeedbackSubmit = useCallback(async (feedbackContent: string) => {
+  const handleStudentFeedbackSubmit = useCallback(async (feedbackContent: string, name: string) => {
     try {
       const feedbackData = {
         slot_id: parseInt(bookingDetails.slot, 10),
@@ -90,6 +92,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
         feedback: feedbackContent,
         rating: 5,
         is_teacher: true,
+        name: name,
       };
       await addStudentFeedback(feedbackData);
       fetchFeedbacks();
@@ -151,11 +154,11 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
               </Button>
             )}
             {feedbacks.filter(f => !f.is_teacher).map((feedback) => (
-              <div key={feedback.id} className="p-4  rounded">
+              <div key={feedback.id} className="p-4 rounded">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-full bg-gray-200"></div>
-                    <span className="font-medium">Teacher</span>
+                    <span className="font-medium">{feedback.name}</span>
                   </div>
                   <span className="text-sm text-gray-500">{formatDate(feedback.created_at)}</span>
                 </div>
@@ -168,11 +171,11 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
           <div className="space-y-4">
             <h3 className="text-lg font-extrabold">Student Feedback</h3>
             {feedbacks.filter(f => f.is_teacher).map((feedback) => (
-              <div key={feedback.id} className="p-4  rounded">
+              <div key={feedback.id} className="p-4 rounded">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-full bg-gray-200"></div>
-                    <span className="font-medium">Student</span>
+                    <span className="font-medium">{feedback.name}</span>
                   </div>
                   <span className="text-sm text-gray-500">{formatDate(feedback.created_at)}</span>
                 </div>
@@ -214,12 +217,12 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
           Submit and Complete Sprint
         </Button>
       </div>
-    </div></>
+    </div>
+    </>
   );
 };
 
 export default SprintDetailsComponent;
-
 
 
 
