@@ -305,3 +305,41 @@ export const getFeedback = async (user_id: number, slot_id: number) => {
     throw new Error(error.response?.data?.details || 'An error occurred while fetching feedback');
   }
 };
+
+
+//Admin edit api Function to update booking details
+export const updateBookingDetails = async (bookingId: number, bookingData: {
+  user_id: number;
+  slot_id: number;
+  program_id: number;
+  booking_batch_size: number;
+  visited_batch_size: number;
+  students_grade: string;
+  visiting_time: string;
+  school_name: string;
+  udise: string;
+  email: string;
+  address: string;
+  village: string;
+  state: string;
+  district: string;
+  pin_code: string;
+}) => {
+  const token = getAdminToken(); 
+  if (!token) {
+    throw new Error('No admin token found');
+  }
+
+  try {
+    const response = await api.put(`/bookings/${bookingId}`, bookingData, {
+      headers: {
+        Authorization: `Bearer ${token}`, 
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;  
+  } catch (error: any) {
+    console.error('Error updating booking details:', error);
+    throw new Error(error.response?.data?.details || 'An error occurred while updating booking details');
+  }
+};

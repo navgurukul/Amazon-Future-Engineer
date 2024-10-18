@@ -97,7 +97,7 @@ const PhoneNumberVerification: React.FC = () => {
                   Phone Number
                 </label>
                 <div className="relative flex items-center gap-4 w-full">
-                  <span className="absolute left-4 text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-secondary text-left">
+                  <span className="absolute z-40 left-4 text-lgleading-[170%] font-medium font-webtypestyles-body1 text-text-secondary text-left">
                     +91
                   </span>
                   <Input

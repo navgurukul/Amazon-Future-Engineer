@@ -110,11 +110,12 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
   };
 
   return (
+    <>
     <div className="w-full max-w-4xl mx-auto px-4 py-8 space-y-16">
       {/* Booking Details Section */}
       <div className="space-y-8">
         <h1 className="text-4xl font-extrabold text-midnight-blue-main">Booking Details</h1>
-        <Card>
+        <Card className="rounded-lg border-none shadow-none ml-[-20px]">
           <CardContent className="pt-6 space-y-6">
             {Object.entries(bookingDetails).map(([key, value]) => (
               <div key={key} className="flex justify-between items-center">
@@ -213,7 +214,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
           Submit and Complete Sprint
         </Button>
       </div>
-    </div>
+    </div></>
   );
 };
 
