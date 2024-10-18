@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { addTeacherFeedback, addStudentFeedback, getFeedback } from '@/utils/api';
+import { addTeacherFeedback, addStudentFeedback, getFeedback , updateBookingStatus} from '@/utils/api';
 import FeedbackPopup from './FeedbackPopup';
+import SubmitPopup from './SubmitPopup';
 
 interface BookingDetails {
   name: string;
@@ -32,6 +33,7 @@ interface Feedback {
   rating: number;
   admin_user_id: number | null;
   created_at: string;
+  name: string;
 }
 
 interface SprintDetailsProps {
@@ -49,6 +51,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
   const [isTeacherFeedbackSubmitted, setIsTeacherFeedbackSubmitted] = useState(false);
   const [isTeacherPopupOpen, setIsTeacherPopupOpen] = useState(false);
   const [isStudentPopupOpen, setIsStudentPopupOpen] = useState(false);
+  const [isSubmitPopupOpen, setIsSubmitPopupOpen] = useState(false);
 
   const fetchFeedbacks = useCallback(async () => {
     try {
@@ -64,7 +67,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
     fetchFeedbacks();
   }, [fetchFeedbacks]);
 
-  const handleTeacherFeedbackSubmit = useCallback(async (feedbackContent: string) => {
+  const handleTeacherFeedbackSubmit = useCallback(async (feedbackContent: string, name: string) => {
     try {
       const feedbackData = {
         user_id: bookingProp.user.id,
@@ -72,7 +75,8 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
         program_id: bookingProp.program_id,
         feedback: feedbackContent,
         rating: 5,
-        is_teacher: false, 
+        is_teacher: false,
+        name: name,
       };
       await addTeacherFeedback(feedbackData);
       setIsTeacherFeedbackSubmitted(true);
@@ -82,7 +86,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
     }
   }, [bookingDetails.slot, bookingProp.program_id, bookingProp.user.id, fetchFeedbacks]);
 
-  const handleStudentFeedbackSubmit = useCallback(async (feedbackContent: string) => {
+  const handleStudentFeedbackSubmit = useCallback(async (feedbackContent: string, name: string) => {
     try {
       const feedbackData = {
         slot_id: parseInt(bookingDetails.slot, 10),
@@ -90,6 +94,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
         feedback: feedbackContent,
         rating: 5,
         is_teacher: true,
+        name: name,
       };
       await addStudentFeedback(feedbackData);
       fetchFeedbacks();
@@ -109,116 +114,145 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
     });
   };
 
-  return (
-    <div className="w-full max-w-4xl mx-auto px-4 py-8 space-y-16">
-      {/* Booking Details Section */}
-      <div className="space-y-8">
-        <h1 className="text-4xl font-extrabold text-midnight-blue-main">Booking Details</h1>
-        <Card>
-          <CardContent className="pt-6 space-y-6">
-            {Object.entries(bookingDetails).map(([key, value]) => (
-              <div key={key} className="flex justify-between items-center">
-                <Label className="font-extrabold text-lg text-text-primary">
-                  {key.replace(/([A-Z])/g, ' $1').trim()}
-                </Label>
-                <Input
-                  value={value !== null ? value.toString() : '-'}
-                  readOnly
-                  className="w-80 rounded-81xl bg-grey-300 border-text-primary font-medium text-lg text-text-primary"
-                />
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-      </div>
+  const handleSubmitAndCompleteSprint = async() => {
+    try {
+      await updateBookingStatus(bookingProp.user.id, "Completed");
+      setIsSubmitPopupOpen(true);
+    } catch (error) {
+      console.error('Error updating booking status:', error);
+    }
+    setIsSubmitPopupOpen(true);
+  };
 
-      {/* Feedback Section */}
-      <div className="space-y-8">
-        <h2 className="text-4xl font-extrabold text-midnight-blue-main">Sprint Feedback</h2>
-        
-        {/* Teacher Feedback Section */}
-        <div className="space-y-6">
-          <div className="space-y-4">
-            <h3 className="text-lg font-extrabold">Teacher Feedback (Only one allowed)</h3>
-            {!isTeacherFeedbackSubmitted && (
-              <Button
-                variant="proceed"
-                onClick={() => setIsTeacherPopupOpen(true)}
-                className="rounded-full border-incandescent-main border text-incandescent-main bg-transparent"
-              >
-                Add Feedback
-              </Button>
-            )}
-            {feedbacks.filter(f => !f.is_teacher).map((feedback) => (
-              <div key={feedback.id} className="p-4  rounded">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-gray-200"></div>
-                    <span className="font-medium">Teacher</span>
+  const parseSlot = (slot: string) => {
+    const [datePart, timePart] = slot.split(' | ');
+    return { date: datePart, time: timePart };
+  };
+
+  return (
+    <>
+      {isSubmitPopupOpen ? (
+        <SubmitPopup 
+          isOpen={isSubmitPopupOpen}
+          onClose={() => setIsSubmitPopupOpen(false)}
+          bookingData={{
+            name: bookingDetails.name,
+            date: parseSlot(bookingDetails.slot).date,
+            time: parseSlot(bookingDetails.slot).time,
+            students: bookingDetails.numberOfStudents,
+          }} 
+        />
+      ) : (
+        <div className="w-full max-w-4xl mx-auto px-4 py-8 space-y-16">
+          {/* Booking Details Section */}
+          <div className="space-y-8">
+            <h1 className="text-4xl font-extrabold text-midnight-blue-main">Booking Details</h1>
+            <Card className="rounded-lg border-none shadow-none ml-[-20px]">
+              <CardContent className="pt-6 space-y-6">
+                {Object.entries(bookingDetails).map(([key, value]) => (
+                  <div key={key} className="flex justify-between items-center">
+                    <Label className="font-extrabold text-lg text-text-primary">
+                      {key.replace(/([A-Z])/g, ' $1').trim()}
+                    </Label>
+                    <Input
+                      value={value !== null ? value.toString() : '-'}
+                      readOnly
+                      className="w-80 rounded-81xl bg-grey-300 border-text-primary font-medium text-lg text-text-primary"
+                    />
                   </div>
-                  <span className="text-sm text-gray-500">{formatDate(feedback.created_at)}</span>
-                </div>
-                <p className="text-gray-700">{feedback.feedback}</p>
-              </div>
-            ))}
+                ))}
+              </CardContent>
+            </Card>
           </div>
 
-          {/* Student Feedback Section */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-extrabold">Student Feedback</h3>
-            {feedbacks.filter(f => f.is_teacher).map((feedback) => (
-              <div key={feedback.id} className="p-4  rounded">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-gray-200"></div>
-                    <span className="font-medium">Student</span>
+          {/* Feedback Section */}
+          <div className="space-y-8">
+            <h2 className="text-4xl font-extrabold text-midnight-blue-main">Sprint Feedback</h2>
+            
+            {/* Teacher Feedback Section */}
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <h3 className="text-lg font-extrabold">Teacher Feedback (Only one allowed)</h3>
+                {!isTeacherFeedbackSubmitted && (
+                  <Button
+                    variant="proceed"
+                    onClick={() => setIsTeacherPopupOpen(true)}
+                    className="rounded-full border-incandescent-main border text-incandescent-main bg-transparent"
+                  >
+                    Add Feedback
+                  </Button>
+                )}
+                {feedbacks.filter(f => !f.is_teacher).map((feedback) => (
+                  <div key={feedback.id} className="p-4 rounded">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-full bg-gray-200"></div>
+                        <span className="font-medium">{feedback.name}</span>
+                      </div>
+                      <span className="text-sm text-gray-500">{formatDate(feedback.created_at)}</span>
+                    </div>
+                    <p className="text-gray-700">{feedback.feedback}</p>
                   </div>
-                  <span className="text-sm text-gray-500">{formatDate(feedback.created_at)}</span>
-                </div>
-                <p className="text-gray-700">{feedback.feedback}</p>
+                ))}
               </div>
-            ))}
-            <Button
-              variant="proceed"
-              onClick={() => setIsStudentPopupOpen(true)}
-              className="rounded-full border-incandescent-main border text-incandescent-main bg-transparent"
+
+              {/* Student Feedback Section */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-extrabold">Student Feedback</h3>
+                {feedbacks.filter(f => f.is_teacher).map((feedback) => (
+                  <div key={feedback.id} className="p-4 rounded">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-full bg-gray-200"></div>
+                        <span className="font-medium">{feedback.name}</span>
+                      </div>
+                      <span className="text-sm text-gray-500">{formatDate(feedback.created_at)}</span>
+                    </div>
+                    <p className="text-gray-700">{feedback.feedback}</p>
+                  </div>
+                ))}
+                <Button
+                  variant="proceed"
+                  onClick={() => setIsStudentPopupOpen(true)}
+                  className="rounded-full border-incandescent-main border text-incandescent-main bg-transparent"
+                >
+                  Add Feedback
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Feedback Popups */}
+          <FeedbackPopup
+            isOpen={isTeacherPopupOpen}
+            onClose={() => setIsTeacherPopupOpen(false)}
+            onSubmit={handleTeacherFeedbackSubmit}
+            type="teacher"
+          />
+
+          <FeedbackPopup
+            isOpen={isStudentPopupOpen}
+            onClose={() => setIsStudentPopupOpen(false)}
+            onSubmit={handleStudentFeedbackSubmit}
+            type="student"
+          />
+
+          {/* Submit Button */}
+          <div className="flex justify-center items-center">
+            <Button 
+              variant="proceed" 
+              onClick={handleSubmitAndCompleteSprint}
             >
-              Add Feedback
+              Submit and Complete Sprint
             </Button>
           </div>
         </div>
-      </div>
-
-      {/* Feedback Popups */}
-      <FeedbackPopup
-        isOpen={isTeacherPopupOpen}
-        onClose={() => setIsTeacherPopupOpen(false)}
-        onSubmit={handleTeacherFeedbackSubmit}
-        type="teacher"
-      />
-
-      <FeedbackPopup
-        isOpen={isStudentPopupOpen}
-        onClose={() => setIsStudentPopupOpen(false)}
-        onSubmit={handleStudentFeedbackSubmit}
-        type="student"
-      />
-
-      {/* Submit Button */}
-      <div className="flex justify-center items-center">
-        <Button 
-          variant="proceed" 
-          onClick={() => console.log("Submit and Complete Sprint")}
-        >
-          Submit and Complete Sprint
-        </Button>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
 export default SprintDetailsComponent;
-
 
 
 
