@@ -126,6 +126,11 @@ const Header: NextPage<HeaderProps> = ({
     setIsProfileDropdownOpen((prev) => !prev);
   };
 
+  const handleDoubleClickProfile = () => {
+    setIsProfileDropdownOpen(false); 
+  };
+
+
   const handleDashboardClick = () => {
     router.push("/userdashboard");
     setIsProfileDropdownOpen(false);
@@ -341,6 +346,7 @@ const Header: NextPage<HeaderProps> = ({
                       width={56}
                       height={56}
                       onClick={handleProfileClick}
+                      onDoubleClick={handleDoubleClickProfile}
                     />
                     {isProfileDropdownOpen && (
                       <div ref={dropdownRef}
@@ -528,3 +534,5 @@ const Header: NextPage<HeaderProps> = ({
 };
 
 export default Header;
+
+

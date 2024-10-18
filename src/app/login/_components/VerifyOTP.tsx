@@ -72,6 +72,11 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
+
+    if (e.key === "Enter") {
+      handleVerifyOTP();  
+    }
+
   };
 
   const handleVerifyOTP = async () => {
@@ -93,11 +98,14 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
       const response = await verifyOtp(phoneNumber, otpString);
       localStorage.setItem("loginData", JSON.stringify(response));
       Cookies.set("loginData", JSON.stringify(response), { expires: 7 });
+      
       setLoginSuccess(true); 
+
       setTimeout(() => {
         setLoginSuccess(false); 
-        router.push("/sprintPages/nanopage");
-      }, 5000);
+        router.push("/sprintPages/nanopage"); 
+      }, 10000); 
+
       const userId = JSON.stringify(response.userId);
       localStorage.setItem("LoginId", userId);
       fetchProgramData()
@@ -122,6 +130,9 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
   const handlePreviousScreen = () => {
     setShowOTPVerification(false);
   };
+
+  
+
 
   return (
     <div className="px-4 sm:px-4 mx-auto mt-12 md:mx-0 md:mt-0">

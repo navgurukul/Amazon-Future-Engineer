@@ -1,11 +1,4 @@
 import type { NextPage } from 'next';
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/dialog";
 import Image from "next/image";
 
 // Define the EventData type to match your booking data structure
@@ -32,95 +25,27 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
     const studentsCount = userData.booking_batch_size;
 
     const whatsappLink = `https://wa.me/${6366969292}`;
+    // const phoneNumber = "+916366969292";
 
-
+    // // Function to handle copying the phone number
+    // const handleCopy = () => {
+    //     navigator.clipboard.writeText(phoneNumber)
+    //         .then(() => {
+    //             console.log("Phone number copied to clipboard!");
+    //             // Optionally, you can show a success message here
+    //             alert("Phone number copied to clipboard!");
+    //         })
+    //         .catch(err => {
+    //             console.error("Failed to copy: ", err);
+    //         });
+    // };
     return (
         <>
-            {/* <Dialog open={isOpen} onOpenChange={handleClose}>
-                <DialogContent className="sm:fixed top-[70%] md:top-[50%] w-full max-w-[592px] h-auto p-8 bg-white rounded-lg shadow-lg gap-2">
-                    <DialogHeader>
-                        <DialogTitle>
-                            <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold text-heading5 font-heading5-bold leading-7 sm:leading-9 text-left whitespace-nowrap">
-                                Reschedule Nano Sprint
-                            </div>
-                        </DialogTitle>
-                    </DialogHeader>
-                    <DialogDescription>
-                        <div className="text-[#3a3a3a] text-subTitle1 font-subTitle1-bold leading-6 sm:leading-[30.60px] mb-4">
-                            Current Booking Details
-                        </div>
-                        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
-                            <div className="flex items-center space-x-[12px]">
-                                <Image
-                                    className="w-8 h-8 relative"
-                                    alt="calendar icon"
-                                    src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg"
-                                    width={20}
-                                    height={20}
-                                />
-                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px] gap-[2rem]">
-                                    {formattedDate}
-                                </div>
-                            </div>
-
-                            <div className="flex items-center space-x-[12px]">
-                                <Image
-                                    className="w-8 h-8 relative"
-                                    alt="time icon"
-                                    src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg"
-                                    width={20}
-                                    height={20}
-                                />
-                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px] gap-[2rem]">
-                                    {`${startTime} to ${endTime}`}
-                                </div>
-                            </div>
-
-                            <div className="flex items-center space-x-[12px]">
-                                <Image
-                                    className="w-8 h-8 relative"
-                                    alt="students icon"
-                                    src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg"
-                                    width={20}
-                                    height={20}
-                                />
-                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px] gap-[2rem]">
-                                    {`${studentsCount} Students`}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="w-full relative text-left text-[1rem]  text-gray-700 font-medium sm:text-lg leading-[170%] sm:leading-8 font-['Amazon Ember'] mt-8">
-                            Currently, we are only accepting reschedule requests via calls and WhatsApp. Please contact us at the number below to confirm your session rescheduling.
-                        </div>
-                        <div className="mt-8 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center leading-30">
-                            <div className="text-center text-[#3a3a3a] font-extrabold text-heading5 font-heading5-bold">
-                                +91 6366969292
-                            </div>
-                            <div className="text-center text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-6 sm:leading-[30.60px]">
-                                AFE Makerspace Helpline
-                            </div>
-                        </div>
-                    </DialogDescription>
-                </DialogContent>
-            </Dialog> */}
             {isOpen && (
                 <div className="fixed inset-0 flex items-end md:items-center justify-center z-50 bg-black bg-opacity-70">
                     <div className="w-full max-w-[592px] h-auto p-8 bg-white rounded-lg shadow-lg">
                         <div className="flex justify-between items-center">
-                            {/* <h2 className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold leading-7 sm:leading-9">
-                                Reschedule Nano Sprint
-                            </h2>
 
-                            <button
-                                onClick={handleClose}
-                                className="text-[#3a3a3a] text-lg font-bold"
-                            >
-                                X
-                            </button>
-                        </div>
-                        <div className="text-[#3a3a3a] text-lg font-bold mb-4">
-                            Current Booking Details
-                        </div> */}
                             <div className="text-[#3a3a3a] text-subHeading1 md:text-heading6 font-['Amazon Ember Display'] leading-[150%] text-left">
                                 Reschedule Nano Sprint
                             </div>
@@ -134,7 +59,6 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
                             </button>
                         </div>
 
-                        {/* Current Booking Details */}
                         <div className="text-[#3a3a3a] text-bodyM2 md:text-subTitle1 leading-[170%] mt-4 font-['Amazon Ember']">
                             Current Booking Details
                         </div>
@@ -187,10 +111,21 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
                                     +91 6366969292
                                 </a>
                             </div>
-                            
+
                             <div className="text-[#3a3a3a] text-bodyM md:text-body1 font-body1-regular leading-[170%]">
                                 AFE Makerspace Helpline
                             </div>
+                                                     
+                            {/* <button className="hidden md:flex px-8 py-2 rounded-full border border-[#F55C38] justify-center items-center leading-[170%]" onClick={handleCopy}>
+                                <img
+                                    src="/userDashboard/content_copy.svg"
+                                    alt="Copy Icon"
+                                    className="h-[16px] w-[16px] mr-2"
+                                />
+                                <div className="h-[24px] w-[33px] text-center text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                                    Copy
+                                </div>
+                            </button> */}
                         </div>
                     </div>
                 </div>

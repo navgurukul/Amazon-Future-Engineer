@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 const LoginSuccess: React.FC<{ show: boolean }> = ({ show }) => {
+  if (!show) return null;
   return (
     <>
       {show && (

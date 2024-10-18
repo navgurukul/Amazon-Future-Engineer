@@ -63,6 +63,21 @@ const Page: NextPage = () => {
     console.log("need to add logic for this")
   }
 
+  // const phoneNumber = "+916366969292";
+
+  // // Function to handle copying the phone number
+  // const handleCopy = () => {
+  //   navigator.clipboard.writeText(phoneNumber)
+  //     .then(() => {
+  //       console.log("Phone number copied to clipboard!");
+  //       // Optionally, you can show a success message here
+  //       alert("Phone number copied to clipboard!");
+  //     })
+  //     .catch(err => {
+  //       console.error("Failed to copy: ", err);
+  //     });
+  // };
+
   return (
     <>
       <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
@@ -206,9 +221,22 @@ const Page: NextPage = () => {
             <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
               For queries, please call or Whatsapp us on {" "}
               <strong>
-                <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
-                  +916366969292
-                </a>
+                  <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
+                    +91 636696-9292
+                  </a>
+                  {/* <button
+                    className="hidden md:flex px-2 py-1 rounded-full border border-[#F55C38] justify-center items-center leading-[170%]"
+                    onClick={handleCopy}
+                  >
+                    <img
+                      src="/userDashboard/content_copy.svg"
+                      alt="Copy Icon"
+                      className="h-[16px] w-[16px] mr-2"
+                    />
+                    <div className="h-[24px] w-[33px] text-center text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                      Copy
+                    </div>
+                  </button> */}
               </strong>
             </div>
           </div>
@@ -238,7 +266,7 @@ const Page: NextPage = () => {
           </div>
         </div>
         <div>
-          <img className="hidden md:block mt-16 w-[80%] float-right" src="/userDashboard/Frame 31752.svg" alt="Coding symbol" />
+          {/* <img className="hidden md:block mt-16 w-[80%] float-right" src="/userDashboard/Frame 31752.svg" alt="Coding symbol" /> */}
         </div>
       </div>
     </>
