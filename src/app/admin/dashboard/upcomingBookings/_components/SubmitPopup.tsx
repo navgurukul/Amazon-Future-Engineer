@@ -19,7 +19,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, onClose, bookingDat
   if (!isOpen) return null;
 
   const handleGoToDashboard = () => {
-    router.push("/admin/dashboard/upcomingBookings")
+    window.location.reload();
     onClose();
   };
 

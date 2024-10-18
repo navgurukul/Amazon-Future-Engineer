@@ -325,7 +325,7 @@ export const updateBookingDetails = async (bookingId: number, bookingData: {
   village: string;
   state: string;
   district: string;
-  pin_code: string;
+  pin_code: number;
 }) => {
   const token = getAdminToken(); 
   if (!token) {
