@@ -46,6 +46,10 @@ const PhoneNumberVerification: React.FC = () => {
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleProceed();  
+    }
+
     const charCode = event.key.charCodeAt(0);
     if (charCode < 48 || charCode > 57) {
       event.preventDefault();
@@ -111,7 +115,8 @@ const PhoneNumberVerification: React.FC = () => {
                     }`}
                     value={phoneNumber}
                     onChange={handlePhoneNumber}
-                    onKeyPress={handleKeyPress}
+                    // onKeyPress={handleKeyPress}
+                    onKeyDown={handleKeyPress}
                   />
                 </div>
                 {errorMessage && (
@@ -138,3 +143,5 @@ const PhoneNumberVerification: React.FC = () => {
 };
 
 export default PhoneNumberVerification;
+
+
