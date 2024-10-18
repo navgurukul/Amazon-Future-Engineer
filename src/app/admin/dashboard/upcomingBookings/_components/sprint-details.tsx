@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { addTeacherFeedback, addStudentFeedback, getFeedback } from '@/utils/api';
+import { addTeacherFeedback, addStudentFeedback, getFeedback , updateBookingStatus} from '@/utils/api';
 import FeedbackPopup from './FeedbackPopup';
+import SubmitPopup from './SubmitPopup';
 
 interface BookingDetails {
   name: string;
@@ -23,46 +24,59 @@ interface BookingDetails {
 }
 
 interface Feedback {
-  id: string;
-  type: 'teacher' | 'student';
-  content: string;
+  id: number;
+  user_id: number;
+  slot_id: number;
+  program_id: number;
+  feedback: string;
+  is_teacher: boolean;
+  rating: number;
+  admin_user_id: number | null;
+  created_at: string;
+  name: string;
 }
 
 interface SprintDetailsProps {
   bookingDetails: BookingDetails;
-  userId: number;
+  bookingProp: {
+    user: {
+      id: number;
+    };
+    program_id: number;
+  };
 }
 
-const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({bookingProp, bookingDetails }) => {
+const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, bookingDetails }) => {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [isTeacherFeedbackSubmitted, setIsTeacherFeedbackSubmitted] = useState(false);
   const [isTeacherPopupOpen, setIsTeacherPopupOpen] = useState(false);
   const [isStudentPopupOpen, setIsStudentPopupOpen] = useState(false);
-
-
-  useEffect(() => {
-    fetchFeedbacks();
-  }, [bookingDetails.slot]);
+  const [isSubmitPopupOpen, setIsSubmitPopupOpen] = useState(false);
 
   const fetchFeedbacks = useCallback(async () => {
     try {
-      const response = await getFeedback( bookingProp.user.id, parseInt(bookingDetails.slot, 10)); 
+      const response = await getFeedback(bookingProp.user.id, parseInt(bookingDetails.slot, 10));
       setFeedbacks(response.data);
-      setIsTeacherFeedbackSubmitted(response.data.some((feedback: Feedback) => feedback.type === 'teacher'));
+      setIsTeacherFeedbackSubmitted(response.data.some((feedback: Feedback) => !feedback.is_teacher));
     } catch (error) {
       console.error('Error fetching feedbacks:', error);
     }
-  }, [bookingDetails.slot]);
+  }, [bookingDetails.slot, bookingProp.user.id]);
 
-  const handleTeacherFeedbackSubmit = useCallback(async (feedbackContent: string) => {
+  useEffect(() => {
+    fetchFeedbacks();
+  }, [fetchFeedbacks]);
+
+  const handleTeacherFeedbackSubmit = useCallback(async (feedbackContent: string, name: string) => {
     try {
       const feedbackData = {
         user_id: bookingProp.user.id,
         slot_id: parseInt(bookingDetails.slot, 10),
-        program_id:bookingProp.program_id,
+        program_id: bookingProp.program_id,
         feedback: feedbackContent,
         rating: 5,
         is_teacher: false,
+        name: name,
       };
       await addTeacherFeedback(feedbackData);
       setIsTeacherFeedbackSubmitted(true);
@@ -70,16 +84,17 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({bookingProp, book
     } catch (error) {
       console.error('Error adding teacher feedback:', error);
     }
-  }, [bookingDetails.slot, bookingProp.program_id, fetchFeedbacks]);
+  }, [bookingDetails.slot, bookingProp.program_id, bookingProp.user.id, fetchFeedbacks]);
 
-  const handleStudentFeedbackSubmit = useCallback(async (feedbackContent: string) => {
+  const handleStudentFeedbackSubmit = useCallback(async (feedbackContent: string, name: string) => {
     try {
       const feedbackData = {
         slot_id: parseInt(bookingDetails.slot, 10),
-        program_id:bookingProp.program_id,
+        program_id: bookingProp.program_id,
         feedback: feedbackContent,
         rating: 5,
         is_teacher: true,
+        name: name,
       };
       await addStudentFeedback(feedbackData);
       fetchFeedbacks();
@@ -88,86 +103,156 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({bookingProp, book
     }
   }, [bookingDetails.slot, bookingProp.program_id, fetchFeedbacks]);
 
-  return (
-    <div className="w-full max-w-4xl mx-auto px-4 py-8 space-y-16">
-      <div className="space-y-8">
-        <h1 className="text-4xl font-extrabold text-midnight-blue-main">Booking Details</h1>
-        <Card>
-          <CardContent className="pt-6 space-y-6">
-            {Object.entries(bookingDetails).map(([key, value]) => (
-              <div key={key} className="flex justify-between items-center">
-                <Label className="font-extrabold text-lg text-text-primary">
-                  {key.replace(/([A-Z])/g, ' $1').trim()}
-                </Label>
-                <Input
-                  value={value !== null ? value.toString() : '-'}
-                  readOnly
-                  className="w-80 rounded-81xl bg-grey-300 border-text-primary font-medium text-lg text-text-primary"
-                />
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-      </div>
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
 
-      <div className="space-y-8">
-        <h2 className="text-4xl font-extrabold text-midnight-blue-main">Sprint Feedback</h2>
-        <div className="space-y-6">
-          <div className="space-y-4">
-            <h3 className="text-lg font-extrabold">Teacher Feedback (Only one allowed)</h3>
-            <Button
-              variant="proceed"
-              onClick={() => setIsTeacherPopupOpen(true)}
-              disabled={isTeacherFeedbackSubmitted}
-              className="rounded-full border-incandescent-main border text-incandescent-main bg-transparent"
-            >
-              {isTeacherFeedbackSubmitted ? 'Feedback Submitted' : 'Add Feedback'}
-            </Button>
+  const handleSubmitAndCompleteSprint = async() => {
+    try {
+      await updateBookingStatus(bookingProp.user.id, "Completed");
+      setIsSubmitPopupOpen(true);
+    } catch (error) {
+      console.error('Error updating booking status:', error);
+    }
+    setIsSubmitPopupOpen(true);
+  };
+
+  const parseSlot = (slot: string) => {
+    const [datePart, timePart] = slot.split(' | ');
+    return { date: datePart, time: timePart };
+  };
+
+  return (
+    <>
+      {isSubmitPopupOpen ? (
+        <SubmitPopup 
+          isOpen={isSubmitPopupOpen}
+          onClose={() => setIsSubmitPopupOpen(false)}
+          bookingData={{
+            name: bookingDetails.name,
+            date: parseSlot(bookingDetails.slot).date,
+            time: parseSlot(bookingDetails.slot).time,
+            students: bookingDetails.numberOfStudents,
+          }} 
+        />
+      ) : (
+        <div className="w-full max-w-4xl mx-auto px-4 py-8 space-y-16">
+          {/* Booking Details Section */}
+          <div className="space-y-8">
+            <h1 className="text-4xl font-extrabold text-midnight-blue-main">Booking Details</h1>
+            <Card className="rounded-lg border-none shadow-none ml-[-20px]">
+              <CardContent className="pt-6 space-y-6">
+                {Object.entries(bookingDetails).map(([key, value]) => (
+                  <div key={key} className="flex justify-between items-center">
+                    <Label className="font-extrabold text-lg text-text-primary">
+                      {key.replace(/([A-Z])/g, ' $1').trim()}
+                    </Label>
+                    <Input
+                      value={value !== null ? value.toString() : '-'}
+                      readOnly
+                      className="w-80 rounded-81xl bg-grey-300 border-text-primary font-medium text-lg text-text-primary"
+                    />
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
           </div>
-          <div className="space-y-4">
-            <h3 className="text-lg font-extrabold">Student Feedback</h3>
-            <Button
-              variant="proceed"
-              onClick={() => setIsStudentPopupOpen(true)}
-              className="rounded-full border-incandescent-main border text-incandescent-main bg-transparent"
+
+          {/* Feedback Section */}
+          <div className="space-y-8">
+            <h2 className="text-4xl font-extrabold text-midnight-blue-main">Sprint Feedback</h2>
+            
+            {/* Teacher Feedback Section */}
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <h3 className="text-lg font-extrabold">Teacher Feedback (Only one allowed)</h3>
+                {!isTeacherFeedbackSubmitted && (
+                  <Button
+                    variant="proceed"
+                    onClick={() => setIsTeacherPopupOpen(true)}
+                    className="rounded-full border-incandescent-main border text-incandescent-main bg-transparent"
+                  >
+                    Add Feedback
+                  </Button>
+                )}
+                {feedbacks.filter(f => !f.is_teacher).map((feedback) => (
+                  <div key={feedback.id} className="p-4 rounded">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-full bg-gray-200"></div>
+                        <span className="font-medium">{feedback.name}</span>
+                      </div>
+                      <span className="text-sm text-gray-500">{formatDate(feedback.created_at)}</span>
+                    </div>
+                    <p className="text-gray-700">{feedback.feedback}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Student Feedback Section */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-extrabold">Student Feedback</h3>
+                {feedbacks.filter(f => f.is_teacher).map((feedback) => (
+                  <div key={feedback.id} className="p-4 rounded">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-full bg-gray-200"></div>
+                        <span className="font-medium">{feedback.name}</span>
+                      </div>
+                      <span className="text-sm text-gray-500">{formatDate(feedback.created_at)}</span>
+                    </div>
+                    <p className="text-gray-700">{feedback.feedback}</p>
+                  </div>
+                ))}
+                <Button
+                  variant="proceed"
+                  onClick={() => setIsStudentPopupOpen(true)}
+                  className="rounded-full border-incandescent-main border text-incandescent-main bg-transparent"
+                >
+                  Add Feedback
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Feedback Popups */}
+          <FeedbackPopup
+            isOpen={isTeacherPopupOpen}
+            onClose={() => setIsTeacherPopupOpen(false)}
+            onSubmit={handleTeacherFeedbackSubmit}
+            type="teacher"
+          />
+
+          <FeedbackPopup
+            isOpen={isStudentPopupOpen}
+            onClose={() => setIsStudentPopupOpen(false)}
+            onSubmit={handleStudentFeedbackSubmit}
+            type="student"
+          />
+
+          {/* Submit Button */}
+          <div className="flex justify-center items-center">
+            <Button 
+              variant="proceed" 
+              onClick={handleSubmitAndCompleteSprint}
             >
-              Add Feedback
+              Submit and Complete Sprint
             </Button>
           </div>
         </div>
-        {feedbacks.map((feedback) => (
-          <div key={feedback.id} className="p-4 border rounded">
-            <h4 className="font-bold">{feedback.type === 'teacher' ? 'Teacher' : 'Student'} Feedback</h4>
-            <p>{feedback.feedback}</p>
-          </div>
-        ))}
-      </div>
-
-      <FeedbackPopup
-        isOpen={isTeacherPopupOpen}
-        onClose={() => setIsTeacherPopupOpen(false)}
-        onSubmit={handleTeacherFeedbackSubmit}
-        type="teacher"
-      />
-
-      <FeedbackPopup
-        isOpen={isStudentPopupOpen}
-        onClose={() => setIsStudentPopupOpen(false)}
-        onSubmit={handleStudentFeedbackSubmit}
-        type="student"
-      />
-
-      <div className="flex justify-center items-center">
-        <Button variant="proceed" onClick={() => console.log("Submit and Complete Sprint")}>
-          Submit and Complete Sprint
-        </Button>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
 export default SprintDetailsComponent;
-
 
 
 
@@ -281,3 +366,5 @@ export default SprintDetailsComponent;
 //     );
 //   }
   
+
+
