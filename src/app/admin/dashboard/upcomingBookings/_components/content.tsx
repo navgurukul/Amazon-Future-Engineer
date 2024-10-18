@@ -79,10 +79,10 @@ const Dashboard = () => {
   const filteredBookings = bookings.filter((booking) => {
     const normalizedSearchQuery = searchQuery.toLowerCase();
     return (
-      booking.user.name.toLowerCase().includes(normalizedSearchQuery) ||
-      booking.user.phone.includes(searchQuery) ||
-      booking.slot.venue.city.toLowerCase().includes(normalizedSearchQuery) ||
-      booking.slot.program.title.toLowerCase().includes(normalizedSearchQuery) ||
+      booking?.user?.name?.toLowerCase().includes(normalizedSearchQuery) ||
+      booking?.user?.phone?.includes(searchQuery) ||
+      booking?.slot?.venue?.city?.toLowerCase().includes(normalizedSearchQuery) ||
+      booking?.slot?.program?.title?.toLowerCase().includes(normalizedSearchQuery) ||
       `${booking.booking_for} | ${booking.start_time} to ${booking.end_time}`.toLowerCase().includes(normalizedSearchQuery)
     );
   });
@@ -156,7 +156,7 @@ const Dashboard = () => {
                 <TableBody className="border-b border-grey-300 gap-8 font-body2-regular text-body2 leading-[170%]">
                   {displayedBookings.map((booking) => (
                     <TableRow key={booking.id} className="border-t border-b border-transparent">
-                      <TableCell className="border-0">{booking.user.name}</TableCell>
+                      <TableCell className="border-0">{booking.user.name || "N/A"}</TableCell>
                       <TableCell className="border-0">{booking.slot.program.title}</TableCell>
                       <TableCell className="border-0">{booking.user.phone}</TableCell>
                       <TableCell className="border-0 text-center">{booking.booking_batch_size}</TableCell>
