@@ -2,6 +2,12 @@ import Footer from "./Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select,
+  SelectItem,
+  SelectTrigger,
+  SelectContent,
+  SelectValue,
+ } from "@/components/ui/select";
 import { useState } from "react";
 import React from "react";
 
@@ -57,7 +63,8 @@ export default function SprintDetailsComponent() {
         <span className="font-medium text-[#3a3a3a]">/ Rahul Prakash - Nano Sprint</span>
       </div> */}
 
-      <div className="w-full md:max-w-3xl mx-auto pl-8 md:px-16 mt-16 mb-32 md:mb-52">
+      {/* <div className="w-full md:max-w-3xl mx-auto pl-8 md:px-16 mt-16 mb-32 md:mb-52"> */}
+      <div className="w-full md:max-w-[45vw] mx-auto px-4 md:px-16 mt-16 mb-32 md:mb-52">
         <div className="space-y-8">
           <h1 className="text-heading6 md:text-heading5 font-extrabold text-midnight-blue-main">
             Booking Details
@@ -76,9 +83,9 @@ export default function SprintDetailsComponent() {
                     </Label>
 
                     {key === "programName" || key === "grade" ? (
-                      <div className="relative w-full md:w-80">
+                      <div className="relative w-64 md:w-80">
                         <select
-                          className="w-full rounded-81xl bg-white border border-text-primary text-darkslategray leading-[170%] text-bodyM md:text-body1 px-4 py-2 h-14"
+                          className="w-full rounded-81xl bg-white border border-text-primary text-darkslategray leading-[170%] text-bodyM md:text-body1 px-4 py-2 h-14 appearance-none"
                           value={value}
                           onChange={(e) => handleInputChange(key, e.target.value)}
                         >
@@ -100,13 +107,54 @@ export default function SprintDetailsComponent() {
                             </>
                           )}
                         </select>
+{/* <div className="w-full rounded-81xl bg-white border border-text-primary text-darkslategray leading-[170%] text-bodyM md:text-body1 px-4 py-2 h-14">
+<Select
+  value={value}
+  onValueChange={(value) => handleInputChange(key, value)} // Use onValueChange if the Select component has this prop
+>
+  <SelectTrigger className="!border-none !shadow-none !bg-transparent !p-0 !m-0">
+    <SelectValue placeholder={`Select ${labelMapping[key]}`} />
+  </SelectTrigger>
+
+  <SelectContent className="!border-none !shadow-none !p-0">
+    {key === "programName" && (
+      <>
+        <SelectItem className="!border-none !shadow-none !p-0" value="Nano Sprint">Nano Sprint</SelectItem>
+        <SelectItem className="!border-none !shadow-none !p-0" value="Mini Sprint">Mini Sprint</SelectItem>
+        <SelectItem className="!border-none !shadow-none !p-0" value="Mega Sprint">Mega Sprint</SelectItem>
+      </>
+    )}
+    {key === "grade" && (
+      <>
+        <SelectItem className="!border-none !shadow-none !p-0" value="Class 4th">Class 4th</SelectItem>
+        <SelectItem className="!border-none !shadow-none !p-0" value="Class 5th">Class 5th</SelectItem>
+        <SelectItem className="!border-none !shadow-none !p-0" value="Class 6th">Class 6th</SelectItem>
+      </>
+    )}
+  </SelectContent>
+</Select>
+</div> */}
+<div className="absolute inset-y-0 right-1 flex items-center pr-3 pointer-events-none">
+    <svg
+      className="w-5 h-5 text-gray-500"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path
+        fillRule="evenodd"
+        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+        clipRule="evenodd"
+      />
+    </svg>
+  </div>
                       </div>
                     ) : (
                       <Input
                         value={value}
                         onChange={(e) => handleInputChange(key, e.target.value)}
                         readOnly={key === "phoneNumber" || key === "dateofRequest"}
-                        className={`w-full md:w-80 rounded-81xl border-text-primary text-darkslategray leading-[170%] text-bodyM md:text-body1 ${
+                        className={`w-50 md:w-80 rounded-81xl border-text-primary text-darkslategray leading-[170%] text-bodyM md:text-body1 ${
                           key === "phoneNumber" || key === "dateofRequest" || key === "city"
                             ? "bg-grey-300"
                             : "bg-white"
@@ -127,7 +175,7 @@ export default function SprintDetailsComponent() {
                   <Input
                     value={bookingDetails.slot}
                     onChange={(e) => handleInputChange("slot", e.target.value)}
-                    className="w-full md:w-80 rounded-81xl border-text-primary text-darkslategray leading-[170%] text-bodyM md:text-body1 bg-white px-4 py-2"
+                    className="w-50 md:w-80 rounded-81xl border-text-primary text-darkslategray leading-[170%] text-bodyM md:text-body1 bg-white px-4 py-2"
                   />
                 </div>
               )}
