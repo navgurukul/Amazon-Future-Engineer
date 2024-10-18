@@ -51,11 +51,25 @@ const MegaPage = () => {
 
   const validateForm = () => {
     const newErrors: FormErrors = {};
-    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (!/^[A-Za-z\s]+$/.test(formData.name.trim())) {
+      newErrors.name = "Name should contain only letters";
+    }
+    // if (!formData.name.trim()) newErrors.name = "Name is required";
     // if (!/^[6-9]\d{9}$/.test(formData.phoneNo)) newErrors.phoneNo = "Enter a valid 10-digit number starting with 6-9";
-    if (!formData.schoolName.trim()) newErrors.schoolName = "School name is required";
+    // if (!formData.schoolName.trim()) newErrors.schoolName = "School name is required";
+    if (!formData.schoolName.trim()) {
+      newErrors.schoolName = "School Name is required";
+    } else if (!/^[A-Za-z\s]+$/.test(formData.schoolName.trim())) {
+      newErrors.schoolName = "School Name should contain only letters";
+    }
     if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Enter a valid email";
-    if (formData.pincode && !/^\d{6}$/.test(formData.pincode)) newErrors.pincode = "Enter a valid 6-digit pincode";
+    // if (formData.pincode && !/^\d{6}$/.test(formData.pincode)) newErrors.pincode = "Enter a valid 6-digit pincode";
+    if (formData.pincode && !/^[1-9][0-9]{5}$/.test(formData.pincode.trim())) {
+      newErrors.pincode = "Enter a valid 6-digit";
+    }
+    
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;

@@ -31,6 +31,9 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
     const endTime = userData.end_time;
     const studentsCount = userData.booking_batch_size;
 
+    const whatsappLink = `https://wa.me/${6366969292}`;
+
+
     return (
         <>
             {/* <Dialog open={isOpen} onOpenChange={handleClose}>
@@ -179,9 +182,12 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
                             Currently, we are only accepting reschedule requests via calls and WhatsApp. Please contact us at the number below to confirm your session rescheduling.
                         </div>
                         <div className="mt-6 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center">
-                            <div className="text-[#3A3A3A] text-subHeading1 font-heading6-bold md:text-heading6 leading-[150%]">
-                                +91 6366969292
+                            <div>
+                                <a href={whatsappLink} target="_blank" className="text-[#3A3A3A] text-subHeading1 font-heading6-bold md:text-heading6 leading-[150%]">
+                                    +91 6366969292
+                                </a>
                             </div>
+                            
                             <div className="text-[#3a3a3a] text-bodyM md:text-body1 font-body1-regular leading-[170%]">
                                 AFE Makerspace Helpline
                             </div>

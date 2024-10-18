@@ -26,6 +26,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [students, setStudents] = useState("");
+  const [nameError, setNameError] = useState<string | null>(null); 
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [studentsError, setStudentsError] = useState<string | null>(null);
   const [bookingStatus, setBookingStatus] = useState<string | null>(null);
@@ -95,6 +96,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    setNameError(null);
     setPhoneError(null);
     setStudentsError(null);
 
@@ -107,7 +109,16 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     //   setPhoneError("Please enter a phone number starting with 6 or above.");
     //   return;
     // }
-
+    
+    // Name validation
+    const namePattern = /^[A-Za-z\s]+$/;
+    if (!name.trim()) {
+      setNameError("Name is required");
+      return;
+    } else if (!namePattern.test(name.trim())) {
+      setNameError("Name should only contain letters");
+      return;
+    }
     const studentCount = parseInt(students);
     const minStudents = selectedSlot?.capacity === 40 ? 12 : 1;
     const maxStudents = selectedSlot?.capacity || 0;
@@ -212,6 +223,9 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               required
               className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-lg w-full"
             />
+             {nameError && (
+              <div className="text-red-500 text-sm">{nameError}</div>
+            )}
           </div>
 
           <div className="self-stretch flex flex-col items-start justify-start gap-2">

@@ -180,16 +180,14 @@ const Page: NextPage = () => {
             alt="innovation hub map"
             src="/userDashboard/map.png"        
           /> */}
-
-          <div className="flex justify-center">
-            <iframe
-              className="md:w-[592px] md:h-[440px] w-full h-auto rounded-lg object-cover"
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d66878.69351961587!2d77.58801335921136!3d13.02144489651538!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1629546751b1%3A0x8eaf5952ecd65934!2sMaruti%20Suzuki%20ARENA%20(Varun%20Motors%2C%20Bengaluru%2C%20Malleshwaram)!5e1!3m2!1sen!2sin!4v1729093732215!5m2!1sen!2sin"             
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade" 
-            >              
-            </iframe>
+          <div className="md:max-w-[592px] md:max-h-[440px]">
+            <a href="https://maps.app.goo.gl/z7QztCwrwcMTnpscA" target="_blank" rel="noopener noreferrer">
+              <img
+                className=" w-full h-auto rounded-lg object-cover cursor-pointer"
+                alt="innovation hub map"
+                src="/userDashboard/map.png"
+              />
+            </a>
           </div>
 
           <div className="w-full flex flex-col gap-4">
