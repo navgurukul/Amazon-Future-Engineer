@@ -1,4 +1,4 @@
-import CombinedBookingPage from "./bookingPage";
+import SprintDetailsPage from "./sprint-details";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -67,10 +67,10 @@ const Dashboard: React.FC = () => {
   const [sprintProgram, setSprintProgram] = useState("");
   const [dateRange, setDateRange] = useState("");
   const [status, setStatus] = useState("");
-  const [showBookingPage, setShowBookingPage] = useState(false);
+  const [showSprintPage, setShowSprintPage] = useState(false);
 
   const handleManageBookingClick = () => {
-    setShowBookingPage(true); // Show the CombinedBookingPage when clicked
+    setShowSprintPage(true); // Show the SprintDetailsPage when clicked
   };
 
   const totalItems = bookings.length;
@@ -105,7 +105,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-    {!showBookingPage ? (
+    {!showSprintPage ? (
     <div className="min-h-screen bg-white">
       <div className="container mx-auto p-6 space-y-8">
         <h1 className="text-13xl leading-[150%] font-extrabold text-midnight-blue-main">
@@ -300,7 +300,7 @@ const Dashboard: React.FC = () => {
       </div>
     </div>
     ) : (
-        <CombinedBookingPage />
+        <SprintDetailsPage />
       )}
     </>
   );

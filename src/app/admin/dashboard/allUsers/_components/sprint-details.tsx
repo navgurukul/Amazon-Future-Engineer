@@ -52,12 +52,12 @@ export default function SprintDetailsComponent() {
 
   return (
     <>
-      <div className="text-bodyM2 md:text-subTitle1 leading-[170%] cursor-pointer ml-4 md:ml-56 mb-12 mt-16">
+      {/* <div className="text-bodyM2 md:text-subTitle1 leading-[170%] cursor-pointer ml-4 md:ml-56 mb-12 mt-16">
         <span className="font-extrabold text-[#29458c]">All Users</span>
         <span className="font-medium text-[#3a3a3a]">/ Rahul Prakash - Nano Sprint</span>
-      </div>
+      </div> */}
 
-      <div className="w-full md:max-w-3xl mx-auto pl-8 md:px-16 mb-32 md:mb-52">
+      <div className="w-full md:max-w-3xl mx-auto pl-8 md:px-16 mt-16 mb-32 md:mb-52">
         <div className="space-y-8">
           <h1 className="text-heading6 md:text-heading5 font-extrabold text-midnight-blue-main">
             Booking Details

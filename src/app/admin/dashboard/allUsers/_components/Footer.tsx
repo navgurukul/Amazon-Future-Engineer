@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/button";
-
-
 interface FooterProps {
   programName: string;
 }
@@ -43,18 +41,21 @@ export default function Footer({ programName }: FooterProps) {
             {(programName === "Nano Sprint" || programName === "") && (
               <>
                 <Button
-                  className="h-14 px-8 bg-blue-800 text-white rounded-full"
+                variant="proceed"
+                  className="h-14 px-8 bg-blue-800 text-white rounded-full hover:bg-blue-900"
                   aria-label="Update Sprint Details"
                 >
                   Update Sprint Details
                 </Button>
                 <Button
-                  className="h-14 px-8 bg-gray-400 text-white rounded-full"
+                variant="proceed"
+                  className="h-14 px-8 bg-gray-400 text-white rounded-full hover:bg-gray-500"
                   aria-label="Reschedule Sprint"
                 >
                   Reschedule Sprint
                 </Button>
                 <Button
+                variant="proceed"
                   className="h-14 px-8 bg-[#f55c38] text-white rounded-full"
                   aria-label="Confirm Booking"
                 >
@@ -65,12 +66,14 @@ export default function Footer({ programName }: FooterProps) {
             {(programName === "Mini Sprint" || programName === "Mega Sprint") && (
               <>
                 <Button
-                  className="h-14 px-8 bg-blue-800 text-white rounded-full"
+                variant="proceed"
+                  className="h-14 px-8 bg-blue-800 text-white rounded-full hover:bg-blue-900"
                   aria-label="Update Sprint Details"
                 >
                   Update Sprint Details
                 </Button>
                 <Button
+                variant="proceed"
                   className="h-14 px-8 bg-[#f55c38] text-white rounded-full"
                   aria-label="Confirm Booking"
                 >
