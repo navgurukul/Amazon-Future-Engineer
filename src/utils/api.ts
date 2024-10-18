@@ -388,3 +388,23 @@ export const getAdminSlotDetails = async (slotId: number) => {
     return 0;
   }
 };
+
+
+
+// api to update status
+
+export const updateBookingStatus = async (bookingId: number, status: string) => {
+  try {
+    const response = await api.put(`/bookings/${bookingId}/status`, {
+      status: status
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    return response.data;
+  } catch (error: any) {
+    console.error('Error updating booking status:', error);
+    throw error;
+  }
+};

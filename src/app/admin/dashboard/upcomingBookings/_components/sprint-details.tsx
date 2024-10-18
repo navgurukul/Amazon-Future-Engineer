@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { addTeacherFeedback, addStudentFeedback, getFeedback } from '@/utils/api';
+import { addTeacherFeedback, addStudentFeedback, getFeedback , updateBookingStatus} from '@/utils/api';
 import FeedbackPopup from './FeedbackPopup';
 import SubmitPopup from './SubmitPopup';
 
@@ -114,7 +114,13 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
     });
   };
 
-  const handleSubmitAndCompleteSprint = () => {
+  const handleSubmitAndCompleteSprint = async() => {
+    try {
+      await updateBookingStatus(bookingProp.user.id, "Completed");
+      setIsSubmitPopupOpen(true);
+    } catch (error) {
+      console.error('Error updating booking status:', error);
+    }
     setIsSubmitPopupOpen(true);
   };
 
