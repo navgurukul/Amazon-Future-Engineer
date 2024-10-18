@@ -42,7 +42,7 @@ export default function Footer({ programName }: FooterProps) {
               <>
                 <Button
                 variant="proceed"
-                  className="h-14 px-8 bg-blue-800 text-white rounded-full hover:bg-blue-900"
+                  className="h-14 px-8 bg-[#29458c] text-white rounded-full hover:bg-[#0a2a52]"
                   aria-label="Update Sprint Details"
                 >
                   Update Sprint Details
