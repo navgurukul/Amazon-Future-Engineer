@@ -343,3 +343,46 @@ export const updateBookingDetails = async (bookingId: number, bookingData: {
     throw new Error(error.response?.data?.details || 'An error occurred while updating booking details');
   }
 };
+
+
+// Update slot details by slotId
+
+export const updateSlotDetails = async (id: number) => {
+  const token = getAdminToken();
+  if (!token) {
+    throw new Error('No token found');
+  }
+  try {
+    const response = await axios.get(`https://dev-afe.samyarth.org/api/v1/slotmanagement/${id}`, {
+      headers: {
+        'accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data.data[0];
+  } catch (error) {
+    return 0;
+  }
+};
+
+// Get slot by slotId
+
+export const getAdminSlotDetails = async (slotId: number) => {
+  try {
+    const token = getToken();
+    if (!token) {
+      throw new Error('No token found');
+    }
+
+    const response = await axios.get(`https://dev-afe.samyarth.org/api/v1/slotmanagement/slot/${slotId}`, {
+      headers: {
+        'accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data.data[0];
+  } catch (error) {
+    // console.error("Error fetching slot details:", error);
+    return 0;
+  }
+};

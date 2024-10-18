@@ -6,7 +6,7 @@ export default function CombinedBookingPage() {
   return (
     <>
       <SprintDetailsPage />
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
