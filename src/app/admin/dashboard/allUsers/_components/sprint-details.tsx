@@ -105,7 +105,7 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
             dateofRequest: formatDate(foundBooking.created_at),
             programName: "",
             schoolName: foundBooking.user.school_id || "N/A",
-            udiseCode: "U-213012894",
+            udiseCode: "",
             city: foundBooking.slot.venue.city,
             pincode: foundBooking.slot.venue.pin_code,
             grade: "Grade 6",
