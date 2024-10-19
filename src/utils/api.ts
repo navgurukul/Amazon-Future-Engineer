@@ -26,7 +26,7 @@ const getAdminToken = (): string | null => {
 
 // Function to fetch slots
 export const getSlots = async (venueId: number = 1) => {
-  const token = getToken();
+  const token = getToken() || getAdminToken() ;
 
   if (!token) {
     throw new Error('No token found');
@@ -326,7 +326,7 @@ export const updateBookingDetails = async (bookingId: number, bookingData: {
   village: string;
   state: string;
   district: string;
-  pin_code: string;
+  pin_code: number;
 }) => {
   const token = getAdminToken(); 
   if (!token) {
@@ -410,13 +410,46 @@ export const updateBookingStatus = async (bookingId: number, status: string) => 
   }
 };
 
+
+
+
+
+// Add this new function to update slot details
+export const updateSlotTime = async (
+  slotId: number,
+  updatedData: {
+    program_id: number;
+    venue_id: number;
+    date: string;
+    start_time: string;
+    end_time: string;
+    available_capacity: number;
+    status: string;
+  }
+) => {
+  const token = getAdminToken();
+  
+  if (!token) {
+    throw new Error('No admin token found');
+  }
+  try {
+    const response = await api.put(`/slotmanagement/${slotId}`, updatedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.details || 'An error occurred while updating slot');
+  }
+}
+
 // Update details of existing booking
 
 export const updateBookingStatusAllUsers = async (
   bookingId: string,
-  status: "Confirmed" | "Waiting" | "Cancelled" | "Disinterested" | "Completed",
-  // queryType: "Booking" | "Reschedule",
-  // cancellationReason?: string
+  status: "Confirmed" | "Waiting" | "Cancelled" | "Disinterested" | "Completed"
 ) => {
   const token = getAdminToken(); // Fetch the admin token
   console.log("Token:", token);
@@ -424,17 +457,16 @@ export const updateBookingStatusAllUsers = async (
   if (!token) {
     throw new Error("No token found");
   }
+
   const requestData: any = {
     status,
-    // queryType,
-    //         ...(status === "Cancelled" || status === "Disinterested"
-    //           ? { cancellationReason }
-    //           : {}),
   };
+
   // Only include cancellationReason if the status is Cancelled or Disinterested, and the API allows it
   // if (status === "Cancelled" || status === "Disinterested") {
   //   requestData.cancellationReason = cancellationReason;
   // }
+
   try {
     const response = await api.put(
       `https://dev-afe.samyarth.org/api/v1/bookings/${bookingId}/status`,

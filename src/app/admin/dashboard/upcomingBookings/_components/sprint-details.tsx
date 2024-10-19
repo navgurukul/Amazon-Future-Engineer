@@ -3,9 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { addTeacherFeedback, addStudentFeedback, getFeedback , updateBookingStatus} from '@/utils/api';
+import { addTeacherFeedback, addStudentFeedback, getFeedback, updateBookingStatus, updateBookingDetails } from '@/utils/api';
 import FeedbackPopup from './FeedbackPopup';
 import SubmitPopup from './SubmitPopup';
+import Image from "next/image";
+
 
 interface BookingDetails {
   name: string;
@@ -39,6 +41,7 @@ interface Feedback {
 interface SprintDetailsProps {
   bookingDetails: BookingDetails;
   bookingProp: {
+    slot_id(slot_id: any, bookingData: { user_id: number; slot_id: number; program_id: number; booking_batch_size: number; visited_batch_size: number; students_grade: string; visiting_time: string; school_name: string; udise: string; email: string; address: string; village: string; state: string; district: string; pin_code: number; }): unknown;
     user: {
       id: number;
     };
@@ -47,12 +50,28 @@ interface SprintDetailsProps {
 }
 
 const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, bookingDetails }) => {
+  // State Management
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [isTeacherFeedbackSubmitted, setIsTeacherFeedbackSubmitted] = useState(false);
   const [isTeacherPopupOpen, setIsTeacherPopupOpen] = useState(false);
   const [isStudentPopupOpen, setIsStudentPopupOpen] = useState(false);
   const [isSubmitPopupOpen, setIsSubmitPopupOpen] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
+
+
+
+  // State for editable fields
+  const [editedDetails, setEditedDetails] = useState({
+    pincode: bookingDetails?.pincode,
+    actualNumberOfStudents: bookingDetails?.actualNumberOfStudents,
+    grade: bookingDetails?.grade,
+    schoolName: bookingDetails?.schoolName,
+    udiseCode: bookingDetails?.udiseCode,
+    name: bookingDetails?.name,
+  });
+
+  // Fetch feedbacks
   const fetchFeedbacks = useCallback(async () => {
     try {
       const response = await getFeedback(bookingProp.user.id, parseInt(bookingDetails.slot, 10));
@@ -61,11 +80,52 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
     } catch (error) {
       console.error('Error fetching feedbacks:', error);
     }
-  }, [bookingDetails.slot, bookingProp.user.id]);
+  }, [bookingDetails.id, bookingProp.user.id]);
 
   useEffect(() => {
     fetchFeedbacks();
   }, [fetchFeedbacks]);
+
+  // Handle input changes for editable fields
+  const handleInputChange = (field: string, value: string | number) => {
+    setEditedDetails(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  // Save changes to booking details
+  const handleSaveChanges = async () => {
+    setIsSaving(true);
+    try {
+      const bookingData = {
+        user_id: bookingProp.user.id,
+        slot_id: parseInt(bookingDetails.slot, 10),
+        program_id: bookingProp.program_id,
+        booking_batch_size: bookingDetails.numberOfStudents,
+        visited_batch_size: Number(editedDetails.actualNumberOfStudents),
+        students_grade: editedDetails.grade,
+        visiting_time: bookingDetails.dateOfRequest,
+        school_name: editedDetails.schoolName,
+        udise: editedDetails.udiseCode,
+        email: bookingDetails.email,
+        address: bookingDetails.city,
+        village: bookingDetails.city,
+        state: "Karnataka",
+        district: bookingDetails.city,
+        pin_code: parseInt(bookingDetails.pincode, 10)
+      };
+
+
+ 
+
+      await updateBookingDetails(bookingProp.id, bookingData);
+    } catch (error) {
+      console.error('Error updating booking details:', error);
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   const handleTeacherFeedbackSubmit = useCallback(async (feedbackContent: string, name: string) => {
     try {
@@ -81,6 +141,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
       await addTeacherFeedback(feedbackData);
       setIsTeacherFeedbackSubmitted(true);
       fetchFeedbacks();
+      setIsTeacherPopupOpen(false);
     } catch (error) {
       console.error('Error adding teacher feedback:', error);
     }
@@ -98,10 +159,20 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
       };
       await addStudentFeedback(feedbackData);
       fetchFeedbacks();
+      setIsStudentPopupOpen(false);
     } catch (error) {
       console.error('Error adding student feedback:', error);
     }
   }, [bookingDetails.slot, bookingProp.program_id, fetchFeedbacks]);
+
+  const handleSubmitAndCompleteSprint = async () => {
+    try {
+      await updateBookingStatus(bookingProp.user.id, "Completed");
+      setIsSubmitPopupOpen(true);
+    } catch (error) {
+      console.error('Error updating booking status:', error);
+    }
+  };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -112,16 +183,6 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
       hour: '2-digit',
       minute: '2-digit'
     });
-  };
-
-  const handleSubmitAndCompleteSprint = async() => {
-    try {
-      await updateBookingStatus(bookingProp.user.id, "Completed");
-      setIsSubmitPopupOpen(true);
-    } catch (error) {
-      console.error('Error updating booking status:', error);
-    }
-    setIsSubmitPopupOpen(true);
   };
 
   const parseSlot = (slot: string) => {
@@ -143,35 +204,67 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
           }} 
         />
       ) : (
-        <div className="w-full max-w-4xl mx-auto px-4 py-8 space-y-16">
+        <div className="w-[592px] max-w-4xl mx-auto px-4 mt-[10px] space-y-6">
           {/* Booking Details Section */}
           <div className="space-y-8">
-            <h1 className="text-4xl font-extrabold text-midnight-blue-main">Booking Details</h1>
+            <h1 className="text-heading5 font-heading5-bold leading-[150%] font-extrabold text-midnight-blue-main">Booking Details</h1>
             <Card className="rounded-lg border-none shadow-none ml-[-20px]">
               <CardContent className="pt-6 space-y-6">
-                {Object.entries(bookingDetails).map(([key, value]) => (
-                  <div key={key} className="flex justify-between items-center">
-                    <Label className="font-extrabold text-lg text-text-primary">
-                      {key.replace(/([A-Z])/g, ' $1').trim()}
-                    </Label>
-                    <Input
-                      value={value !== null ? value.toString() : '-'}
-                      readOnly
-                      className="w-80 rounded-81xl bg-grey-300 border-text-primary font-medium text-lg text-text-primary"
-                    />
-                  </div>
-                ))}
+                {Object.entries(bookingDetails).map(([key, value]) => {
+                  const isEditable = [
+                    'pincode',
+                    'actualNumberOfStudents',
+                    'grade',
+                    'schoolName',
+                    'udiseCode',
+                    'name'
+                  ].includes(key);
+
+                  return (
+                    <div key={key} className="flex justify-between items-center">
+                      <Label className="font-subTitle1-bold text-subTitle1 font-extrabold text-text-primary leading-[170%]">
+                      {key
+                        .replace(/([A-Z])/g, ' $1')
+                        .trim()
+                        .split(' ')
+                        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                        .join(' ')}
+                      </Label>
+                      <Input
+                        value={isEditable ? editedDetails[key as keyof typeof editedDetails] : value?.toString() ?? ''}
+                        onChange={isEditable ? (e) => handleInputChange(key, e.target.value) : undefined}
+                        readOnly={!isEditable}
+                        className={`w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1 ${
+                          isEditable 
+                            ? 'bg-white border-text-primary' 
+                            : 'bg-grey-300 border-text-primary'
+                        }`}
+                      />
+                    </div>
+                  );
+                })}
               </CardContent>
             </Card>
+
+            {/* Save Changes Button */}
+            <div className="flex justify-center pt-2 pb-16">
+              <Button
+                variant="proceed"
+                onClick={handleSaveChanges}
+                disabled={isSaving}
+              >
+                {isSaving ? 'Saving...' : 'Save Changes'}
+              </Button>
+            </div>
           </div>
 
           {/* Feedback Section */}
           <div className="space-y-8">
-            <h2 className="text-4xl font-extrabold text-midnight-blue-main">Sprint Feedback</h2>
+            <h2 className="text-heading5 font-heading5-bold leading-[150%] font-extrabold text-midnight-blue-main">Sprint Feedback</h2>
             
             {/* Teacher Feedback Section */}
             <div className="space-y-6">
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <h3 className="text-lg font-extrabold">Teacher Feedback (Only one allowed)</h3>
                 {!isTeacherFeedbackSubmitted && (
                   <Button
@@ -183,15 +276,21 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
                   </Button>
                 )}
                 {feedbacks.filter(f => !f.is_teacher).map((feedback) => (
-                  <div key={feedback.id} className="p-4 rounded">
-                    <div className="flex items-center justify-between mb-2">
+                  <div key={feedback.id} className="pb-8 rounded">
+                    <div className="flex items-center justify-between mb-2 gap-4 font-body1-regular text-body1">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-gray-200"></div>
-                        <span className="font-medium">{feedback.name}</span>
+                        <Image
+                        className="object-cover rounded-full cursor-pointer"
+                        alt="User Avatar"
+                        src="/login/avatarIcon.svg"
+                        width={48}
+                        height={48}
+                      />
+                        <span className="font-body1-regular text-body1">{feedback.name}</span>
                       </div>
                       <span className="text-sm text-gray-500">{formatDate(feedback.created_at)}</span>
                     </div>
-                    <p className="text-gray-700">{feedback.feedback}</p>
+                    <p className="font-body1-regular text-body1">{feedback.feedback}</p>
                   </div>
                 ))}
               </div>
@@ -200,15 +299,22 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
               <div className="space-y-4">
                 <h3 className="text-lg font-extrabold">Student Feedback</h3>
                 {feedbacks.filter(f => f.is_teacher).map((feedback) => (
-                  <div key={feedback.id} className="p-4 rounded">
-                    <div className="flex items-center justify-between mb-2">
+                  <div key={feedback.id} className="pb-8 rounded">
+                    <div className="flex items-center justify-between mb-2 gap-4 font-body1-regular text-body1">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-gray-200"></div>
-                        <span className="font-medium">{feedback.name}</span>
+                      <Image
+                      className="object-cover rounded-full cursor-pointer"
+                      alt="User Avatar"
+                      src="/login/avatarIcon.svg"
+                      width={48}
+                      height={48}
+                    />
+                        
+                        <span className="font-body1-regular text-body1">{feedback.name}</span>
                       </div>
                       <span className="text-sm text-gray-500">{formatDate(feedback.created_at)}</span>
                     </div>
-                    <p className="text-gray-700">{feedback.feedback}</p>
+                    <p className="font-body1-regular text-body1">{feedback.feedback}</p>
                   </div>
                 ))}
                 <Button
@@ -222,23 +328,8 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
             </div>
           </div>
 
-          {/* Feedback Popups */}
-          <FeedbackPopup
-            isOpen={isTeacherPopupOpen}
-            onClose={() => setIsTeacherPopupOpen(false)}
-            onSubmit={handleTeacherFeedbackSubmit}
-            type="teacher"
-          />
-
-          <FeedbackPopup
-            isOpen={isStudentPopupOpen}
-            onClose={() => setIsStudentPopupOpen(false)}
-            onSubmit={handleStudentFeedbackSubmit}
-            type="student"
-          />
-
           {/* Submit Button */}
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center mt-[104px] py-6">
             <Button 
               variant="proceed" 
               onClick={handleSubmitAndCompleteSprint}
@@ -248,6 +339,22 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({ bookingProp, boo
           </div>
         </div>
       )}
+
+      {/* Feedback Popups */}
+      <FeedbackPopup
+        isOpen={isTeacherPopupOpen}
+        onClose={() => setIsTeacherPopupOpen(false)}
+        onSubmit={handleTeacherFeedbackSubmit}
+        type="teacher"
+      />
+
+      <FeedbackPopup
+        isOpen={isStudentPopupOpen}
+        onClose={() => setIsStudentPopupOpen(false)}
+        onSubmit={handleStudentFeedbackSubmit}
+        type="student"
+      />
+      
     </>
   );
 };
@@ -256,115 +363,5 @@ export default SprintDetailsComponent;
 
 
 
-
-
-
-
-// import React from 'react';
-// import { Button } from "@/components/ui/button";
-// import { Card, CardContent } from "@/components/ui/card";
-// import { Input } from "@/components/ui/input";
-// import { Label } from "@/components/ui/label";
-
-// const staticBookingDetails = {
-//   name: "Rahul Prakash",
-//   email: "rahul@gmail.com",
-//   phoneNumber: "+917685745746",
-//   dateOfRequest: "12 Oct 2024",
-//   programName: "Nano Sprint",
-//   schoolName: "Rahul Memorial School",
-//   udiseCode: "U-213012894",
-//   city: "Bengaluru",
-//   pincode: "465789",
-//   grade: "Grade 6",
-//   numberOfStudents: 40,
-//   actualNumberOfStudents: 40,
-//   slot: "24 Oct 2024 | 4 PM to 6 PM"
-// };
-
-// const staticFeedback = {
-//   teacher: {
-//     name: "Rahul Prakash",
-//     content: "The sprint at the makerspace lab was a game-changer for my students! The hands-on learning experience and collaborative environment helped them develop problem-solving skills and think creatively. I saw a significant improvement in their critical thinking and innovation skills. Can't wait to plan the next sprint!",
-//     avatar: "/Ellipse 1.png"
-//   },
-//   students: [
-//     {
-//       name: "Aarav, Grade 9",
-//       content: "I never knew learning could be so much fun! The sprint at the makerspace lab was an amazing experience. I got to work on a project that I loved, and the mentors were super helpful. I learned so much about coding, designing, and teamwork. Can't wait for the next one!",
-//       avatar: "/Ellipse 1.png"
-//     },
-//     {
-//       name: "Kiara, Grade 9",
-//       content: "The makerspace lab sprint was incredible! I loved the freedom to experiment and try new things. The atmosphere was so supportive and encouraging. I made new friends and learned so much from them. It was an unforgettable experience!",
-//       avatar: "/Ellipse 1.png"
-//     }
-//   ]
-// };
-
-// export default function SprintDetailsComponent() {
-//     return (
-//       <div className="w-full max-w-4xl mx-auto px-4 py-8 space-y-16">
-//         <div className="space-y-8">
-//           <h1 className="text-4xl font-extrabold text-midnight-blue-main">Booking Details</h1>
-//           <Card>
-//             <CardContent className="pt-6 space-y-6">
-//               {Object.entries(staticBookingDetails).map(([key, value]) => (
-//                 <div key={key} className="flex justify-between items-center">
-//                   <Label className="font-extrabold text-lg text-text-primary">{key.replace(/([A-Z])/g, ' $1').trim()}</Label>
-//                   <Input
-//                     value={value !== null ? value.toString() : '-'}
-//                     readOnly
-//                     className="w-80 rounded-81xl bg-grey-300 border-text-primary font-medium text-lg text-text-primary"
-//                   />
-//                 </div>
-//               ))}
-//             </CardContent>
-//           </Card>
-//         </div>
-        
-//         <div className="space-y-8">
-//           <h2 className="text-4xl font-extrabold text-midnight-blue-main">Sprint Feedback</h2>
-          
-//           <div className="space-y-6">
-//             <h3 className="text-2xl font-extrabold text-midnight-blue-main">Teacher Feedback (Only one allowed)</h3>
-//             <div className="space-y-4">
-//               <div className="flex items-center gap-4">
-//                 <img src={staticFeedback.teacher.avatar} alt={staticFeedback.teacher.name} className="w-12 h-12 rounded-full" />
-//                 <span className="font-medium text-lg text-text-primary">{staticFeedback.teacher.name}</span>
-//                 <span className="px-2 py-1 text-xs font-medium bg-typhoon-light text-typhoon-main rounded-full">Teacher</span>
-//               </div>
-//               <p className="font-medium text-lg text-text-primary">{staticFeedback.teacher.content}</p>
-//             </div>
-//           </div>
-          
-//           <div className="space-y-6">
-//             <h3 className="text-2xl font-extrabold text-midnight-blue-main">Student Feedback</h3>
-//             {staticFeedback.students.map((student, index) => (
-//               <div key={index} className="space-y-4">
-//                 <div className="flex items-center gap-4">
-//                   <img src={student.avatar} alt={student.name} className="w-12 h-12 rounded-full" />
-//                   <span className="font-extrabold text-lg text-text-primary">{student.name}</span>
-//                 </div>
-//                 <p className="font-medium text-lg text-text-primary">{student.content}</p>
-//               </div>
-//             ))}
-//             <Button
-//             variant = "proceed"
-//               className="bg-transparent border-[2px] border-incandescent-main text-incandescent-main"
-//             >
-//               Add Feedback
-//             </Button>
-//           </div>
-//         </div>
-//         <div className="flex justify-center items-center">
-//         <Button variant = "proceed">
-//         Submit and Complete Sprint
-//         </Button>
-//         </div>
-//       </div>
-//     );
-//   }
-  
 
 
