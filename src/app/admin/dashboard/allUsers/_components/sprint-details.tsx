@@ -104,13 +104,15 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
             phoneNumber: foundBooking.user.phone,
             dateofRequest: formatDate(foundBooking.created_at),
             programName: "",
-            schoolName: "",
+            schoolName: foundBooking.user.school_id || "N/A",
             udiseCode: "",
             city: foundBooking.slot.venue.city,
-            pincode: "",
-            grade: "",
-            numberOfStudents: "",
-            slot: "",
+            pincode: foundBooking.slot.venue.pin_code,
+            grade: "Grade 6",
+            numberOfStudents: foundBooking.booking_batch_size,
+            slot: `${formatDate(foundBooking.booking_for)} | ${
+              foundBooking.start_time
+            } to ${foundBooking.end_time}`,
           });
         }
       }
@@ -217,7 +219,7 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                         value={value}
                         onChange={(e) => handleInputChange(key, e.target.value)}
                         readOnly={
-                          key === "phoneNumber" || key === "dateofRequest"
+                          key === "phoneNumber" || key === "dateofRequest" || key === "city"
                         }
                         className={`w-50 md:w-80 rounded-81xl border-text-primary text-darkslategray leading-[170%] text-bodyM md:text-body1 ${
                           key === "phoneNumber" ||
