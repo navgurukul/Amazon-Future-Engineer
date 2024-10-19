@@ -40,7 +40,7 @@ export default function Footer({ programName, bookingId }: FooterProps) {
     }
   };
   return (
-    <footer className="fixed bottom-0 z-50 w-full shadow-[0px_-2px_2px_rgba(0,0,0,0.04),0px_-1px_5px_rgba(0,0,0,0.08)] bg-white p-6 text-center text-lg text-gray-800 font-amazon-ember">
+    <footer className="z-50 w-full shadow-[0px_-2px_2px_rgba(0,0,0,0.04),0px_-1px_5px_rgba(0,0,0,0.08)] bg-white p-6 text-center text-lg text-gray-800 font-amazon-ember">
       <div className="flex flex-row items-center justify-between">
         <nav
           aria-label="Sprint actions"

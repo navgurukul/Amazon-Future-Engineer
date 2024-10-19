@@ -7,7 +7,6 @@ import { fetchBookings } from "@/utils/api";
 import { format } from 'date-fns';
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import React, { useMemo, useState, useEffect } from "react";
 
 
@@ -125,7 +124,6 @@ import React, { useMemo, useState, useEffect } from "react";
 // ];
 
 const Dashboard: React.FC = () => {
-  const router = useRouter();
   interface Booking {
     id: string;
     user: {
@@ -200,7 +198,7 @@ const Dashboard: React.FC = () => {
   };
 
   const handleLogin = () => {
-    router.push("/login");
+    window.open("/login", "_blank");
   }
 
 
