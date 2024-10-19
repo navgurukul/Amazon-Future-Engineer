@@ -26,15 +26,15 @@ const FeedbackPopup: React.FC<FeedbackPopupProps> = ({ isOpen, onClose, onSubmit
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[592px] p-[32px]">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-extrabold text-text-primary">
+          <DialogTitle className="font-heading6-bold text-heading6">
             {type === 'teacher' ? 'Teacher Feedback' : 'Student Feedback'}
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-6">
           <div className="flex flex-col items-start justify-start gap-2">
-            <div className="relative leading-[170%] font-medium">
+            <div className="font-body1-regular text-body1 leading-[170%]">
               {type === 'teacher' ? 'Teacher Name' : 'Student Name'}
             </div>
             <Input
@@ -45,7 +45,7 @@ const FeedbackPopup: React.FC<FeedbackPopupProps> = ({ isOpen, onClose, onSubmit
             />
           </div>
           <div className="flex flex-col items-start justify-start gap-2">
-            <div className="relative leading-[170%] font-medium">Feedback</div>
+            <div className="font-body1-regular text-body1 leading-[170%]">Feedback</div>
             <Textarea
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
