@@ -16,10 +16,11 @@ import React from "react";
 interface CancelPopupProps {
   isOpen: boolean;
   onClose: () => void;
+  name:string
 }
 
 
-const CancelPopup: React.FC<CancelPopupProps> = ({ isOpen, onClose }) => {
+const CancelPopup: React.FC<CancelPopupProps> = ({ isOpen, onClose ,name}) => {
   // const [isFirstOpen, setIsFirstOpen] = useState(false); // State for the first dialog
   const [isSecondOpen, setIsSecondOpen] = useState(false); // State for the second dialog
 
@@ -42,13 +43,13 @@ const CancelPopup: React.FC<CancelPopupProps> = ({ isOpen, onClose }) => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="text-2xl font-extrabold text-text-primary">
-              Cancel Sprint
+              {name==="cancel"?"Cancel Sprint":"Not Interested"}
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-6">
             <div className="flex flex-col items-start justify-start gap-2">
               <div className="relative leading-[170%] font-medium">
-                Reason for Cancellation
+                Reason for {name==="cancel" ? "Cancellation" :"Marking as Not Interested"}
               </div>
               <Textarea
                 className="w-full rounded-lg border-text-primary1 border-[1px] border-solid py-2 px-4 text-lg font-medium min-h-[100px]"
