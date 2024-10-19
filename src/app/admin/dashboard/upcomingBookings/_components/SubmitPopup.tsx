@@ -34,14 +34,14 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, onClose, bookingDat
   };
 
   return (
-    <div className="w-full min-h-screen bg-bg-surface-default flex flex-col items-center pb-[64px] px-8 sm:px-[16px]">
-      <div className="w-full max-w-[592px] h-[75px] mt-[120px] flex items-stretch justify-between px-4 relative md:text-center">
+    <div className="w-full min-h-screen bg-bg-surface-default flex flex-col items-center px-8 sm:px-[16px]">
+      <div className="w-full max-w-[592px] h-[75px] flex items-stretch justify-between px-4 relative md:text-center">
         <Image src="/symbols/Vector (8).svg" alt="Image 1" width={30} height={30} className="rounded-full self-start mt-8" />
         <div className="flex items-center self-center">
           <Image src="/symbols/Vector (7).svg" alt="Arrow Left" width={20} height={20} className="mt-8" />
           <Image src="/symbols/Vector (4).svg" alt="Arrow Right" width={20} height={20} className="ml-1 mt-14" />
         </div>
-        <Image src="symbols/colon (1).svg" alt="Colon" width={32} height={32} className="self-end mb-10" />
+       {/* <Image src="symbols/colon (1).svg" alt="Colon" width={32} height={32} className="self-end mb-10" /> */}
         <Image src="/symbols/Vector (2).svg" alt="Image 2" width={32} height={32} className="self-end mt-2 md:hidden" />
         <Image src="/symbols/Vector (5).svg" alt="Image 3" width={30} height={30} className="self-center" />
         <div className="items-center self-start mt-2 hidden md:flex">
@@ -52,7 +52,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, onClose, bookingDat
 
       <div className="w-full max-w-[592px] mt-[60px] p-6 md:p-8 flex flex-col items-start justify-start gap-6 text-left text-base md:text-lg text-text-primary font-mobiletypestyles-body1 md:font-webtypestyles-body1 bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.06),_0px_2px_1px_rgba(0,_0,_0,_0.04),_0px_1px_5px_rgba(0,_0,_0,_0.08)] rounded-lg sm:px-[16px]">
         <div className="flex flex-col items-start justify-start gap-4 w-full">
-        <div className="text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-text-primary text-center">Nano Sprint</div>
+        <div className="text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-text-primary w-full text-center">Nano Sprint</div>
 
           <div className="flex flex-col md:flex-row items-start md:items-center justify-start gap-6 md:gap-8 w-full">
             {[

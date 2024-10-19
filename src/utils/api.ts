@@ -25,7 +25,7 @@ const getAdminToken = (): string | null => {
 
 // Function to fetch slots
 export const getSlots = async (venueId: number = 1) => {
-  const token = getToken();
+  const token = getToken() || getAdminToken() ;
 
   if (!token) {
     throw new Error('No token found');
@@ -406,5 +406,40 @@ export const updateBookingStatus = async (bookingId: number, status: string) => 
   } catch (error: any) {
     console.error('Error updating booking status:', error);
     throw error;
+  }
+};
+
+
+
+
+
+// Add this new function to update slot details
+export const updateSlotTime = async (
+  slotId: number,
+  updatedData: {
+    program_id: number;
+    venue_id: number;
+    date: string;
+    start_time: string;
+    end_time: string;
+    available_capacity: number;
+    status: string;
+  }
+) => {
+  const token = getAdminToken();
+  
+  if (!token) {
+    throw new Error('No admin token found');
+  }
+  try {
+    const response = await api.put(`/slotmanagement/${slotId}`, updatedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.details || 'An error occurred while updating slot');
   }
 };
