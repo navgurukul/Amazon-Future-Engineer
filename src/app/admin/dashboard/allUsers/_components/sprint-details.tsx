@@ -142,9 +142,9 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
       </div> */}
 
       {/* <div className="w-full md:max-w-3xl mx-auto pl-8 md:px-16 mt-16 mb-32 md:mb-52"> */}
-      <div className="w-full md:max-w-[45vw] mx-auto px-4 md:px-16 mt-16 mb-32 md:mb-52">
+      <div className="w-[592px] max-w-4xl mx-auto px-4 mt-[48px] mb-[152px] space-y-6">
         <div className="space-y-8">
-          <h1 className="text-heading6 md:text-heading5 font-extrabold text-midnight-blue-main">
+          <h1 className="text-heading5 font-heading5-bold leading-[150%] font-extrabold text-midnight-blue-main">
             Booking Details
           </h1>
 
@@ -168,7 +168,7 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                     key={key}
                     className="flex flex-row justify-between items-center space-x-4"
                   >
-                    <Label className="text-bodyM2 md:text-subTitle1 leading-[170%] text-darkslategray">
+                    <Label className="font-subTitle1-bold text-subTitle1 font-extrabold text-text-primary leading-[170%]">
                       {labelMapping[key as keyof typeof labelMapping]}
                     </Label>
 
@@ -241,13 +241,13 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
               {(bookingDetails.programName === "Nano Sprint" ||
                 bookingDetails.programName === "") && (
                 <div className="flex flex-row justify-between items-center space-x-4">
-                  <Label className="text-bodyM2 md:text-subTitle1 leading-[170%] text-darkslategray">
+                  <Label className="font-subTitle1-bold text-subTitle1 font-extrabold text-text-primary leading-[170%]">
                     Slot
                   </Label>
                   <Input
                     value={bookingDetails.slot}
                     onChange={(e) => handleInputChange("slot", e.target.value)}
-                    className="w-50 md:w-80 rounded-81xl border-text-primary text-darkslategray leading-[170%] text-bodyM md:text-body1 bg-white px-4 py-2"
+                    className="w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1"
                   />
                 </div>
               )}
@@ -257,7 +257,7 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
       </div>
 
       {/* Pass programName to Footer */}
-      <Footer programName={bookingDetails.programName} />
+      <Footer programName={bookingDetails.programName} bookingId={""} />
     </>
   );
 };
