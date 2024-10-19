@@ -1,4 +1,5 @@
 import SprintDetailsPage from "./sprint-details";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -6,6 +7,7 @@ import { fetchBookings } from "@/utils/api";
 import { format } from 'date-fns';
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useMemo, useState, useEffect } from "react";
 
 
@@ -123,6 +125,7 @@ import React, { useMemo, useState, useEffect } from "react";
 // ];
 
 const Dashboard: React.FC = () => {
+  const router = useRouter();
   interface Booking {
     id: string;
     user: {
@@ -196,6 +199,10 @@ const Dashboard: React.FC = () => {
     setShowSprintPage(true);
   };
 
+  const handleLogin = () => {
+    router.push("/login");
+  }
+
 
   // const filteredBookings = useMemo(() => {
   //   return bookings.filter((booking) => {
@@ -259,6 +266,7 @@ const Dashboard: React.FC = () => {
         <h1 className="text-13xl leading-[150%] font-extrabold text-midnight-blue-main">
           All Users
         </h1>
+        <div className="flex">
         <div className="relative flex items-center gap-4 w-full">
           <Image
             className="absolute left-4 z-10"
@@ -274,6 +282,10 @@ const Dashboard: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
+          </div>
+          <Button className="rounded-full bg-[#f55c38]" variant="proceed" onClick={handleLogin}>
+            Create User Profile
+          </Button>
         </div>
 
         <div className="flex gap-4">
