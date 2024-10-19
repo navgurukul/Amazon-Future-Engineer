@@ -11,6 +11,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import React from "react";
+import { updateBookingStatus} from '@/utils/api';
 
 
 interface CancelPopupProps {
@@ -20,17 +21,25 @@ interface CancelPopupProps {
 }
 
 
-const CancelPopup: React.FC<CancelPopupProps> = ({ isOpen, onClose ,name}) => {
+const CancelPopup: React.FC<CancelPopupProps> = ({ isOpen, onClose ,name,bookingSingle}) => {
   // const [isFirstOpen, setIsFirstOpen] = useState(false); // State for the first dialog
   const [isSecondOpen, setIsSecondOpen] = useState(false); // State for the second dialog
 
   // const openFirstDialog = () => setIsFirstOpen(true);
   // const closeFirstDialog = () => setIsFirstOpen(false);
+  console.log(bookingSingle,"bookings")
 
   const openSecondDialog = () => {
     onClose();
     setIsSecondOpen(true);
-    setIsSecondOpen(true); // Open the second dialog
+    handleSubmitAndCompleteSprint ()
+  };
+  const handleSubmitAndCompleteSprint = async () => {
+    try {
+      await updateBookingStatus(bookingSingle.id, "Cancelled");
+    } catch (error) {
+      console.error('Error updating booking status:', error);
+    }
   };
 
   const closeSecondDialog = () => setIsSecondOpen(false);
