@@ -8,6 +8,15 @@ interface FooterProps {
   bookingId: string; // Added bookingId as a prop for the API request
 }
 export default function Footer({ programName, bookingId }: FooterProps) {
+  const [isCancelPopupOpen, setIsCancelPopupOpen] = useState(false);
+
+    const handleCancelClick = () => {
+    setIsCancelPopupOpen(true);
+  };
+  const closeCancelPopup = () => {
+    setIsCancelPopupOpen(false);
+  };
+
   const [loading, setLoading] = useState(false); // State to handle button loading
   const handleStatusChange = async (
     status:
@@ -54,10 +63,11 @@ export default function Footer({ programName, bookingId }: FooterProps) {
                   aria-label="Cancel Sprint"
                   disabled={loading}
                   // onClick={() => handleStatusChange("Cancelled")}
-                  onClick={CancelPopup}
+                  onClick={handleCancelClick}
                 >
                   Cancel Sprint
                 </Button>
+                <CancelPopup isOpen={isCancelPopupOpen} onClose={closeCancelPopup} />
                 <Button
                   className="h-14 px-8 border rounded-full text-[#3A3A3A] border-[#3A3A3A] bg-white hover:text-white"
                   aria-label="Mark as Not Interested"

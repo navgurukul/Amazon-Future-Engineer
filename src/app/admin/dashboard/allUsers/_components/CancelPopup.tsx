@@ -12,15 +12,23 @@ import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import React from "react";
 
-const CancelPopup: React.FC = () => {
-  const [isFirstOpen, setIsFirstOpen] = useState(false); // State for the first dialog
+
+interface CancelPopupProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+
+const CancelPopup: React.FC<CancelPopupProps> = ({ isOpen, onClose }) => {
+  // const [isFirstOpen, setIsFirstOpen] = useState(false); // State for the first dialog
   const [isSecondOpen, setIsSecondOpen] = useState(false); // State for the second dialog
 
-  const openFirstDialog = () => setIsFirstOpen(true);
-  const closeFirstDialog = () => setIsFirstOpen(false);
+  // const openFirstDialog = () => setIsFirstOpen(true);
+  // const closeFirstDialog = () => setIsFirstOpen(false);
 
   const openSecondDialog = () => {
-    setIsFirstOpen(false); // Close the first dialog
+    onClose();
+    setIsSecondOpen(true);
     setIsSecondOpen(true); // Open the second dialog
   };
 
@@ -28,11 +36,9 @@ const CancelPopup: React.FC = () => {
 
   return (
     <>
-      <Button onClick={openFirstDialog} className="bg-blue-500 text-white">
-        Open Cancel Popup
-      </Button>
 
-      <Dialog open={isFirstOpen} onOpenChange={closeFirstDialog}>
+
+      <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="text-2xl font-extrabold text-text-primary">
@@ -53,7 +59,7 @@ const CancelPopup: React.FC = () => {
               <Button
                 variant="proceedWhite"
                 className="border-text-primary border-[1px] border-solid box-border text-text-primary"
-                onClick={closeFirstDialog}
+                onClick={onClose}
               >
                 Dismiss
               </Button>

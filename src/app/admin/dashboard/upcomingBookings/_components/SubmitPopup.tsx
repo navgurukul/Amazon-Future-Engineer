@@ -84,3 +84,4 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, onClose, bookingDat
 };
 
 export default BookingPopup;
+
