@@ -4,13 +4,14 @@ import { updateBookingStatus, updateBookingStatusAllUsers } from "@/utils/api";
 import { useEffect, useState } from "react";
 import ReschedulePopup from "./ReschedulePopup";
 import SubmitPopup from "../../upcomingBookings/_components/SubmitPopup";
+import { useToast } from "@/hooks/use-toast"
 
 
 interface FooterProps {
   programName: string;
-  bookingId: string; // Added bookingId as a prop for the API request
+  bookingId: string;
+  onSubmitClick: () => void; // Add onSubmitClick to the interface
 }
-
 interface PopupState {
   isCancel: boolean;
   isReschedule: boolean;
@@ -19,7 +20,8 @@ interface PopupState {
   isConfirm: boolean;
 }
 
-export default function Footer({ programName, bookingId }: FooterProps) {
+export default function Footer({ programName, bookingId, onSubmitClick }: FooterProps){
+  const { toast } = useToast()
   const [isCancelPopupOpen, setIsCancelPopupOpen] = useState<boolean>(false);
   const [popup,setPopup] = useState<PopupState>({
     isCancel:false,
@@ -65,8 +67,6 @@ const handlePopup = (id: string) => {
   });
 };
 
-
-
     const handleCancelClick = () => {
     setIsCancelPopupOpen(true);
   };
@@ -82,9 +82,23 @@ const handlePopup = (id: string) => {
    
   useEffect (()=>{
     if (popup.isUpdate) {
+      toast({
+        title: "Sprint Booking Details Updated Successfully!",
+        description: "",
+        duration: 3000,
+      })
+
     }
-    
-  },[popup.isUpdate === true])
+  },[popup.isUpdate])
+
+  useEffect(()=>{
+    if (popup.isConfirm){
+      onSubmitClick("true")
+    }
+    console.log("Hello")
+  },[popup.isConfirm ===true ])
+  
+
 
   const [loading, setLoading] = useState(false); // State to handle button loading
   const handleStatusChange = async (
@@ -118,7 +132,25 @@ const handlePopup = (id: string) => {
     }
   };
 
+  function setIsSubmitPopupOpen(arg0: boolean): void {
+    throw new Error("Function not implemented.");
+  }
+
+
   return (
+    <>
+    {
+      popup.isConfirm ? (<SubmitPopup 
+        isOpen={popup.isConfirm}
+        type = "Rahul Prakash"
+        onClose={() => setIsSubmitPopupOpen(false)}
+        bookingData={{
+          name:"",
+          date:"",
+          time:"",
+          students: "",
+        }}  />):(
+    
     <footer className="z-50 w-full shadow-[0px_-2px_2px_rgba(0,0,0,0.04),0px_-1px_5px_rgba(0,0,0,0.08)] bg-white p-6 text-center text-lg text-gray-800 font-amazon-ember">
       <div className="flex flex-row items-center justify-between">
         <nav
@@ -169,7 +201,7 @@ const handlePopup = (id: string) => {
                   onClick={() => handlePopup("isUpdate")}
                 >
                   Update Sprint Details
-                </Button>handlePopup
+                </Button>
                 <Button
                   variant="proceed"
                   className="h-14 px-8 bg-gray-400 text-white rounded-full hover:bg-gray-500"
@@ -220,9 +252,7 @@ const handlePopup = (id: string) => {
             {popup.isCancel &&  <CancelPopup name="cancel" isOpen={popup.isCancel} onClose={closeCancelPopup} />}
             {popup.isReschedule && <ReschedulePopup isOpen = {popup.isReschedule} onClose={closeCancelPopup}/>}
             {popup.isNotInterested &&  <CancelPopup  name="interested" isOpen={popup.isNotInterested} onClose={closeCancelPopup} />}
-            {/*{popup.isUpdate && <div>Update Popup</div>}
-             {popup.isConfirm && <SubmitPopup />} */}
       
-    </footer>
+    </footer>)}</>
   );
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Cross2Icon } from "@radix-ui/react-icons"
+import { Cross2Icon, CheckIcon } from "@radix-ui/react-icons" // Import CheckIcon
 import * as ToastPrimitives from "@radix-ui/react-toast"
 import { cva, type VariantProps } from "class-variance-authority"
 
@@ -16,7 +16,7 @@ const ToastViewport = React.forwardRef<
   <ToastPrimitives.Viewport
     ref={ref}
     className={cn(
-      "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]",
+      "fixed top-0 z-[100] flex max-h-screen w-full flex-col p-4 justify-center sm:left-1/2 sm:transform sm:-translate-x-1/2 md:max-w-[420px]",
       className
     )}
     {...props}
@@ -30,12 +30,12 @@ const toastVariants = cva(
     variants: {
       variant: {
         default: "border bg-background text-foreground",
-        destructive:
-          "destructive group border-destructive bg-destructive text-destructive-foreground",
+        destructive: "destructive group border-destructive bg-destructive text-destructive-foreground",
+        success: "border-green-500 bg-green-50 text-green-900  " // New success variant
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "success",
     },
   }
 )
@@ -50,7 +50,10 @@ const Toast = React.forwardRef<
       ref={ref}
       className={cn(toastVariants({ variant }), className)}
       {...props}
-    />
+    >
+      {props.children}
+      {variant === "success" && <CheckIcon className="ml-2 h-4 w-4 text-green-500" />} {/* Tick Icon */}
+    </ToastPrimitives.Root>
   )
 })
 Toast.displayName = ToastPrimitives.Root.displayName

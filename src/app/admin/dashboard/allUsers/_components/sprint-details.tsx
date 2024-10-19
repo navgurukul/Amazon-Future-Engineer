@@ -25,6 +25,7 @@ import SubmitPopup from "../../upcomingBookings/_components/SubmitPopup"
 //   slot: "", // This is for the Slot field (conditionally rendered)
 // };
 
+
 interface BookingDetails {
   name: string;
   email: string;
@@ -84,6 +85,7 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   booking: bookingProp,
 }) => {
   const [bookingDetails, setBookingDetails] = useState<BookingDetails | null>(null);
+  const [popupValue, setPopupValue] = useState(true);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -135,15 +137,22 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     }));
   };
 
-  return (
-    <>
-      {/* <div className="text-bodyM2 md:text-subTitle1 leading-[170%] cursor-pointer ml-4 md:ml-56 mb-12 mt-16">
-        <span className="font-extrabold text-[#29458c]">All Users</span>
-        <span className="font-medium text-[#3a3a3a]">/ Rahul Prakash - Nano Sprint</span>
-      </div> */}
+  const onSubmitClick =  (id:string) => {
+    if(id === "true")
+    {
+      setPopupValue(false)
+    }
+    else{
+      setPopupValue(true)
+    }
+    console.log(popupValue,id)
+  }
 
-      {/* <div className="w-full md:max-w-3xl mx-auto pl-8 md:px-16 mt-16 mb-32 md:mb-52"> */}
+  return (
+    <div className={`${!popupValue && "mt-[48px]"}`}>
+    {popupValue && (
       <div className="w-[592px] max-w-4xl mx-auto px-4 mt-[48px] mb-[152px] space-y-6">
+
         <div className="space-y-8">
           <h1 className="text-heading5 font-heading5-bold leading-[150%] font-extrabold text-midnight-blue-main">
             Booking Details
@@ -151,16 +160,6 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
 
           <Card className="shadow-none border-none">
             <CardContent className="pt-6 space-y-6 p-0">
-              {/* {Object.entries(bookingDetails).map(([key, value]) => (
-            <div key={key} className="flex justify-between items-center">
-              <span className="text-lg font-extrabold text-text-primary leading-[170%]">
-                {key.replace(/([A-Z])/g, ' $1').trim()}
-              </span>
-              <span className="text-lg font-medium text-text-primary leading-[170%]">
-                {value !== null ? value.toString() : '-'}
-              </span>
-            </div>
-          ))} */}
               {Object.entries(bookingDetails).map(([key, value]) => {
                 if (key === "slot") return null;
 
@@ -254,12 +253,14 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
               )}
             </CardContent>
           </Card>
-        </div>
-      </div>
+        </div> 
+      </div>)}
+   
+
 
       {/* Pass programName to Footer */}
-      <Footer programName={bookingDetails.programName} bookingId={""} />
-    </>
+      <Footer programName={bookingDetails.programName} bookingId={""}  onSubmitClick = {onSubmitClick} />
+    </div>
   );
 };
 
