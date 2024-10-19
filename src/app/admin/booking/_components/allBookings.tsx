@@ -73,4 +73,3 @@ export const useAllBookings = () => {
 
   // return events;
 };
-

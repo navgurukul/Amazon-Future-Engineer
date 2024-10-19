@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 interface BookingPopupProps {
+  type:string
   isOpen: boolean;
   onClose: () => void;
   bookingData: {
@@ -13,7 +14,7 @@ interface BookingPopupProps {
   };
 }
 
-const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, onClose, bookingData }) => {
+const BookingPopup: React.FC<BookingPopupProps> = ({  type, isOpen, onClose, bookingData }) => {
   const router = useRouter();
 
   if (!isOpen) return null;
@@ -21,6 +22,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, onClose, bookingDat
   const handleGoToDashboard = () => {
     window.location.reload();
     onClose();
+    localStorage.removeItem("SubmitPopup");
   };
 
   // Function to format the date
@@ -69,7 +71,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, onClose, bookingDat
         </div>
 
         <p className="self-stretch relative leading-[170%] font-medium md:text-center">
-          The sprint has been successfully submitted!
+          {  type !== "Rahul Prakash" ? "The sprint has been successfully submitted!":`The sprint has been successfully confirmed! An email and SMS has been sent to ${!(bookingData.name==="N/A" || bookingData.name==="") ? bookingData.name:"User"}`}
         </p>
       </div>
 
@@ -84,3 +86,4 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, onClose, bookingDat
 };
 
 export default BookingPopup;
+

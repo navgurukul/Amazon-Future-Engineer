@@ -6,6 +6,7 @@ import { fetchBookings } from "@/utils/api";
 import { format } from 'date-fns';
 import { useEffect, useState } from "react";
 import React from "react";
+import SubmitPopup from "../../upcomingBookings/_components/SubmitPopup"
 
 
 // Initial static booking details
@@ -23,6 +24,7 @@ import React from "react";
 //   numberOfStudents: "",
 //   slot: "", // This is for the Slot field (conditionally rendered)
 // };
+
 
 interface BookingDetails {
   name: string;
@@ -83,6 +85,8 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   booking: bookingProp,
 }) => {
   const [bookingDetails, setBookingDetails] = useState<BookingDetails | null>(null);
+  const [popupValue, setPopupValue] = useState(true);
+  const [bookings, setBookings] = useState<Booking[]>([])
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -92,7 +96,6 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   useEffect(() => {
     const loadBookingDetails = async () => {
       if (bookingProp.id) {
-        
         const bookings = await fetchBookings();
         const foundBooking = bookings.find(
           (b: Booking) => b.id === bookingProp.id
@@ -134,32 +137,29 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     }));
   };
 
-  return (
-    <>
-      {/* <div className="text-bodyM2 md:text-subTitle1 leading-[170%] cursor-pointer ml-4 md:ml-56 mb-12 mt-16">
-        <span className="font-extrabold text-[#29458c]">All Users</span>
-        <span className="font-medium text-[#3a3a3a]">/ Rahul Prakash - Nano Sprint</span>
-      </div> */}
+  const onSubmitClick =  (id:string) => {
+    if(id === "true")
+    {
+      setPopupValue(false)
+    }
+    else{
+      setPopupValue(true)
+    }
+    console.log(popupValue,id)
+  }
 
-      {/* <div className="w-full md:max-w-3xl mx-auto pl-8 md:px-16 mt-16 mb-32 md:mb-52"> */}
-      <div className="w-full md:max-w-[45vw] mx-auto px-4 md:px-16 mt-16 mb-32 md:mb-52">
+  return (
+    <div className={`${!popupValue && "mt-[48px]"}`}>
+    {popupValue && (
+      <div className="w-[592px] max-w-4xl mx-auto px-4 mt-[48px] mb-[152px] space-y-6">
+
         <div className="space-y-8">
-          <h1 className="text-heading6 md:text-heading5 font-extrabold text-midnight-blue-main">
+          <h1 className="text-heading5 font-heading5-bold leading-[150%] font-extrabold text-midnight-blue-main">
             Booking Details
           </h1>
 
           <Card className="shadow-none border-none">
             <CardContent className="pt-6 space-y-6 p-0">
-              {/* {Object.entries(bookingDetails).map(([key, value]) => (
-            <div key={key} className="flex justify-between items-center">
-              <span className="text-lg font-extrabold text-text-primary leading-[170%]">
-                {key.replace(/([A-Z])/g, ' $1').trim()}
-              </span>
-              <span className="text-lg font-medium text-text-primary leading-[170%]">
-                {value !== null ? value.toString() : '-'}
-              </span>
-            </div>
-          ))} */}
               {Object.entries(bookingDetails).map(([key, value]) => {
                 if (key === "slot") return null;
 
@@ -168,7 +168,7 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                     key={key}
                     className="flex flex-row justify-between items-center space-x-4"
                   >
-                    <Label className="text-bodyM2 md:text-subTitle1 leading-[170%] text-darkslategray">
+                    <Label className="font-subTitle1-bold text-subTitle1 font-extrabold text-text-primary leading-[170%]">
                       {labelMapping[key as keyof typeof labelMapping]}
                     </Label>
 
@@ -241,24 +241,32 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
               {(bookingDetails.programName === "Nano Sprint" ||
                 bookingDetails.programName === "") && (
                 <div className="flex flex-row justify-between items-center space-x-4">
-                  <Label className="text-bodyM2 md:text-subTitle1 leading-[170%] text-darkslategray">
+                  <Label className="font-subTitle1-bold text-subTitle1 font-extrabold text-text-primary leading-[170%]">
                     Slot
                   </Label>
                   <Input
                     value={bookingDetails.slot}
                     onChange={(e) => handleInputChange("slot", e.target.value)}
-                    className="w-50 md:w-80 rounded-81xl border-text-primary text-darkslategray leading-[170%] text-bodyM md:text-body1 bg-white px-4 py-2"
+                    className="w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1"
                   />
                 </div>
               )}
             </CardContent>
           </Card>
-        </div>
-      </div>
+        </div> 
+      </div>)}
+   
+
 
       {/* Pass programName to Footer */}
-      <Footer programName={bookingDetails.programName} />
-    </>
+      <Footer
+      programName={bookingDetails.programName}
+      bookingId={bookingProp.id.toString()}
+      onSubmitClick={onSubmitClick}
+      bookings={bookingDetails} // Pass fetched bookings
+    />
+
+    </div>
   );
 };
 

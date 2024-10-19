@@ -259,9 +259,9 @@ const Dashboard: React.FC = () => {
   return (
     <>
     {!showSprintPage ? (
-    <div className="min-h-screen bg-white">
-      <div className="container mx-auto p-6 space-y-8">
-        <h1 className="text-13xl leading-[150%] font-extrabold text-midnight-blue-main">
+    <div className="min-h-screen bg-white mt-[79px] mx-[48px]">
+      <div className="container mx-auto px-6 space-y-8">
+        <h1 className="text-heading5 font-heading5-bold leading-[150%] font-extrabold text-midnight-blue-main">
           All Users
         </h1>
         <div className="flex">
@@ -281,7 +281,7 @@ const Dashboard: React.FC = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           </div>
-          <Button className="rounded-full bg-[#f55c38]" variant="proceed" onClick={handleLogin}>
+          <Button className="rounded-full" variant="proceed" onClick={handleLogin}>
             Create User Profile
           </Button>
         </div>
@@ -348,26 +348,26 @@ const Dashboard: React.FC = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="font-bold text-black">Name</TableHead>
-                <TableHead className="font-bold text-black">Program</TableHead>
-                <TableHead className="font-bold text-black">
+                <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%]">Name</TableHead>
+                <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%]">Program</TableHead>
+                <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%]">
                   Phone Number
                 </TableHead>
-                <TableHead className="font-bold text-black">
+                <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%]">
                   No. of Students
                 </TableHead>
-                <TableHead className="font-bold text-black">
+                <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%]">
                   Date of Request
                 </TableHead>
-                <TableHead className="font-bold text-black">
+                <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%]">
                   Time Slot
                 </TableHead>
-                <TableHead className="font-bold text-black">Location</TableHead>
-                <TableHead className="font-bold text-black">Status</TableHead>
-                <TableHead className="font-bold text-black"></TableHead>
+                <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%]">Location</TableHead>
+                <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%]">Status</TableHead>
+                <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%]"></TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody className="border-b border-grey-300 gap-8 font-body2-regular text-body2 leading-[170%]">
+            <TableBody className="border-b border-grey-300 gap-8 p font-body2-regular text-body2 leading-[170%]">
               {displayedBookings.map((booking, index) => (
                 <TableRow
                   key={index}
