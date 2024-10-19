@@ -1,3 +1,4 @@
+import CancelPopup from "./CancelPopup";
 import { Button } from "@/components/ui/button";
 import { updateBookingStatusAllUsers } from "@/utils/api";
 import { useState } from "react";
@@ -52,7 +53,8 @@ export default function Footer({ programName, bookingId }: FooterProps) {
                   className="h-14 px-8 border rounded-full text-[#3A3A3A] border-[#3A3A3A] bg-white hover:text-white"
                   aria-label="Cancel Sprint"
                   disabled={loading}
-                  onClick={() => handleStatusChange("Cancelled")}
+                  // onClick={() => handleStatusChange("Cancelled")}
+                  onClick={CancelPopup}
                 >
                   Cancel Sprint
                 </Button>
