@@ -20,7 +20,7 @@ interface PopupState {
   isConfirm: boolean;
 }
 
-export default function Footer({ programName, bookingId, onSubmitClick,bookings }: FooterProps){
+export default function Footer({ programName, bookingId, onSubmitClick,bookings,bookingSingle }: FooterProps){
   const { toast } = useToast()
   const [isCancelPopupOpen, setIsCancelPopupOpen] = useState<boolean>(false);
   const [popup,setPopup] = useState<PopupState>({
@@ -252,7 +252,7 @@ const handlePopup = (id: string) => {
         </nav>
       </div>
             {/* Conditionally rendering the popups */}
-            {popup.isCancel &&  <CancelPopup name="cancel" isOpen={popup.isCancel} onClose={closeCancelPopup} />}
+            {popup.isCancel &&  <CancelPopup name="cancel" bookingSingle={bookingSingle} isOpen={popup.isCancel} onClose={closeCancelPopup} />}
             {popup.isReschedule && <ReschedulePopup isOpen = {popup.isReschedule} onClose={closeCancelPopup}/>}
             {popup.isNotInterested &&  <CancelPopup  name="interested" isOpen={popup.isNotInterested} onClose={closeCancelPopup} />}
       

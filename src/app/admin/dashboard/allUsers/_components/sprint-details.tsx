@@ -86,7 +86,7 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
 }) => {
   const [bookingDetails, setBookingDetails] = useState<BookingDetails | null>(null);
   const [popupValue, setPopupValue] = useState(true);
-  const [bookings, setBookings] = useState<Booking[]>([])
+  const [bookingSingle, setBookings] = useState<Booking[]>([])
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -97,9 +97,11 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     const loadBookingDetails = async () => {
       if (bookingProp.id) {
         const bookings = await fetchBookings();
+      
         const foundBooking = bookings.find(
           (b: Booking) => b.id === bookingProp.id
         );
+        setBookings(foundBooking)
         if (foundBooking) {
           setBookingDetails({
             name: foundBooking.user.name || "N/A",
@@ -145,7 +147,6 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     else{
       setPopupValue(true)
     }
-    console.log(popupValue,id)
   }
 
   return (
@@ -263,7 +264,8 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
       programName={bookingDetails.programName}
       bookingId={bookingProp.id.toString()}
       onSubmitClick={onSubmitClick}
-      bookings={bookingDetails} // Pass fetched bookings
+      bookings={bookingDetails} 
+      bookingSingle={bookingSingle}
     />
 
     </div>
