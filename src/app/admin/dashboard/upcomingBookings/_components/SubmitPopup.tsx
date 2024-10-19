@@ -71,7 +71,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({  type, isOpen, onClose, boo
         </div>
 
         <p className="self-stretch relative leading-[170%] font-medium md:text-center">
-          {  type !== "Rahul Prakash" ? "The sprint has been successfully submitted!":`The sprint has been successfully confirmed! An email and SMS has been sent to ${type}`}
+          {  type !== "Rahul Prakash" ? "The sprint has been successfully submitted!":`The sprint has been successfully confirmed! An email and SMS has been sent to ${!(bookingData.name==="N/A" || bookingData.name==="") ? bookingData.name:"User"}`}
         </p>
       </div>
 

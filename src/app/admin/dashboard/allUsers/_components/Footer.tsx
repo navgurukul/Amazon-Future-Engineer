@@ -20,7 +20,7 @@ interface PopupState {
   isConfirm: boolean;
 }
 
-export default function Footer({ programName, bookingId, onSubmitClick }: FooterProps){
+export default function Footer({ programName, bookingId, onSubmitClick,bookings }: FooterProps){
   const { toast } = useToast()
   const [isCancelPopupOpen, setIsCancelPopupOpen] = useState<boolean>(false);
   const [popup,setPopup] = useState<PopupState>({
@@ -135,7 +135,10 @@ const handlePopup = (id: string) => {
   function setIsSubmitPopupOpen(arg0: boolean): void {
     throw new Error("Function not implemented.");
   }
-
+  const parseSlot = (slot: string) => {
+    const [datePart, timePart] = slot.split(' | ');
+    return { date: datePart, time: timePart };
+  };
 
   return (
     <>
@@ -145,10 +148,10 @@ const handlePopup = (id: string) => {
         type = "Rahul Prakash"
         onClose={() => setIsSubmitPopupOpen(false)}
         bookingData={{
-          name:"",
-          date:"",
-          time:"",
-          students: "",
+          name:bookings.name,
+          date: parseSlot(bookings.slot).date,
+          time: parseSlot(bookings.slot).time,
+          students: bookings.numberOfStudents,
         }}  />):(
     
     <footer className="z-50 w-full shadow-[0px_-2px_2px_rgba(0,0,0,0.04),0px_-1px_5px_rgba(0,0,0,0.08)] bg-white p-6 text-center text-lg text-gray-800 font-amazon-ember">
