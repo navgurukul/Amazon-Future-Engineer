@@ -8,6 +8,7 @@ import TimeSlots from "./TimeSlots";
 interface CalendarPopupProps {
   handleCalendar: () => void;
   bookingDetails: BookingDetails;
+  calendarData: (data: { slot_id: any; booking_for: any; start_time: any; end_time: any }) => void; 
 }
 
 interface BookingDetails {
@@ -25,7 +26,7 @@ interface BookingDetails {
   slot: string;
 }
 
-const Calendar:  React.FC <CalendarPopupProps>= ({handleCalendar,bookingDetails }) => {
+const Calendar:  React.FC <CalendarPopupProps>= ({handleCalendar,bookingDetails, calendarData }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [bookingStatus, setBookingStatus] = useState<boolean>(false);
   const [bookingData, setBookingData] = useState<any>(null);
@@ -78,6 +79,7 @@ const Calendar:  React.FC <CalendarPopupProps>= ({handleCalendar,bookingDetails 
                   handleBookingPopUp={handleBookingPopUp}
                   handleCalendar ={handleCalendar }
                   bookingDetails={bookingDetails}
+                  calendarData={ calendarData}
                 />
               </div>
             </div>

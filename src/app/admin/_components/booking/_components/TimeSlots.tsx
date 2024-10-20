@@ -3,12 +3,15 @@ import { useAllBookings } from "./allBookings";
 import { bookSlot, getSlotDetails } from "@/utils/api";
 import { Button } from "@/components/ui/button";
 import ReschedulePopup from './ReschedulePopup';
+import { useToast } from "@/hooks/use-toast";
+
 
 interface TimeSlotsProps {
   selectedDate: Date | null;
   handleBookingPopUp: any;
   handleCalendar :()=>void;
   bookingDetails: BookingDetails;
+  calendarData: (data: { slot_id: any; booking_for: any; start_time: any; end_time: any }) => void; 
 }
 
 interface Slot {
@@ -39,8 +42,11 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
   selectedDate,
   handleBookingPopUp,
   handleCalendar,
-  bookingDetails
+  bookingDetails,
+  calendarData
+
 }) => {
+  const { toast } = useToast()
   const { events, error, closePopup } = useAllBookings();
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
   const [name, setName] = useState("");
@@ -123,7 +129,12 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     const maxStudents = selectedSlot?.capacity || 0;
     
     if (studentCount < minStudents || studentCount > maxStudents) {
-      setStudentsError(`Please enter a number between ${minStudents} and ${maxStudents}.`);
+      toast({
+        title: `Please enter a number between ${minStudents} and ${maxStudents}.`,
+        description: "",
+        duration: 5000,
+        variant: "error"
+      })
       return;
     }
     if (!selectedSlot || !selectedSlot.event) return;
@@ -141,7 +152,13 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
       };
 
       const response = await bookSlot(bookingData);
-
+      const dataToSend = {
+        slot_id:response.data.slot_id,
+        booking_for:response.data.booking_for,
+        start_time: response.data.start_time, 
+        end_time: response.data.end_time,   
+      };
+      calendarData(dataToSend);
       setBookingStatus("Booking successful!");
       handleBookingPopUp({
         name: bookingDetails.name,
@@ -149,11 +166,6 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
         time: selectedSlot.time || 'Time not selected',
         students: bookingDetails.numberOfStudents,
       });
-
-      setName("");
-      setPhone("");
-      setStudents("");
-      setSelectedSlot(null);
     } catch (error) {
       setBookingStatus("Booking failed. Please try again.");
     }
