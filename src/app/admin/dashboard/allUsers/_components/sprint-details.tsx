@@ -8,9 +8,6 @@ import { useEffect, useState } from "react";
 import React from "react";
 import SubmitPopup from "../../upcomingBookings/_components/SubmitPopup"
 import Booking from "../../../_components/booking/page"
-
-
-
 interface BookingDetails {
   name: string;
   email: string;
@@ -25,7 +22,6 @@ interface BookingDetails {
   numberOfStudents: string;
   slot: string;
 }
-
 interface Booking {
   id: number;
   user: {
@@ -50,7 +46,6 @@ interface Booking {
   created_at: string;
   status: string;
 }
-
 // Map for proper label display
 const labelMapping = {
   name: "Name",
@@ -65,12 +60,11 @@ const labelMapping = {
   grade: "Grade",
   numberOfStudents: "No. of Students",
 };
-
 interface BookingSlot {
   slot_id: number;
-  booking_for: string; 
-  start_time: string; 
-  end_time: string;    
+  booking_for: string;
+  start_time: string;
+  end_time: string;
 }
 const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   booking: bookingProp,
@@ -80,25 +74,19 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   const [bookingSingle, setBookings] = useState<Booking[]>([]);
   const [isCalendar,setIsCalendar] = useState<boolean>();
   const [calendarDataUser,setCalendarDataUser] = useState({
-    slot_id: 0,     
-    booking_for: "",    
-    start_time: "",    
-    end_time: ""  
+    slot_id: 0,
+    booking_for: "",
+    start_time: "",
+    end_time: ""
   })
-
-
-  
-
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return format(date, "d MMM yyyy");
   };
-
   useEffect(() => {
     const loadBookingDetails = async () => {
       if (bookingProp.id) {
         const bookings = await fetchBookings();
-      
         const foundBooking = bookings.find(
           (b: Booking) => b.id === bookingProp.id
         );
@@ -125,11 +113,9 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     };
     loadBookingDetails();
   }, [bookingProp.id]);
-
   if (!bookingDetails) {
     return <div className="text-center py-8">Loading...</div>;
   }
-
   const handleInputChange = (
     key: keyof typeof bookingDetails,
     value: string | number
@@ -139,7 +125,6 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
       [key]: value,
     }));
   };
-
   const onSubmitClick =  (id:string) => {
     if(id === "true")
     {
@@ -149,24 +134,33 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
       setPopupValue(true)
     }
   }
-
   const handleCalendar = ()=>{
     setIsCalendar(true)
   }
   const closeCalendar = ()=>{
     setIsCalendar(false)
   }
-  
   const calendarData = (data: { slot_id: any; booking_for: any; start_time: any; end_time: any; }) => {
     setCalendarDataUser({
-      slot_id: data.slot_id,          
-      booking_for: data.booking_for,  
-      start_time: data.start_time,   
+      slot_id: data.slot_id,
+      booking_for: data.booking_for,
+      start_time: data.start_time,
       end_time: data.end_time,
-    });  
+    });
+    setBookingDetails((prevDetails) => {
+      if (prevDetails) {
+        return {
+          ...prevDetails,  // Keep other details unchanged
+          slot:
+          `${formatDate(data.booking_for)} | ${
+            data.start_time
+            } to ${data.end_time}`,
+        };
+      }
+      return prevDetails; // Return as is if bookingDetails is null
+    });
+  
   };
-  
-  
   return (
     <>
       {isCalendar ? (
@@ -184,12 +178,10 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                   <h1 className="text-heading5 font-heading5-bold leading-[150%] font-extrabold text-midnight-blue-main">
                     Booking Details
                   </h1>
-  
                   <Card className="shadow-none border-none">
                     <CardContent className="pt-6 space-y-6 p-0">
                       {Object.entries(bookingDetails).map(([key, value]) => {
                         if (key === "slot") return null;
-  
                         return (
                           <div
                             key={key}
@@ -198,7 +190,6 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                             <Label className="font-subTitle1-bold text-subTitle1 font-extrabold text-text-primary leading-[170%]">
                               {labelMapping[key as keyof typeof labelMapping]}
                             </Label>
-  
                             {key === "programName" || key === "grade" ? (
                               <div className="relative w-64 md:w-80">
                                 <select
@@ -265,7 +256,6 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                           </div>
                         );
                       })}
-  
                       {/* Conditionally render the slot input based on the selected program */}
                       {(bookingDetails.programName === "Nano Sprint" ||
                         bookingDetails.programName === "") && (
@@ -287,7 +277,6 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                 </div>
               </div>
             )}
-  
             {/* Pass programName to Footer */}
             <Footer
               programName={bookingDetails.programName}
@@ -302,6 +291,5 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
       )}
     </>
   );
-  
-  export default SprintDetailsComponent;
-  
+}
+ export default SprintDetailsComponent;
