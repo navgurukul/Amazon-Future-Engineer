@@ -7,6 +7,9 @@ import { format } from 'date-fns';
 import { useEffect, useState } from "react";
 import React from "react";
 import SubmitPopup from "../../upcomingBookings/_components/SubmitPopup"
+import Booking from "../../../_components/booking/page"
+
+
 
 
 // Initial static booking details
@@ -86,7 +89,9 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
 }) => {
   const [bookingDetails, setBookingDetails] = useState<BookingDetails | null>(null);
   const [popupValue, setPopupValue] = useState(true);
-  const [bookingSingle, setBookings] = useState<Booking[]>([])
+  const [bookingSingle, setBookings] = useState<Booking[]>([]);
+  const [isCalendar,setIsCalendar] = useState<boolean>();
+
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -149,7 +154,21 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     }
   }
 
+  const handleCalendar = ()=>{
+    setIsCalendar(true)
+  }
+  const closeCalendar = ()=>{
+    setIsCalendar(false)
+  }
+  
+
+
   return (
+    <>
+    {
+      isCalendar ? (
+        <Booking handleCalendar={closeCalendar} bookingDetails={bookingDetails}/>
+      ):(<div>
     <div className={`${!popupValue && "mt-[48px]"}`}>
     {popupValue && (
       <div className="w-[592px] max-w-4xl mx-auto px-4 mt-[48px] mb-[152px] space-y-6">
@@ -266,9 +285,11 @@ const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
       onSubmitClick={onSubmitClick}
       bookings={bookingDetails} 
       bookingSingle={bookingSingle}
+      handleCalendar = {handleCalendar}
     />
 
-    </div>
+    </div>  </div>    )
+  }</>
   );
 };
 

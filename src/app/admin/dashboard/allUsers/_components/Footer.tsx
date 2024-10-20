@@ -4,13 +4,14 @@ import { updateBookingStatus, updateBookingStatusAllUsers } from "@/utils/api";
 import { useEffect, useState } from "react";
 import ReschedulePopup from "./ReschedulePopup";
 import SubmitPopup from "../../upcomingBookings/_components/SubmitPopup";
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast";
 
 
 interface FooterProps {
   programName: string;
   bookingId: string;
-  onSubmitClick: () => void; // Add onSubmitClick to the interface
+  onSubmitClick: () => void;
+  handleCalendar:()=>void
 }
 interface PopupState {
   isCancel: boolean;
@@ -20,7 +21,7 @@ interface PopupState {
   isConfirm: boolean;
 }
 
-export default function Footer({ programName, bookingId, onSubmitClick,bookings,bookingSingle }: FooterProps){
+export default function Footer({handleCalendar, programName, bookingId, onSubmitClick,bookings,bookingSingle }: FooterProps){
   const { toast } = useToast()
   const [isCancelPopupOpen, setIsCancelPopupOpen] = useState<boolean>(false);
   const [popup,setPopup] = useState<PopupState>({
@@ -140,6 +141,9 @@ const handlePopup = (id: string) => {
     return { date: datePart, time: timePart };
   };
 
+
+
+
   return (
     <>
     {
@@ -253,7 +257,7 @@ const handlePopup = (id: string) => {
       </div>
             {/* Conditionally rendering the popups */}
             {popup.isCancel &&  <CancelPopup name="cancel" bookingSingle={bookingSingle} isOpen={popup.isCancel} onClose={closeCancelPopup} />}
-            {popup.isReschedule && <ReschedulePopup isOpen = {popup.isReschedule} onClose={closeCancelPopup}/>}
+            {popup.isReschedule && <ReschedulePopup handleCalendar = {handleCalendar} isOpen = {popup.isReschedule} onClose={closeCancelPopup}/>}
             {popup.isNotInterested &&  <CancelPopup  name="interested" isOpen={popup.isNotInterested} onClose={closeCancelPopup} />}
       
     </footer>)}</>

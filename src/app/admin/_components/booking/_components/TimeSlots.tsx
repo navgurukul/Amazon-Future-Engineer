@@ -7,6 +7,8 @@ import ReschedulePopup from './ReschedulePopup';
 interface TimeSlotsProps {
   selectedDate: Date | null;
   handleBookingPopUp: any;
+  handleCalendar :()=>void;
+  bookingDetails: BookingDetails;
 }
 
 interface Slot {
@@ -18,9 +20,26 @@ interface Slot {
   capacity?: number;
 }
 
+interface BookingDetails {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  dateofRequest: string;
+  programName: string;
+  schoolName: string;
+  udiseCode: string;
+  city: string;
+  pincode: string;
+  grade: string;
+  numberOfStudents: string;
+  slot: string;
+}
+
 const TimeSlots: React.FC<TimeSlotsProps> = ({
   selectedDate,
   handleBookingPopUp,
+  handleCalendar,
+  bookingDetails
 }) => {
   const { events, error, closePopup } = useAllBookings();
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
@@ -94,23 +113,12 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     setStudents("");
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
 
-    setPhoneError(null);
-    setStudentsError(null);
+  const displayDate = selectedDate || new Date();
 
-    // const phonePattern = /^[6-9]\d{9}$/;
-    // if (phone.length !== 10) {
-    //   setPhoneError("Please enter a 10-digit phone number.");
-    //   return;
-    // }
-    // if (!phonePattern.test(phone)) {
-    //   setPhoneError("Please enter a phone number starting with 6 or above.");
-    //   return;
-    // }
 
-    const studentCount = parseInt(students);
+  const handleIsopen = async ()=>{
+    const studentCount = parseInt(bookingDetails.numberOfStudents);
     const minStudents = selectedSlot?.capacity === 40 ? 12 : 1;
     const maxStudents = selectedSlot?.capacity || 0;
     
@@ -118,7 +126,6 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
       setStudentsError(`Please enter a number between ${minStudents} and ${maxStudents}.`);
       return;
     }
-
     if (!selectedSlot || !selectedSlot.event) return;
 
     try {
@@ -128,19 +135,19 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
 
       const bookingData = {
         slot_id: Number(selectedSlot.event.id),
-        program_id: programId,
+        program_id:programId,
         venue_id: venueId,
-        booking_batch_size: studentCount,
+        booking_batch_size:   bookingDetails.numberOfStudents,
       };
 
       const response = await bookSlot(bookingData);
 
       setBookingStatus("Booking successful!");
       handleBookingPopUp({
-        name: name,
+        name: bookingDetails.name,
         date: selectedDate ? selectedDate.toDateString() : 'Date not selected',
         time: selectedSlot.time || 'Time not selected',
-        students: studentCount,
+        students: bookingDetails.numberOfStudents,
       });
 
       setName("");
@@ -150,13 +157,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     } catch (error) {
       setBookingStatus("Booking failed. Please try again.");
     }
-  };
 
-  const displayDate = selectedDate || new Date();
-
-
-  const handleIsopen = ()=>{
-    setIsOpen(true)
+    handleCalendar()
   }
 
 

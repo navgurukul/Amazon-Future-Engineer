@@ -73,6 +73,7 @@ export const bookSlot = async (bookingData: {
   }
 };
 
+
 // Other existing functions
 export const verifyOtp = async (phone: string, otp: string) => {
   try {
