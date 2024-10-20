@@ -21,6 +21,8 @@ const getAdminToken = (): string | null => {
   const userDataString = localStorage.getItem('adminLoginData');
   const userData = JSON.parse(userDataString || '{}');
   return userData?.data?.token || null;
+  // const admintoken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiYWRtaW4iOnRydWUsImlhdCI6MTcyOTQyMTA1NCwiZXhwIjoxNzI5NTA3NDU0fQ.42LujpeDw6LoXQkFY27-us8fJBOZAa6JKMAfe13SQ74";
+  // return admintoken;
 };
 
 
@@ -214,7 +216,7 @@ export const getSlotDetails = async (slotId: number) => {
 
 export const adminLogin = async (email: string, password: string) => {
   try {
-    const response = await api.post('/auth/admin/login', { email, password });
+    const response = await api.post('/admin/admin/login', { email, password });
     return response.data;
   } catch (error) {
     throw error;

@@ -48,8 +48,10 @@ export const useAllBookings = () => {
           return {
             id: slot.id,
             title: `Program ${slot.program_id} - Venue ${slot.venue_id}`,
-            start: startDateTime.toISOString(), // Ensure ISO format
-            end: endDateTime.toISOString(),
+            // start: startDateTime.toISOString(), // Ensure ISO format
+            // end: endDateTime.toISOString(),
+            start: startDateTime, // Ensure ISO format
+            end: endDateTime,
             extendedProps: {
               availableCapacity: slot.available_capacity,
               status: slot.status,
