@@ -28,7 +28,7 @@ const getAdminToken = (): string | null => {
 
 // Function to fetch slots
 export const getSlots = async (venueId: number = 1) => {
-  const token = getToken() || getAdminToken() ;
+  const token = getToken() || getAdminToken() || getAdminToken() ;
 
   if (!token) {
     throw new Error('No token found');
@@ -54,7 +54,7 @@ export const bookSlot = async (bookingData: {
   booking_batch_size: number;
   // students_grade: string;
 }) => {
-  const token = getToken();
+  const token = getToken() || getAdminToken();
 
   if (!token) {
     throw new Error('No token found');
@@ -73,6 +73,7 @@ export const bookSlot = async (bookingData: {
   }
 };
 
+
 // Other existing functions
 export const verifyOtp = async (phone: string, otp: string) => {
   try {
@@ -85,7 +86,7 @@ export const verifyOtp = async (phone: string, otp: string) => {
 
 // User Dashboard 
 export const getUserData = async () => {
-  const token = getToken();
+  const token = getToken() || getAdminToken();
 
   if (!token) {
     throw new Error('No token found');
@@ -117,7 +118,7 @@ interface WaitingListData {
 }
 
 export const createWaitingList = async (waitingListData: WaitingListData) => {
-  const token = getToken();
+  const token = getToken() || getAdminToken();
 
   if (!token) {
     throw new Error('No token found');
@@ -139,7 +140,7 @@ export const createWaitingList = async (waitingListData: WaitingListData) => {
 
 // Get program details 
 export const getProgramData = async (venue_id: number) => {
-  const token = getToken();
+  const token = getToken() || getAdminToken();
   
   if (!token) {
     return [];
@@ -192,7 +193,7 @@ export const resendOtp = async (phone: string) => {
 
 export const getSlotDetails = async (slotId: number) => {
   try {
-    const token = getToken();
+    const token = getToken() || getAdminToken();
     if (!token) {
       throw new Error('No token found');
     }
@@ -374,7 +375,7 @@ export const updateSlotDetails = async (id: number) => {
 
 export const getAdminSlotDetails = async (slotId: number) => {
   try {
-    const token = getToken();
+    const token = getToken() || getAdminToken();
     if (!token) {
       throw new Error('No token found');
     }

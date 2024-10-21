@@ -17,13 +17,21 @@ import { updateBookingStatus} from '@/utils/api';
 interface CancelPopupProps {
   isOpen: boolean;
   onClose: () => void;
-  name:string
+  name:string,
+  bookingSingle: {
+    id: number;
+    status: string;
+    start_time: string;
+    end_time: string;
+    booking_for: string;
+    // Add any other fields you need from bookingSingle
+  };
 }
 
 
 const CancelPopup: React.FC<CancelPopupProps> = ({ isOpen, onClose ,name,bookingSingle}) => {
   // const [isFirstOpen, setIsFirstOpen] = useState(false); // State for the first dialog
-  const [isSecondOpen, setIsSecondOpen] = useState(false); // State for the second dialog
+  const [isSecondOpen, setIsSecondOpen] = useState<boolean>(false); // State for the second dialog
 
   // const openFirstDialog = () => setIsFirstOpen(true);
   // const closeFirstDialog = () => setIsFirstOpen(false);

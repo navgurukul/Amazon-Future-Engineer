@@ -1,4 +1,4 @@
-import SprintDetailsPage from "./sprint-details";
+import {SprintDetailsComponent} from "./sprint-details"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -154,7 +154,7 @@ const Dashboard: React.FC = () => {
   const [dateRange, setDateRange] = useState("");
   const [status, setStatus] = useState("");
   const [showSprintPage, setShowSprintPage] = useState(false);
-  const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
+  const [selectedBooking, setSelectedBooking] = useState<Booking | any>(null);
 
   useEffect(() => {
     const loadBookings = async () => {
@@ -476,7 +476,7 @@ const Dashboard: React.FC = () => {
       </div>
     </div>
     ) : (
-        <SprintDetailsPage booking={selectedBooking} />
+        <SprintDetailsComponent booking={selectedBooking} />
       )}
     </>
   );

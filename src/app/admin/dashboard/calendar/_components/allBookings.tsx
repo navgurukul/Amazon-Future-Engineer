@@ -11,6 +11,7 @@ interface Event {
   end: Date;
   allDay: boolean;
   extendedProps: {
+    bookingId: any;
     availableCapacity: number;
     status: string;
   };
