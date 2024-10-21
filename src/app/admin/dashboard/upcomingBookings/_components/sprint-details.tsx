@@ -85,7 +85,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   // State Management
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [isTeacherFeedbackSubmitted, setIsTeacherFeedbackSubmitted] =
-    useState(false);
+    useState(true);
   const [isTeacherPopupOpen, setIsTeacherPopupOpen] = useState(false);
   const [isStudentPopupOpen, setIsStudentPopupOpen] = useState(false);
   const [isSubmitPopupOpen, setIsSubmitPopupOpen] = useState(false);
@@ -101,6 +101,8 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     name: bookingDetails?.name,
   });
 
+
+
   // Fetch feedbacks
   const fetchFeedbacks = useCallback(async () => {
     try {
@@ -108,10 +110,11 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         Number(bookingProp.user.id),
         parseInt(bookingDetails.slot, 10)
       );
+      const hasTeacherFeedback = Array.isArray(response.data) && response.data.some((feedback: { is_teacher: any; }) => feedback.is_teacher);
+      if (hasTeacherFeedback) {
+        setIsTeacherFeedbackSubmitted(false);
+      }
       setFeedbacks(response.data);
-      setIsTeacherFeedbackSubmitted(
-        response.data.some((feedback: Feedback) => !feedback.is_teacher)
-      );
     } catch (error) {
       console.error("Error fetching feedbacks:", error);
     }
@@ -168,13 +171,13 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
           program_id: bookingProp.program_id,
           feedback: feedbackContent,
           rating: 5,
-          is_teacher: false,
+          is_teacher: true,
           name: name,
         };
         await addTeacherFeedback(feedbackData);
-        setIsTeacherFeedbackSubmitted(true);
         fetchFeedbacks();
         setIsTeacherPopupOpen(false);
+        setIsTeacherFeedbackSubmitted(false)
       } catch (error) {
         console.error("Error adding teacher feedback:", error);
       }
@@ -191,14 +194,15 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     async (feedbackContent: string, name: string) => {
       try {
         const feedbackData = {
+          user_id: Number(bookingProp.user.id),
           slot_id: parseInt(bookingDetails.slot, 10),
           program_id: bookingProp.program_id,
           feedback: feedbackContent,
           rating: 5,
-          is_teacher: true,
+          is_teacher: false,
           name: name,
         };
-        await addStudentFeedback(feedbackData);
+        await addTeacherFeedback(feedbackData);
         fetchFeedbacks();
         setIsStudentPopupOpen(false);
       } catch (error) {
@@ -328,7 +332,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                 <h3 className="text-lg font-extrabold">
                   Teacher Feedback (Only one allowed)
                 </h3>
-                {!isTeacherFeedbackSubmitted && (
+                {isTeacherFeedbackSubmitted && (
                   <Button
                     variant="proceed"
                     onClick={() => setIsTeacherPopupOpen(true)}
@@ -338,7 +342,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                   </Button>
                 )}
                 {feedbacks
-                  .filter((f) => !f.is_teacher)
+                  .filter((f) => f.is_teacher)
                   .map((feedback) => (
                     <div key={feedback.id} className="pb-8 rounded">
                       <div className="flex items-center justify-between mb-2 gap-4 font-body1-regular text-body1">
@@ -369,7 +373,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
               <div className="space-y-4">
                 <h3 className="text-lg font-extrabold">Student Feedback</h3>
                 {feedbacks
-                  .filter((f) => f.is_teacher)
+                  .filter((f) => !f.is_teacher)
                   .map((feedback) => (
                     <div key={feedback.id} className="pb-8 rounded">
                       <div className="flex items-center justify-between mb-2 gap-4 font-body1-regular text-body1">
