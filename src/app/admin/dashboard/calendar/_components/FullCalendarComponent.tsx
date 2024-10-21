@@ -126,8 +126,6 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
         .calendar-container {
           background-color: #fff;
           border-radius: 12px;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-          padding: 20px;
           max-width: 100%;
         }
 
@@ -213,7 +211,27 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           background: var(--Incandescent-Main, #F55C38) !important; /* Use a fallback color */
           color: #fff !important; /* Text color */
           border: none !important; /* Remove borders if any */
+          margin-bottom: 8px;
         }
+
+        .fc-daygrid-event-dot, .fc-event-time {
+          display: none;
+          }
+
+          .fc-event, .fc-event-start, .fc-event-end, .fc-event-today, .fc-daygrid-event, .fc-daygrid-dot-event {
+          font-size: 14px;
+          line-height: 1.7;
+          color: #fff;
+          font-family: 'Amazon Ember';
+          }
+
+          .fc-daygrid-dot-event .fc-event-title {
+          font-weight: 500;
+          }
+
+          .fc-daygrid-day-frame, .fc-scrollgrid-sync-inner {
+          padding: 9px;
+          }
 
         @media (max-width: 640px) {
           .calendar-title {

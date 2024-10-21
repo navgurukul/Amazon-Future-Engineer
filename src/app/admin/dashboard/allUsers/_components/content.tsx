@@ -198,7 +198,7 @@ const Dashboard: React.FC = () => {
   };
 
   const handleLogin = () => {
-    window.open("/login", "_blank");
+    window.open("/login");
   }
 
 
