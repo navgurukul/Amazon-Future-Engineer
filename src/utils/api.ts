@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 const api = axios.create({
   baseURL: 'https://dev-afe.samyarth.org/api/v1',
   headers: {
@@ -20,12 +21,14 @@ const getAdminToken = (): string | null => {
   const userDataString = localStorage.getItem('adminLoginData');
   const userData = JSON.parse(userDataString || '{}');
   return userData?.data?.token || null;
+  // const admintoken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiYWRtaW4iOnRydWUsImlhdCI6MTcyOTQyMTA1NCwiZXhwIjoxNzI5NTA3NDU0fQ.42LujpeDw6LoXQkFY27-us8fJBOZAa6JKMAfe13SQ74";
+  // return admintoken;
 };
 
 
 // Function to fetch slots
 export const getSlots = async (venueId: number = 1) => {
-  const token = getToken();
+  const token = getToken() || getAdminToken() || getAdminToken() ;
 
   if (!token) {
     throw new Error('No token found');
@@ -51,7 +54,7 @@ export const bookSlot = async (bookingData: {
   booking_batch_size: number;
   // students_grade: string;
 }) => {
-  const token = getToken();
+  const token = getToken() || getAdminToken();
 
   if (!token) {
     throw new Error('No token found');
@@ -70,6 +73,7 @@ export const bookSlot = async (bookingData: {
   }
 };
 
+
 // Other existing functions
 export const verifyOtp = async (phone: string, otp: string) => {
   try {
@@ -82,7 +86,7 @@ export const verifyOtp = async (phone: string, otp: string) => {
 
 // User Dashboard 
 export const getUserData = async () => {
-  const token = getToken();
+  const token = getToken() || getAdminToken();
 
   if (!token) {
     throw new Error('No token found');
@@ -114,7 +118,7 @@ interface WaitingListData {
 }
 
 export const createWaitingList = async (waitingListData: WaitingListData) => {
-  const token = getToken();
+  const token = getToken() || getAdminToken();
 
   if (!token) {
     throw new Error('No token found');
@@ -136,7 +140,7 @@ export const createWaitingList = async (waitingListData: WaitingListData) => {
 
 // Get program details 
 export const getProgramData = async (venue_id: number) => {
-  const token = getToken();
+  const token = getToken() || getAdminToken();
   
   if (!token) {
     return [];
@@ -189,7 +193,7 @@ export const resendOtp = async (phone: string) => {
 
 export const getSlotDetails = async (slotId: number) => {
   try {
-    const token = getToken();
+    const token = getToken() || getAdminToken();
     if (!token) {
       throw new Error('No token found');
     }
@@ -213,7 +217,7 @@ export const getSlotDetails = async (slotId: number) => {
 
 export const adminLogin = async (email: string, password: string) => {
   try {
-    const response = await api.post('/auth/admin/login', { email, password });
+    const response = await api.post('/admin/admin/login', { email, password });
     return response.data;
   } catch (error) {
     throw error;
@@ -325,7 +329,7 @@ export const updateBookingDetails = async (bookingId: number, bookingData: {
   village: string;
   state: string;
   district: string;
-  pin_code: string;
+  pin_code: number;
 }) => {
   const token = getAdminToken(); 
   if (!token) {
@@ -371,7 +375,7 @@ export const updateSlotDetails = async (id: number) => {
 
 export const getAdminSlotDetails = async (slotId: number) => {
   try {
-    const token = getToken();
+    const token = getToken() || getAdminToken();
     if (!token) {
       throw new Error('No token found');
     }
@@ -406,5 +410,83 @@ export const updateBookingStatus = async (bookingId: number, status: string) => 
   } catch (error: any) {
     console.error('Error updating booking status:', error);
     throw error;
+  }
+};
+
+
+
+
+
+// Add this new function to update slot details
+export const updateSlotTime = async (
+  slotId: number,
+  updatedData: {
+    program_id: number;
+    venue_id: number;
+    date: string;
+    start_time: string;
+    end_time: string;
+    available_capacity: number;
+    status: string;
+  }
+) => {
+  const token = getAdminToken();
+  
+  if (!token) {
+    throw new Error('No admin token found');
+  }
+  try {
+    const response = await api.put(`/slotmanagement/${slotId}`, updatedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.details || 'An error occurred while updating slot');
+  }
+}
+
+// Update details of existing booking
+
+export const updateBookingStatusAllUsers = async (
+  bookingId: string,
+  status: "Confirmed" | "Waiting" | "Cancelled" | "Disinterested" | "Completed"
+) => {
+  const token = getAdminToken(); // Fetch the admin token
+  console.log("Token:", token);
+
+  if (!token) {
+    throw new Error("No token found");
+  }
+
+  const requestData: any = {
+    status,
+  };
+
+  // Only include cancellationReason if the status is Cancelled or Disinterested, and the API allows it
+  // if (status === "Cancelled" || status === "Disinterested") {
+  //   requestData.cancellationReason = cancellationReason;
+  // }
+
+  try {
+    const response = await api.put(
+      `https://dev-afe.samyarth.org/api/v1/bookings/${bookingId}/status`,
+      requestData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token in the headers
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return response.data; // Return the response data if successful
+  } catch (error: any) {
+    console.error("Error updating booking status:", error);
+    throw new Error(
+      error.response?.data?.message || "Error updating booking status"
+    );
   }
 };

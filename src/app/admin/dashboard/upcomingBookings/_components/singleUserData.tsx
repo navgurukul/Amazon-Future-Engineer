@@ -20,10 +20,10 @@ interface BookingDetails {
   numberOfStudents: number;
   actualNumberOfStudents: number | null;
   slot: string;
-
 }
 
 interface Booking {
+  program_id: any;
   id: number;
   user: {
     name: string;
@@ -32,27 +32,30 @@ interface Booking {
     phone: string;
     school_id?: string;
   };
-  created_at: string;
   slot: {
+    venue: {
+      city: string;
+    };
     program: {
       title: string;
     };
-    venue: {
-      city: string;
-      pin_code: string;
-    };
   };
-  booking_batch_size: number;
-  visited_batch_size: number | null;
   booking_for: string;
   start_time: string;
   end_time: string;
+  booking_batch_size: number;
+  created_at: string;
+  status: string;
 }
+
+
 
 const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingProp }) => {
   const [bookingDetails, setBookingDetails] = useState<BookingDetails | null>(null);
   const [showSprintDetails, setShowSprintDetails] = useState(false);
   const router = useRouter();
+
+  console.log("Tamanna",bookingProp)
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -104,25 +107,30 @@ const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingPr
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 py-8 space-y-16">
-      <div className="flex items-center mb-4">
-        <h1 className="text-4xl font-extrabold text-midnight-blue-main leading-[150%]">Booking Details</h1>
+    <div className="w-[592px] max-w-4xl mx-auto px-4 mt-[10px] space-y-6">
+      <div className="flex items-center pb-8">
+        <h1 className="text-heading5 font-heading5-bold leading-[150%] font-extrabold text-midnight-blue-main">Booking Details</h1>
       </div>
-      <Card className="rounded-lg border-none shadow-none ml-[-20px]">
+      <Card className="rounded-lg border-none shadow-none ml-[-20px] pb-8">
         <CardContent className="pt-6 space-y-6">
           {Object.entries(bookingDetails).map(([key, value]) => (
             <div key={key} className="flex justify-between items-center">
-              <span className="text-lg font-extrabold text-text-primary leading-[170%]">
-                {key.replace(/([A-Z])/g, ' $1').trim()}
+              <span className="text-lg font-subTitle1-bold text-subTitle1 font-extrabold text-text-primary leading-[170%]">
+              {key
+                .replace(/([A-Z])/g, ' $1')
+                .trim()
+                .split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ')}
               </span>
-              <span className="text-lg font-medium text-text-primary leading-[170%]">
+              <span className="text-lg font-body1-regular text-body1 font-medium text-text-primary leading-[170%]">
                 {value !== null ? value.toString() : '-'}
               </span>
             </div>
           ))}
         </CardContent>
       </Card>
-      <div className="flex justify-center">
+      <div className="flex justify-center pb-16">
         <Button 
         variant="proceed"
           onClick={handleStartSprint}
@@ -131,8 +139,8 @@ const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingPr
         </Button>
       </div>
       <div className="space-y-4">
-        <h2 className="text-4xl font-extrabold text-midnight-blue-main leading-[150%]">Sprint Feedback</h2>
-        <p className="text-lg font-medium text-text-primary leading-[170%]">
+        <h2 className="text-heading5 font-heading5-bold leading-[150%] font-extrabold text-midnight-blue-main">Sprint Feedback</h2>
+        <p className="text-lg font-body1-regular text-body1 font-medium text-text-primary leading-[170%]">
           Feedback from teachers and students can be gathered after the sprint has completed and added here once the sprint is marked as completed.
         </p>
       </div>
@@ -141,6 +149,7 @@ const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingPr
 };
 
 export default BookingDetailsPage;
+
 
 
 

@@ -1,8 +1,3 @@
-
-
-
-
-
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -26,6 +21,7 @@ import { fetchBookings } from "@/utils/api";
 import { format } from 'date-fns';
 import BookingDetails from './singleUserData';
 
+
 const Dashboard = () => {
   interface Booking {
     id: string;
@@ -48,11 +44,11 @@ const Dashboard = () => {
   }
 
   const [bookings, setBookings] = useState<Booking[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
-  const [showDetails, setShowDetails] = useState(false); // State to toggle details view
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [selectedBooking, setSelectedBooking] = useState<Booking | any>(null);
+  const [showDetails, setShowDetails] = useState<boolean>(false); // State to toggle details view
 
   useEffect(() => {
     const loadBookings = async () => {
@@ -65,13 +61,13 @@ const Dashboard = () => {
   const totalItems = bookings.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
     }
   };
 
-  const handleItemsPerPageChange = (value) => {
+  const handleItemsPerPageChange = (value: any) => {
     setItemsPerPage(Number(value));
     setCurrentPage(1);
   };
@@ -97,10 +93,10 @@ const Dashboard = () => {
     setShowDetails(true);
   };
 
-  const handleGoBack = () => {
-    setShowDetails(false); // Hide the details and go back to the list
-    setSelectedBooking(null);
-  };
+  // const handleGoBack = (): void => {
+  //   setShowDetails(false); 
+  //   setSelectedBooking(null);
+  // };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -116,11 +112,11 @@ const Dashboard = () => {
 
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container mx-auto p-6 space-y-8">
+    <div className="min-h-screen bg-white mt-[79px] mx-[48px]">
+      <div className="container mx-auto px-6 space-y-8">
         {!showDetails ? ( // Conditionally render based on the state
           <>
-            <h1 className="text-13xl leading-[150%] font-extrabold text-midnight-blue-main">
+            <h1 className="text-heading5 font-heading5-bold leading-[150%] font-extrabold text-midnight-blue-main">
               Upcoming Bookings
             </h1>
             <div className="relative flex items-center gap-4 w-full">
@@ -144,16 +140,16 @@ const Dashboard = () => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Program</TableHead>
-                    <TableHead>Phone Number</TableHead>
-                    <TableHead>No. of Students</TableHead>
-                    <TableHead>Time Slot</TableHead>
-                    <TableHead>Location</TableHead>
-                    <TableHead></TableHead>
+                    <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%]">Name</TableHead>
+                    <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%]">Program</TableHead>
+                    <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%]">Phone Number</TableHead>
+                    <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%]">No. of Students</TableHead>
+                    <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%] ">Time Slot</TableHead>
+                    <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%]">Location</TableHead>
+                    <TableHead className="text-subTitle2 font-extrabold font-subTitle2-bold leading-[170%]"></TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody className="border-b border-grey-300 gap-8 font-body2-regular text-body2 leading-[170%]">
+                <TableBody className="border-b border-grey-300 gap-8 p font-body2-regular text-body2 leading-[170%]">
                   {displayedBookings.map((booking) => (
                     <TableRow key={booking.id} className="border-t border-b border-transparent">
                       <TableCell className="border-0">{booking.user.name || "N/A"}</TableCell>
@@ -221,7 +217,7 @@ const Dashboard = () => {
           </>
         ) : (
 
-          <BookingDetails booking={selectedBooking} onGoBack={handleGoBack} />
+          <BookingDetails booking={selectedBooking}/>
         )}
       </div>
     </div>
