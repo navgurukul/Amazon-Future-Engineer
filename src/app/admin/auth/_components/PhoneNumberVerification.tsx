@@ -25,7 +25,7 @@ const UserLogin: React.FC = () => {
     const localStorageData = localStorage.getItem('adminLoginData');
     const cookieData = Cookies.get('adminLoginData');
 
-    if (!localStorageData && cookieData) {
+    if (cookieData) {
       localStorage.setItem('adminLoginData', cookieData || "");
       router.push("/admin/dashboard/upcomingBookings")
     }
