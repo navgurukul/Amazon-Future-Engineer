@@ -318,7 +318,7 @@ const Header: NextPage<HeaderProps> = ({
                   >
                     <Image
                       alt="Helpdesk Icon"
-                      src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
+                      src="/nanopage/reshot-icon-phone-XZTUCW7SFA 1.svg"
                       width={24}
                       height={24}
                     />
@@ -472,7 +472,7 @@ const Header: NextPage<HeaderProps> = ({
                 >
                   <Image
                     alt="Helpdesk Icon"
-                    src="/nanopage/reshot-icon-friendly-customer-service-C63QKLHVB9.svg"
+                    src="/nanopage/reshot-icon-phone-XZTUCW7SFA 1.svg"
                     width={24}
                     height={24}
                   />

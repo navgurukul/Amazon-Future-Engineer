@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 const api = axios.create({
   baseURL: 'https://dev-afe.samyarth.org/api/v1',
   headers: {
@@ -7,16 +8,27 @@ const api = axios.create({
   },
 });
 
-// Utility function to get the token
+// Utility function to get the user token
 const getToken = (): string | null => {
   const userDataString = localStorage.getItem('loginData');
   const userData = JSON.parse(userDataString || '{}');
   return userData?.data?.token || null;
 };
 
+
+// Utility function to get the  admin token
+const getAdminToken = (): string | null => {
+  const userDataString = localStorage.getItem('adminLoginData');
+  const userData = JSON.parse(userDataString || '{}');
+  return userData?.data?.token || null;
+  // const admintoken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiYWRtaW4iOnRydWUsImlhdCI6MTcyOTQyMTA1NCwiZXhwIjoxNzI5NTA3NDU0fQ.42LujpeDw6LoXQkFY27-us8fJBOZAa6JKMAfe13SQ74";
+  // return admintoken;
+};
+
+
 // Function to fetch slots
 export const getSlots = async (venueId: number = 1) => {
-  const token = getToken();
+  const token = getToken() || getAdminToken() || getAdminToken() ;
 
   if (!token) {
     throw new Error('No token found');
@@ -42,7 +54,7 @@ export const bookSlot = async (bookingData: {
   booking_batch_size: number;
   // students_grade: string;
 }) => {
-  const token = getToken();
+  const token = getToken() || getAdminToken();
 
   if (!token) {
     throw new Error('No token found');
@@ -61,6 +73,7 @@ export const bookSlot = async (bookingData: {
   }
 };
 
+
 // Other existing functions
 export const verifyOtp = async (phone: string, otp: string) => {
   try {
@@ -73,7 +86,7 @@ export const verifyOtp = async (phone: string, otp: string) => {
 
 // User Dashboard 
 export const getUserData = async () => {
-  const token = getToken();
+  const token = getToken() || getAdminToken();
 
   if (!token) {
     throw new Error('No token found');
@@ -105,7 +118,7 @@ interface WaitingListData {
 }
 
 export const createWaitingList = async (waitingListData: WaitingListData) => {
-  const token = getToken();
+  const token = getToken() || getAdminToken();
 
   if (!token) {
     throw new Error('No token found');
@@ -127,7 +140,7 @@ export const createWaitingList = async (waitingListData: WaitingListData) => {
 
 // Get program details 
 export const getProgramData = async (venue_id: number) => {
-  const token = getToken();
+  const token = getToken() || getAdminToken();
   
   if (!token) {
     return [];
@@ -180,7 +193,7 @@ export const resendOtp = async (phone: string) => {
 
 export const getSlotDetails = async (slotId: number) => {
   try {
-    const token = getToken();
+    const token = getToken() || getAdminToken();
     if (!token) {
       throw new Error('No token found');
     }
@@ -198,3 +211,282 @@ export const getSlotDetails = async (slotId: number) => {
   }
 };
 
+
+
+// Admin login
+
+export const adminLogin = async (email: string, password: string) => {
+  try {
+    const response = await api.post('/admin/admin/login', { email, password });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+//upcoming booking dashboard data
+
+export const fetchBookings = async () => {
+  const token = getAdminToken();
+
+  if (!token) {
+    throw new Error('No token found');
+  }
+
+  try {
+    const response = await api.get('/bookings/admin', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.data; 
+  } catch (error: any) {
+    console.error('Error fetching bookings:', error);
+    throw new Error(error.response?.data?.details || 'An error occurred while fetching bookings');
+  }
+};
+
+
+
+// New feedback functions
+
+//Feedback api for teacher
+
+export const addTeacherFeedback = async (feedbackData: {
+  // name: string,
+  user_id: number;
+  slot_id: number;
+  program_id: number;
+  feedback: string;
+  rating: number;
+  is_teacher: boolean;
+}) => {
+  const token = getAdminToken();
+  if (!token) throw new Error('No admin token found');
+  try {
+    const response = await api.post('/feedbacks/admin/add', feedbackData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.details || 'An error occurred while adding teacher feedback');
+  }
+};
+
+
+// Feedback api for students
+
+export const addStudentFeedback = async (feedbackData: {
+  name: string,
+  slot_id: number;
+  program_id: number;
+  feedback: string;
+  rating: number;
+  is_teacher: boolean;
+}) => {
+  const token = getAdminToken();
+  if (!token) throw new Error('No token found');
+  try {
+    const response = await api.post('/feedbacks/teacher/add', feedbackData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.details || 'An error occurred while adding student feedback');
+  }
+};
+
+// get all feedback
+export const getFeedback = async (user_id: number, slot_id: number) => {
+  const token =  getAdminToken();
+  if (!token) throw new Error('No token found');
+  try {
+    const response = await api.get(`/feedbacks/get?user_id=${user_id}&slot_id=${slot_id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.details || 'An error occurred while fetching feedback');
+  }
+};
+
+
+//Admin edit api Function to update booking details
+export const updateBookingDetails = async (bookingId: number, bookingData: {
+  user_id: number;
+  slot_id: number;
+  program_id: number;
+  booking_batch_size: number;
+  visited_batch_size: number;
+  students_grade: string;
+  visiting_time: string;
+  school_name: string;
+  udise: string;
+  email: string;
+  address: string;
+  village: string;
+  state: string;
+  district: string;
+  pin_code: number;
+}) => {
+  const token = getAdminToken(); 
+  if (!token) {
+    throw new Error('No admin token found');
+  }
+
+  try {
+    const response = await api.put(`/bookings/${bookingId}`, bookingData, {
+      headers: {
+        Authorization: `Bearer ${token}`, 
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;  
+  } catch (error: any) {
+    console.error('Error updating booking details:', error);
+    throw new Error(error.response?.data?.details || 'An error occurred while updating booking details');
+  }
+};
+
+
+// Update slot details by slotId
+
+export const updateSlotDetails = async (id: number) => {
+  const token = getAdminToken();
+  if (!token) {
+    throw new Error('No token found');
+  }
+  try {
+    const response = await axios.get(`https://dev-afe.samyarth.org/api/v1/slotmanagement/${id}`, {
+      headers: {
+        'accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data.data[0];
+  } catch (error) {
+    return 0;
+  }
+};
+
+// Get slot by slotId
+
+export const getAdminSlotDetails = async (slotId: number) => {
+  try {
+    const token = getToken() || getAdminToken();
+    if (!token) {
+      throw new Error('No token found');
+    }
+
+    const response = await axios.get(`https://dev-afe.samyarth.org/api/v1/slotmanagement/slot/${slotId}`, {
+      headers: {
+        'accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data.data[0];
+  } catch (error) {
+    // console.error("Error fetching slot details:", error);
+    return 0;
+  }
+};
+
+
+
+// api to update status
+
+export const updateBookingStatus = async (bookingId: number, status: string) => {
+  try {
+    const response = await api.put(`/bookings/${bookingId}/status`, {
+      status: status
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    return response.data;
+  } catch (error: any) {
+    console.error('Error updating booking status:', error);
+    throw error;
+  }
+};
+
+
+
+
+
+// Add this new function to update slot details
+export const updateSlotTime = async (
+  slotId: number,
+  updatedData: {
+    program_id: number;
+    venue_id: number;
+    date: string;
+    start_time: string;
+    end_time: string;
+    available_capacity: number;
+    status: string;
+  }
+) => {
+  const token = getAdminToken();
+  
+  if (!token) {
+    throw new Error('No admin token found');
+  }
+  try {
+    const response = await api.put(`/slotmanagement/${slotId}`, updatedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.details || 'An error occurred while updating slot');
+  }
+}
+
+// Update details of existing booking
+
+export const updateBookingStatusAllUsers = async (
+  bookingId: string,
+  status: "Confirmed" | "Waiting" | "Cancelled" | "Disinterested" | "Completed"
+) => {
+  const token = getAdminToken(); // Fetch the admin token
+  console.log("Token:", token);
+
+  if (!token) {
+    throw new Error("No token found");
+  }
+
+  const requestData: any = {
+    status,
+  };
+
+  // Only include cancellationReason if the status is Cancelled or Disinterested, and the API allows it
+  // if (status === "Cancelled" || status === "Disinterested") {
+  //   requestData.cancellationReason = cancellationReason;
+  // }
+
+  try {
+    const response = await api.put(
+      `https://dev-afe.samyarth.org/api/v1/bookings/${bookingId}/status`,
+      requestData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token in the headers
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return response.data; // Return the response data if successful
+  } catch (error: any) {
+    console.error("Error updating booking status:", error);
+    throw new Error(
+      error.response?.data?.message || "Error updating booking status"
+    );
+  }
+};
