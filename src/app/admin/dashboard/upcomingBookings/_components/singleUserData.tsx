@@ -20,10 +20,10 @@ interface BookingDetails {
   numberOfStudents: number;
   actualNumberOfStudents: number | null;
   slot: string;
-
 }
 
 interface Booking {
+  program_id: any;
   id: number;
   user: {
     name: string;
@@ -32,27 +32,30 @@ interface Booking {
     phone: string;
     school_id?: string;
   };
-  created_at: string;
   slot: {
+    venue: {
+      city: string;
+    };
     program: {
       title: string;
     };
-    venue: {
-      city: string;
-      pin_code: string;
-    };
   };
-  booking_batch_size: number;
-  visited_batch_size: number | null;
   booking_for: string;
   start_time: string;
   end_time: string;
+  booking_batch_size: number;
+  created_at: string;
+  status: string;
 }
+
+
 
 const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingProp }) => {
   const [bookingDetails, setBookingDetails] = useState<BookingDetails | null>(null);
   const [showSprintDetails, setShowSprintDetails] = useState(false);
   const router = useRouter();
+
+  console.log("Tamanna",bookingProp)
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -146,6 +149,7 @@ const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingPr
 };
 
 export default BookingDetailsPage;
+
 
 
 

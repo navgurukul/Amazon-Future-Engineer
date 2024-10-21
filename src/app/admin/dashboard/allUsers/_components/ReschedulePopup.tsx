@@ -21,12 +21,14 @@ import { useRouter } from "next/navigation";
 interface CancelPopupProps {
   isOpen: boolean;
   onClose: () => void;
+  handleCalendar: () => void;
 }
 
 // const ReschedulePopup: React.FC<FeedbackPopupProps> = ({
 const ReschedulePopup: React.FC<CancelPopupProps> = ({
   isOpen,
   onClose,
+  handleCalendar
   //   onSubmit,
   //   type,
 }) => {
@@ -44,8 +46,7 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
 
   const router = useRouter();
   const handleCalendarClick = ()=>{
-    router.push("/admin/booking")
-
+    handleCalendar();
   }
 
   return (

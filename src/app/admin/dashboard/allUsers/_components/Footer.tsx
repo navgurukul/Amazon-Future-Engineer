@@ -4,13 +4,38 @@ import { updateBookingStatus, updateBookingStatusAllUsers } from "@/utils/api";
 import { useEffect, useState } from "react";
 import ReschedulePopup from "./ReschedulePopup";
 import SubmitPopup from "../../upcomingBookings/_components/SubmitPopup";
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast";
 
+
+interface BookingDetails {
+  name: string;
+  email: string | null;
+  phoneNumber: string;
+  dateofRequest: string;
+  programName: string;
+  schoolName: string | number;  // Adjust based on your data
+  udiseCode: string;
+  city: string;
+  pincode: string;
+  grade: string;
+  numberOfStudents: number;
+  slot: string;
+}
 
 interface FooterProps {
   programName: string;
   bookingId: string;
-  onSubmitClick: () => void; // Add onSubmitClick to the interface
+  onSubmitClick: (message: string) => void;
+  handleCalendar:()=>void;
+  bookingSingle: {
+    id: number;
+    status: string;
+    start_time: string;
+    end_time: string;
+    booking_for: string;
+    // Add any other fields you need from bookingSingle
+  };
+  bookings: BookingDetails;
 }
 interface PopupState {
   isCancel: boolean;
@@ -20,7 +45,7 @@ interface PopupState {
   isConfirm: boolean;
 }
 
-export default function Footer({ programName, bookingId, onSubmitClick,bookings,bookingSingle }: FooterProps){
+export default function Footer({handleCalendar, programName, bookingId, onSubmitClick,bookings,bookingSingle }: FooterProps){
   const { toast } = useToast()
   const [isCancelPopupOpen, setIsCancelPopupOpen] = useState<boolean>(false);
   const [popup,setPopup] = useState<PopupState>({
@@ -31,6 +56,7 @@ export default function Footer({ programName, bookingId, onSubmitClick,bookings,
     isConfirm:false
   })
 
+  console.log(bookings,"bookings")
 // Function to handle popup toggle based on id
 const handlePopup = (id: string) => {
   console.log("id",id)
@@ -89,14 +115,14 @@ const handlePopup = (id: string) => {
       })
 
     }
-  },[popup.isUpdate])
+  },[popup.isUpdate, toast])
 
   useEffect(()=>{
     if (popup.isConfirm){
       onSubmitClick("true")
     }
     console.log("Hello")
-  },[popup.isConfirm ===true ])
+  },[onSubmitClick, popup.isConfirm])
   
 
 
@@ -118,7 +144,7 @@ const handlePopup = (id: string) => {
         `Making API call with status: ${status}`
       );
       const response = await updateBookingStatus(
-        bookingId,
+        Number(bookingId),
         status
         // queryType,
         // cancellationReason
@@ -126,7 +152,6 @@ const handlePopup = (id: string) => {
       alert(`Status updated to ${status}`);
     } catch (error) {
       console.error("Error making API request:", error);
-      alert(`Error updating statuhandlePopups: ${error.message || "Unknown error"}`);
     } finally {
       setLoading(false);
     }
@@ -139,6 +164,9 @@ const handlePopup = (id: string) => {
     const [datePart, timePart] = slot.split(' | ');
     return { date: datePart, time: timePart };
   };
+
+
+
 
   return (
     <>
@@ -253,8 +281,8 @@ const handlePopup = (id: string) => {
       </div>
             {/* Conditionally rendering the popups */}
             {popup.isCancel &&  <CancelPopup name="cancel" bookingSingle={bookingSingle} isOpen={popup.isCancel} onClose={closeCancelPopup} />}
-            {popup.isReschedule && <ReschedulePopup isOpen = {popup.isReschedule} onClose={closeCancelPopup}/>}
-            {popup.isNotInterested &&  <CancelPopup  name="interested" isOpen={popup.isNotInterested} onClose={closeCancelPopup} />}
+            {popup.isReschedule && <ReschedulePopup handleCalendar = {handleCalendar} isOpen = {popup.isReschedule} onClose={closeCancelPopup}/>}
+            {popup.isNotInterested &&  <CancelPopup  name="interested" isOpen={popup.isNotInterested} onClose={closeCancelPopup}  bookingSingle={bookingSingle}/>}
       
     </footer>)}</>
   );

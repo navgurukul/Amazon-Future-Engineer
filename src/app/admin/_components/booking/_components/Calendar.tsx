@@ -3,10 +3,30 @@ import React, { useState } from "react";
 import BookingPopup from "./BookingPopup";
 import FullCalendarComponent from "./FullCalendarComponent";
 import TimeSlots from "./TimeSlots";
-import DialogHeader from "@/components/DialogHeader";
 // import ErrorBookingPopup from "./ErrorBookingPopup";
 
-const Calendar: React.FC = () => {
+interface CalendarPopupProps {
+  handleCalendar: () => void;
+  bookingDetails: BookingDetails;
+  calendarData: (data: { slot_id: any; booking_for: any; start_time: any; end_time: any }) => void; 
+}
+
+interface BookingDetails {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  dateofRequest: string;
+  programName: string;
+  schoolName: string;
+  udiseCode: string;
+  city: string;
+  pincode: string;
+  grade: string;
+  numberOfStudents: string;
+  slot: string;
+}
+
+const Calendar:  React.FC <CalendarPopupProps>= ({handleCalendar,bookingDetails, calendarData }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [bookingStatus, setBookingStatus] = useState<boolean>(false);
   const [bookingData, setBookingData] = useState<any>(null);
@@ -41,8 +61,7 @@ const Calendar: React.FC = () => {
         <BookingPopup isOpen={true} bookingData={bookingData} />
       ) : (
         <div>
-          <DialogHeader />
-          <div className="pt-[120px] px-4 md:px-8 pb-[48px]">
+          <div className="pt-12 px-4 md:px-8 pb-[48px]">
             <h5 className="text-13xl leading-[150%] font-extrabold font-webtypestyles-h5 text-midnight-blue-main pb-[32px] md:text-center">
               Book a Nano Sprint
             </h5>
@@ -58,6 +77,9 @@ const Calendar: React.FC = () => {
                 <TimeSlots
                   selectedDate={selectedDate}
                   handleBookingPopUp={handleBookingPopUp}
+                  handleCalendar ={handleCalendar }
+                  bookingDetails={bookingDetails}
+                  calendarData={ calendarData}
                 />
               </div>
             </div>

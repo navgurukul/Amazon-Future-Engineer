@@ -54,6 +54,7 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
 
                     const updatedData = {
                         program_id: slot.program_id,
+                        venue_id: slot.venue_id,
                         date: formattedDate.toISOString(),
                         start_time: startDate.toISOString(),
                         end_time: endDate.toISOString(),
