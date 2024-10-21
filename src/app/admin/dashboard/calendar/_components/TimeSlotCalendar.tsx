@@ -1,11 +1,12 @@
-import React, { useRef, useEffect, useState } from "react";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import Image from "next/image";
-import { useAllBookings } from "./allBookings";
 import EditDatePopup from "./EditDatePopup";
 import EditTimeSlotsPopup from "./EditTimeSlotsPopup";
+import { useAllBookings } from "./allBookings";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import FullCalendar from "@fullcalendar/react";
+import Image from "next/image";
+import React, { useRef, useEffect, useState } from "react";
+
 
 interface EventSlot {
     id: number;
@@ -22,7 +23,7 @@ interface EventSlot {
 const TimeSlotCalendar: React.FC = () => {
     const calendarRef = useRef<any>(null);
     const [currentMonthYear, setCurrentMonthYear] = useState<string>("");
-    const { events } = useAllBookings();
+    const { events, fetchApiData } = useAllBookings();
     const [showPopup, setShowPopup] = useState(false);
     const [showTimeSlotsPopup, setShowTimeSlotsPopup] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -108,7 +109,7 @@ const TimeSlotCalendar: React.FC = () => {
 
         setSelectedSlots(slotsForDate);
 
-        setTimeSlotsPopupPosition({ top: 50, left: 0 });
+        setTimeSlotsPopupPosition({ top: 100, left: 515 });
         setShowPopup(true);
     };
 
@@ -127,9 +128,38 @@ const TimeSlotCalendar: React.FC = () => {
         setShowTimeSlotsPopup(false);
     };
 
-    const handleUpdateSlots = (updatedSlots: EventSlot[]) => {
+    const handleUpdateSlots = async (updatedSlots: EventSlot[]) => {
         console.log("Updated slots:", updatedSlots);
-        // Here you can update your events state or trigger a refetch of events
+         // Re-fetch events to get the updated slots
+    await fetchApiData();
+    // Optionally, close the popup or perform other actions
+    setShowTimeSlotsPopup(false);
+    };
+
+    const isBeforeToday = (date: Date) => {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Ignore time part
+      return date < today;
+    };
+
+    const handleDayCellClassNames = (arg: any) => {
+      const date = arg.date;
+
+      // Disable previous dates and Sundays
+      if (isBeforeToday(date) || date.getDay() === 0) {
+        return ["disabled-date"];
+      }
+
+      return [];
+    };
+
+    const handleDayCellDidMount = (arg: any) => {
+      const date = arg.date;
+
+      // Style previous dates and Sundays
+      if (isBeforeToday(date) || date.getDay() === 0) {
+        arg.el.style.backgroundColor = "#f5f5f5";
+      }
     };
 
     return (
@@ -164,6 +194,8 @@ const TimeSlotCalendar: React.FC = () => {
                     events={events}
                     eventClick={handleCalendarClick}
                     dateClick={handleCalendarClick}
+                    dayCellClassNames={handleDayCellClassNames}
+                    dayCellDidMount={handleDayCellDidMount}
                     eventContent={(eventInfo) => {
                         const { start, end } = eventInfo.event;
 
@@ -185,6 +217,10 @@ const TimeSlotCalendar: React.FC = () => {
                         return null;
                     }}
                 />
+                  {/* Render the overlay and popups if either popup is visible */}
+        {(showPopup || showTimeSlotsPopup) && (
+            <>
+                <div className="overlay" />
                 {showPopup && popupPosition && (
                     <EditDatePopup
                         selectedDayName={selectedDayName}
@@ -214,13 +250,13 @@ const TimeSlotCalendar: React.FC = () => {
                         onUpdateSlots={handleUpdateSlots}
                     />
                 )}
+            </>
+        )}
             </div>
             <style jsx global>{`
                 .calendar-container {
                     background-color: #fff;
                     border-radius: 12px;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                    padding: 20px;
                     max-width: 100%;
                     position: relative;
                 }
@@ -251,6 +287,20 @@ const TimeSlotCalendar: React.FC = () => {
                     font-size: 0.85rem;
                     line-height: 1.2;
                     color: #333;
+                }
+
+                    .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+            z-index: 999; /* Ensure it's below the popup */
+        }
+
+         .disabled-date {
+                    pointer-events: none;
                 }
             `}</style>
         </div>

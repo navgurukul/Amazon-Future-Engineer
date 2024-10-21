@@ -1,6 +1,12 @@
 // EditTimeSlotsPopup Component
+
+// Adjust this import based on your project structure
+import { Button } from '@/components/ui/button';
+import { updateSlotTime } from '@/utils/api';
 import React, { useState } from 'react';
-import { updateSlotTime } from '@/utils/api'; // Adjust this import based on your project structure
+
+
+// Adjust this import based on your project structure
 
 interface EventSlot {
     id: number;
@@ -77,73 +83,115 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
         }
     };
 
+    const handleDeleteSlot = (index: number) => {
+      const updatedSlots = editableSlots.filter((_, i) => i !== index);
+      setEditableSlots(updatedSlots);
+    };
+
+    const handleNewSlots = () => {
+        setEditableSlots([
+            ...editableSlots,
+            {
+                id: 0,
+                start: '00:00',
+                end: '00:00',
+                program_id: 0,
+                venue_id: 0,
+                date: selectedDate,
+                available_capacity: 0,
+                status: '',
+                booking_id: 0,
+            },
+        ]);
+    };
 
     return (
         <div style={style} className="flex flex-col items-end gap-8 p-8 bg-white rounded-lg shadow-lg w-[592px]">
-            <div className="flex justify-between items-center w-full">
-                <div className="text-xl font-bold">Edit Slots</div>
-                <button onClick={onClose} className="text-2xl">&times;</button>
-            </div>
+             <div className="flex justify-between items-center w-full">
+
+        <h2 className="text-[24px] leading-[150%] font-extrabold font-sans text-[#3a3a3a]">Edit Slots</h2>
+        <Button className="h-8 w-8 text-[#3a3a3a] font-extrabold bg-[#fff] hover:bg-[#fff] shadow-none" 
+                onClick={onClose}
+                >
+                x
+            </Button>
+              </div>
 
             <div className="w-full">
-                <div className="font-semibold">Time slots for {selectedDate}</div>
+                <div className="font-bold text-[#3a3a3a] text-[18px]">Time slots for {selectedDate}</div>
                 <div className="flex flex-col gap-4 mt-4">
                     {editableSlots.map((slot, index) => (
                         <div key={slot.id} className="flex items-center gap-2">
                             {isEditing ? (
                                 <>
+                                
                                     <input
                                         type="time"
                                         value={slot.start}
                                         onChange={(e) => handleInputChange(index, 'start', e.target.value)}
-                                        className="border p-1 rounded"
+                                        className="flex border border-[#3a3a3a] px-4 py-2 rounded-full"
                                     />
                                     <span>-</span>
                                     <input
                                         type="time"
                                         value={slot.end}
                                         onChange={(e) => handleInputChange(index, 'end', e.target.value)}
-                                        className="border p-1 rounded"
+                                        className="flex border border-[#3a3a3a] px-4 py-2 rounded-full"
                                     />
+                                    <Button className='text-gray-400 hover:bg-white p-4' variant="proceedWhite"
+                                        onClick={() => handleDeleteSlot(index)}
+>x</Button>
                                 </>
                             ) : (
                                 <>
+                                <span className='flex border border-[#3a3a3a] px-4 py-2 rounded-full'>
                                     <span className="mr-2">{slot.start}</span>
                                     <img src="/admin/access_time.svg" alt="Access Time Icon" />
+                                </span>
                                     <span>-</span>
+                                    <span className='flex border border-[#3a3a3a] px-4 py-2 rounded-full'>
                                     <span className="mr-2">{slot.end}</span>
                                     <img src="/admin/access_time.svg" alt="Access Time Icon" />
+                                    </span>
                                 </>
                             )}
                         </div>
                     ))}
-                </div>
+                    {isEditing && (
+                        
+                    <Button className='font-bold hover:bg-white p-0 flex items-start justify-start' variant="proceedWhite" onClick={handleNewSlots}>+ &nbsp;Add New Slots</Button>
+                    )}
+                    </div>
             </div>
 
             {error && <div className="text-red-500 mt-2">{error}</div>}
 
-            <div className="w-full flex justify-center gap-4">
+            <div className="w-full flex justify-end gap-4">
                 {!isEditing ? (
-                    <button
+                    <Button
                         onClick={() => setIsEditing(true)}
-                        className="bg-blue-500 text-white rounded-lg px-4 py-2 hover:bg-blue-600"
+                        // className="bg-[#f55c38] text-white rounded-full px-8 py-2 text-[18px] leading-[170%]"
+                        variant="proceed"
                     >
                         Edit Slots
-                    </button>
+                    </Button>
                 ) : (
                     <>
-                        <button
-                            onClick={handleUpdate}
-                            className="bg-green-500 text-white rounded-lg px-4 py-2 hover:bg-green-600"
-                        >
-                            Save
-                        </button>
-                        <button
+                        <Button
                             onClick={() => setIsEditing(false)}
-                            className="bg-red-500 text-white rounded-lg px-4 py-2 hover:bg-red-600"
+                            // className="bg-[#f55c38] text-white rounded-full px-8 py-2 hover:bg-red-600 text-[18px] leading-[170%]"
+                            variant="proceed"
                         >
                             Cancel
-                        </button>
+                        </Button>
+                        <Button
+                            onClick={handleUpdate}
+                            // className="bg-green-500 text-white rounded-full px-8 py-2 hover:bg-green-600 text-[18px] leading-[170%]"
+                            className='bg-green-500 hover:bg-green-600'
+                            variant="proceed"
+                        >
+                            Update
+                        </Button>
                     </>
                 )}
             </div>

@@ -208,11 +208,15 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           gap: 4px;
           align-self: stretch;
           border-radius: 8px;
-          background: var(--Incandescent-Main, #F55C38) !important; /* Use a fallback color */
+          background: var(--Incandescent-Main, #F55C38) !important;
           color: #fff !important; /* Text color */
           border: none !important; /* Remove borders if any */
           margin-bottom: 8px;
         }
+
+        .fc-event-low-capacity {
+          background: var(--Incandescent-Main, #00A36C) !important;
+          }
 
         .fc-daygrid-event-dot, .fc-event-time {
           display: none;
