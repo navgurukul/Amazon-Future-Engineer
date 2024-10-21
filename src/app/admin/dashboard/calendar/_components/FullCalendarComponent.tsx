@@ -217,7 +217,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
         .fc-event-low-capacity {
           background: var(--Incandescent-Main, #00A36C) !important;
           }
-
+          
         .fc-daygrid-event-dot, .fc-event-time {
           display: none;
           }
