@@ -67,6 +67,7 @@ const Page: NextPage = () => {
                     </div>
                     <button
                         className="w-full md:w-auto h-14 px-8 py-2 rounded-full border border-[#f55c38] text-[#f55c38] text-bodyM md:text-button1 font-button1-bold leading-[170%] cursor-pointer"
+                        onClick={() => window.location.reload()}
                     >
                         Refresh Page
                     </button>

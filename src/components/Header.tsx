@@ -7,6 +7,8 @@ import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import React from "react";
 import { useState, useEffect, useCallback, useRef } from "react";
+import LogoutSuccess from "./LogoutSuccess";
+
 interface HeaderProps {
   bgColor: string;
   handleOfflineBooking: () => void;
@@ -33,6 +35,8 @@ const Header: NextPage<HeaderProps> = ({
   const [headerBgColor, setHeaderBgColor] = useState<string>("transparent");
   const [currentLang, setCurrentLang] = useState<"en" | "kn">("en");
   const [showBothButtons, setShowBothButtons] = useState<boolean>(false);
+  const [logoutSuccess, setLogoutSuccess] = useState<boolean>(false);
+
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] =
     useState<boolean>(false);
 
@@ -162,6 +166,8 @@ const Header: NextPage<HeaderProps> = ({
 
   return (
     <>
+          <LogoutSuccess show={logoutSuccess} />
+
       <div
         className={`fixed z-50 w-full ${isDropdownOpen || bgColor !== "home" ? "bg-white" : headerBgColor
           } text-center text-[14px] text-white transition-shadow duration-300 ${hasShadow && !isDropdownOpen
@@ -283,6 +289,7 @@ const Header: NextPage<HeaderProps> = ({
                             width={48}
                             height={48}
                             onClick={handleProfileClick}
+                            onDoubleClick={handleDoubleClickProfile}
                           />
                         </div>
                       )}
@@ -346,7 +353,7 @@ const Header: NextPage<HeaderProps> = ({
                       width={56}
                       height={56}
                       onClick={handleProfileClick}
-                      onDoubleClick={handleDoubleClickProfile}
+                      // onDoubleClick={handleDoubleClickProfile}
                     />
                     {isProfileDropdownOpen && (
                       <div ref={dropdownRef}

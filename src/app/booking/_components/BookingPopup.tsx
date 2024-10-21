@@ -148,7 +148,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
 
         <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray md:text-center">
           <span>{`Have questions? Call Us or Whatsapp on `}</span>
-          <a href={whatsappLink} target="_blank" className="text-tomato font-['Amazon Ember'] text-bodyM2 md:text-subTitle1">+916366969292</a>
+          <a href={whatsappLink} target="_blank" className="text-tomato font-['Amazon Ember'] text-bodyM2 md:text-subTitle1">+9163669-69292</a>
         </p>
       </div>
 

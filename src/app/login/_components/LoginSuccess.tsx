@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+"use client";
+
+import React from "react";
 
 const LoginSuccess: React.FC<{ show: boolean }> = ({ show }) => {
   if (!show) return null;
