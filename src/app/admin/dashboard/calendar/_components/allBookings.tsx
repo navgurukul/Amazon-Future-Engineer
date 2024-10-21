@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { getSlots } from "@/utils/api";
 import ErrorBookingPopup from "./ErrorBookingPopup";
+import { getSlots } from "@/utils/api";
+import { useEffect, useState } from "react";
+
 
 // Define the Event interface
 interface Event {
@@ -34,6 +35,10 @@ export const useAllBookings = () => {
           const startDateTime = new Date(`${slot.date.split('T')[0]}T${slot.start_time}:00`);
           const endDateTime = new Date(`${slot.date.split('T')[0]}T${slot.end_time}:00`);
 
+          const programType =
+            slot.program_id === 1 ? "Nano" : slot.program_id === 2 ? "Mini" : "Mega";
+          
+
           //   return {
           //     id: slot.id.toString(),
           //     title: `Slot at ${slot.start_time}`, // Adjust title as needed
@@ -48,7 +53,10 @@ export const useAllBookings = () => {
           // });
           return {
             id: slot.id,
-            title: `Program ${slot.program_id} - Venue ${slot.venue_id}`,
+            // title: `Program ${slot.program_id} - Venue ${slot.venue_id} `,
+              title: `${programType}: ${startDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${endDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`,
+
+            // time: `Nano: ${startDateTime} - ${endDateTime}`,
             // start: startDateTime.toISOString(), // Ensure ISO format
             // end: endDateTime.toISOString(),
             start: startDateTime, // Ensure ISO format
