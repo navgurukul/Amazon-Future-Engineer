@@ -20,10 +20,9 @@ const Header: React.FC = () => {
   };
 
   const handleLogoutClick = () => {
-    localStorage.removeItem('adminData');
-    Cookies.remove('adminData');
+    Cookies.remove('adminLoginData');
+    localStorage.removeItem('adminLoginData');
     router.push("/admin")
-
   };
 
   // Close dropdown when clicking outside
