@@ -17,14 +17,16 @@ const Popup: React.FC<PopupProps> = ({
   const [phoneNumber, setPhoneNumber] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [nameError, setNameError] = useState<string | null>(null);
 
 
-  useEffect(()=>{
+
+  useEffect(() => {
     const phoneNumber = localStorage.getItem("loginData")
-    ? JSON.parse(localStorage.getItem("loginData") || "{}").data.phone
-    : "";
+      ? JSON.parse(localStorage.getItem("loginData") || "{}").data.phone
+      : "";
     setPhoneNumber(phoneNumber)
-  },[])
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,6 +36,8 @@ const Popup: React.FC<PopupProps> = ({
     // Clear previous error messages
     setError(null);
     setErrorMessage(null);
+    setNameError(null);
+
 
     // Phone number validation
     // if (!phoneNumber) {
@@ -50,6 +54,15 @@ const Popup: React.FC<PopupProps> = ({
     //   setErrorMessage("Please enter a phone number starting with 6 or above");
     //   return;
     // }
+
+    const namePattern = /^[A-Za-z\s]+$/;
+    if (!name.trim()) {
+      setNameError("Name is required");
+      return;
+    } else if (!namePattern.test(name.trim())) {
+      setNameError("Name should only contain letters");
+      return;
+    }
     const programData = JSON.parse(localStorage.getItem('programData') || '[]');
     const nanoProgram = programData.find((program: any) => program.title === "NANO");
 
@@ -110,7 +123,7 @@ const Popup: React.FC<PopupProps> = ({
             <b>Response Time:</b>
             <span className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray"> Within 24 hours</span>
           </div>
-           <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+          <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
             <b>Operational Time:</b>
             <span className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray"> Monday to Friday, 9 AM to 6 PM</span>
           </div>
@@ -132,8 +145,11 @@ const Popup: React.FC<PopupProps> = ({
                 onChange={(e) => setName(e.target.value)}
                 required
               />
+              {nameError && (
+                <div className="text-red-500 text-sm">{nameError}</div>
+              )}
             </div>
-              <div className="flex flex-col gap-2 w-full">
+            <div className="flex flex-col gap-2 w-full">
               <label className="font-medium leading-[170%] text-[#3a3a3a] text-body2" htmlFor="phone">
                 Phone Number <span className="text-[#f55c38]">*</span>
               </label>
