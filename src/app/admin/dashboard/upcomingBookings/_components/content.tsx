@@ -21,6 +21,7 @@ import { fetchBookings } from "@/utils/api";
 import { format } from 'date-fns';
 import BookingDetails from './singleUserData';
 
+
 const Dashboard = () => {
   interface Booking {
     id: string;
@@ -43,11 +44,11 @@ const Dashboard = () => {
   }
 
   const [bookings, setBookings] = useState<Booking[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
-  const [showDetails, setShowDetails] = useState(false); // State to toggle details view
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [selectedBooking, setSelectedBooking] = useState<Booking | any>(null);
+  const [showDetails, setShowDetails] = useState<boolean>(false); // State to toggle details view
 
   useEffect(() => {
     const loadBookings = async () => {
@@ -60,13 +61,13 @@ const Dashboard = () => {
   const totalItems = bookings.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
     }
   };
 
-  const handleItemsPerPageChange = (value) => {
+  const handleItemsPerPageChange = (value: any) => {
     setItemsPerPage(Number(value));
     setCurrentPage(1);
   };
@@ -92,10 +93,10 @@ const Dashboard = () => {
     setShowDetails(true);
   };
 
-  const handleGoBack = () => {
-    setShowDetails(false); // Hide the details and go back to the list
-    setSelectedBooking(null);
-  };
+  // const handleGoBack = (): void => {
+  //   setShowDetails(false); 
+  //   setSelectedBooking(null);
+  // };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -216,7 +217,7 @@ const Dashboard = () => {
           </>
         ) : (
 
-          <BookingDetails booking={selectedBooking} onGoBack={handleGoBack} />
+          <BookingDetails booking={selectedBooking}/>
         )}
       </div>
     </div>

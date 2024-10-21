@@ -148,7 +148,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
         slot_id: Number(selectedSlot.event.id),
         program_id:programId,
         venue_id: venueId,
-        booking_batch_size:   bookingDetails.numberOfStudents,
+        booking_batch_size:Number(bookingDetails.numberOfStudents),
       };
 
       const response = await bookSlot(bookingData);

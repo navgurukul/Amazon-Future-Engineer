@@ -16,6 +16,7 @@ interface EventSlot {
     date: string;
     available_capacity: number;
     status: string;
+    booking_id: number;
 }
 
 const TimeSlotCalendar: React.FC = () => {
@@ -93,14 +94,15 @@ const TimeSlotCalendar: React.FC = () => {
         const slotsForDate: EventSlot[] = filteredEvents.map((event) => {
             const [programId, venueId] = event.title.split(' - Venue ');
             return {
-                id: event.id,
+                id: Number(event.id),
                 start: new Date(event.start).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit', hour12: false }),
                 end: new Date(event.end).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit', hour12: false }),
                 program_id: parseInt(programId.replace('Program ', '')),
                 venue_id: parseInt(venueId),
                 date: date.toISOString().split('T')[0],
                 available_capacity: event.extendedProps.availableCapacity,
-                status: event.extendedProps.status
+                status: event.extendedProps.status,
+                booking_id: event.extendedProps.bookingId,
             };
         });
 
