@@ -396,10 +396,11 @@ export const getAdminSlotDetails = async (slotId: number) => {
 
 // api to update status
 
-export const updateBookingStatus = async (bookingId: number, status: string) => {
+export const updateBookingStatus = async (bookingId: number, status: string,cancel_reason:string) => {
   try {
     const response = await api.put(`/bookings/${bookingId}/status`, {
-      status: status
+      status: status,
+      cancel_reason:cancel_reason
     }, {
       headers: {
         'Content-Type': 'application/json'
@@ -487,5 +488,32 @@ export const updateBookingStatusAllUsers = async (
     throw new Error(
       error.response?.data?.message || "Error updating booking status"
     );
+  }
+};
+
+
+
+// Function to fetch all users and bookings
+export const getAllUsersAndBookings = async (program: string, page: number = 1, limit: number = 10) => {
+  const token = getAdminToken();
+
+  if (!token) {
+    throw new Error('No token found');
+  }
+
+  try {
+    const response = await api.get(`/bookings/admin/getAllUsersAndBookings`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        program,
+        page,
+        limit,
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw error;
   }
 };

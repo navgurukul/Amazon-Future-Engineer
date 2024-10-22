@@ -214,7 +214,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
 
   const handleSubmitAndCompleteSprint = async () => {
     try {
-      await updateBookingStatus(Number(bookingProp.user.id), "Completed");
+      await updateBookingStatus(Number(bookingProp.user.id), "Completed","Completed");
       setIsSubmitPopupOpen(true);
     } catch (error) {
       console.error("Error updating booking status:", error);
