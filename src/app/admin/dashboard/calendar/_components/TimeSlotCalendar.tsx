@@ -23,7 +23,7 @@ interface EventSlot {
 const TimeSlotCalendar: React.FC = () => {
     const calendarRef = useRef<any>(null);
     const [currentMonthYear, setCurrentMonthYear] = useState<string>("");
-    const { events, fetchApiData } = useAllBookings();
+    const { events } = useAllBookings();
     const [showPopup, setShowPopup] = useState(false);
     const [showTimeSlotsPopup, setShowTimeSlotsPopup] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -131,7 +131,6 @@ const TimeSlotCalendar: React.FC = () => {
     const handleUpdateSlots = async (updatedSlots: EventSlot[]) => {
         console.log("Updated slots:", updatedSlots);
          // Re-fetch events to get the updated slots
-    await fetchApiData();
     // Optionally, close the popup or perform other actions
     setShowTimeSlotsPopup(false);
     };
