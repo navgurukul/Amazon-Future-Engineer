@@ -11,46 +11,31 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
-// interface FeedbackPopupProps {
-//   isOpen: boolean;
-//   onClose: () => void;
-//   onSubmit: (feedback: string, name: string) => void;
-//   type: "teacher" | "student";
-// }
-
 interface CancelPopupProps {
   isOpen: boolean;
   onClose: () => void;
   handleCalendar: () => void;
 }
 
-// const ReschedulePopup: React.FC<FeedbackPopupProps> = ({
 const ReschedulePopup: React.FC<CancelPopupProps> = ({
   isOpen,
   onClose,
   handleCalendar
-  //   onSubmit,
-  //   type,
 }) => {
-  //   const [name, setName] = useState("");
-  //   const [feedback, setFeedback] = useState("");
-
-  //   const handleSubmit = () => {
-  //     if (name && feedback) {
-  //       onSubmit(feedback, name);
-  //       setFeedback("");
-  //       setName("");
-  //       onClose();
-  //     }
-  //   };
-
+  const [reason, setReason] = useState("");
+  const [showError, setShowError] = useState(false);
   const router = useRouter();
-  const handleCalendarClick = ()=>{
-    handleCalendar();
-  }
+
+  const handleCalendarClick = () => {
+    if (reason.trim()) {
+      handleCalendar();
+      setShowError(false);
+    } else {
+      setShowError(true);
+    }
+  };
 
   return (
-    // <Dialog open={isOpen} onOpenChange={onClose}>
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -63,13 +48,11 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
             <div className="relative leading-[170%] font-medium">Slot</div>
             <div className="relative w-full">
               <Input
-                //   value={name}
-                //   onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-81xl border-text-primary1 border-[1px] border-solid h-14 px-4 text-lg font-medium pr-12" // Add padding-right to make space for the image
+                className="w-full rounded-81xl border-text-primary1 border-[1px] border-solid h-14 px-4 text-lg font-medium pr-12"
                 placeholder="Choose Slot"
               />
               <Image
-                className="absolute right-4 top-1/2 transform -translate-y-1/2"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
                 src="/admin/calendar_today (1).svg"
                 alt="calendar"
                 width={24}
@@ -83,25 +66,32 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
               Reason for Rescheduling
             </div>
             <Textarea
-              //   value={feedback}
-              //   onChange={(e) => setFeedback(e.target.value)}
+              value={reason}
+              onChange={(e) => {
+                setReason(e.target.value);
+                if (e.target.value.trim()) {
+                  setShowError(false);
+                }
+              }}
               className="w-full rounded-lg border-text-primary1 border-[1px] border-solid py-2 px-4 text-lg font-medium min-h-[100px]"
               placeholder="Enter your reason here..."
             />
+            {showError && (
+              <p className="text-red-500 text-sm">Please provide a reason before selecting a slot</p>
+            )}
           </div>
           <div className="flex flex-row items-start justify-end gap-4">
             <Button
               variant="proceedWhite"
-              //   onClick={onClose}
+              onClick={onClose}
               className="border-text-primary border-[1px] border-solid box-border text-text-primary"
             >
               Cancel
             </Button>
             <Button
-              //   onClick={handleSubmit}
               variant="proceed"
-              //   disabled={!name || !feedback}
               className="bg-[#f091b2] hover:bg-[#c06e8d]"
+              disabled={!reason.trim()}
             >
               Reschedule
             </Button>

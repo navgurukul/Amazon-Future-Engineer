@@ -5,7 +5,6 @@ import FullCalendar from "@fullcalendar/react";
 import Image from "next/image";
 import React, { useRef, useEffect, useState } from "react";
 
-
 interface FullCalendarComponentProps {
   setSelectedDate: (date: Date) => void;
 }
@@ -66,11 +65,16 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   };
 
   const handleDateClick = (arg: any) => {
-    const isAvailableDate = events.some(
-      (event) =>
-        arg.date.toDateString() ===
-        new Date(event.start as unknown as string).toDateString()
-    );
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+
+    const isAvailableDate =
+      events.some(
+        (event) =>
+          arg.date.toDateString() ===
+          new Date(event.start as unknown as string).toDateString()
+      ) && arg.date > tomorrow;
 
     if (isAvailableDate) {
       setSelectedDate(arg.date);
@@ -303,6 +307,12 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           font-size: 1em;
         }
 
+        .fc .fc-daygrid-day.disabled-date .fc-daygrid-day-number {
+          color: #ccc !important;
+          pointer-events: none;
+          background-color: transparent !important;
+        }
+
         /* Remove any extra padding */
         .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
           min-height: 0;
@@ -358,6 +368,10 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
         height="auto"
         dayCellClassNames={(arg) => {
           const classes = [];
+          const today = new Date();
+          const tomorrow = new Date();
+          tomorrow.setDate(today.getDate() + 1);
+
           if (
             events.some(
               (event) =>
@@ -372,6 +386,9 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
             arg.date.toDateString() === selectedDateState.toDateString()
           ) {
             classes.push("selected-date");
+          }
+          if (arg.date <= tomorrow) {
+            classes.push("disabled-date");
           }
           return classes;
         }}

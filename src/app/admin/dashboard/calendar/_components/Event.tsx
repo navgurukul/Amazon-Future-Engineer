@@ -59,21 +59,51 @@ const EventPopup: React.FC<EventPopupProps> = ({ eventId, onClose }) => {
   return (
     <div className="popup-overlay">
       <div className="popup-content">
+        <div className="head">
+
         <h2 className="popup-title">{program_id === 1 ? 'Nano Sprint' : 'Slot Details'}</h2>
+        <button className="close-button" 
+                onClick={onClose}
+                >
+                x
+            </button>
+              </div>
         <p><strong>Date:</strong> {displayDate}</p>
         <p><strong>Day:</strong> {dayName}</p>
         <p><strong>Time:</strong> {`${formattedStartTime} - ${formattedEndTime}`}</p>
         <p><strong>Status:</strong> {status}</p>
         <p><strong>Capacity:</strong> {available_capacity} seats available</p>
 
-        <div className="popup-actions">
+        {/* <div className="popup-actions">
           <Button onClick={onClose} className="popup-button">
             Close
           </Button>
-        </div>
+        </div> */}
       </div>
 
       <style jsx>{`
+      .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        }
+
+        .close-button {
+        height: 30px;
+        width: 30px;
+        color: #3a3a3a;
+        font-weight: 800;
+        }
+
+        p {
+        margin-bottom: 8px;
+        }
+
+        strong {
+        color: #3a3a3a;
+        }
+
         .popup-overlay {
           position: fixed;
           top: 0;
@@ -98,7 +128,10 @@ const EventPopup: React.FC<EventPopupProps> = ({ eventId, onClose }) => {
 
         .popup-title {
           font-size: 1.5rem;
-          margin-bottom: 10px;
+          line-height: 150%;
+font-weight: 800;
+font-family: 'Amazon Ember Display';
+color: #3a3a3a;
         }
 
         .popup-actions {
