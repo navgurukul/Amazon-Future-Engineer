@@ -2,7 +2,6 @@ import ErrorBookingPopup from "./ErrorBookingPopup";
 import { getSlots } from "@/utils/api";
 import { useEffect, useState } from "react";
 
-
 // Define the Event interface
 interface Event {
   id: string;
@@ -37,7 +36,6 @@ export const useAllBookings = () => {
 
           const programType =
             slot.program_id === 1 ? "Nano" : slot.program_id === 2 ? "Mini" : "Mega";
-          
 
           //   return {
           //     id: slot.id.toString(),
@@ -65,6 +63,8 @@ export const useAllBookings = () => {
               availableCapacity: slot.available_capacity,
               status: slot.status,
             },
+                classNames: slot.available_capacity === 40 ? 'fc-event-low-capacity' : 'fc-event',
+
           };
         });
 
