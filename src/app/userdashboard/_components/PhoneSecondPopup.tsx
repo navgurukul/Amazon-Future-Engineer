@@ -18,6 +18,7 @@ interface SecondPopupProps {
 }
 
 const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, userData }) => {
+    const [copied, setCopied] = useState(false);
     if (!userData) return null;  // If no data is available, do not render the popup
 
     // Formatting the date (assuming `booking_for` is a date string)
@@ -28,7 +29,6 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
 
     const whatsappLink = `https://wa.me/${6366969292}`;
 
-    const [copied, setCopied] = useState(false);
 
     const phoneNumber = " +91 63669-69292";
 

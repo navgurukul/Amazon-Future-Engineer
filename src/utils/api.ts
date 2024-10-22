@@ -116,7 +116,7 @@ interface WaitingListData {
 }
 
 export const createWaitingList = async (waitingListData: WaitingListData) => {
-  const token = getAdminToken()  ||  getToken() ;
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1LCJwaG9uZSI6Iis5MTk5NTcyNzk4NjEiLCJwcm9maWxlX2NvbXBsZXRlIjpmYWxzZSwiaWF0IjoxNzI5NTk1ODkzLCJleHAiOjE3Mjk2ODIyOTN9.hju1nBs5M88FXljpQWN4RrxkQX8iyusIaWJf-cX_v_s";
 
   if (!token) {
     throw new Error('No token found');
@@ -174,6 +174,7 @@ export const callBookingQuery = async (bookingData: {
     throw error.response?.data || error;
   }
 };
+
 
 // Function to resend OTP
 export const resendOtp = async (phone: string) => {

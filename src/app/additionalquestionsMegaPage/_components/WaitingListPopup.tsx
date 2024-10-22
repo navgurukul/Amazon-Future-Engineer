@@ -14,6 +14,8 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
 }) => {
   const router = useRouter();
 
+  const [copied, setCopied] = useState(false);
+
   const whatsappLink = `https://wa.me/${6366969292}`;
 
   const handleGoToSprints = () => {
@@ -39,7 +41,6 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
     router.push("/sprintPages/megapage");
   };
 
-  const [copied, setCopied] = useState(false);
 
   const phoneNumber = " +91 63669-69292";
 

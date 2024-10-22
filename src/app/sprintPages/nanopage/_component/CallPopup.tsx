@@ -8,11 +8,15 @@ interface PopupProps {
 }
 
 const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
+
+
+  const [copied, setCopied] = useState(false);
+  
   if (!offlinePopup) return null;
 
   const whatsappLink = `https://wa.me/${6366969292}`;
 
-  const [copied, setCopied] = useState(false);
+
 
   const phoneNumber = " +91 63669-69292";
 
