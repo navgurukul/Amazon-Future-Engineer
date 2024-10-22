@@ -12,9 +12,8 @@ const LastPart = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(phoneNumber)
       .then(() => {
-        setCopied(true); // Show "Copied!" message
+        setCopied(true);
 
-        // Reset the message after 2 seconds
         setTimeout(() => setCopied(false), 2000);
       })
       .catch(err => {

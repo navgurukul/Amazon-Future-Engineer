@@ -28,22 +28,6 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
 
     const whatsappLink = `https://wa.me/${6366969292}`;
 
-
-    // const phoneNumber = " +91 636696-9292";
-
-    // // Function to handle copying the phone number
-    // const handleCopy = () => {
-    //     navigator.clipboard.writeText(phoneNumber)
-    //         .then(() => {
-    //             console.log("Phone number copied to clipboard!");
-    //             // Optionally, you can show a success message here
-    //             alert("Phone number copied to clipboard!");
-    //         })
-    //         .catch(err => {
-    //             console.error("Failed to copy: ", err);
-    //         });
-    // };
-
     const [copied, setCopied] = useState(false);
 
     const phoneNumber = " +91 63669-69292";
@@ -122,7 +106,7 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
                             
 
                             <button
-                                className=" md:flex px-8 py-2 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] mt-2"
+                                className=" md:flex px-8 py-2 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] mt-2 w-[89px] h-[40px]"
                                 onClick={handleCopy}
                             >
                                 {copied ? (

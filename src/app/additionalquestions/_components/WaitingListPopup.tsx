@@ -134,7 +134,7 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
             {/* <span className="font-extrabold font-amazon-ember text-tomato">
               +916366969292
             </span> */}
-            <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold inline">+916366969292</a>
+            <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold inline">+9163669-69292</a>
             {/* </div> */}
             </div>
           </div>

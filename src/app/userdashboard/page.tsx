@@ -63,18 +63,6 @@ const Page: NextPage = () => {
     console.log("need to add logic for this")
   }
 
-  // const phoneNumber = " +91 636696-9292";
-
-  // const handleCopy = () => {
-  //   navigator.clipboard.writeText(phoneNumber)
-  //     .then(() => {
-  //       console.log("Phone number copied to clipboard!");
-  //       alert("Phone number copied to clipboard!");
-  //     })
-  //     .catch(err => {
-  //       console.error("Failed to copy: ", err);
-  //     });
-  // };
 
   const [copied, setCopied] = useState(false);
 
@@ -83,9 +71,8 @@ const Page: NextPage = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(phoneNumber)
       .then(() => {
-        setCopied(true); // Show "Copied!" message
+        setCopied(true); 
 
-        // Reset the message after 2 seconds
         setTimeout(() => setCopied(false), 2000);
       })
       .catch(err => {
@@ -263,7 +250,7 @@ const Page: NextPage = () => {
                   +91 63669-69292
                 </a>
                 <button
-                  className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] flex gap-2"
+                  className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] flex gap-2 w-[89px] h-[40px]"
                   onClick={handleCopy}
                 >
                   {copied ? (

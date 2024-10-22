@@ -1,5 +1,5 @@
 import React from "react";
-import { useState} from "react";
+import { useState } from "react";
 
 
 const LastPart = () => {
@@ -12,9 +12,8 @@ const LastPart = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(phoneNumber)
       .then(() => {
-        setCopied(true); // Show "Copied!" message
+        setCopied(true);
 
-        // Reset the message after 2 seconds
         setTimeout(() => setCopied(false), 2000);
       })
       .catch(err => {
@@ -30,14 +29,15 @@ const LastPart = () => {
         </h1>
         <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']">
           <span>{`Call Us or Whatsapp on `}</span>
-          {/* <a href="tel:+919875466343" className="text-tomato">+916366969292</a> */}
           {/* <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+9163669-69292</a> */}
+
           <strong className="inline-flex items-center">
             <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
               +91 63669-69292
             </a>
+            
             <button
-              className=" px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] flex gap-2 w-[89px] h-[40px]"
+              className="inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] gap-2 w-[89px] h-[40px]"
               onClick={handleCopy}
             >
               {copied ? (
@@ -65,6 +65,7 @@ const LastPart = () => {
               )}
             </button>
           </strong>
+
         </p>
       </div>
     </div>
