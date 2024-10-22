@@ -1,14 +1,43 @@
 "use client"
+
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Cookies from 'js-cookie';
+import { useRouter } from "next/navigation";
 
 const Header: React.FC = () => {
   const [currentLang, setCurrentLang] = useState<"en" | "kn">("en");
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const router = useRouter()
 
   const handleLanguageToggle = () => {
     setCurrentLang(currentLang === "en" ? "kn" : "en");
   };
+
+  const handleAvatarClick = () => {
+    setIsProfileDropdownOpen(!isProfileDropdownOpen);
+  };
+
+  const handleLogoutClick = () => {
+    Cookies.remove('adminLoginData');
+    localStorage.removeItem('adminLoginData');
+    router.push("/admin")
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isProfileDropdownOpen && !(event.target as Element).closest('.profile-dropdown')) {
+        setIsProfileDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isProfileDropdownOpen]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#fff] shadow-md">
@@ -56,13 +85,30 @@ const Header: React.FC = () => {
               ಅಇಈ
             </Button>
           </div>
-          <Image
-            className="object-cover rounded-full cursor-pointer"
-            alt="User Avatar"
-            src="/login/avatarIcon.svg"
-            width={48}
-            height={48}
-          />
+          <div className="relative profile-dropdown">
+            <Image
+              className="object-cover rounded-full cursor-pointer"
+              alt="User Avatar"
+              src="/login/avatarIcon.svg"
+              width={48}
+              height={48}
+              onClick={handleAvatarClick}
+            />
+            {isProfileDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50">
+                <div className="py-2">
+                  <button
+                    onClick={handleLogoutClick}
+                    className="block w-full text-center px-4 py-3 text-sm text-red-600 hover:bg-gray-100 transition duration-150 ease-in-out"
+                  >
+                    <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-incandescent-main text-center">
+                      Logout
+                    </div>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>

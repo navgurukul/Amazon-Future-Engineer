@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { adminLogin } from "@/utils/api"
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 const UserLogin: React.FC = () => {
   const router = useRouter()
@@ -19,10 +20,24 @@ const UserLogin: React.FC = () => {
     setUsernameError("");
   };
 
+
+  useEffect(() => {
+    const localStorageData = localStorage.getItem('adminLoginData');
+    const cookieData = Cookies.get('adminLoginData');
+
+    if (cookieData) {
+      console.log("Heloo",cookieData)
+      localStorage.setItem('adminLoginData', cookieData || "");
+      router.push("/admin/dashboard/upcomingBookings")
+    }
+  }, []);
+
+
   const userAuth = async () => {
     try {
       const response = await adminLogin(username, password);
       localStorage.setItem('adminLoginData', JSON.stringify(response));
+      Cookies.set('adminLoginData', JSON.stringify(response), { expires: 7 });
       router.push("/admin/dashboard/upcomingBookings")
     } catch (error) {
       console.error("Error logging in:", error);
