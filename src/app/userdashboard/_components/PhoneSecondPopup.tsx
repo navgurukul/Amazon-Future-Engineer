@@ -1,12 +1,7 @@
 import type { NextPage } from 'next';
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/dialog";
 import Image from "next/image";
+import { useState } from "react";
+
 
 // Define the EventData type to match your booking data structure
 interface EventData {
@@ -23,6 +18,7 @@ interface SecondPopupProps {
 }
 
 const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, userData }) => {
+    const [copied, setCopied] = useState(false);
     if (!userData) return null;  // If no data is available, do not render the popup
 
     // Formatting the date (assuming `booking_for` is a date string)
@@ -33,210 +29,114 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
 
     const whatsappLink = `https://wa.me/${6366969292}`;
 
+
+    const phoneNumber = " +91 63669-69292";
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(phoneNumber)
+            .then(() => {
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            })
+            .catch(err => {
+                console.error("Failed to copy: ", err);
+            });
+    };
+
     return (
         <>
-            {/* <Dialog open={isOpen} onOpenChange={handleClose}>
-                <DialogContent className="sm:fixed top-[70%] md:top-[50%] w-full max-w-[592px] h-auto p-8 bg-white rounded-lg shadow-lg gap-2">
-                    <DialogHeader>
-                        <DialogTitle>
-                            <div className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold text-heading5 font-heading5-bold leading-7 sm:leading-9 text-left whitespace-nowrap">
+            {isOpen && (
+                <div className="fixed inset-0 flex items-end md:items-center justify-center z-50 bg-black bg-opacity-70">
+                    <div className="w-full max-w-[592px] h-auto p-8 bg-white rounded-lg shadow-lg">
+                        <div className="flex justify-between items-center">
+
+                            <div className="text-[#3a3a3a] text-subHeading1 md:text-heading6 font-['Amazon Ember Display'] leading-[150%] text-left">
                                 Reschedule Nano Sprint
                             </div>
-                        </DialogTitle>
-                    </DialogHeader>
-                    <DialogDescription>
-                        <div className="text-[#3a3a3a] text-subTitle1 font-subTitle1-bold leading-6 sm:leading-[30.60px] mb-4">
+                            <button
+                                className="text-gray-400 hover:text-gray-600 focus:outline-none"
+                                onClick={handleClose}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div className="text-[#3a3a3a] text-bodyM2 md:text-subTitle1 leading-[170%] mt-4 font-['Amazon Ember']">
                             Current Booking Details
                         </div>
-                        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
-                            <div className="flex items-center space-x-[12px]">
-                                <Image
-                                    className="w-8 h-8 relative"
-                                    alt="calendar icon"
-                                    src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg"
-                                    width={20}
-                                    height={20}
-                                />
-                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px] gap-[2rem]">
+
+                        <div className="flex flex-col md:flex-row mt-4 gap-4 md:gap-8">
+                            <div className="flex items-center space-x-3">
+                                <Image className="w-6 h-6 md:w-8 md:h-8" alt="calendar icon" src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg" width={24} height={24} />
+                                <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
                                     {formattedDate}
                                 </div>
                             </div>
 
-                            <div className="flex items-center space-x-[12px]">
-                                <Image
-                                    className="w-8 h-8 relative"
-                                    alt="time icon"
-                                    src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg"
-                                    width={20}
-                                    height={20}
-                                />
-                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px] gap-[2rem]">
+                            <div className="flex items-center space-x-3">
+                                <Image className="w-6 h-6 md:w-8 md:h-8" alt="time icon" src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg" width={24} height={24} />
+                                <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
                                     {`${startTime} to ${endTime}`}
                                 </div>
                             </div>
 
-                            <div className="flex items-center space-x-[12px]">
-                                <Image
-                                    className="w-8 h-8 relative"
-                                    alt="students icon"
-                                    src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg"
-                                    width={20}
-                                    height={20}
-                                />
-                                <div className="text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-[30.60px] gap-[2rem]">
+                            <div className="flex items-center space-x-3">
+                                <Image className="w-6 h-6 md:w-8 md:h-8" alt="students icon" src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg" width={24} height={24} />
+                                <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
                                     {`${studentsCount} Students`}
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full relative text-left text-[1rem]  text-gray-700 font-medium sm:text-lg leading-[170%] sm:leading-8 font-['Amazon Ember'] mt-8">
+                        <div className="mt-6 text-gray-700 text-base sm:text-lg font-medium leading-7">
                             Currently, we are only accepting reschedule requests via calls and WhatsApp. Please contact us at the number below to confirm your session rescheduling.
                         </div>
-                        <div className="mt-8 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center leading-30">
-                            <div className="text-center text-[#3a3a3a] font-extrabold text-heading5 font-heading5-bold">
-                                +91 6366969292
+                        <div className="mt-6 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center">
+                            <div>
+                                <a href={whatsappLink} target="_blank" className="text-[#3A3A3A] text-subHeading1 font-heading6-bold md:text-heading6 leading-[150%]">
+                                    +91 63669-69292
+                                </a>
                             </div>
-                            <div className="text-center text-[#3a3a3a] text-lg font-medium font-['Amazon Ember'] leading-6 sm:leading-[30.60px]">
+
+                            <div className="text-[#3a3a3a] text-bodyM md:text-body1 font-body1-regular leading-[170%]">
                                 AFE Makerspace Helpline
                             </div>
+
+                            
+
+                            <button
+                                className=" md:flex px-8 py-2 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] mt-2 w-[89px] h-[40px]"
+                                onClick={handleCopy}
+                            >
+                                {copied ? (
+                                    <>
+                                        <img
+                                            src="/userDashboard/checkmark_icon.png"
+                                            alt="Check Icon"
+                                            className="h-[16px] w-[16px] mr-2"
+                                        />
+                                        <div className="h-[24px] w-[33px] text-center text-[#F55C38] md:text-body2 font-body2-regular">
+                                            Copied!
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <img
+                                            src="/userDashboard/content_copy.svg"
+                                            alt="Copy Icon"
+                                            className="h-[16px] w-[16px] mr-2"
+                                        />
+                                        <div className="h-[24px] w-[33px] text-center text-[#F55C38] md:text-body2 font-body2-regular">
+                                            Copy
+                                        </div>
+                                    </>
+                                )}
+                            </button>
                         </div>
-                    </DialogDescription>
-                </DialogContent>
-            </Dialog> */}
-            {/* {isOpen && (
-    <div className="fixed inset-0 flex items-end md:items-center justify-center z-50 bg-black bg-opacity-70">
-        <div className="w-full max-w-[592px] h-auto p-8 bg-white rounded-lg shadow-lg">
-            <div className="flex justify-between items-center">
-                <h2 className="text-[#3a3a3a] text-xl sm:text-2xl font-extrabold leading-7 sm:leading-9">
-                    Reschedule Nano Sprint
-                </h2>
-                <button
-                    onClick={handleClose}
-                    className="text-[#3a3a3a] text-lg font-bold"
-                >
-                    X
-                </button>
-            </div>
-            <div className="text-[#3a3a3a] text-lg font-bold mb-4">
-                Current Booking Details
-            </div>
-            <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-4">
-                <div className="flex items-center space-x-2">
-                    <Image
-                        className="w-8 h-8"
-                        alt="calendar icon"
-                        src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg"
-                        width={20}
-                        height={20}
-                    />
-                    <div className="text-[#3a3a3a] text-lg font-medium leading-6">
-                        {formattedDate}
                     </div>
                 </div>
-
-                <div className="flex items-center space-x-2">
-                    <Image
-                        className="w-8 h-8"
-                        alt="time icon"
-                        src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg"
-                        width={20}
-                        height={20}
-                    />
-                    <div className="text-[#3a3a3a] text-lg font-medium leading-6">
-                        {`${startTime} to ${endTime}`}
-                    </div>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                    <Image
-                        className="w-8 h-8"
-                        alt="students icon"
-                        src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg"
-                        width={20}
-                        height={20}
-                    />
-                    <div className="text-[#3a3a3a] text-lg font-medium leading-6">
-                        {`${studentsCount} Students`}
-                    </div>
-                </div>
-            </div>
-            <div className="mt-6 text-gray-700 text-base sm:text-lg font-medium leading-7">
-                Currently, we are only accepting reschedule requests via calls and WhatsApp. Please contact us at the number below to confirm your session rescheduling.
-            </div>
-            <div className="mt-6 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center">
-                <div className="text-[#3a3a3a] font-extrabold text-lg">
-                    +91 6366969292
-                </div>
-                <div className="text-[#3a3a3a] text-lg font-medium leading-6">
-                    AFE Makerspace Helpline
-                </div>
-            </div>
-        </div>
-    </div>
-)} */}
-{isOpen && (
-  <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black bg-opacity-70">
-    <div className="bg-white max-w-auto px-4 py-6 md:p-8 md:h-auto rounded-t-lg md:rounded-lg shadow-lg relative">
-      <div className="flex justify-between items-center">
-        
-      <div className="text-[#3a3a3a] text-subHeading1 md:text-heading6 font-['Amazon Ember Display'] leading-[150%] text-left">
-        Reschedule Nano Sprint
-      </div>
-      <button
-        className="text-gray-400 hover:text-gray-600 focus:outline-none"
-        onClick={handleClose}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-      </div>
-
-      <div className="text-[#3a3a3a] text-bodyM2 md:text-subTitle1 leading-[170%] mt-4 font-['Amazon Ember']">
-        Current Booking Details
-      </div>
-
-      <div className="text-gray-600">
-        <div className="flex flex-col md:flex-row mt-4 gap-4 md:gap-8">
-          <div className="flex items-center space-x-3">
-            <Image className="w-6 h-6 md:w-8 md:h-8" alt="calendar icon" src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg" width={24} height={24} />
-            <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
-              {formattedDate}
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-3">
-            <Image className="w-6 h-6 md:w-8 md:h-8" alt="time icon" src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg" width={24} height={24} />
-            <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
-              {`${startTime} to ${endTime}`}
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-3">
-            <Image className="w-6 h-6 md:w-8 md:h-8" alt="students icon" src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg" width={24} height={24} />
-            <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
-              {`${studentsCount} Students`}
-            </div>
-          </div>
-        </div>
-
-        <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] mt-6 md:mt-8">
-          Currently, we are only accepting reschedule requests via calls{" "}
-          <span className='md:block'>and WhatsApp. Please contact us at the number below to</span>{" "} confirm your session rescheduling
-        </div>
-      </div>
-      <div className=" w-full p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center mt-6 md:mt-8">
-            <div className="relative leading-[150%] text-center text-heading6 font-heading6-bold text-[#3a3a3a]">
-              <a href={whatsappLink} target="_blank" className="font-extrabold">
-                +916366969292
-              </a>
-            </div>
-            <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-              AFE Makerspace Helpline
-            </div>
-          </div>
-    </div>
-  </div>
-)}
+            )}
         </>
     );
 };

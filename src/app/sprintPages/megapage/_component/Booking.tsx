@@ -41,7 +41,7 @@ const Booking = () => {
               {/* <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']"> */}
               <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
                 <span>{`Call Us or Whatsapp on `}</span>
-                <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+916366969292</a>
+                <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+9163669-69292</a>
               </p>
             </div>
             {/* <div className="w-full mt-4">
