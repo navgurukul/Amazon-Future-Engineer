@@ -47,44 +47,32 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     setPhone(phoneNumber)
   },[])
 
-  const getAvailableSlots = (): Slot[] => {
-    const fixedSlots = [
-      { time: "10:00 AM to 1:00 PM", apiTime: "10:00" },
-      { time: "1:30 PM to 4:30 PM", apiTime: "13:30" },
-    ];
+  const formatTimeRange = (start: Date, end: Date) => {
+    const formatTime = (date: Date) => {
+      return date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+    };
+    return `${formatTime(start)} to ${formatTime(end)}`;
+  };
 
-    if (!selectedDate) {
-      return fixedSlots.map((fixedSlot) => ({
-        time: fixedSlot.time,
-        available: true,
-        status: "",
-        capacity: 0,
-      }));
-    }
+  const getAvailableSlots = (): Slot[] => {
+    if (!selectedDate || !events.length) return [];
 
     const eventsForDate = events.filter(
-      (event) =>
-        new Date(event.start).toDateString() === selectedDate.toDateString()
+      (event) => new Date(event.start).toDateString() === selectedDate.toDateString()
     );
 
-    return fixedSlots.map((fixedSlot) => {
-      const matchingEvent = eventsForDate.find((event) =>
-        new Date(event.start).toTimeString().startsWith(fixedSlot.apiTime)
-      );
-
-      return {
-        time: fixedSlot.time,
-        available: matchingEvent
-          ? matchingEvent.extendedProps.availableCapacity > 0
-          : false,
-        status: matchingEvent
-          ? matchingEvent.extendedProps.status
-          : "Not Available",
-        event: matchingEvent,
-        id: matchingEvent ? Number(matchingEvent.id) : undefined,
-        capacity: matchingEvent ? matchingEvent.extendedProps.availableCapacity : 0,
-      };
-    });
+    return eventsForDate.map((event) => ({
+      time: formatTimeRange(new Date(event.start), new Date(event.end)),
+      available: event.extendedProps.availableCapacity > 0,
+      status: event.extendedProps.status,
+      event: event,
+      id: Number(event.id),
+      capacity: event.extendedProps.availableCapacity,
+    }));
   };
 
   const handleSlotSelection = async (slot: Slot) => {
@@ -98,19 +86,9 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     setPhoneError(null);
     setStudentsError(null);
 
-    // const phonePattern = /^[6-9]\d{9}$/;
-    // if (phone.length !== 10) {
-    //   setPhoneError("Please enter a 10-digit phone number.");
-    //   return;
-    // }
-    // if (!phonePattern.test(phone)) {
-    //   setPhoneError("Please enter a phone number starting with 6 or above.");
-    //   return;
-    // }
-
     const studentCount = parseInt(students);
     const minStudents = selectedSlot?.capacity === 40 ? 12 : 1;
-    const maxStudents = selectedSlot?.capacity || 0;
+    const maxStudents = selectedSlot?.capacity || 40;
     
     if (studentCount < minStudents || studentCount > maxStudents) {
       setStudentsError(`Please enter a number between ${minStudents} and ${maxStudents}.`);
@@ -220,7 +198,6 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               <span className="text-incandescent-main">*</span>
             </div>
             <div className="relative flex items-center w-full bg-[#dedede] rounded-full">
-              {/*<span className="absolute left-4 text-[#3a3a3a] text-lg font-medium">+91</span>*/}
               <input
                 type="tel"
                 name="phone"
