@@ -21,14 +21,12 @@ const getAdminToken = (): string | null => {
   const userDataString = localStorage.getItem('adminLoginData');
   const userData = JSON.parse(userDataString || '{}');
   return userData?.data?.token || null;
-  // const admintoken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiYWRtaW4iOnRydWUsImlhdCI6MTcyOTQyMTA1NCwiZXhwIjoxNzI5NTA3NDU0fQ.42LujpeDw6LoXQkFY27-us8fJBOZAa6JKMAfe13SQ74";
-  // return admintoken;
 };
 
 
 // Function to fetch slots
 export const getSlots = async (venueId: number = 1) => {
-  const token = getToken() || getAdminToken() || getAdminToken() ;
+  const token = getAdminToken()  ||  getToken() ;
 
   if (!token) {
     throw new Error('No token found');
@@ -54,7 +52,7 @@ export const bookSlot = async (bookingData: {
   booking_batch_size: number;
   // students_grade: string;
 }) => {
-  const token = getToken() || getAdminToken();
+  const token = getAdminToken()  ||  getToken() 
 
   if (!token) {
     throw new Error('No token found');
@@ -86,7 +84,7 @@ export const verifyOtp = async (phone: string, otp: string) => {
 
 // User Dashboard 
 export const getUserData = async () => {
-  const token = getToken() || getAdminToken();
+  const token = getAdminToken()  ||  getToken() ;
 
   if (!token) {
     throw new Error('No token found');
@@ -118,7 +116,7 @@ interface WaitingListData {
 }
 
 export const createWaitingList = async (waitingListData: WaitingListData) => {
-  const token = getToken() || getAdminToken();
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1LCJwaG9uZSI6Iis5MTk5NTcyNzk4NjEiLCJwcm9maWxlX2NvbXBsZXRlIjpmYWxzZSwiaWF0IjoxNzI5NTk1ODkzLCJleHAiOjE3Mjk2ODIyOTN9.hju1nBs5M88FXljpQWN4RrxkQX8iyusIaWJf-cX_v_s";
 
   if (!token) {
     throw new Error('No token found');
@@ -140,7 +138,7 @@ export const createWaitingList = async (waitingListData: WaitingListData) => {
 
 // Get program details 
 export const getProgramData = async (venue_id: number) => {
-  const token = getToken() || getAdminToken();
+  const token =getAdminToken()  ||  getToken() ;
   
   if (!token) {
     return [];
@@ -177,6 +175,7 @@ export const callBookingQuery = async (bookingData: {
   }
 };
 
+
 // Function to resend OTP
 export const resendOtp = async (phone: string) => {
   try {
@@ -193,7 +192,7 @@ export const resendOtp = async (phone: string) => {
 
 export const getSlotDetails = async (slotId: number) => {
   try {
-    const token = getToken() || getAdminToken();
+    const token = getAdminToken()  ||  getToken() ;
     if (!token) {
       throw new Error('No token found');
     }
@@ -375,7 +374,7 @@ export const updateSlotDetails = async (id: number) => {
 
 export const getAdminSlotDetails = async (slotId: number) => {
   try {
-    const token = getToken() || getAdminToken();
+    const token = getAdminToken()  ||  getToken() ;
     if (!token) {
       throw new Error('No token found');
     }

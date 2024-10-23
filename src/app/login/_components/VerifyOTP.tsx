@@ -4,6 +4,7 @@ import { getProgramData } from "@/utils/api";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import LoginSuccess from "./LoginSuccess";
 import React, {
   useState,
   useEffect,
@@ -28,6 +29,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
   const [error, setError] = useState<string>("");
   const [seconds, setSeconds] = useState<number>(119);
   const [isResendAllowed, setIsResendAllowed] = useState<boolean>(false);
+  const [loginSuccess, setLoginSuccess] = useState<boolean>(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
 
@@ -70,6 +72,11 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
+
+    if (e.key === "Enter") {
+      handleVerifyOTP();  
+    }
+
   };
 
   const handleVerifyOTP = async () => {
@@ -91,6 +98,14 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
       const response = await verifyOtp(phoneNumber, otpString);
       localStorage.setItem("loginData", JSON.stringify(response));
       Cookies.set("loginData", JSON.stringify(response), { expires: 7 });
+      
+      setLoginSuccess(true); 
+
+      setTimeout(() => {
+        setLoginSuccess(false); 
+        router.push("/sprintPages/nanopage"); 
+      }, 10000); 
+
       const userId = JSON.stringify(response.userId);
       localStorage.setItem("LoginId", userId);
       fetchProgramData()
@@ -116,8 +131,12 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
     setShowOTPVerification(false);
   };
 
+  
+
+
   return (
     <div className="px-4 sm:px-4 mx-auto mt-12 md:mx-0 md:mt-0">
+      <LoginSuccess show={loginSuccess} />
       <div className="flex flex-col items-start gap-8 self-stretch md:self-auto">
         <div className="flex gap-2">
           <Image
@@ -174,22 +193,21 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
                 <span>
                   Taking too long?{" "}
                   <span className="text-incandescent-main">Resend code</span> in{" "}
-                  {`${Math.floor(seconds / 60)}:${
-                    seconds % 60 < 10 ? `0${seconds % 60}` : seconds % 60
-                  } s`}
+                  {`${Math.floor(seconds / 60)}:${seconds % 60 < 10 ? `0${seconds % 60}` : seconds % 60
+                    } s`}
                 </span>
               )}
             </div>
             <div className="w-full fixed bottom-0 mb-4 px-4 md:mb-0 md:px-0 left-0 md:static">
-            <Button
-              variant="proceed"
-              onClick={handleVerifyOTP}
-              className="flex w-full sm:w-full md:w-[23rem] h-14 py-2 px-8 justify-center items-center gap-2 rounded-[6.25rem] font-medium "
-            >
-              Verify OTP
-            </Button>
+              <Button
+                variant="proceed"
+                onClick={handleVerifyOTP}
+                className="flex w-full sm:w-full md:w-[23rem] h-14 py-2 px-8 justify-center items-center gap-2 rounded-[6.25rem] font-medium "
+              >
+                Verify OTP
+              </Button>
             </div>
-          
+
           </div>
         </div>
       </div>
@@ -198,3 +216,5 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
 };
 
 export default VerifyOTP;
+
+

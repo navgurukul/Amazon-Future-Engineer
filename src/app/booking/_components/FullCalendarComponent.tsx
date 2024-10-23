@@ -86,6 +86,22 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
     updateMonthYear();
   }, []);
 
+
+  const [copied, setCopied] = useState(false);
+
+  const phoneNumber = " +91 63669-69292";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(phoneNumber)
+      .then(() => {
+        setCopied(true); 
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(err => {
+        console.error("Failed to copy: ", err);
+      });
+  };
+
   return (
     <div className="calendar-container">
       <div className="w-full md:pl-[20px] text-lg leading-[170%] font-extrabold font-webtypestyles-subtitle1 text-text-primary text-left mb-6 pl-2">
@@ -394,14 +410,41 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           Have Questions?
         </h1>
         <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-          <span>{`Call Us or Whatsapp on `}</span>
-          <a
-            href={whatsappLink}
-            target="_blank"
-            className="text-tomato font-extrabold"
-          >
-            +916366969292
-          </a>
+          <span>{`Call Us or Whatsapp on `}</span> <br/>
+          {/* <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+9163669-69292</a> */}
+          <strong className="inline-flex items-center">
+            <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
+              +91 63669-69292
+            </a>
+            <button
+              className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] flex gap-2 w-[89px] h-[40px]"
+              onClick={handleCopy}
+            >
+              {copied ? (
+                <>
+                  <img
+                    src="/userDashboard/checkmark_icon.png"
+                    alt="Check Icon"
+                    className="h-[16px] w-[16px]"
+                  />
+                  <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                    Copied!
+                  </span>
+                </>
+              ) : (
+                <>
+                  <img
+                    src="/userDashboard/content_copy.svg"
+                    alt="Copy Icon"
+                    className="h-[16px] w-[16px]"
+                  />
+                  <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                    Copy
+                  </span>
+                </>
+              )}
+            </button>
+          </strong>
         </p>
       </div>
     </div>

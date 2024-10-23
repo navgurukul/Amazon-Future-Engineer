@@ -23,7 +23,7 @@ interface EventSlot {
 const TimeSlotCalendar: React.FC = () => {
     const calendarRef = useRef<any>(null);
     const [currentMonthYear, setCurrentMonthYear] = useState<string>("");
-    const { events, fetchApiData } = useAllBookings();
+    const { events } = useAllBookings();
     const [showPopup, setShowPopup] = useState(false);
     const [showTimeSlotsPopup, setShowTimeSlotsPopup] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
