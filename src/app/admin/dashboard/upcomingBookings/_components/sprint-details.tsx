@@ -109,6 +109,8 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
 
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+      // Function to handle the "Yes" confirmation
+      const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
   // Function to check if all fields are filled
   const checkAllFieldsFilled = () => {
@@ -240,37 +242,82 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     [bookingDetails.slot, bookingProp.program_id, fetchFeedbacks]
   );
 
-  const handleSubmitAndCompleteSprint = async () => {
-    // Display the confirmation toast with "Yes" and "No"
-    const toastId = toast({
-      title: "Confirm Sprint Completion",
-      description: "Are you sure you want to complete the sprint?",
-      action: (
-        <div>
-          <button
-            onClick={async () => {
-              try {
-                await updateBookingStatus(Number(bookingProp.user.id), "Completed", "Completed");
-                setIsSubmitPopupOpen(true); // Open popup on successful API call
-                toast.dismiss(toastId); // Dismiss the toast after action
-              } catch (error) {
-                console.error("Error updating booking status:", error);
-              }
-            }}
-            className="bg-green-500 text-white px-3 py-1 rounded"
-          >
-            Yes
-          </button>
-          <button
-            onClick={() => toast.dismiss(toastId)} // Use the toast ID to dismiss this specific toast
-            className="bg-red-500 text-white px-3 py-1 ml-2 rounded"
-          >
-            No
-          </button>
+
+
+  /// Function to handle the "Yes" confirmation
+  const handleConfirmYes = async () => {
+    try {
+      await updateBookingStatus(Number(bookingProp.user.id), "Completed", "Completed");
+      setIsConfirmationOpen(false);
+      setIsSubmitPopupOpen(true);
+      // Show success toast
+      toast({
+        title: "Success",
+        description: "Sprint completed successfully",
+        variant: "success",
+        duration: 3000,
+      });
+    } catch (error) {
+      console.error("Error updating booking status:", error);
+      // Show error toast
+      toast({
+        title: "Error",
+        description: "Failed to complete sprint",
+        variant: "destructive",
+        duration: 3000,
+      });
+    }
+  };
+
+  const handleSubmitAndCompleteSprint = () => {
+    setIsConfirmationOpen(true);
+    toast({
+      title: "Complete Sprint",
+      description: (
+        <div className="space-y-2">
+          <p>Are you sure you want to complete the sprint?</p>
+          <div className="flex space-x-2">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleConfirmYes();
+              }}
+              className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-colors"
+            >
+              Yes
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsConfirmationOpen(false);
+                // Show cancelled toast
+                toast({
+                  title: "Cancelled",
+                  description: "Sprint completion cancelled",
+                  duration: 3000,
+                });
+              }}
+              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors"
+            >
+              No
+            </button>
+          </div>
         </div>
       ),
+      duration: isConfirmationOpen ? Infinity : 0,
     });
   };
+
+  // Effect to clear the confirmation state when component unmounts
+  useEffect(() => {
+    return () => {
+      setIsConfirmationOpen(false);
+    };
+  }, []);
+
+
 
 
   const formatDate = (dateString: string) => {
