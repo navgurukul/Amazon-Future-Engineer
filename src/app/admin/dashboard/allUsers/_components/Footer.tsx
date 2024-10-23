@@ -36,6 +36,7 @@ interface FooterProps {
     // Add any other fields you need from bookingSingle
   };
   bookings: BookingDetails;
+  status:string
 }
 interface PopupState {
   isCancel: boolean;
@@ -45,7 +46,15 @@ interface PopupState {
   isConfirm: boolean;
 }
 
-export default function Footer({handleCalendar, programName, bookingId, onSubmitClick,bookings,bookingSingle }: FooterProps){
+interface DisableState {
+  isCanceldisableFields: boolean;
+  isRescheduledisableFields: boolean;
+  isNotInteresteddisableFields: boolean;
+  isUpdatedisableFields: boolean;
+  isConfirmdisableFields: boolean;
+}
+
+export default function Footer({handleCalendar, programName, bookingId, onSubmitClick,bookings,bookingSingle , status }: FooterProps){
   const { toast } = useToast()
   const [isCancelPopupOpen, setIsCancelPopupOpen] = useState<boolean>(false);
   const [popup,setPopup] = useState<PopupState>({
@@ -56,6 +65,13 @@ export default function Footer({handleCalendar, programName, bookingId, onSubmit
     isConfirm:false
   })
 
+  const [disableFields,setDisableFields] = useState<DisableState>({
+    isCanceldisableFields:false,
+    isRescheduledisableFields:false,
+    isNotInteresteddisableFields:false,
+    isUpdatedisableFields:false,
+    isConfirmdisableFields:false,
+  })
   console.log(bookings,"bookings")
 // Function to handle popup toggle based on id
 const handlePopup = (id: string) => {

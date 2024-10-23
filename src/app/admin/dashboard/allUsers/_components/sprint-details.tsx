@@ -33,6 +33,7 @@ interface Booking {
   };
   slot: {
     venue: {
+      pin_code: any;
       city: string;
     };
     program: {
@@ -81,9 +82,32 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   })
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return format(date, "d MMM yyyy");
+    return format(date, "dd MMM yyyy");
   };
+
+
+
   useEffect(() => {
+    if (bookingProp.status!=="BookingConfirmed"){
+      setBookingDetails({
+        name: bookingProp.user.name || "",
+        email: bookingProp.user.email || "",
+        phoneNumber: bookingProp.user.phone || "",
+        dateofRequest: formatDate(bookingProp.created_at) || "",
+        programName: "",
+        schoolName: bookingProp.user.school_id || "",
+        udiseCode: "",
+        city: "Bengaluru",
+        pincode: "",
+        grade: "",
+        numberOfStudents:bookingProp.booking_batch_size || "",
+        slot: `${formatDate(bookingProp.booking_for)} | ${
+          bookingProp.start_time
+        } to ${bookingProp.end_time}` || "",
+      });
+
+
+    }
     const loadBookingDetails = async () => {
       if (bookingProp.id) {
         const bookings = await fetchBookings();
@@ -113,6 +137,9 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     };
     loadBookingDetails();
   }, [bookingProp.id]);
+
+
+
   if (!bookingDetails) {
     return <div className="text-center py-8">Loading...</div>;
   }
@@ -279,6 +306,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
             bookings={bookingDetails}
             bookingSingle={bookingSingle}
             handleCalendar={handleCalendar}
+            status = {bookingProp.status}
           />
         </div>
       </div>

@@ -198,6 +198,7 @@ const Dashboard: React.FC = () => {
                 phone: entry.phone || "N/A",
               },
               ...booking,
+              
             }));
           } else if ("query" in entry) {
             // Condition 2: If no booking but query exists
@@ -246,7 +247,7 @@ const Dashboard: React.FC = () => {
               query_id: null,
               update_count: 0,
               booking_for: "", // Set an appropriate value or format if needed
-              status: "No Bookings", // Set appropriate status
+              status: entry.status, // Set appropriate status
               booked_by: "",
               start_time: "",
               end_time: "",
