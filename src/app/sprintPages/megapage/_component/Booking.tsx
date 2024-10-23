@@ -13,6 +13,23 @@ const Booking = () => {
   const handleRoute = () => {
     router.push("/additionalquestionsMegaPage");
   };
+
+  const [copied, setCopied] = useState(false);
+
+  const phoneNumber = " +91 63669-69292";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(phoneNumber)
+      .then(() => {
+        setCopied(true);
+
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(err => {
+        console.error("Failed to copy: ", err);
+      });
+  };
+
   return (
     <>
       <div className="relative flex flex-col items-center w-full">
@@ -41,7 +58,42 @@ const Booking = () => {
               {/* <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']"> */}
               <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
                 <span>{`Call Us or Whatsapp on `}</span>
-                <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+9163669-69292</a>
+                {/* <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+9163669-69292</a> */}
+                <strong className="inline-flex items-center">
+            <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
+              +91 63669-69292
+            </a>
+            
+            <button
+              className="inline-flex px-3 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] gap-2 w-[89px] h-[40px]"
+              onClick={handleCopy}
+            >
+              {copied ? (
+                <>
+                  <img
+                    src="/userDashboard/checkmark_icon.png"
+                    alt="Check Icon"
+                    className="h-[16px] w-[16px]"
+                  />
+                  <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                    Copied!
+                  </span>
+                </>
+              ) : (
+                <>
+                  <img
+                    src="/userDashboard/content_copy.svg"
+                    alt="Copy Icon"
+                    className="h-[16px] w-[16px]"
+                  />
+                  <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                    Copy
+                  </span>
+                </>
+              )}
+            </button>
+          </strong>
+
               </p>
             </div>
             {/* <div className="w-full mt-4">
@@ -99,7 +151,8 @@ const Booking = () => {
 
           {/* Adjacent Section (for Larger Screens) */}
           <div className="hidden lg:block lg:w-1/3 w-full sticky top-32 h-full">
-            <div className="w-full relative rounded-lg bg-incandescent-light border-[2px] border-incandescent-main p-8 gap-8">
+            {/* <div className="w-full relative rounded-lg bg-incandescent-light border-[2px] border-incandescent-main p-8 gap-8"> */}
+            <div className="w-full relative rounded-lg bg-[#ECF0F3] border-[2px] border-[#29458C] p-8 gap-8">
               {/* <h1 className="text-darkslategray leading-[150%] lg:text-[20px] md:text-[16px] text-[12px] font-extrabold font-[Amazon Ember]"> */}
               <h1 className="text-darkslategray leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">
                 Coming Soon!

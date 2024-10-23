@@ -90,8 +90,8 @@ const SecondPopup: NextPage = () => {
                             <span className="text-[#3a3a3a] text-lg font-medium ">In the meantime, feel free to call or Whatsapp on </span>
                             {/* <span className="text-[#f55c38] text-lg font-extrabold  whitespace-nowrap md:whitespace-normal ">+916366969292</span> */}
                             <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
-                +9163669-69292
-              </a>
+                                +9163669-69292
+                            </a>
                         </div>
                     </div>
                     <button

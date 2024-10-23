@@ -65,6 +65,26 @@ const Booking: NextPage<BookingProps> = ({ handleOfflineBooking }) => {
                 </div>
               </div>
             </div>
+
+            <div className="flex flex-row items-center gap-4 text-darkslategray">
+              <div className="w-[67px] h-12 relative">
+                <Image
+                  src="/nanopage/reshot-icon-student-class-JAMNVGK56B 1.svg"
+                  alt="Grades Icon"
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </div>
+              <div className="flex flex-col">
+                {/* <b className="leading-[170%] text-extrabold">Batch Strength</b> */}
+                <b className="w-full relative text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-darkslategray">Grades</b>
+                {/* <div className="leading-[170%] font-medium"> */}
+                <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+                  6 to 12
+                </div>
+              </div>
+            </div>
+
             <div className="w-full mt-8">
               <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
                 Why Schedule a Nano Sprint?{" "}
@@ -81,7 +101,8 @@ const Booking: NextPage<BookingProps> = ({ handleOfflineBooking }) => {
           </div>
 
           <div className="hidden lg:block lg:w-1/3 w-full sticky top-32 h-full">
-            <div className="w-full relative rounded-lg bg-incandescent-light border-[2px] border-incandescent-main p-8 gap-8">
+            {/* <div className="w-full relative rounded-lg bg-incandescent-light border-[2px] border-incandescent-main p-8 gap-8"> */}
+            <div className="w-full relative rounded-lg bg-[#ECF0F3] border-[2px] border-[#29458C] p-8 gap-8">
               {/* <h1 className="text-darkslategray leading-[150%] lg:text-[20px] md:text-[16px] text-[12px]  font-extrabold font-[Amazon Ember]"> */}
               <h1 className="text-darkslategray leading-[150%] md:heading6 text-subHeading1 font-[Amazon Ember]">
                 Get Started Today

@@ -114,7 +114,8 @@ const Booking = () => {
 
           {/* Adjacent Section (for Larger Screens) */}
           <div className="hidden lg:block lg:w-1/3 w-full sticky top-32 h-full">
-            <div className="w-full relative rounded-lg bg-incandescent-light border-[2px] border-incandescent-main p-8 gap-8">
+            {/* <div className="w-full relative rounded-lg bg-incandescent-light border-[2px] border-incandescent-main p-8 gap-8"> */}
+            <div className="w-full relative rounded-lg bg-[#ECF0F3] border-[2px] border-[#29458C] p-8 gap-8">
               {/* <h1 className="text-darkslategray leading-[150%] lg:text-[20px] md:text-[16px] text-[12px] font-extrabold font-[Amazon Ember]"> */}
               <h1 className="text-darkslategray leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">
                 Coming Soon!

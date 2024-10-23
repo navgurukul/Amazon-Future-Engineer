@@ -81,7 +81,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
               +91 63669-69292
             </a>
             <button
-              className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] flex gap-2 w-[89px] h-[40x]"
+              className="hidden md:inline-flex px-3 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] gap-2 w-[89px] h-[40x]"
               onClick={handleCopy}
             >
               {copied ? (
@@ -116,7 +116,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
         onClick={handleGoToDashboard}
         className="mt-8 md:w-auto relative rounded-[100px] border-incandescent-main border-[1px] border-solid box-border h-14 flex flex-row items-center justify-center py-2 px-4 md:px-8 text-center text-lg text-incandescent-main font-webtypestyles-buttonlarge w-full"
       >
-        <div className="relative leading-[170%] font-medium md:text-body1 text-bodyM">Go to Dashboard</div>
+        <div className="relative leading-[170%] font-medium md:text-body1 text-bodyM">Return to Dashboard</div>
       </button>
     </div>
   );

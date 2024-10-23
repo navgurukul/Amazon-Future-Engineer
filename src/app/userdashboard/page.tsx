@@ -197,10 +197,10 @@ const Page: NextPage = () => {
             alt="innovation hub map"
             src="/userDashboard/map.png"        
           /> */}
-          <div className="md:max-w-[592px] md:max-h-[440px]">
+          <div >
             <a href="https://maps.app.goo.gl/z7QztCwrwcMTnpscA" target="_blank" rel="noopener noreferrer">
               <img
-                className=" w-full h-auto rounded-lg object-cover cursor-pointer"
+                className=" w-full h-auto lg:w-[592px] rounded-lg object-cover cursor-pointer"
                 alt="innovation hub map"
                 src="/userDashboard/map.png"
               />
@@ -220,28 +220,6 @@ const Page: NextPage = () => {
               Landmark: Near Veena Stores
             </div>
             {/* <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
-            {/* <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-              For queries, please call or Whatsapp us on {" "}
-              <strong className="inline-flex items-center">
-                  <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
-                    +91 636696-9292
-                  </a>
-                  <button
-                    className="hidden md:flex px-2 py-1 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%]"
-                    onClick={handleCopy}
-                  >
-                    <img
-                      src="/userDashboard/content_copy.svg"
-                      alt="Copy Icon"
-                      className="h-[16px] w-[16px] mr-2"
-                    />
-                  
-                    <div className="h-[24px] w-[33px] text-center text-[#F55C38] text-base md:text-body2 font-body2-regular">
-                      Copy
-                    </div>
-                  </button>
-              </strong>
-            </div> */}
 
             <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
               For queries, please call or Whatsapp us on {" "}
@@ -250,7 +228,7 @@ const Page: NextPage = () => {
                   +91 63669-69292
                 </a>
                 <button
-                  className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] flex gap-2 w-[89px] h-[40px]"
+                  className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] gap-2 w-[89px] h-[40px]"
                   onClick={handleCopy}
                 >
                   {copied ? (

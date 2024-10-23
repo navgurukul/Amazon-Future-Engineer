@@ -97,7 +97,7 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
               +91 63669-69292
             </a>
             <button
-              className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] flex gap-2 w-[89px] h-[40px]"
+              className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] gap-2 w-[89px] h-[40px]"
               onClick={handleCopy}
             >
               {copied ? (
@@ -139,7 +139,7 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
             <div className="w-full lg:w-auto">
             <button className="w-full rounded-[100px] flex justify-center items-center cursor-pointer border border-[#f55c38] text-[#f55c38] text-bodyM md:text-body1" onClick={handleGoToSprints}>
             <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
-              Go to Sprints
+              Return to Sprints
             </div>
           </button>
           </div>
