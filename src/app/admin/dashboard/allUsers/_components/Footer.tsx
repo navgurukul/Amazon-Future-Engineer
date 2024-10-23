@@ -108,7 +108,7 @@ const handlePopup = (id: string) => {
 
   const  handleNotInterestedStatus= async () => {
     try {
-      const reason1 = await quesryBookingStatus (1,2,"NotInterested"); 
+      const reason1 = await quesryBookingStatus (1,2,"NotInterested"); //needs to be chanage it dynamic 
       console.log(reason1)
     } catch (error) {
       console.error('Error updating booking status:', error);
@@ -117,6 +117,7 @@ const handlePopup = (id: string) => {
    
   useEffect (()=>{
     if (popup.isUpdate) {
+      
       toast({
         title: "Sprint Booking Details Updated Successfully!",
         description: "",

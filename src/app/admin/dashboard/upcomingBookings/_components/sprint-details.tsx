@@ -255,7 +255,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         title: "Success",
         description: "Sprint completed successfully",
         variant: "success",
-        duration: 3000,
+        duration: 1000,
       });
     } catch (error) {
       console.error("Error updating booking status:", error);
@@ -264,7 +264,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         title: "Error",
         description: "Failed to complete sprint",
         variant: "destructive",
-        duration: 3000,
+        duration: 1000,
       });
     }
   };
@@ -294,8 +294,8 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                 setIsConfirmationOpen(false);
                 // Show cancelled toast
                 toast({
-                  title: "Cancelled",
-                  description: "Sprint completion cancelled",
+                  title: "Not Completed",
+                  description: "Sprint not completed yet",
                   duration: 3000,
                 });
               }}
