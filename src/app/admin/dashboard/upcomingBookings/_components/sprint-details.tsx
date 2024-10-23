@@ -13,6 +13,7 @@ import {
 } from "@/utils/api";
 import Image from "next/image";
 import React, { useState, useCallback, useEffect } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 interface BookingDetails {
   // bookingDetails(slot: string, arg1: number): unknown;
@@ -82,6 +83,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   bookingProp,
   bookingDetails,
 }) => {
+  const { toast } = useToast()
   // State Management
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [isTeacherFeedbackSubmitted, setIsTeacherFeedbackSubmitted] =
@@ -90,6 +92,9 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   const [isStudentPopupOpen, setIsStudentPopupOpen] = useState(false);
   const [isSubmitPopupOpen, setIsSubmitPopupOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [toastId, setToastId] = useState<string | null>(null);
+  
 
   // State for editable fields
   const [editedDetails, setEditedDetails] = useState({
@@ -101,6 +106,30 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     name: bookingDetails?.name,
   });
 
+
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  // Function to check if all fields are filled
+  const checkAllFieldsFilled = () => {
+    return (
+      editedDetails.pincode &&
+      editedDetails.actualNumberOfStudents &&
+      editedDetails.grade &&
+      editedDetails.schoolName &&
+      editedDetails.udiseCode &&
+      editedDetails.name
+    );
+  };
+
+  // Use effect to enable/disable button based on field completion
+  useEffect(() => {
+    const areAllFieldsFilled = checkAllFieldsFilled();
+    setIsButtonDisabled(!areAllFieldsFilled); // Disable if not all fields are filled
+  }, [editedDetails]);
+
+
+   
 
 
   // Fetch feedbacks
@@ -133,7 +162,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   };
 
   // Save changes to booking details
-  const handleSaveChanges = async () => {
+  const handleSaveChanges = async () => { 
     setIsSaving(true);
     try {
       const bookingData = {
@@ -153,7 +182,6 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         district: bookingDetails.city,
         pin_code: parseInt(bookingDetails.pincode, 10),
       };
-
       await updateBookingDetails(bookingProp.id, bookingData);
     } catch (error) {
       console.error("Error updating booking details:", error);
@@ -213,13 +241,37 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   );
 
   const handleSubmitAndCompleteSprint = async () => {
-    try {
-      await updateBookingStatus(Number(bookingProp.user.id), "Completed","Completed");
-      setIsSubmitPopupOpen(true);
-    } catch (error) {
-      console.error("Error updating booking status:", error);
-    }
+    // Display the confirmation toast with "Yes" and "No"
+    const toastId = toast({
+      title: "Confirm Sprint Completion",
+      description: "Are you sure you want to complete the sprint?",
+      action: (
+        <div>
+          <button
+            onClick={async () => {
+              try {
+                await updateBookingStatus(Number(bookingProp.user.id), "Completed", "Completed");
+                setIsSubmitPopupOpen(true); // Open popup on successful API call
+                toast.dismiss(toastId); // Dismiss the toast after action
+              } catch (error) {
+                console.error("Error updating booking status:", error);
+              }
+            }}
+            className="bg-green-500 text-white px-3 py-1 rounded"
+          >
+            Yes
+          </button>
+          <button
+            onClick={() => toast.dismiss(toastId)} // Use the toast ID to dismiss this specific toast
+            className="bg-red-500 text-white px-3 py-1 ml-2 rounded"
+          >
+            No
+          </button>
+        </div>
+      ),
+    });
   };
+
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -236,6 +288,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     const [datePart, timePart] = slot.split(" | ");
     return { date: datePart, time: timePart };
   };
+
 
   return (
     <>
@@ -313,7 +366,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
               <Button
                 variant="proceed"
                 onClick={handleSaveChanges}
-                disabled={isSaving}
+                disabled={isButtonDisabled}
               >
                 {isSaving ? "Saving..." : "Save Changes"}
               </Button>
@@ -412,7 +465,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
 
           {/* Submit Button */}
           <div className="flex justify-center items-center mt-[104px] py-6">
-            <Button variant="proceed" onClick={handleSubmitAndCompleteSprint}>
+            <Button variant="proceed" onClick={handleSubmitAndCompleteSprint} disabled={isButtonDisabled}>
               Submit and Complete Sprint
             </Button>
           </div>

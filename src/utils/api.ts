@@ -527,16 +527,23 @@ export const getAllUsersAndBookings = async (program: string, page: number = 1, 
   }
 
   try {
+    const params: any = {
+      page,
+      limit,
+    };
+
+    // Only include 'program' if it's not empty
+    if (program) {
+      params.program = program;
+    }
+
     const response = await api.get(`/bookings/admin/getAllUsersAndBookings`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      params: {
-        program,
-        page,
-        limit,
-      },
+      params, // Pass the params object directly
     });
+
     return response.data;
   } catch (error: any) {
     throw error;

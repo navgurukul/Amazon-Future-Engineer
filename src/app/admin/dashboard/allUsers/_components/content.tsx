@@ -16,6 +16,38 @@ const Dashboard: React.FC = () => {
     email: string;
     phone: string;
     bookings: Booking[];
+    query: Query[];
+    user: UserData[];
+  }
+
+  interface Query {
+    id: number;
+    user_id: number;
+    program_id: number;
+    venue_id: number;
+    status: string;
+    query_type: string;
+    created_at: string;
+  }
+
+  interface UserData {
+    user: never[];
+    query: never[];
+    bookings: never[];
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+    school_id: number;
+    profile_url: string | null;
+    status: string;
+    profile_complete: boolean;
+    phone_verified: boolean;
+    email_verified: boolean;
+    whatsapp_consent: boolean;
+    name_in_kannada: string | null;
+    created_at: string;
+    updated_at: string;
   }
 
   interface Booking {
@@ -40,11 +72,12 @@ const Dashboard: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sprintProgram, setSprintProgram] = useState("NANO");
+  const [sprintProgram, setSprintProgram] = useState("");
   const [dateRange, setDateRange] = useState("");
   const [status, setStatus] = useState("all");
   const [showSprintPage, setShowSprintPage] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState<any>(null);
+
 
   useEffect(() => {
     const fetchAllBookings = async () => {
@@ -61,7 +94,10 @@ const Dashboard: React.FC = () => {
     fetchAllBookings();
   }, [sprintProgram, currentPage, itemsPerPage]);
 
- 
+  
+
+
+
 
   const allBookings = useMemo(() => {
   
@@ -73,7 +109,7 @@ const Dashboard: React.FC = () => {
     }
   
     console.log("Current users state:", users);  // Log full users array
-  
+
     // If users array has data, set loading to false
     setIsLoading(false);
   
@@ -97,8 +133,8 @@ const Dashboard: React.FC = () => {
         const processedBooking = {
           ...booking,
           user: {
-            name: user?.name,
-            phone: user?.phone
+            name: user.name || "N/A" ,
+            phone: user.phone || "N/A"
           }
         };
   
@@ -111,6 +147,8 @@ const Dashboard: React.FC = () => {
   }, [users]);
   
   
+
+    
 
 
   // const allBookings = useMemo(() => {
@@ -152,7 +190,12 @@ const Dashboard: React.FC = () => {
   );
 
   const handleSprintProgramChange = (value: string) => {
+    if (value === "all"){
+      setSprintProgram("");
+    }
+    else{
     setSprintProgram(value);
+    }
     setCurrentPage(1);
   };
 
@@ -386,32 +429,5 @@ export default Dashboard;
 
 
 
-// import React, { useMemo, useState, useEffect } from "react";
-// import { getAllUsersAndBookings } from "@/utils/api";
-
-// const Dashboard = () => {
-
-//   const [users, setUsers] = useState([]);
-//   useEffect(() => {
-//     const loadBookings = async () => {
-//       const fetchedBookings = await getAllUsersAndBookings("NANO",1,10);
-//       console.log("fetchedBookings",fetchedBookings)
-      
-//       setUsers(fetchedBookings.data);
-//       console.log("users",users)
-//     };
-//     loadBookings();
-//   }, []);
-//   useEffect(() => {
-//     console.log("Users updated:", users);
-//   }, [users]);
 
 
-//   return (
-//     <div>
-//       Hello
-//     </div>
-//   )
-// }
-
-// export default Dashboard;
