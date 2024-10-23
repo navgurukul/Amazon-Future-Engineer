@@ -16,6 +16,7 @@ interface BookingPopupProps {
 
 const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
   const router = useRouter();
+  const [copied, setCopied] = useState(false);
 
   const whatsappLink = `https://wa.me/${6366969292}`;
 
@@ -25,7 +26,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
     router.push("/userdashboard");
   };
 
-  const [copied, setCopied] = useState(false);
+
 
   const phoneNumber = " +91 63669-69292";
 
