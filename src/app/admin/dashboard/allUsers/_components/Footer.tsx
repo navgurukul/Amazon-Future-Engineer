@@ -1,6 +1,6 @@
 import CancelPopup from "./CancelPopup";
 import { Button } from "@/components/ui/button";
-import { updateBookingStatus, updateBookingStatusAllUsers } from "@/utils/api";
+import { quesryBookingStatus,updateBookingStatus, updateBookingStatusAllUsers } from "@/utils/api";
 import { useEffect, useState } from "react";
 import ReschedulePopup from "./ReschedulePopup";
 import SubmitPopup from "../../upcomingBookings/_components/SubmitPopup";
@@ -93,7 +93,7 @@ const handlePopup = (id: string) => {
   });
 };
 
-    const handleCancelClick = () => {
+  const handleCancelClick = () => {
     setIsCancelPopupOpen(true);
   };
   const closeCancelPopup = () => {
@@ -105,6 +105,15 @@ const handlePopup = (id: string) => {
       isConfirm: false,
     });
   };
+
+  const  handleNotInterestedStatus= async () => {
+    try {
+      const reason1 = await quesryBookingStatus (1,2,"NotInterested"); 
+      console.log(reason1)
+    } catch (error) {
+      console.error('Error updating booking status:', error);
+    }
+  };
    
   useEffect (()=>{
     if (popup.isUpdate) {
@@ -115,7 +124,17 @@ const handlePopup = (id: string) => {
       })
 
     }
-  },[popup.isUpdate, toast])
+    if (popup.isNotInterested) {
+      handleNotInterestedStatus()
+      toast({
+        title: "User is marked as not intersted",
+        description: "",
+        duration: 3000,
+      })
+    }
+  },[popup.isUpdate, toast,popup.isNotInterested])
+
+
 
   useEffect(()=>{
     if (popup.isConfirm){
@@ -127,35 +146,8 @@ const handlePopup = (id: string) => {
 
 
   const [loading, setLoading] = useState(false); // State to handle button loading
-  const handleStatusChange = async (
-    status:
-      | "Confirmed"
-      | "Waiting"
-      | "Cancelled"
-      | "Disinterested"
-      | "Completed"
-    // queryType: "Booking" | "Reschedule",
-    // cancellationReason?: string
-  ) => {
-    setLoading(true);
-    try {
-      console.log(
-        // `Making API call with status: ${status}, queryType: ${queryType}, reason: ${cancellationReason}`
-        `Making API call with status: ${status}`
-      );
-      const response = await updateBookingStatus(
-        Number(bookingId),
-        status
-        // queryType,
-        // cancellationReason
-      );
-      alert(`Status updated to ${status}`);
-    } catch (error) {
-      console.error("Error making API request:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+
+
 
   function setIsSubmitPopupOpen(arg0: boolean): void {
     throw new Error("Function not implemented.");
@@ -164,7 +156,6 @@ const handlePopup = (id: string) => {
     const [datePart, timePart] = slot.split(' | ');
     return { date: datePart, time: timePart };
   };
-
 
 
 
@@ -282,7 +273,7 @@ const handlePopup = (id: string) => {
             {/* Conditionally rendering the popups */}
             {popup.isCancel &&  <CancelPopup name="cancel" bookingSingle={bookingSingle} isOpen={popup.isCancel} onClose={closeCancelPopup} />}
             {popup.isReschedule && <ReschedulePopup handleCalendar = {handleCalendar} isOpen = {popup.isReschedule} onClose={closeCancelPopup}/>}
-            {popup.isNotInterested &&  <CancelPopup  name="interested" isOpen={popup.isNotInterested} onClose={closeCancelPopup}  bookingSingle={bookingSingle}/>}
+            {/* {popup.isNotInterested &&  <CancelPopup  name="interested" isOpen={popup.isNotInterested} onClose={closeCancelPopup}  bookingSingle={bookingSingle}/>}  */}
       
     </footer>)}</>
   );

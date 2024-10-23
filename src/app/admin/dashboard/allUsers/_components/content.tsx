@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getAllUsersAndBookings } from "@/utils/api";
 import { format } from 'date-fns';
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import Image from "next/image";
 import React, { useMemo, useState, useEffect } from "react";
 
@@ -36,6 +36,7 @@ const Dashboard: React.FC = () => {
   }
 
   const [users, setUsers] = useState<User[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");
@@ -47,28 +48,84 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     const fetchAllBookings = async () => {
+      setIsLoading(true);
+      console.log(sprintProgram,currentPage,itemsPerPage)
       try {
         const result = await getAllUsersAndBookings(sprintProgram, currentPage, itemsPerPage);
         setUsers(result.data || []);
       } catch (error) {
         console.error("Failed to fetch bookings", error);
+        setIsLoading(false);
       }
     };
     fetchAllBookings();
   }, [sprintProgram, currentPage, itemsPerPage]);
 
-  // Flatten users and their bookings into a single array of bookings with user info
+ 
+
   const allBookings = useMemo(() => {
-    return users.flatMap(user => 
-      user.bookings.map(booking => ({
-        ...booking,
-        user: {
-          name: user.name,
-          phone: user.phone
-        }
-      }))
-    );
+  
+    // If users array is empty, keep loading true
+    if (users.length === 0) {
+      console.log("No users available, loading is true.");
+      setIsLoading(true);
+      return [];
+    }
+  
+    console.log("Current users state:", users);  // Log full users array
+  
+    // If users array has data, set loading to false
+    setIsLoading(false);
+  
+    return users.flatMap(user => {
+      // Check if the user object contains `bookings`, otherwise skip it
+      if (!user?.bookings) {
+        console.log("Skipping user, no bookings available:", user);
+        return [];  // Skip this user, return an empty array
+      }
+
+      console.log("Processing user:", user);  // Log the current user object
+      
+      // Check for user name and other details
+      console.log("User's name:", user?.name || "No name provided");
+      console.log("User's phone:", user?.phone || "No phone number provided");
+  
+      // Process the user's bookings
+      return user?.bookings.map(booking => {
+        console.log("Processing booking:", booking);  // Log each booking
+  
+        const processedBooking = {
+          ...booking,
+          user: {
+            name: user?.name,
+            phone: user?.phone
+          }
+        };
+  
+        // Log the booking with attached user info
+        console.log("Processed booking with user info:", processedBooking);
+  
+        return processedBooking;
+      });
+    });
   }, [users]);
+  
+  
+
+
+  // const allBookings = useMemo(() => {
+  //   console.log("Ram",users)
+  //   return users.flatMap(user => 
+  //     user.bookings.map(booking => ({
+  //       ...booking,
+  //       user: {
+  //         name: user.name,
+  //         phone: user.phone
+  //       }
+  //     }))
+  //   );
+  // }, [users]);
+
 
   const filteredBookings = allBookings.filter((booking) => {
     const normalizedSearchQuery = searchQuery.toLowerCase();
@@ -116,7 +173,6 @@ const Dashboard: React.FC = () => {
   };
 
   const handleSelectBooking = (booking: any) => {
-    console.log(booking,"Tamanna")
     setSelectedBooking(booking);
     setShowSprintPage(true);
   };
@@ -129,8 +185,6 @@ const Dashboard: React.FC = () => {
     const date = new Date(dateString);
     return format(date, "d MMM yyyy");
   };
-
-  
 
   const formatTime = (time: string) => {
     const [hours, minutes] = time.split(":");
@@ -189,6 +243,7 @@ const Dashboard: React.FC = () => {
                     <SelectValue placeholder="Sprint Program" />
                   </SelectTrigger>
                   <SelectContent>
+                  <SelectItem value="all">All Sprint</SelectItem>
                     <SelectItem value="NANO">Nano Sprint</SelectItem>
                     <SelectItem value="MINI">Mini Sprint</SelectItem>
                     <SelectItem value="MEGA">Mega Sprint</SelectItem>
@@ -242,63 +297,82 @@ const Dashboard: React.FC = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody className="border-b border-grey-300 gap-8 p font-body2-regular text-body2 leading-[170%]">
-                  {displayedBookings.map((booking, index) => (
-                    <TableRow key={index} className="border-t border-b border-transparent">
-                      <TableCell className="border-0">{booking.user.name}</TableCell>
-                      <TableCell className="border-0">{booking.program.title}</TableCell>
-                      <TableCell className="border-0">{booking.user.phone}</TableCell>
-                      <TableCell className="border-0 text-center">{booking.booking_batch_size}</TableCell>
-                      <TableCell className="border-0">{formatDate(booking.created_at)}</TableCell>
-                      <TableCell className="border-0">
-                        {`${formatDate(booking.booking_for)} | ${formatTime(booking.start_time)} to ${formatTime(booking.end_time)}`}
-                      </TableCell>
-                      <TableCell className="border-0">{booking.venue.city}</TableCell>
-                      <TableCell className="border-0">{booking.status}</TableCell>
-                      <TableCell className="border-0">
-                        <a
-                          href="#"
-                          onClick={() => handleSelectBooking(booking)}
-                          className="text-incandescent-main hover:text-incandescent-dark"
-                        >
-                          Manage Booking
-                        </a>
+                  {isLoading ? (
+                    <TableRow>
+                      <TableCell colSpan={9} className="text-center py-8">
+                        <div className="flex items-center justify-center gap-2">
+                          <Loader2 className="w-6 h-6 animate-spin" />
+                          <span>Loading bookings...</span>
+                        </div>
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ) : displayedBookings.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={9} className="text-center py-8">
+                        No bookings found
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    displayedBookings.map((booking, index) => (
+                      <TableRow key={index} className="border-t border-b border-transparent">
+                        <TableCell className="border-0">{booking.user.name}</TableCell>
+                        <TableCell className="border-0">{booking.program.title}</TableCell>
+                        <TableCell className="border-0">{booking.user.phone}</TableCell>
+                        <TableCell className="border-0 text-center">{booking.booking_batch_size}</TableCell>
+                        <TableCell className="border-0">{formatDate(booking.created_at)}</TableCell>
+                        <TableCell className="border-0">
+                          {`${formatDate(booking.booking_for)} | ${formatTime(booking.start_time)} to ${formatTime(booking.end_time)}`}
+                        </TableCell>
+                        <TableCell className="border-0">{booking.venue.city}</TableCell>
+                        <TableCell className="border-0">{booking.status}</TableCell>
+                        <TableCell className="border-0">
+                          <a
+                            href="#"
+                            onClick={() => handleSelectBooking(booking)}
+                            className="text-incandescent-main hover:text-incandescent-dark"
+                          >
+                            Manage Booking
+                          </a>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
                 </TableBody>
               </Table>
             </div>
 
-            <div className="w-full relative flex flex-row items-center justify-end gap-4 text-left text-sm text-text-secondary font-webtypestyles-body2">
-              <div className="flex flex-row items-center justify-start gap-2">
-                <div className="relative leading-[170%]">Rows per page:</div>
-                <div className="flex flex-row items-center justify-start">
-                  <Select defaultValue="10" onValueChange={handleItemsPerPageChange}>
-                    <SelectTrigger className="relative flex items-center gap-2 leading-[170%]">
-                      <SelectValue placeholder={itemsPerPage.toString()} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="5">5</SelectItem>
-                      <SelectItem value="10">10</SelectItem>
-                      <SelectItem value="20">20</SelectItem>
-                    </SelectContent>
-                  </Select>
+            {!isLoading && displayedBookings.length > 0 && (
+              <div className="w-full relative flex flex-row items-center justify-end gap-4 text-left text-sm text-text-secondary font-webtypestyles-body2">
+                <div className="flex flex-row items-center justify-start gap-2">
+                  <div className="relative leading-[170%]">Rows per page:</div>
+                  <div className="flex flex-row items-center justify-start">
+                    <Select defaultValue="10" onValueChange={handleItemsPerPageChange}>
+                      <SelectTrigger className="relative flex items-center gap-2 leading-[170%]">
+                        <SelectValue placeholder={itemsPerPage.toString()} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="5">5</SelectItem>
+                        <SelectItem value="10">10</SelectItem>
+                        <SelectItem value="20">20</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div className="relative leading-[170%]">
+                  {(currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems}
+                </div>
+                <div className="flex flex-row items-center justify-start gap-4">
+                  <ChevronLeft
+                    className={`w-6 h-6 cursor-pointer ${currentPage === 1 ? "text-gray-400 opacity-50 cursor-not-allowed" : "text-black"}`}
+                    onClick={() => handlePageChange(currentPage - 1)}
+                  />
+                  <ChevronRight
+                    className={`w-6 h-6 cursor-pointer ${currentPage === totalPages ? "text-gray-400 opacity-50 cursor-not-allowed" : "text-black"}`}
+                    onClick={() => handlePageChange(currentPage + 1)}
+                  />
                 </div>
               </div>
-              <div className="relative leading-[170%]">
-                {(currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems}
-              </div>
-              <div className="flex flex-row items-center justify-start gap-4">
-                <ChevronLeft
-                  className={`w-6 h-6 cursor-pointer ${currentPage === 1 ? "text-gray-400 opacity-50 cursor-not-allowed" : "text-black"}`}
-                  onClick={() => handlePageChange(currentPage - 1)}
-                />
-                <ChevronRight
-                  className={`w-6 h-6 cursor-pointer ${currentPage === totalPages ? "text-gray-400 opacity-50 cursor-not-allowed" : "text-black"}`}
-                  onClick={() => handlePageChange(currentPage + 1)}
-                />
-              </div>
-            </div>
+            )}
           </div>
         </div>
       ) : (
@@ -309,3 +383,35 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+
+
+
+// import React, { useMemo, useState, useEffect } from "react";
+// import { getAllUsersAndBookings } from "@/utils/api";
+
+// const Dashboard = () => {
+
+//   const [users, setUsers] = useState([]);
+//   useEffect(() => {
+//     const loadBookings = async () => {
+//       const fetchedBookings = await getAllUsersAndBookings("NANO",1,10);
+//       console.log("fetchedBookings",fetchedBookings)
+      
+//       setUsers(fetchedBookings.data);
+//       console.log("users",users)
+//     };
+//     loadBookings();
+//   }, []);
+//   useEffect(() => {
+//     console.log("Users updated:", users);
+//   }, [users]);
+
+
+//   return (
+//     <div>
+//       Hello
+//     </div>
+//   )
+// }
+
+// export default Dashboard;

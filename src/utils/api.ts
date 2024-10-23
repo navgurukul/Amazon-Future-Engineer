@@ -371,7 +371,6 @@ export const updateSlotDetails = async (id: number) => {
 };
 
 // Get slot by slotId
-
 export const getAdminSlotDetails = async (slotId: number) => {
   try {
     const token = getAdminToken()  ||  getToken() ;
@@ -413,6 +412,32 @@ export const updateBookingStatus = async (bookingId: number, status: string,canc
   }
 };
 
+
+// api to update booking query on all users for not intersted and reschadule
+
+export const quesryBookingStatus = async (program_id: number,venue_id:number, status: string) => {
+  const token = getAdminToken()  ||  getToken() ;
+  if (!token) {
+    throw new Error('No token found');
+  }
+  try {
+    const response = await api.post(`/queries/call-booking-query`, {
+      program_id: program_id,
+      venue_id:venue_id,
+      status:status
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+
+      }
+    });
+    return response.data;
+  } catch (error: any) {
+    console.error('Error updating booking status:', error);
+    throw error;
+  }
+};
 
 
 
