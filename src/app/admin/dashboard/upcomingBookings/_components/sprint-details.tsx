@@ -366,6 +366,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                     "schoolName",
                     "udiseCode",
                     "name",
+                    "email",
                   ].includes(key);
 
                   return (
