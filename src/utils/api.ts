@@ -160,15 +160,32 @@ export const getProgramData = async (venue_id: number) => {
 
 // Function to call the booking query API
 export const callBookingQuery = async (bookingData: {
-  name: string;
-  phone: string;
+  // name: string;
+  // phone: string;
   program_id: number;
   venue_id: number;
-  query_type: string;
+  // query_type: string;
 }) => {
   try {
-    const response = await api.post('/queries/call-booking-query', bookingData);
+    const token = getToken(); // Retrieve the token
+    if (!token) {
+      console.error("Authorization token is missing.");
+      throw new Error("Authorization token is missing.");
+    }
+
+    // Log token to make sure it's retrieved correctly
+    console.log("Authorization token:", token);
+
+    const response = await api.post('/queries/call-booking-query', bookingData,
+       {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add the Bearer token
+        },
+      }
+    );
+    console.log("Response from booking query:", response.data);
     return response.data;
+    
   } catch (error: any) {
     console.error('Error calling booking query:', error);
     throw error.response?.data || error;
@@ -396,18 +413,43 @@ export const getAdminSlotDetails = async (slotId: number) => {
 
 // api to update status
 
-export const updateBookingStatus = async (bookingId: number, status: string) => {
+export const updateBookingStatus = async (booking_id: number, status: string) => {
   try {
-    const response = await api.put(`/bookings/${bookingId}/status`, {
+    console.log(
+      "Calling API with booking_id:",
+      booking_id,
+      "and status:",
+      status
+    );
+    const response = await api.put(`/bookings/${booking_id}/status`, {
       status: status
     }, {
       headers: {
         'Content-Type': 'application/json'
       }
     });
+    console.log("responseeee", response);
     return response.data;
   } catch (error: any) {
     console.error('Error updating booking status:', error);
+    throw error;
+  }
+};
+
+export const rescheduleBooking = async (booking_id: number) => {
+  try {
+    const response = await api.put(
+      `/bookings/${booking_id}/status`,
+      { status: "RequestedReschedule" },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error("Error rescheduling booking:", error);
     throw error;
   }
 };

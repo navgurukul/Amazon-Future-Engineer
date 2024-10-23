@@ -28,7 +28,7 @@ const TimeSlotCalendar: React.FC = () => {
     const [showTimeSlotsPopup, setShowTimeSlotsPopup] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [popupPosition, setPopupPosition] = useState<{ top: number; left: number } | null>(null);
-    const [timeSlotsPopupPosition, setTimeSlotsPopupPosition] = useState<{ top: number; left: number } | null>(null);
+    // const [timeSlotsPopupPosition, setTimeSlotsPopupPosition] = useState<{ top: number; left: number } | null>(null);
     const [selectedDayName, setSelectedDayName] = useState<string>("");
     const [selectedSlots, setSelectedSlots] = useState<EventSlot[]>([]);
 
@@ -82,7 +82,8 @@ const TimeSlotCalendar: React.FC = () => {
         }
 
         const { top, left } = el.getBoundingClientRect();
-        setPopupPosition({ top: top - 10, left: left + (el.offsetWidth / 2) - 50 });
+        // setPopupPosition({ top: top - 10, left: left + (el.offsetWidth / 2) - 50 });
+        setPopupPosition({ top: top - 50, left: left + (el.offsetWidth / 2) - 50 });
 
         setSelectedDate(date);
         setSelectedDayName(date.toLocaleDateString('en-US', { weekday: 'long' }));
@@ -109,7 +110,7 @@ const TimeSlotCalendar: React.FC = () => {
 
         setSelectedSlots(slotsForDate);
 
-        setTimeSlotsPopupPosition({ top: 100, left: 515 });
+        // setTimeSlotsPopupPosition({ top: 100, left: 515 });
         setShowPopup(true);
     };
 
@@ -128,11 +129,34 @@ const TimeSlotCalendar: React.FC = () => {
         setShowTimeSlotsPopup(false);
     };
 
+    // const handleUpdateSlots = async (updatedSlots: EventSlot[]) => {
+    //     console.log("Updated slots:", updatedSlots);
+    // await fetchApiData();
+    // setShowTimeSlotsPopup(false);
+    // };
+
     const handleUpdateSlots = async (updatedSlots: EventSlot[]) => {
-        console.log("Updated slots:", updatedSlots);
-         // Re-fetch events to get the updated slots
-    // Optionally, close the popup or perform other actions
-    setShowTimeSlotsPopup(false);
+      try {
+        await Promise.all(
+          updatedSlots.map((slot) =>
+            updateSlotTime(slot.id, {
+              program_id: slot.program_id,
+              venue_id: slot.venue_id,
+              date: slot.date,
+              start_time: slot.start,
+              end_time: slot.end,
+              available_capacity: slot.available_capacity,
+              status: slot.status,
+            })
+        )
+    );
+    console.log("Updated slots:", updatedSlots);
+        // Re-fetch events to get the updated slots
+        await fetchApiData();
+        setShowTimeSlotsPopup(false);
+      } catch (error) {
+        console.error("Error updating slots:", error);
+      }
     };
 
     const isBeforeToday = (date: Date) => {
@@ -227,7 +251,7 @@ const TimeSlotCalendar: React.FC = () => {
                         onEditAllThursdays={handleEditAllDays}
                         onClose={handleClosePopup}
                         style={{
-                            position: 'absolute',
+                            position: 'fixed',
                             top: `${popupPosition.top}px`,
                             left: `${popupPosition.left}px`,
                             zIndex: 1000
@@ -235,17 +259,25 @@ const TimeSlotCalendar: React.FC = () => {
                     />
                 )}
 
-                {showTimeSlotsPopup && timeSlotsPopupPosition && (
+                {/* {showTimeSlotsPopup && timeSlotsPopupPosition && ( */}
+                {showTimeSlotsPopup && (
                     <EditTimeSlotsPopup
                         selectedDate={selectedDate?.toDateString() || ""}
                         onClose={handleClosePopup}
                         slots={selectedSlots}
+                        // style={{
+                        //     position: 'absolute',
+                        //     top: `${timeSlotsPopupPosition.top}px`,
+                        //     left: `${timeSlotsPopupPosition.left}px`,
+                        //     zIndex: 1000
+                        // }}
                         style={{
-                            position: 'absolute',
-                            top: `${timeSlotsPopupPosition.top}px`,
-                            left: `${timeSlotsPopupPosition.left}px`,
-                            zIndex: 1000
-                        }}
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 1000
+        }}
                         onUpdateSlots={handleUpdateSlots}
                     />
                 )}

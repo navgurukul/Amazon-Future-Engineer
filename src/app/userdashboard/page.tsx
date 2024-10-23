@@ -20,6 +20,7 @@ interface EventData {
   students_grade: string;
   program_id: number;
   venue_id: number;
+  booking_id: number;
 }
 
 const Page: NextPage = () => {
@@ -175,7 +176,10 @@ const Page: NextPage = () => {
         isOpen={isFirstPopupOpen}
         handleClose={handleCloseFirstPopup}
         handleOpenSecondPopup={handleOpenSecondPopup}
-        userData={userData ? userData[0] : null} />
+        // userData={userData ? userData[0] : null}
+         userData={userData && userData.length > 0 ? userData[0] : null}
+        // userData={userData && userData.length > 0 && userData[0].booking_id ? userData[0] : null}
+         />
 
       <PhoneSecondPopup
         isOpen={isPhoneSecondPopupOpen}
