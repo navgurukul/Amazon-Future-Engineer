@@ -375,7 +375,7 @@ const Dashboard: React.FC = () => {
                 </Select>
               </div>
 
-              <div className="relative flex items-center w-1/4">
+              {/*<div className="relative flex items-center w-1/4">
                 <input
                   type="text"
                   placeholder="Date Range"
@@ -384,6 +384,7 @@ const Dashboard: React.FC = () => {
                   className="w-full border rounded-full px-4 py-3 pl-10"
                 />
               </div>
+              */}
 
               <div className="relative flex items-center w-1/4">
                 <Select onValueChange={handleStatusChange} value={status}>
