@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
+import Cookies from "js-cookie";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
-import Cookies from 'js-cookie';
 import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
 
 const Header: React.FC = () => {
   const [currentLang, setCurrentLang] = useState<"en" | "kn">("en");
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const handleLanguageToggle = () => {
     setCurrentLang(currentLang === "en" ? "kn" : "en");
@@ -20,22 +20,25 @@ const Header: React.FC = () => {
   };
 
   const handleLogoutClick = () => {
-    Cookies.remove('adminLoginData');
-    localStorage.removeItem('adminLoginData');
-    router.push("/admin")
+    Cookies.remove("adminLoginData");
+    localStorage.removeItem("adminLoginData");
+    router.push("/admin");
   };
 
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (isProfileDropdownOpen && !(event.target as Element).closest('.profile-dropdown')) {
+      if (
+        isProfileDropdownOpen &&
+        !(event.target as Element).closest(".profile-dropdown")
+      ) {
         setIsProfileDropdownOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isProfileDropdownOpen]);
 
@@ -65,21 +68,21 @@ const Header: React.FC = () => {
         </div>
         {/* Language Toggle and Avatar */}
         <div className="flex-1 flex justify-end items-center space-x-4">
-          <div className="flex gap-1 bg-incandescent-light p-2 rounded-[100px]">
+          <div className="p-2  h-[48px] flex items-center  bg-incandescent-light rounded-full md:gap-1 gap-2">
             <Button
               variant={currentLang === "en" ? "proceed" : "proceedWhite"}
-              className={`h-8 ${
-                currentLang !== "en" ? "text-black bg-transparent" : ""
-              }`}
+              className={`${
+                currentLang !== "en" && "text-black bg-transparent"
+              } h-8 py-2 px-3`}
               onClick={handleLanguageToggle}
             >
               Eng
             </Button>
             <Button
               variant={currentLang !== "en" ? "proceed" : "proceedWhite"}
-              className={`h-8 ${
-                currentLang === "en" ? "text-black bg-transparent" : ""
-              }`}
+              className={`${
+                currentLang === "en" && "text-black bg-transparent"
+              } h-8 py-2 px-3`}
               onClick={handleLanguageToggle}
             >
               ಅಇಈ
@@ -116,3 +119,30 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+
+// <div
+//   className={` p-2  h-[48px] flex items-center rounded-full md:gap-1 gap-2  bg-${
+//     headerBgColor !== "transparent" || bgColor != "home"
+//       ? "incandescent-light"
+//       : "white"
+//   }`}
+// >
+//   <Button
+//     variant={currentLang === "en" ? "proceed" : "proceedWhite"}
+//     className={`${
+//       currentLang !== "en" && "text-black bg-transparent"
+//     } h-8 py-2 px-3`}
+//     onClick={handleLanguageToggle}
+//   >
+//     Eng
+//   </Button>
+//   <Button
+//     variant={currentLang !== "en" ? "proceed" : "proceedWhite"}
+//     className={`${
+//       currentLang === "en" && "text-black bg-transparent"
+//     } h-8 py-2 px-3`}
+//     onClick={handleLanguageToggle}
+//   >
+//     ಅಇಈ
+//   </Button>
+// </div>;
