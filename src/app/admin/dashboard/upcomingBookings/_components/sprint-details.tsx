@@ -104,6 +104,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     schoolName: bookingDetails?.schoolName,
     udiseCode: bookingDetails?.udiseCode,
     name: bookingDetails?.name,
+    // email: bookingDetails?.email,
   });
 
 
@@ -120,7 +121,8 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
       editedDetails.grade &&
       editedDetails.schoolName &&
       editedDetails.udiseCode &&
-      editedDetails.name
+      editedDetails.name 
+      // && editedDetails.email
     );
   };
 
@@ -366,7 +368,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                     "schoolName",
                     "udiseCode",
                     "name",
-                    "email",
+                    // "email"
                   ].includes(key);
 
                   return (
