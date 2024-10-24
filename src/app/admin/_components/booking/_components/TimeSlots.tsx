@@ -22,7 +22,6 @@ interface Slot {
   id?: number;
   capacity?: number;
 }
-
 interface BookingDetails {
   name: string;
   email: string;
@@ -44,7 +43,6 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
   handleCalendar,
   bookingDetails,
   calendarData
-
 }) => {
   const { toast } = useToast()
   const { events, error, closePopup } = useAllBookings();
@@ -52,6 +50,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [students, setStudents] = useState("");
+  const [nameError, setNameError] = useState<string | null>(null); 
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [studentsError, setStudentsError] = useState<string | null>(null);
   const [bookingStatus, setBookingStatus] = useState<string | null>(null);
@@ -74,44 +73,32 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     setPhone(phoneNumber)
   },[])
 
-  const getAvailableSlots = (): Slot[] => {
-    const fixedSlots = [
-      { time: "10:00 AM to 1:00 PM", apiTime: "10:00" },
-      { time: "1:30 PM to 4:30 PM", apiTime: "13:30" },
-    ];
+  const formatTimeRange = (start: Date, end: Date) => {
+    const formatTime = (date: Date) => {
+      return date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+    };
+    return `${formatTime(start)} to ${formatTime(end)}`;
+  };
 
-    if (!selectedDate) {
-      return fixedSlots.map((fixedSlot) => ({
-        time: fixedSlot.time,
-        available: true,
-        status: "",
-        capacity: 0,
-      }));
-    }
+  const getAvailableSlots = (): Slot[] => {
+    if (!selectedDate || !events.length) return [];
 
     const eventsForDate = events.filter(
-      (event) =>
-        new Date(event.start).toDateString() === selectedDate.toDateString()
+      (event) => new Date(event.start).toDateString() === selectedDate.toDateString()
     );
 
-    return fixedSlots.map((fixedSlot) => {
-      const matchingEvent = eventsForDate.find((event) =>
-        new Date(event.start).toTimeString().startsWith(fixedSlot.apiTime)
-      );
-
-      return {
-        time: fixedSlot.time,
-        available: matchingEvent
-          ? matchingEvent.extendedProps.availableCapacity > 0
-          : false,
-        status: matchingEvent
-          ? matchingEvent.extendedProps.status
-          : "Not Available",
-        event: matchingEvent,
-        id: matchingEvent ? Number(matchingEvent.id) : undefined,
-        capacity: matchingEvent ? matchingEvent.extendedProps.availableCapacity : 0,
-      };
-    });
+    return eventsForDate.map((event) => ({
+      time: formatTimeRange(new Date(event.start), new Date(event.end)),
+      available: event.extendedProps.availableCapacity > 0,
+      status: event.extendedProps.status,
+      event: event,
+      id: Number(event.id),
+      capacity: event.extendedProps.availableCapacity,
+    }));
   };
 
   const handleSlotSelection = async (slot: Slot) => {
@@ -119,14 +106,11 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     setStudents("");
   };
 
-
-  const displayDate = selectedDate || new Date();
-
-
-  const handleIsopen = async ()=>{
+  const handleIsopen = async () => {
+    
     const studentCount = parseInt(bookingDetails.numberOfStudents);
     const minStudents = selectedSlot?.capacity === 40 ? 12 : 1;
-    const maxStudents = selectedSlot?.capacity || 0;
+    const maxStudents = selectedSlot?.capacity || 40;
     
     if (studentCount < minStudents || studentCount > maxStudents) {
       toast({
@@ -137,6 +121,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
       })
       return;
     }
+
     if (!selectedSlot || !selectedSlot.event) return;
 
     try {
@@ -144,21 +129,15 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
         .split(" - ")
         .map((part: string) => parseInt(part.split(" ")[1]));
 
-      const bookingData = {
-        slot_id: Number(selectedSlot.event.id),
-        program_id:programId,
-        venue_id: venueId,
-        booking_batch_size:Number(bookingDetails.numberOfStudents),
-      };
+        const bookingData = {
+          slot_id: Number(selectedSlot.event.id),
+          program_id:programId,
+          venue_id: venueId,
+          booking_batch_size:Number(bookingDetails.numberOfStudents),
+        };
 
-      // const response = await bookSlot(bookingData);
-      // const dataToSend = {
-      //   slot_id:response.data.slot_id,
-      //   booking_for:response.data.booking_for,
-      //   start_time: response.data.start_time, 
-      //   end_time: response.data.end_time,   
-      // };
       calendarData( Number(selectedSlot.event.id));
+
       setBookingStatus("Booking successful!");
       handleBookingPopUp({
         name: bookingDetails.name,
@@ -169,11 +148,10 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     } catch (error) {
       setBookingStatus("Booking failed. Please try again.");
     }
-
     handleCalendar()
-  }
+  };
 
-
+  const displayDate = selectedDate || new Date();
   function closeCancelPopup(): void {
     setIsOpen(false)
   }
@@ -213,11 +191,9 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
             ))}
           </div>
         </div>
-        <Button variant="proceed" onClick={handleIsopen}>Reschedule</Button>
-        {isOpen && <ReschedulePopup isOpen = {isOpen} onClose={closeCancelPopup}/>}
-      </div>
-    
-    </div>
+      <Button variant="proceed" onClick={handleIsopen}>Reschedule</Button>
+      {isOpen && <ReschedulePopup isOpen = {isOpen} onClose={closeCancelPopup}/>}
+      </div>    </div>
   );
 };
 
