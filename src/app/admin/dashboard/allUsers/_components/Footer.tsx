@@ -207,7 +207,7 @@ export default function Footer({
               className="flex flex-row items-start justify-between w-full"
             >
               <div className="flex gap-4">
-                {(programName === "Nano Sprint" || programName === "") && (
+                {(programName === "Nano Sprint" || programName === "-") && (
                   <>
                     <Button
                       className="h-14 px-8 border rounded-full text-[#3A3A3A] border-[#3A3A3A] bg-white hover:text-white"
@@ -240,7 +240,7 @@ export default function Footer({
                 )}
               </div>
               <div className="flex gap-4">
-                {(programName === "Nano Sprint" || programName === "") && (
+                {(programName === "Nano Sprint" || programName === "-") && (
                   <>
                     <Button
                       variant="proceed"

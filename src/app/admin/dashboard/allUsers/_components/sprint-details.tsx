@@ -75,8 +75,23 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   const [bookingSingle, setBookings] = useState<Booking | any>(null);
   const [isCalendar,setIsCalendar] = useState<boolean>();
   const [calendarDataUser,setCalendarDataUser] = useState(0)
+  
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
+    if (bookingProp.status == "profileCreated") {
+      const options: Intl.DateTimeFormatOptions = {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      };
+    
+      // Use 'en-GB' to avoid commas and format day-month-year naturally
+      const formattedDate = date.toLocaleDateString("en-GB", options);
+    
+      // Return the formatted date as "24 Oct 2024"
+      return formattedDate.replace(/,/g, ""); 
+    }
     return format(date, "dd MMM yyyy");
   };
 
@@ -89,23 +104,21 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   useEffect(() => {
     if (bookingProp.status!=="BookingConfirmed"){
       setBookingDetails({
-        name: bookingProp.user.name || "",
-        email: bookingProp.user.email || "",
-        phoneNumber: bookingProp.user.phone || "",
-        dateofRequest: formatDate(bookingProp.created_at) || "",
-        programName: "",
-        schoolName: bookingProp.user.school_id || "",
-        udiseCode: "",
+        name: bookingProp.user.name || "-",
+        email: bookingProp.user.email || "-",
+        phoneNumber: bookingProp.user.phone || "-",
+        dateofRequest: formatDate(bookingProp.created_at) || "-",
+        programName: "-",
+        schoolName: bookingProp.user.school_id || "-",
+        udiseCode: "-",
         city: "Bengaluru",
-        pincode: "",
-        grade: "",
-        numberOfStudents:bookingProp.booking_batch_size || "",
+        pincode: "-",
+        grade: "-",
+        numberOfStudents:bookingProp.booking_batch_size || "-",
         slot: `${formatDate(bookingProp.booking_for)} | ${
           bookingProp.start_time
-        } to ${bookingProp.end_time}` || "",
+        } to ${bookingProp.end_time}` || "-",
       });
-
-
     }
     const loadBookingDetails = async () => {
       if (bookingProp.id) {
@@ -172,6 +185,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   const calendarData = (slot_id:number) => {
     setCalendarDataUser(slot_id);
   };
+
   return (
     <>
     {isCalendar ? (
@@ -285,15 +299,15 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
           )}
           {/* Pass programName to Footer */}
           <Footer
-            programName={bookingDetails.programName}
-            bookingId={bookingProp.id.toString()}
-            onSubmitClick={onSubmitClick}
-            bookings={bookingDetails}
-            bookingSingle={bookingSingle}
-            handleCalendar={handleCalendar}
-            status = {bookingProp.status}
-            slotId = {calendarDataUser}
-          />
+          programName={bookingDetails?.programName}
+          bookingId={bookingProp?.id?.toString()}
+          onSubmitClick={onSubmitClick}
+          bookings={bookingDetails}
+          bookingSingle={bookingSingle}
+          handleCalendar={handleCalendar}
+          status = {bookingProp?.status}
+          slotId = {calendarDataUser}
+        />
         </div>
       </div>
     )}

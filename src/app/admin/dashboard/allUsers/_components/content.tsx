@@ -173,7 +173,6 @@ const Dashboard: React.FC = () => {
             };
           } else {
             // Condition 3: Only users exist
-  
             return {
               user: {
                 name: entry.name || "N/A",
@@ -301,7 +300,7 @@ const Dashboard: React.FC = () => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return format(date, "d MMM yyyy");
+    return format(date, "dd MMM yyyy");
   };
 
   const formatTime = (time: string) => {
@@ -489,9 +488,10 @@ const Dashboard: React.FC = () => {
                           {booking.booking_batch_size}
                         </TableCell>
                         <TableCell className="border-0">
-                          {booking.created_at === null
+                          {booking.created_at === null 
                             ? "N/A"
-                            : formatDate(booking.created_at)}
+                            : formatDate(booking.created_at)
+                          }
                         </TableCell>
                         <TableCell className="border-0">
                           {booking.start_time === ""
