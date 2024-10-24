@@ -306,7 +306,8 @@ const Dashboard: React.FC = () => {
         .toLowerCase()
         .includes(normalizedSearchQuery);
 
-    const matchesStatus = status === "all" || booking.booking.status === status;
+
+    const matchesStatus = status === "all" || booking?.status === status || booking?.booking?.status === status;
 
     return matchesSearch && matchesStatus;
   });
