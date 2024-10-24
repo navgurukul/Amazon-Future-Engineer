@@ -1,8 +1,7 @@
 import EditDatePopup from "./EditDatePopup";
 import EditTimeSlotsPopup from "./EditTimeSlotsPopup";
 import { useAllBookings } from "./allBookings";
-// import { updateSlotTime } from "@/utils/api";
-import {updateSlot} from "@/utils/api";
+import { getSlots } from "@/utils/api";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
@@ -32,6 +31,7 @@ const TimeSlotCalendar: React.FC = () => {
     const [popupPosition, setPopupPosition] = useState<{ top: number; left: number } | null>(null);
     const [selectedDayName, setSelectedDayName] = useState<string>("");
     const [selectedSlots, setSelectedSlots] = useState<EventSlot[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const getMonthYear = (date: Date) => {
         const monthNames = [
@@ -99,8 +99,10 @@ const TimeSlotCalendar: React.FC = () => {
                 id: Number(event.id),
                 start: new Date(event.start).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit', hour12: false }),
                 end: new Date(event.end).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit', hour12: false }),
-                program_id: parseInt(programId.replace('Program ', '')),
-                venue_id: parseInt(venueId),
+                // program_id: parseInt(programId.replace('Program ', '')),
+                program_id: 1,
+                // venue_id: parseInt(venueId),
+                venue_id: 2,
                 date: date.toISOString().split('T')[0],
                 available_capacity: event.extendedProps.availableCapacity,
                 status: event.extendedProps.status,
@@ -127,26 +129,6 @@ const TimeSlotCalendar: React.FC = () => {
         setShowTimeSlotsPopup(false);
     };
 
-    const fetchApiData = async (slotId: number) => {
-      try {
-        const response = await fetch(
-          `https://dev-afe.samyarth.org/api/v1/slotmanagement/${slotId}`,
-          {
-            method: "GET", // You can change this to POST, PUT, etc., depending on the API
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const data = await response.json();
-        console.log("Fetched data for slotId:", slotId, data);
-        return data;
-      } catch (error) {
-        console.error("Error fetching data for slotId:", slotId, error);
-      }
-    }
-
-    // const handleUpdateSlots = async (updatedSlots: EventSlot[]) => {
     const handleUpdateSlots = async (
       updatedSlots: EventSlot[]
     ): Promise<void> => {
@@ -164,31 +146,10 @@ const TimeSlotCalendar: React.FC = () => {
 
             console.log("Updating slot:", slot);
 
-            // Update the slot timing with relevant details
-            await updateSlot(slot.id, {
-              program_id: slot.program_id || 0,
-              venue_id: slot.venue_id || 0,
-              date: slot.date || "",
-              start_time: slot.start || "",
-              end_time: slot.end || "",
-              available_capacity: slot.available_capacity || 12,
-              status: slot.status,
-            });
-
             console.log(
               "Slot updated successfully, fetching data for slot:",
               slot.id
             );
-
-            // // Fetch updated data for the slot
-            // if (typeof fetchApiData === "function") {
-            //   const data = await fetchApiData(slot.id);
-            //   console.log("Fetched data for updated slot:", data);
-            // } else {
-            //   console.warn("fetchApiData function is not available");
-            // }
-            const data = await fetchApiData(slot.id);
-            console.log("Fetched data for updated slot:", data);
           })
         );
 
@@ -201,8 +162,10 @@ const TimeSlotCalendar: React.FC = () => {
           console.warn("calendarRef is not available or getApi is undefined");
         }
           setSelectedSlots(updatedSlots);
-
         setShowTimeSlotsPopup(false);
+
+        localStorage.setItem("shouldManageSlots", "true");
+        window.location.reload();
       } catch (error) {
         console.error("Error updating slots:", error);
       }

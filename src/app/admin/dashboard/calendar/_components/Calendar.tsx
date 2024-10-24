@@ -6,7 +6,7 @@ import FullCalendarComponent from "./FullCalendarComponent";
 import TimeSlotCalendar from "./TimeSlotCalendar";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 
 const Calendar: React.FC = () => {
@@ -24,6 +24,14 @@ const Calendar: React.FC = () => {
   const handleManageSlotsClick = () => {
     setShowTimeSlotCalendar(true); // Show TimeSlotCalendar when clicked
   };
+
+  useEffect(() => {
+    const shouldManageSlots = localStorage.getItem("shouldManageSlots");
+    if (shouldManageSlots === "true") {
+      handleManageSlotsClick();
+      localStorage.removeItem("shouldManageSlots");
+    }
+  }, []);
 
 
   return (

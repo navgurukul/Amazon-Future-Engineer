@@ -667,7 +667,6 @@ export const addNewSlots = async (newSlots: {
     throw new Error('No admin token found');
   }
   try {
-    console.log("Payload to send:", newSlots);
     const response = await api.post(
       "/slotmanagement/add",
       newSlots,
@@ -675,7 +674,6 @@ export const addNewSlots = async (newSlots: {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("API Response:", response.data);
     return response.data;
   } catch (error: any) {
     throw new Error(error.response?.data?.details || 'An error occurred while adding new slots');
@@ -692,8 +690,6 @@ export const deleteSlot = async (slot_id: number) => {
     const response = await api.delete(`/slotmanagement/delete/${slot_id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(`Deleted slot with ID: ${slot_id}`);
-    console.log("API Responseeeeee:", response.data);
     
     return response.data;
   } catch (error: any) {
@@ -703,13 +699,14 @@ export const deleteSlot = async (slot_id: number) => {
 
 // Update a slot
 export const updateSlot = async (slotId: number, updatedSlot: any) => {
+  const token = getAdminToken();
+  if (!token) {
+    throw new Error("No admin token found");
+  }
   try {
-    console.log("Making PUT request to update slot:", slotId, updatedSlot);
-    console.log("updatedSlot", updatedSlot);
-    
-    const response = await api.put(`slotmanagement/${slotId}`, updatedSlot);
-    console.log("Updated slots response from API:", response.data);
-    
+    const response = await api.put(`slotmanagement/${slotId}`, updatedSlot, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
     return response.data;
   } catch (error:any) {
     console.error("Error occurred while updating slot:", error);
