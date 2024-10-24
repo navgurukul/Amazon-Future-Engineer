@@ -388,7 +388,6 @@ export const updateSlotDetails = async (id: number) => {
 };
 
 // Get slot by slotId
-
 export const getAdminSlotDetails = async (slotId: number) => {
   try {
     const token = getAdminToken()  ||  getToken() ;
@@ -413,16 +412,12 @@ export const getAdminSlotDetails = async (slotId: number) => {
 
 // api to update status
 
-export const updateBookingStatus = async (booking_id: number, status: string) => {
+export const updateBookingStatus = async (bookingId: number, status: string,cancel_reason:string,reschedule_reason:string) => {
   try {
-    console.log(
-      "Calling API with booking_id:",
-      booking_id,
-      "and status:",
-      status
-    );
-    const response = await api.put(`/bookings/${booking_id}/status`, {
-      status: status
+    const response = await api.put(`/bookings/${bookingId}/status`, {
+      status: status,
+      cancel_reason:cancel_reason,
+      reschedule_reason:reschedule_reason
     }, {
       headers: {
         'Content-Type': 'application/json'
@@ -454,6 +449,32 @@ export const rescheduleBooking = async (booking_id: number) => {
   }
 };
 
+
+// api to update booking query on all users for not intersted and reschadule
+
+export const quesryBookingStatus = async (program_id: number,venue_id:number, status: string) => {
+  const token = getAdminToken()  ||  getToken() ;
+  if (!token) {
+    throw new Error('No token found');
+  }
+  try {
+    const response = await api.post(`/queries/call-booking-query`, {
+      program_id: program_id,
+      venue_id:venue_id,
+      status:status
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+
+      }
+    });
+    return response.data;
+  } catch (error: any) {
+    console.error('Error updating booking status:', error);
+    throw error;
+  }
+};
 
 
 
@@ -531,6 +552,102 @@ export const updateBookingStatusAllUsers = async (
     throw new Error(
       error.response?.data?.message || "Error updating booking status"
     );
+  }
+};
+
+
+
+// Function to fetch all users and bookings
+export const getAllUsersAndBookings = async (program: string, page: number = 1, limit: number = 10) => {
+  const token = getAdminToken();
+
+  if (!token) {
+    throw new Error('No token found');
+  }
+
+  try {
+    const params: any = {
+      page,
+      limit,
+    };
+
+    // Only include 'program' if it's not empty
+    if (program) {
+      params.program = program;
+    }
+
+    const response = await api.get(`/bookings/admin/getAllUsersAndBookings`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params, // Pass the params object directly
+    });
+
+    return response.data;
+  } catch (error: any) {
+    return error
+    // throw error;
+  }
+};
+
+
+
+// Function to reschedule a booking
+export const rescheduleBookingUpdate = async (bookingId: number, rescheduleData: {
+  user_id: number;
+  name: string;
+  slot_id: number;
+  booking_batch_size: number;
+  students_grade: string;
+  visiting_time: string;
+  status: string;
+  query_id: number;
+  school_name: string;
+  udise: string;
+  email: string;
+  address: string;
+  village: string;
+  state: string;
+  district: string;
+  pin_code: any;
+}) => {
+  const token = getAdminToken() || getToken();
+
+  if (!token) {
+    throw new Error('No token found');
+  }
+
+  try {
+    const response = await api.put(`/bookings/${bookingId}`, rescheduleData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+
+
+// Function to fetch slot details bySlot  ID
+export const getSlotDetailsSlotId = async (slotId: number) => {
+  const token = getAdminToken() || getToken();
+
+  if (!token) {
+    throw new Error('No token found');
+  }
+
+  try {
+    const response = await api.get(`/slotmanagement/slot/${slotId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw error;
   }
 };
 

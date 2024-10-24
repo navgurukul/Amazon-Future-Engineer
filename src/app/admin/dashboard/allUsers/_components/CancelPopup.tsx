@@ -11,13 +11,12 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import React from "react";
-import { updateBookingStatus} from '@/utils/api';
-
+import { updateBookingStatus } from '@/utils/api';
 
 interface CancelPopupProps {
   isOpen: boolean;
   onClose: () => void;
-  name:string,
+  name: string;
   bookingSingle: {
     id: number;
     status: string;
@@ -28,23 +27,28 @@ interface CancelPopupProps {
   };
 }
 
+const CancelPopup: React.FC<CancelPopupProps> = ({ isOpen, onClose, name, bookingSingle }) => {
+  const [isSecondOpen, setIsSecondOpen] = useState<boolean>(false);
+  const [reason, setReason] = useState<string>(""); // State to hold the reason
+  const [isReasonProvided, setIsReasonProvided] = useState<boolean>(false); // State to check if reason is provided
 
-const CancelPopup: React.FC<CancelPopupProps> = ({ isOpen, onClose ,name,bookingSingle}) => {
-  // const [isFirstOpen, setIsFirstOpen] = useState(false); // State for the first dialog
-  const [isSecondOpen, setIsSecondOpen] = useState<boolean>(false); // State for the second dialog
-
-  // const openFirstDialog = () => setIsFirstOpen(true);
-  // const closeFirstDialog = () => setIsFirstOpen(false);
-  console.log(bookingSingle,"bookings")
+  // Enable the button only if the reason is not empty
+  const handleReasonChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const reasonText = e.target.value;
+    setReason(reasonText);
+    setIsReasonProvided(reasonText.trim().length > 0); // Update the state to check if reason is provided
+  };
 
   const openSecondDialog = () => {
     onClose();
     setIsSecondOpen(true);
-    handleSubmitAndCompleteSprint ()
+    handleSubmitAndCompleteSprint();
   };
+
   const handleSubmitAndCompleteSprint = async () => {
     try {
-      await updateBookingStatus(bookingSingle.id, "Cancelled");
+      const reason1 = await updateBookingStatus(bookingSingle.id, "Cancelled", reason); 
+      console.log(reason1)
     } catch (error) {
       console.error('Error updating booking status:', error);
     }
@@ -54,23 +58,23 @@ const CancelPopup: React.FC<CancelPopupProps> = ({ isOpen, onClose ,name,booking
 
   return (
     <>
-
-
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="text-2xl font-extrabold text-text-primary">
-              {name==="cancel"?"Cancel Sprint":"Not Interested"}
+              {name === "cancel" ? "Cancel Sprint" : "Not Interested"}
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-6">
             <div className="flex flex-col items-start justify-start gap-2">
               <div className="relative leading-[170%] font-medium">
-                Reason for {name==="cancel" ? "Cancellation" :"Marking as Not Interested"}
+                Reason for {name === "cancel" ? "Cancellation" : "Marking as Not Interested"}
               </div>
               <Textarea
                 className="w-full rounded-lg border-text-primary1 border-[1px] border-solid py-2 px-4 text-lg font-medium min-h-[100px]"
                 placeholder="Enter your reason here..."
+                value={reason}
+                onChange={handleReasonChange} // Track the reason input
               />
             </div>
             <div className="flex flex-row items-start justify-end gap-4">
@@ -81,8 +85,12 @@ const CancelPopup: React.FC<CancelPopupProps> = ({ isOpen, onClose ,name,booking
               >
                 Dismiss
               </Button>
-              <Button variant="proceed" onClick={openSecondDialog}>
-                Cancel Sprint
+              <Button
+                variant="proceed"
+                onClick={openSecondDialog}
+                disabled={!isReasonProvided} // Disable button if no reason is provided
+              >
+                {name === "cancel" ? "Cancel Sprint" : "Submit"}
               </Button>
             </div>
           </div>
