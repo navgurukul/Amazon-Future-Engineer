@@ -190,7 +190,7 @@ const Booking = () => {
                 </div>
               </div> */}
 
-              <div className="flex flex-col gap-4 text-center">
+              <div className="hidden flex-col gap-4 text-center">
                 <div
                   className="w-full h-14 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer"
                   onClick={handleRoute}
@@ -220,7 +220,7 @@ const Booking = () => {
   }`}
 >
             <div
-              className="flex flex-col gap-4 text-center"
+              className="flex-col gap-4 text-center"
               onClick={handleRoute}
             >
               <div className="w-full h-12 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer">

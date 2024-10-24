@@ -66,7 +66,7 @@ const PhoneNumberVerification: React.FC = () => {
       ) : (
         <div className="mt-8 ml-4 md:mt-0 md:ml-0">
           <div className="flex flex-col w-[20rem] md:w-[24rem] mx-auto gap-6">
-            <div className="flex justify-center items-center h-full text-5xl leading-[150%] font-extrabold font-heading4-bold text-midnight-blue-main text-center">
+            <div className="hidden md:flex justify-center items-center h-full text-5xl leading-[150%] font-extrabold font-heading4-bold text-midnight-blue-main text-center">
               Login to
             </div>
             <div>
@@ -91,9 +91,9 @@ const PhoneNumberVerification: React.FC = () => {
               </div>
             </div>
             <div className="flex flex-col items-start gap-6 self-stretch w-full">
-              {/* <div className="relative text-5xl leading-[150%] font-extrabold font-heading4-bold text-midnight-blue-main text-left">
+              <div className="md:hidden flex relative text-5xl leading-[150%] font-extrabold font-heading4-bold text-midnight-blue-main text-left">
                 Login to AFE Makerspace
-              </div> */}
+              </div>
 
               <div className="w-full flex flex-col gap-1">
                 <label
