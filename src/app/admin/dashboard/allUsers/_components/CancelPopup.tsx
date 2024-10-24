@@ -47,8 +47,8 @@ const CancelPopup: React.FC<CancelPopupProps> = ({ isOpen, onClose, name, bookin
 
   const handleSubmitAndCompleteSprint = async () => {
     try {
-      const reason1 = await updateBookingStatus(bookingSingle.id, "Cancelled", reason); 
-      console.log(reason1)
+      const reason1 = await updateBookingStatus(bookingSingle.id, "Cancelled", reason,"Cancelled"); 
+      window.location.reload()
     } catch (error) {
       console.error('Error updating booking status:', error);
     }

@@ -85,7 +85,7 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
         students_grade: bookings.grade,
         visiting_time: "2024-11-30T13:30:00.000Z",
         status: "BookingConfirmed",
-        query_id: 1,
+        // query_id: 1,
         school_name: String(bookings.schoolName) ,
         udise: bookings.udiseCode,
         email: bookings.email,
@@ -102,6 +102,7 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
         "BookingConfirmed",
         reason
       );
+      onClose()
     } catch (err) {
       console.log(err);
     }
