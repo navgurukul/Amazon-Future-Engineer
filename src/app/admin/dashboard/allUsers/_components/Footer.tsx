@@ -65,14 +65,23 @@ export default function Footer({handleCalendar, programName, bookingId, onSubmit
     isConfirm:false
   })
 
-  const [disableFields,setDisableFields] = useState<DisableState>({
-    isCanceldisableFields:false,
-    isRescheduledisableFields:false,
-    isNotInteresteddisableFields:false,
-    isUpdatedisableFields:false,
-    isConfirmdisableFields:false,
-  })
-  console.log(bookings,"bookings")
+  // const [disableFields,setDisableFields] = useState<DisableState>({
+  //   isCanceldisableFields:false,
+  //   isRescheduledisableFields:false,
+  //   isNotInteresteddisableFields:false,
+  //   isUpdatedisableFields:false,
+  //   isConfirmdisableFields:false,
+  // })
+
+
+
+    // Logic for disabling/enabling buttons based on status
+    const disableAllButtons = status === "Completed" || status === "Cancelled" || status === "NotInterested";
+    const enableAllButtons = status === "RequestedReschedule" || status === "BookingConfirmed" ;
+    const disableRescheduleOnly = !disableAllButtons && !enableAllButtons;
+
+
+
 // Function to handle popup toggle based on id
 const handlePopup = (id: string) => {
   console.log("id",id)
@@ -202,15 +211,16 @@ const handlePopup = (id: string) => {
                 <Button
                   className="h-14 px-8 border rounded-full text-[#3A3A3A] border-[#3A3A3A] bg-white hover:text-white"
                   aria-label="Cancel Sprint"
-                  disabled={loading}
+                  disabled={disableAllButtons || loading}
                   onClick={() => handlePopup("isCancel")}
+                  
                 >
                   Cancel Sprint
                 </Button>
                 <Button
                   className="h-14 px-8 border rounded-full text-[#3A3A3A] border-[#3A3A3A] bg-white hover:text-white"
                   aria-label="Mark as Not Interested"
-                  disabled={loading}
+                  disabled={disableAllButtons || loading}
                   onClick={() => handlePopup("isNotInterested")}
                 >
                   Mark as Not Interested
@@ -222,7 +232,7 @@ const handlePopup = (id: string) => {
               <Button
                 className="h-14 px-8 border rounded-full text-[#3A3A3A] border-[#3A3A3A] bg-white hover:text-white"
                 aria-label="Mark as Not Interested"
-                disabled={loading}
+                disabled={disableAllButtons || loading}
                 onClick={() => handlePopup("isNotInterested")}
               >
                 Mark as Not Interested
@@ -236,16 +246,16 @@ const handlePopup = (id: string) => {
                   variant="proceed"
                   className="h-14 px-8 bg-[#29458C] text-white rounded-full hover:bg-[#0A2A52]"
                   aria-label="Update Sprint Details"
-                  disabled={loading}
+                  disabled={disableAllButtons || loading}
                   onClick={() => handlePopup("isUpdate")}
                 >
                   Update Sprint Details
                 </Button>
                 <Button
                   variant="proceed"
-                  className="h-14 px-8 bg-gray-400 text-white rounded-full hover:bg-gray-500"
+                  className="h-14 px-8 bg- text-white rounded-full bg-[#f091b2] hover:bg-[#c06e8d]"
                   aria-label="Reschedule Sprint"
-                  disabled={loading}
+                  disabled={disableRescheduleOnly || disableAllButtons || loading}
                   onClick={() => handlePopup("isReschedule")}
                   
                 >
@@ -255,7 +265,7 @@ const handlePopup = (id: string) => {
                   variant="proceed"
                   className="h-14 px-8 bg-[#F55C38] text-white rounded-full"
                   aria-label="Confirm Booking"
-                  disabled={loading}
+                  disabled={disableAllButtons || loading}
                   onClick={() => handlePopup("isConfirm")}
                 >
                   Confirm Booking
@@ -269,7 +279,7 @@ const handlePopup = (id: string) => {
                   variant="proceed"
                   className="h-14 px-8 bg-blue-800 text-white rounded-full hover:bg-blue-900"
                   aria-label="Update Sprint Details"
-                  disabled={loading}
+                  disabled={disableRescheduleOnly || loading}
                   onClick={() => handlePopup("isConfirm")}
                 >
                   Update Sprint Details
