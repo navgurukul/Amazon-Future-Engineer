@@ -1,6 +1,8 @@
 import EditDatePopup from "./EditDatePopup";
 import EditTimeSlotsPopup from "./EditTimeSlotsPopup";
 import { useAllBookings } from "./allBookings";
+// import { updateSlotTime } from "@/utils/api";
+import {updateSlot} from "@/utils/api";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
@@ -17,7 +19,7 @@ interface EventSlot {
     date: string;
     available_capacity: number;
     status: string;
-    booking_id: number;
+    booking_id: number | undefined;
 }
 
 const TimeSlotCalendar: React.FC = () => {
@@ -28,7 +30,6 @@ const TimeSlotCalendar: React.FC = () => {
     const [showTimeSlotsPopup, setShowTimeSlotsPopup] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [popupPosition, setPopupPosition] = useState<{ top: number; left: number } | null>(null);
-    // const [timeSlotsPopupPosition, setTimeSlotsPopupPosition] = useState<{ top: number; left: number } | null>(null);
     const [selectedDayName, setSelectedDayName] = useState<string>("");
     const [selectedSlots, setSelectedSlots] = useState<EventSlot[]>([]);
 
@@ -82,7 +83,6 @@ const TimeSlotCalendar: React.FC = () => {
         }
 
         const { top, left } = el.getBoundingClientRect();
-        // setPopupPosition({ top: top - 10, left: left + (el.offsetWidth / 2) - 50 });
         setPopupPosition({ top: top - 50, left: left + (el.offsetWidth / 2) - 50 });
 
         setSelectedDate(date);
@@ -110,7 +110,6 @@ const TimeSlotCalendar: React.FC = () => {
 
         setSelectedSlots(slotsForDate);
 
-        // setTimeSlotsPopupPosition({ top: 100, left: 515 });
         setShowPopup(true);
     };
 
@@ -121,7 +120,6 @@ const TimeSlotCalendar: React.FC = () => {
 
     const handleEditAllDays = () => {
         setShowPopup(false);
-        // Implement logic for editing all days of the same name
     };
 
     const handleClosePopup = () => {
@@ -129,46 +127,98 @@ const TimeSlotCalendar: React.FC = () => {
         setShowTimeSlotsPopup(false);
     };
 
-    // const handleUpdateSlots = async (updatedSlots: EventSlot[]) => {
-    //     console.log("Updated slots:", updatedSlots);
-    // await fetchApiData();
-    // setShowTimeSlotsPopup(false);
-    // };
-
-    const handleUpdateSlots = async (updatedSlots: EventSlot[]) => {
+    const fetchApiData = async (slotId: number) => {
       try {
+        const response = await fetch(
+          `https://dev-afe.samyarth.org/api/v1/slotmanagement/${slotId}`,
+          {
+            method: "GET", // You can change this to POST, PUT, etc., depending on the API
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const data = await response.json();
+        console.log("Fetched data for slotId:", slotId, data);
+        return data;
+      } catch (error) {
+        console.error("Error fetching data for slotId:", slotId, error);
+      }
+    }
+
+    // const handleUpdateSlots = async (updatedSlots: EventSlot[]) => {
+    const handleUpdateSlots = async (
+      updatedSlots: EventSlot[]
+    ): Promise<void> => {
+      console.log("handleUpdateSlots called with:", updatedSlots);
+      try {
+        console.log("Starting to update slots:", updatedSlots);
+
+        // Ensure all slots are processed in parallel
         await Promise.all(
-          updatedSlots.map((slot) =>
-            updateSlotTime(slot.id, {
-              program_id: slot.program_id,
-              venue_id: slot.venue_id,
-              date: slot.date,
-              start_time: slot.start,
-              end_time: slot.end,
-              available_capacity: slot.available_capacity,
+          updatedSlots.map(async (slot) => {
+            if (!slot.id) {
+              console.warn("Slot ID is missing for a slot:", slot);
+              return;
+            }
+
+            console.log("Updating slot:", slot);
+
+            // Update the slot timing with relevant details
+            await updateSlot(slot.id, {
+              program_id: slot.program_id || 0,
+              venue_id: slot.venue_id || 0,
+              date: slot.date || "",
+              start_time: slot.start || "",
+              end_time: slot.end || "",
+              available_capacity: slot.available_capacity || 12,
               status: slot.status,
-            })
-        )
-    );
-    console.log("Updated slots:", updatedSlots);
-        // Re-fetch events to get the updated slots
-        await fetchApiData();
+            });
+
+            console.log(
+              "Slot updated successfully, fetching data for slot:",
+              slot.id
+            );
+
+            // // Fetch updated data for the slot
+            // if (typeof fetchApiData === "function") {
+            //   const data = await fetchApiData(slot.id);
+            //   console.log("Fetched data for updated slot:", data);
+            // } else {
+            //   console.warn("fetchApiData function is not available");
+            // }
+            const data = await fetchApiData(slot.id);
+            console.log("Fetched data for updated slot:", data);
+          })
+        );
+
+        console.log("Successfully updated all slots.");
+
+        const calendarApi = calendarRef.current?.getApi?.();
+        if (calendarApi) {
+          calendarApi.refetchEvents();
+        } else {
+          console.warn("calendarRef is not available or getApi is undefined");
+        }
+          setSelectedSlots(updatedSlots);
+
         setShowTimeSlotsPopup(false);
       } catch (error) {
         console.error("Error updating slots:", error);
       }
     };
 
+
+
     const isBeforeToday = (date: Date) => {
       const today = new Date();
-      today.setHours(0, 0, 0, 0); // Ignore time part
+      today.setHours(0, 0, 0, 0);
       return date < today;
     };
 
     const handleDayCellClassNames = (arg: any) => {
       const date = arg.date;
 
-      // Disable previous dates and Sundays
       if (isBeforeToday(date) || date.getDay() === 0) {
         return ["disabled-date"];
       }
@@ -179,7 +229,6 @@ const TimeSlotCalendar: React.FC = () => {
     const handleDayCellDidMount = (arg: any) => {
       const date = arg.date;
 
-      // Style previous dates and Sundays
       if (isBeforeToday(date) || date.getDay() === 0) {
         arg.el.style.backgroundColor = "#f5f5f5";
       }
@@ -240,7 +289,6 @@ const TimeSlotCalendar: React.FC = () => {
                         return null;
                     }}
                 />
-                  {/* Render the overlay and popups if either popup is visible */}
         {(showPopup || showTimeSlotsPopup) && (
             <>
                 <div className="overlay" />
@@ -259,18 +307,11 @@ const TimeSlotCalendar: React.FC = () => {
                     />
                 )}
 
-                {/* {showTimeSlotsPopup && timeSlotsPopupPosition && ( */}
                 {showTimeSlotsPopup && (
                     <EditTimeSlotsPopup
                         selectedDate={selectedDate?.toDateString() || ""}
                         onClose={handleClosePopup}
                         slots={selectedSlots}
-                        // style={{
-                        //     position: 'absolute',
-                        //     top: `${timeSlotsPopupPosition.top}px`,
-                        //     left: `${timeSlotsPopupPosition.left}px`,
-                        //     zIndex: 1000
-                        // }}
                         style={{
             position: 'fixed',
             top: '50%',
