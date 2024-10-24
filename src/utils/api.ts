@@ -412,11 +412,12 @@ export const getAdminSlotDetails = async (slotId: number) => {
 
 // api to update status
 
-export const updateBookingStatus = async (bookingId: number, status: string,cancel_reason:string) => {
+export const updateBookingStatus = async (bookingId: number, status: string,cancel_reason:string,reschedule_reason:string) => {
   try {
     const response = await api.put(`/bookings/${bookingId}/status`, {
       status: status,
-      cancel_reason:cancel_reason
+      cancel_reason:cancel_reason,
+      reschedule_reason:reschedule_reason
     }, {
       headers: {
         'Content-Type': 'application/json'
@@ -584,5 +585,66 @@ export const getAllUsersAndBookings = async (program: string, page: number = 1, 
   } catch (error: any) {
     return error
     // throw error;
+  }
+};
+
+
+
+// Function to reschedule a booking
+export const rescheduleBookingUpdate = async (bookingId: number, rescheduleData: {
+  user_id: number;
+  name: string;
+  slot_id: number;
+  booking_batch_size: number;
+  students_grade: string;
+  visiting_time: string;
+  status: string;
+  query_id: number;
+  school_name: string;
+  udise: string;
+  email: string;
+  address: string;
+  village: string;
+  state: string;
+  district: string;
+  pin_code: any;
+}) => {
+  const token = getAdminToken() || getToken();
+
+  if (!token) {
+    throw new Error('No token found');
+  }
+
+  try {
+    const response = await api.put(`/bookings/${bookingId}`, rescheduleData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+
+
+// Function to fetch slot details bySlot  ID
+export const getSlotDetailsSlotId = async (slotId: number) => {
+  const token = getAdminToken() || getToken();
+
+  if (!token) {
+    throw new Error('No token found');
+  }
+
+  try {
+    const response = await api.get(`/slotmanagement/slot/${slotId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw error;
   }
 };

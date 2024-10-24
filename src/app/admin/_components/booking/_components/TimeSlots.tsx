@@ -11,7 +11,7 @@ interface TimeSlotsProps {
   handleBookingPopUp: any;
   handleCalendar :()=>void;
   bookingDetails: BookingDetails;
-  calendarData: (data: { slot_id: any; booking_for: any; start_time: any; end_time: any }) => void; 
+  calendarData: number; 
 }
 
 interface Slot {
@@ -151,14 +151,14 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
         booking_batch_size:Number(bookingDetails.numberOfStudents),
       };
 
-      const response = await bookSlot(bookingData);
-      const dataToSend = {
-        slot_id:response.data.slot_id,
-        booking_for:response.data.booking_for,
-        start_time: response.data.start_time, 
-        end_time: response.data.end_time,   
-      };
-      calendarData(dataToSend);
+      // const response = await bookSlot(bookingData);
+      // const dataToSend = {
+      //   slot_id:response.data.slot_id,
+      //   booking_for:response.data.booking_for,
+      //   start_time: response.data.start_time, 
+      //   end_time: response.data.end_time,   
+      // };
+      calendarData( Number(selectedSlot.event.id));
       setBookingStatus("Booking successful!");
       handleBookingPopUp({
         name: bookingDetails.name,

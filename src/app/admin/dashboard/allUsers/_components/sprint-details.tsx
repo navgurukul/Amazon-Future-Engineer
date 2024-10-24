@@ -74,17 +74,16 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   const [popupValue, setPopupValue] = useState(true);
   const [bookingSingle, setBookings] = useState<Booking | any>(null);
   const [isCalendar,setIsCalendar] = useState<boolean>();
-  const [calendarDataUser,setCalendarDataUser] = useState({
-    slot_id: 0,
-    booking_for: "",
-    start_time: "",
-    end_time: ""
-  })
+  const [calendarDataUser,setCalendarDataUser] = useState(0)
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return format(date, "dd MMM yyyy");
   };
 
+    // Logic for disabling/enabling buttons based on status
+    const status = bookingProp.status
+    // const disableAllButtons = status === "BookingRequested"  || status === "CallRequested"  || status === "ProfileCreated" || status === "BookingConfirmed" || status === "RequestedReschedule"  ;
+    const disableAllButtons = status === "Completed" || status === "Cancelled" || status === "NotInterested";
 
 
   useEffect(() => {
@@ -117,16 +116,16 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
         setBookings(foundBooking)
         if (foundBooking) {
           setBookingDetails({
-            name: foundBooking.user.name || "N/A",
+            name: foundBooking.user.name || "-",
             email: foundBooking.user.email,
             phoneNumber: foundBooking.user.phone,
             dateofRequest: formatDate(foundBooking.created_at),
-            programName: "",
-            schoolName: foundBooking.user.school_id || "N/A",
-            udiseCode: "",
+            programName: "-",
+            schoolName: foundBooking.user.school_id || "-",
+            udiseCode: "-",
             city: foundBooking.slot.venue.city,
             pincode: foundBooking.slot.venue.pin_code,
-            grade: "Grade 6",
+            grade: "-",
             numberOfStudents:foundBooking.booking_batch_size,
             slot: `${formatDate(foundBooking.booking_for)} | ${
               foundBooking.start_time
@@ -168,26 +167,10 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   const closeCalendar = (): void => {
     setIsCalendar(false);
   };
-  const calendarData = (data: { slot_id: any; booking_for: any; start_time: any; end_time: any; }) => {
-    setCalendarDataUser({
-      slot_id: data.slot_id,
-      booking_for: data.booking_for,
-      start_time: data.start_time,
-      end_time: data.end_time,
-    });
-    setBookingDetails((prevDetails:any) => {
-      if (prevDetails) {
-        return {
-          ...prevDetails,  // Keep other details unchanged
-          slot:
-          `${formatDate(data.booking_for)} | ${
-            data.start_time
-            } to ${data.end_time}`,
-        };
-      }
-      return prevDetails; // Return as is if bookingDetails is null
-    });
-  
+
+
+  const calendarData = (slot_id:number) => {
+    setCalendarDataUser(slot_id);
   };
   return (
     <>
@@ -289,7 +272,9 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                           onChange={(e) =>
                             handleInputChange("slot", e.target.value)
                           }
-                          className="w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1"
+                          disabled={disableAllButtons}
+
+                          className={`w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1 ${disableAllButtons ? "bg-grey-300" : ""}`}
                         />
                       </div>
                     )}
@@ -307,6 +292,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
             bookingSingle={bookingSingle}
             handleCalendar={handleCalendar}
             status = {bookingProp.status}
+            slotId = {calendarDataUser}
           />
         </div>
       </div>

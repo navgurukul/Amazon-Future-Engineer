@@ -7,24 +7,65 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { updateBookingStatus, rescheduleBookingUpdate, getSlotDetailsSlotId } from "@/utils/api";
 import Image from "next/image";
-import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 interface CancelPopupProps {
   isOpen: boolean;
   onClose: () => void;
   handleCalendar: () => void;
+  slotId: number;
+  bookingId: number;
+  bookings: BookingDetails;
+}
+
+interface BookingDetails {
+  name: string;
+  email: string | null;
+  phoneNumber: string;
+  dateofRequest: string;
+  programName: string;
+  schoolName: string | number; // Adjust based on your data
+  udiseCode: string;
+  city: string;
+  pincode: string;
+  grade: string;
+  numberOfStudents: number;
+  slot: string;
 }
 
 const ReschedulePopup: React.FC<CancelPopupProps> = ({
   isOpen,
   onClose,
-  handleCalendar
+  handleCalendar,
+  slotId,
+  bookingId,
+  bookings,
 }) => {
   const [reason, setReason] = useState("");
+  const [data,setData] = useState();
   const [showError, setShowError] = useState(false);
   const router = useRouter();
+
+
+  useEffect(()=>{
+    if (slotId>0){
+
+    const fetchSlot = async (slotId: number) => {
+      try {
+        const slotData = await getSlotDetailsSlotId(slotId);
+        console.log("Tamanna",slotData.data)
+        setData(slotData.data)
+      } catch (error) {
+        console.error('Failed to fetch slot details:', error);
+      }
+    };
+    fetchSlot(slotId);
+  }
+    
+  },[slotId])
 
   const handleCalendarClick = () => {
     if (reason.trim()) {
@@ -32,6 +73,39 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
       setShowError(false);
     } else {
       setShowError(true);
+    }
+  };
+
+  const hadnleReschedule = async () => {
+    try {
+      // Create the reschedule data based on `bookings` prop
+      const rescheduleData = {
+        user_id: 1,
+        name: bookings.name,
+        slot_id: slotId,
+        booking_batch_size: bookings.numberOfStudents,
+        students_grade: bookings.grade || "Grade 10",
+        visiting_time: "2024-11-30T13:30:00.000Z",
+        status: "BookingConfirmed",
+        query_id: 1,
+        school_name: bookings.schoolName,
+        udise: bookings.udiseCode,
+        email: bookings.email,
+        address: bookings.city,
+        village: bookings.city,
+        state: "Karnataka",
+        district: bookings.city,
+        pin_code: bookings.pincode ? parseInt(bookings.pincode) : null,
+      };
+      await rescheduleBookingUpdate(bookingId, rescheduleData);
+      await updateBookingStatus(
+        Number(bookingId),
+        "BookingConfirmed",
+        "BookingConfirmed",
+        reason
+      );
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -77,7 +151,9 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
               placeholder="Enter your reason here..."
             />
             {showError && (
-              <p className="text-red-500 text-sm">Please provide a reason before selecting a slot</p>
+              <p className="text-red-500 text-sm">
+                Please provide a reason before selecting a slot
+              </p>
             )}
           </div>
           <div className="flex flex-row items-start justify-end gap-4">
@@ -92,6 +168,7 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
               variant="proceed"
               className="bg-[#f091b2] hover:bg-[#c06e8d]"
               disabled={!reason.trim()}
+              onClick={hadnleReschedule}
             >
               Reschedule
             </Button>

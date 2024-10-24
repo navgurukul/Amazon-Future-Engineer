@@ -247,7 +247,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   /// Function to handle the "Yes" confirmation
   const handleConfirmYes = async () => {
     try {
-      await updateBookingStatus(Number(bookingProp.user.id), "Completed", "Completed");
+      await updateBookingStatus(Number(bookingProp.user.id), "Completed", "Completed","Completed");
       setIsConfirmationOpen(false);
       setIsSubmitPopupOpen(true);
       // Show success toast
