@@ -75,11 +75,11 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   const [bookingSingle, setBookings] = useState<Booking | any>(null);
   const [isCalendar,setIsCalendar] = useState<boolean>();
   const [calendarDataUser,setCalendarDataUser] = useState(0)
-  
+
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    if (bookingProp.status == "profileCreated") {
+    if (bookingProp.status == "profileCreated" || bookingProp.status == "CallRequested") {
       const options: Intl.DateTimeFormatOptions = {
         day: "numeric",
         month: "short",

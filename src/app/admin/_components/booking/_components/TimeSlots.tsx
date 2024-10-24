@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import ReschedulePopup from './ReschedulePopup';
 import { useToast } from "@/hooks/use-toast";
 
-
 interface TimeSlotsProps {
   selectedDate: Date | null;
   handleBookingPopUp: any;
@@ -136,6 +135,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
           booking_batch_size:Number(bookingDetails.numberOfStudents),
         };
 
+      // const response = await bookSlot(bookingData);
       calendarData( Number(selectedSlot.event.id));
 
       setBookingStatus("Booking successful!");
@@ -170,30 +170,38 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
         <div className="self-stretch flex flex-col items-start justify-start gap-4 text-center">
           <div className="self-stretch flex flex-col lg:flex-row items-start justify-start flex-wrap content-start gap-4">
             {slots.map((slot, index) => (
-              <button
-                key={index}
-                className={`w-full sm:flex-1 rounded-lg h-14 flex flex-row items-center justify-center py-2 px-8 ${
-                  slot.status === "Booked"
-                    ? "bg-grey-300 text-[#6d6d6d]"
-                    : selectedSlot?.time === slot.time
-                    ? "bg-[#fdded7] text-incandescent-main border-[1px] border-incandescent-main border-solid box-border"
-                    : slot.available
-                    ? "border-text-primary1 border-[1px] border-solid text-text-primary1 cursor-pointer"
-                    : "bg-red-100 border-[#fdded7] border-[1px] border-solid text-incandescent-main cursor-not-allowed"
-                }`}
-                onClick={() => slot.available && handleSlotSelection(slot)}
-                disabled={!slot.available}
-              >
-                <div className="relative leading-[170%] font-medium">
-                  {slot.time}
-                </div>
-              </button>
+              <div key={index} className="w-full sm:flex-1">
+                <button
+                  className={`w-full rounded-lg h-14 flex flex-row items-center justify-center py-2 px-8 ${
+                    slot.status === "Booked"
+                      ? "bg-grey-300 text-[#6d6d6d]"
+                      : selectedSlot?.time === slot.time
+                      ? "bg-[#fdded7] text-incandescent-main border-[1px] border-incandescent-main border-solid box-border"
+                      : slot.available
+                      ? "border-text-primary1 border-[1px] border-solid text-text-primary1 cursor-pointer"
+                      : "bg-red-100 border-[#fdded7] border-[1px] border-solid text-incandescent-main cursor-not-allowed"
+                  }`}
+                  onClick={() => slot.available && handleSlotSelection(slot)}
+                  disabled={!slot.available}
+                >
+                  <div className="relative leading-[170%] font-medium">
+                    {slot.time}
+                  </div>
+                </button>
+                {/* Conditionally show the capacity if this slot is selected */}
+                {selectedSlot?.time === slot.time && (
+                  <div className="mt-2 text-sm text-incandescent-main">
+                    Capacity: {slot.capacity} students
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>
       <Button variant="proceed" onClick={handleIsopen}>Reschedule</Button>
       {isOpen && <ReschedulePopup isOpen = {isOpen} onClose={closeCancelPopup}/>}
-      </div>    </div>
+      </div>    
+    </div>
   );
 };
 
