@@ -1,6 +1,7 @@
 import EditDatePopup from "./EditDatePopup";
 import EditTimeSlotsPopup from "./EditTimeSlotsPopup";
 import { useAllBookings } from "./allBookings";
+import { getSlots } from "@/utils/api";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
@@ -30,6 +31,7 @@ const TimeSlotCalendar: React.FC = () => {
     const [popupPosition, setPopupPosition] = useState<{ top: number; left: number } | null>(null);
     const [selectedDayName, setSelectedDayName] = useState<string>("");
     const [selectedSlots, setSelectedSlots] = useState<EventSlot[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const getMonthYear = (date: Date) => {
         const monthNames = [
@@ -160,8 +162,10 @@ const TimeSlotCalendar: React.FC = () => {
           console.warn("calendarRef is not available or getApi is undefined");
         }
           setSelectedSlots(updatedSlots);
-
         setShowTimeSlotsPopup(false);
+
+        localStorage.setItem("shouldManageSlots", "true");
+        window.location.reload();
       } catch (error) {
         console.error("Error updating slots:", error);
       }
