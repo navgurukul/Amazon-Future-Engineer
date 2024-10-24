@@ -13,6 +13,7 @@ import {
 } from "@/utils/api";
 import Image from "next/image";
 import React, { useState, useCallback, useEffect } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 interface BookingDetails {
   // bookingDetails(slot: string, arg1: number): unknown;
@@ -82,6 +83,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   bookingProp,
   bookingDetails,
 }) => {
+  const { toast } = useToast()
   // State Management
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [isTeacherFeedbackSubmitted, setIsTeacherFeedbackSubmitted] =
@@ -90,6 +92,9 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   const [isStudentPopupOpen, setIsStudentPopupOpen] = useState(false);
   const [isSubmitPopupOpen, setIsSubmitPopupOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [toastId, setToastId] = useState<string | null>(null);
+  
 
   // State for editable fields
   const [editedDetails, setEditedDetails] = useState({
@@ -101,6 +106,32 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     name: bookingDetails?.name,
   });
 
+
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+      // Function to handle the "Yes" confirmation
+      const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+
+  // Function to check if all fields are filled
+  const checkAllFieldsFilled = () => {
+    return (
+      editedDetails.pincode &&
+      editedDetails.actualNumberOfStudents &&
+      editedDetails.grade &&
+      editedDetails.schoolName &&
+      editedDetails.udiseCode &&
+      editedDetails.name
+    );
+  };
+
+  // Use effect to enable/disable button based on field completion
+  useEffect(() => {
+    const areAllFieldsFilled = checkAllFieldsFilled();
+    setIsButtonDisabled(!areAllFieldsFilled); // Disable if not all fields are filled
+  }, [editedDetails]);
+
+
+   
 
 
   // Fetch feedbacks
@@ -133,7 +164,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   };
 
   // Save changes to booking details
-  const handleSaveChanges = async () => {
+  const handleSaveChanges = async () => { 
     setIsSaving(true);
     try {
       const bookingData = {
@@ -153,7 +184,6 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         district: bookingDetails.city,
         pin_code: parseInt(bookingDetails.pincode, 10),
       };
-
       await updateBookingDetails(bookingProp.id, bookingData);
     } catch (error) {
       console.error("Error updating booking details:", error);
@@ -212,14 +242,83 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     [bookingDetails.slot, bookingProp.program_id, fetchFeedbacks]
   );
 
-  const handleSubmitAndCompleteSprint = async () => {
+
+
+  /// Function to handle the "Yes" confirmation
+  const handleConfirmYes = async () => {
     try {
-      await updateBookingStatus(Number(bookingProp.user.id), "Completed");
+      await updateBookingStatus(Number(bookingProp.user.id), "Completed", "Completed","Completed");
+      setIsConfirmationOpen(false);
       setIsSubmitPopupOpen(true);
+      // Show success toast
+      toast({
+        title: "Success",
+        description: "Sprint completed successfully",
+        variant: "success",
+        duration: 1000,
+      });
     } catch (error) {
       console.error("Error updating booking status:", error);
+      // Show error toast
+      toast({
+        title: "Error",
+        description: "Failed to complete sprint",
+        variant: "destructive",
+        duration: 1000,
+      });
     }
   };
+
+  const handleSubmitAndCompleteSprint = () => {
+    setIsConfirmationOpen(true);
+    toast({
+      title: "Complete Sprint",
+      description: (
+        <div className="space-y-2">
+          <p>Are you sure you want to complete the sprint?</p>
+          <div className="flex space-x-2">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleConfirmYes();
+              }}
+              className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-colors"
+            >
+              Yes
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsConfirmationOpen(false);
+                // Show cancelled toast
+                toast({
+                  title: "Not Completed",
+                  description: "Sprint not completed yet",
+                  duration: 3000,
+                });
+              }}
+              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors"
+            >
+              No
+            </button>
+          </div>
+        </div>
+      ),
+      duration: isConfirmationOpen ? Infinity : 0,
+    });
+  };
+
+  // Effect to clear the confirmation state when component unmounts
+  useEffect(() => {
+    return () => {
+      setIsConfirmationOpen(false);
+    };
+  }, []);
+
+
+
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -236,6 +335,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     const [datePart, timePart] = slot.split(" | ");
     return { date: datePart, time: timePart };
   };
+
 
   return (
     <>
@@ -314,7 +414,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
               <Button
                 variant="proceed"
                 onClick={handleSaveChanges}
-                disabled={isSaving}
+                disabled={isButtonDisabled}
               >
                 {isSaving ? "Saving..." : "Save Changes"}
               </Button>
@@ -413,7 +513,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
 
           {/* Submit Button */}
           <div className="flex justify-center items-center mt-[104px] py-6">
-            <Button variant="proceed" onClick={handleSubmitAndCompleteSprint}>
+            <Button variant="proceed" onClick={handleSubmitAndCompleteSprint} disabled={isButtonDisabled}>
               Submit and Complete Sprint
             </Button>
           </div>

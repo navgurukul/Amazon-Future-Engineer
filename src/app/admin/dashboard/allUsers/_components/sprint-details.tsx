@@ -33,6 +33,7 @@ interface Booking {
   };
   slot: {
     venue: {
+      pin_code: any;
       city: string;
     };
     program: {
@@ -73,17 +74,52 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   const [popupValue, setPopupValue] = useState(true);
   const [bookingSingle, setBookings] = useState<Booking | any>(null);
   const [isCalendar,setIsCalendar] = useState<boolean>();
-  const [calendarDataUser,setCalendarDataUser] = useState({
-    slot_id: 0,
-    booking_for: "",
-    start_time: "",
-    end_time: ""
-  })
+  const [calendarDataUser,setCalendarDataUser] = useState(0)
+  
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return format(date, "d MMM yyyy");
+    if (bookingProp.status == "profileCreated") {
+      const options: Intl.DateTimeFormatOptions = {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      };
+    
+      // Use 'en-GB' to avoid commas and format day-month-year naturally
+      const formattedDate = date.toLocaleDateString("en-GB", options);
+    
+      // Return the formatted date as "24 Oct 2024"
+      return formattedDate.replace(/,/g, ""); 
+    }
+    return format(date, "dd MMM yyyy");
   };
+
+    // Logic for disabling/enabling buttons based on status
+    const status = bookingProp.status
+    // const disableAllButtons = status === "BookingRequested"  || status === "CallRequested"  || status === "ProfileCreated" || status === "BookingConfirmed" || status === "RequestedReschedule"  ;
+    const disableAllButtons = status === "Completed" || status === "Cancelled" || status === "NotInterested";
+
+
   useEffect(() => {
+    if (bookingProp.status!=="BookingConfirmed"){
+      setBookingDetails({
+        name: bookingProp.user.name || "-",
+        email: bookingProp.user.email || "-",
+        phoneNumber: bookingProp.user.phone || "-",
+        dateofRequest: formatDate(bookingProp.created_at) || "-",
+        programName: "-",
+        schoolName: bookingProp.user.school_id || "-",
+        udiseCode: "-",
+        city: "Bengaluru",
+        pincode: "-",
+        grade: "-",
+        numberOfStudents:bookingProp.booking_batch_size || "-",
+        slot: `${formatDate(bookingProp.booking_for)} | ${
+          bookingProp.start_time
+        } to ${bookingProp.end_time}` || "-",
+      });
+    }
     const loadBookingDetails = async () => {
       if (bookingProp.id) {
         const bookings = await fetchBookings();
@@ -93,16 +129,16 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
         setBookings(foundBooking)
         if (foundBooking) {
           setBookingDetails({
-            name: foundBooking.user.name || "N/A",
+            name: foundBooking.user.name || "-",
             email: foundBooking.user.email,
             phoneNumber: foundBooking.user.phone,
             dateofRequest: formatDate(foundBooking.created_at),
-            programName: "",
-            schoolName: foundBooking.user.school_id || "N/A",
-            udiseCode: "",
+            programName: "-",
+            schoolName: foundBooking.user.school_id || "-",
+            udiseCode: "-",
             city: foundBooking.slot.venue.city,
             pincode: foundBooking.slot.venue.pin_code,
-            grade: "Grade 6",
+            grade: "-",
             numberOfStudents:foundBooking.booking_batch_size,
             slot: `${formatDate(foundBooking.booking_for)} | ${
               foundBooking.start_time
@@ -113,6 +149,9 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     };
     loadBookingDetails();
   }, [bookingProp.id]);
+
+
+
   if (!bookingDetails) {
     return <div className="text-center py-8">Loading...</div>;
   }
@@ -141,27 +180,12 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   const closeCalendar = (): void => {
     setIsCalendar(false);
   };
-  const calendarData = (data: { slot_id: any; booking_for: any; start_time: any; end_time: any; }) => {
-    setCalendarDataUser({
-      slot_id: data.slot_id,
-      booking_for: data.booking_for,
-      start_time: data.start_time,
-      end_time: data.end_time,
-    });
-    setBookingDetails((prevDetails:any) => {
-      if (prevDetails) {
-        return {
-          ...prevDetails,  // Keep other details unchanged
-          slot:
-          `${formatDate(data.booking_for)} | ${
-            data.start_time
-            } to ${data.end_time}`,
-        };
-      }
-      return prevDetails; // Return as is if bookingDetails is null
-    });
-  
+
+
+  const calendarData = (slot_id:number) => {
+    setCalendarDataUser(slot_id);
   };
+
   return (
     <>
     {isCalendar ? (
@@ -262,7 +286,9 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                           onChange={(e) =>
                             handleInputChange("slot", e.target.value)
                           }
-                          className="w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1"
+                          disabled={disableAllButtons}
+
+                          className={`w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1 ${disableAllButtons ? "bg-grey-300" : ""}`}
                         />
                       </div>
                     )}
@@ -273,13 +299,15 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
           )}
           {/* Pass programName to Footer */}
           <Footer
-            programName={bookingDetails.programName}
-            bookingId={bookingProp.id.toString()}
-            onSubmitClick={onSubmitClick}
-            bookings={bookingDetails}
-            bookingSingle={bookingSingle}
-            handleCalendar={handleCalendar}
-          />
+          programName={bookingDetails?.programName}
+          bookingId={bookingProp?.id?.toString()}
+          onSubmitClick={onSubmitClick}
+          bookings={bookingDetails}
+          bookingSingle={bookingSingle}
+          handleCalendar={handleCalendar}
+          status = {bookingProp?.status}
+          slotId = {calendarDataUser}
+        />
         </div>
       </div>
     )}
