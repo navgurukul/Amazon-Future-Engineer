@@ -23,64 +23,7 @@ import Image from "next/image";
 import React, { useMemo, useState, useEffect } from "react";
 
 const Dashboard: React.FC = () => {
-  // interface User {
-  //   map(arg0: (user: { bookings: any[]; id: any; name: any; phone: any; }) => { bookings: any[]; id: any; name: any; phone: any; }): any;
-  //   id: number;
-  //   name: string;
-  //   email: string;
-  //   phone: string;
-  //   bookings: Booking[];
-  //   query: Query[];
-  //   user: UserData[];
-  // }
-
-  // interface Query {
-  //   id: number;
-  //   user_id: number;
-  //   program_id: number;
-  //   venue_id: number;
-  //   status: string;
-  //   query_type: string;
-  //   created_at: string;
-  // }
-
-  // interface UserData {
-  //   user: never[];
-  //   query: never[];
-  //   bookings: never[];
-  //   id: number;
-  //   name: string;
-  //   email: string;
-  //   phone: string;
-  //   school_id: number;
-  //   profile_url: string | null;
-  //   status: string;
-  //   profile_complete: boolean;
-  //   phone_verified: boolean;
-  //   email_verified: boolean;
-  //   whatsapp_consent: boolean;
-  //   name_in_kannada: string | null;
-  //   created_at: string;
-  //   updated_at: string;
-  // }
-
-  // interface Booking {
-  //   id: number;
-  //   booking_batch_size: number;
-  //   booking_for: string;
-  //   status: string;
-  //   start_time: string;
-  //   end_time: string;
-  //   created_at: string;
-  //   program: {
-  //     id: number;
-  //     title: string;
-  //   };
-  //   venue: {
-  //     city: string;
-  //   };
-  // }
-
+  
   interface User {
     id: number;
     name: string | null;
@@ -137,7 +80,6 @@ const Dashboard: React.FC = () => {
   }
 
   interface FilteredBooking {
-    venue: any;
     program: any;
     venue: any;
     id: number;
@@ -160,7 +102,6 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const fetchAllBookings = async () => {
       setIsLoading(true);
-      console.log(sprintProgram, currentPage, itemsPerPage);
       try {
         const result = await getAllUsersAndBookings(
           sprintProgram,
@@ -168,8 +109,13 @@ const Dashboard: React.FC = () => {
           itemsPerPage
         );
         setUsers(result.data || []);
-      } catch (error) {
+      } catch (error:any) {
         console.error("Failed to fetch bookings", error);
+        if (error.response.data.status === "error"
+          ){
+            setIsLoading(false);
+          return error.response.data.message
+        }
         setIsLoading(false);
       }
     };
@@ -179,11 +125,9 @@ const Dashboard: React.FC = () => {
   const allBookings = useMemo(() => {
     // If users array is empty, keep loading true
     if (users.length === 0) {
-      console.log("No users available, loading is true.");
-      setIsLoading(true);
+      setIsLoading(false);
       return [];
     }
-    // console.log("Current users state:", users); // Log full users array
     // If users array has data, set loading to false
     setIsLoading(false);
 
@@ -209,7 +153,7 @@ const Dashboard: React.FC = () => {
               },
               id: entry.user.id,
               user_id: entry.user.id,
-              program_id: entry.user.program_id,
+              program_id: entry.query.program_id,
               venue_id: entry.user.venue_id,
               booking_batch_size: 0, // Set to 0 or an appropriate value
               visited_batch_size: null,
@@ -229,6 +173,7 @@ const Dashboard: React.FC = () => {
             };
           } else {
             // Condition 3: Only users exist
+  
             return {
               user: {
                 name: entry.name || "N/A",
@@ -236,7 +181,7 @@ const Dashboard: React.FC = () => {
               },
               id: 0, // Set to 0 or an appropriate value
               user_id: entry.id,
-              program_id: 0, // Set to an appropriate value
+              program_id: 0,// Set to an appropriate value
               venue_id: 0, // Set to an appropriate value
               booking_batch_size: 0,
               visited_batch_size: null,
@@ -262,12 +207,10 @@ const Dashboard: React.FC = () => {
       return users.flatMap((user) => {
         // Check if the user object contains `bookings`, otherwise skip it
         if (!user?.bookings) {
-          console.log("Skipping user, no bookings available:", user);
           return []; // Skip this user, return an empty array
         }
         // Process the user's bookings
         return user?.bookings.map((booking) => {
-          console.log("Processing booking:", booking); // Log each booking
 
           const processedBooking = {
             ...booking,
@@ -276,8 +219,6 @@ const Dashboard: React.FC = () => {
               phone: user.phone || "N/A",
             },
           };
-          // Log the booking with attached user info
-          console.log("Processed booking with user info:", processedBooking);
 
           return processedBooking;
         });
@@ -294,15 +235,18 @@ const Dashboard: React.FC = () => {
   // Filter the bookings
   const filteredBookings = singleObjectBookings.filter((booking) => {
     const normalizedSearchQuery = searchQuery.toLowerCase();
+    if (normalizedSearchQuery==="nano" || normalizedSearchQuery==="mini" || normalizedSearchQuery==="mega"){
+      console.log("Tamanna",normalizedSearchQuery)
+    }
     const matchesSearch =
       (booking.user.name &&
         booking.user.name.toLowerCase().includes(normalizedSearchQuery)) ||
       booking.user.phone.includes(searchQuery) ||
       (booking.venue &&
         booking.venue.city.toLowerCase().includes(normalizedSearchQuery)) ||
-      (booking.program &&
-        booking.program.title.toLowerCase().includes(normalizedSearchQuery)) ||
-      `${booking.booking.booking_for} | ${booking.booking.start_time} to ${booking.booking.end_time}`
+      (booking?.program &&
+        booking?.program?.title.toLowerCase().includes(normalizedSearchQuery)) ||
+      `${booking?.booking?.booking_for || booking?.booking_for} | ${booking?.booking?.start_time || booking?.start_time  } to ${booking?.booking?.end_time || booking?.end_time}`
         .toLowerCase()
         .includes(normalizedSearchQuery);
 
@@ -320,7 +264,6 @@ const Dashboard: React.FC = () => {
     currentPage * itemsPerPage
   );
 
-  console.log("displayy", displayedBookings);
 
   const handleSprintProgramChange = (value: string) => {
     if (value === "all") {
@@ -536,7 +479,8 @@ const Dashboard: React.FC = () => {
                             ? "NANO"
                             : booking.program_id === 2
                             ? "MINI"
-                            : "MEGA"}
+                            : booking.program_id === 3 ? 
+                            "MEGA" : "-"}
                         </TableCell>
                         <TableCell className="border-0">
                           {booking.user.phone}

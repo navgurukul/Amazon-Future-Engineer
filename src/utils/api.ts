@@ -582,6 +582,7 @@ export const getAllUsersAndBookings = async (program: string, page: number = 1, 
 
     return response.data;
   } catch (error: any) {
-    throw error;
+    return error
+    // throw error;
   }
 };
