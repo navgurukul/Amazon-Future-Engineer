@@ -1,7 +1,9 @@
 import SmartImage from "@/components/SmartImage";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import { addNewSlots, deleteSlot, updateSlot } from "@/utils/api";
 import React, { useState } from "react";
+
 
 interface EventSlot {
   id: number;
@@ -30,6 +32,7 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
   style,
   onUpdateSlots,
 }) => {
+  const { toast } = useToast();
   const [editableSlots, setEditableSlots] = useState<EventSlot[]>(slots);
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -66,6 +69,12 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
               `Slot with ID ${slot.id} cannot be deleted as it is associated with a booking.`
             );
           }
+          toast({
+            title: "Deleted",
+            description: "Slot has been removed successfully!",
+            variant: "success",
+            duration: 3000,
+          });
           return deleteSlot(slot.id); // Call the deleteSlot function
         });
 
@@ -131,6 +140,12 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
           try {
             await addNewSlots(slot); // Call the API to add new slots
             console.log("Added new slot:", slot);
+            toast({
+              title: "Success",
+              description: "Slot created successfully",
+              variant: "success",
+              duration: 3000,
+            });
           } catch (error) {
             console.error("Error adding slot:", slot, error);
           }
@@ -146,7 +161,7 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
         // Make any modifications necessary, for example:
         available_capacity: slot.available_capacity, // Example modification
       }));
-      onUpdateSlots(updatedSlots);
+      // onUpdateSlots(updatedSlots);
 
       if (slotsToUpdate.length > 0) {
         const updatePromises = slotsToUpdate.map((slot) => {
@@ -180,20 +195,25 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
             date: formattedDate,
             start_time: start_time,
             end_time: end_time,
-            available_capacity: Number(slot.available_capacity),
+            available_capacity: Math.min(
+              Math.max(Number(slot.available_capacity) || 12, 1),
+              39
+            ),
             status: slot.status,
           };
-
-          return updateSlot(slot.id, updatedSlot);
+          return updateSlot(slot.id, updatedSlot); // Call the deleteSlot function
         });
-
         await Promise.all(updatePromises);
-        console.log("Updated slots:", slotsToUpdate);
       }
       // Finally, update the parent component with the new slots
       onUpdateSlots(editableSlots);
+      // toast({
+      //   title: "Updated",
+      //   description: "Slot updated successfully",
+      //   variant: "success",
+      //   duration: 3000,
+      // });
     } catch (err: any) {
-      console.error("Error updating slots:", err);
       setError(err.message || "Failed to update slots. Please try again.");
     }
   };
@@ -214,7 +234,7 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
         program_id: 1,
         venue_id: 2,
         date: selectedDate,
-        available_capacity: 15,
+        available_capacity: 40,
         status: "Available",
         booking_id: 0,
       },
@@ -274,7 +294,7 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
                 </>
               ) : (
                 <>
-                  <span className="flex border border-[#3a3a3a] px-4 py-2 rounded-full">
+              <span className="flex border border-[#3A3A3A] px-4 py-2 rounded-full">
                     <span className="mr-2">{slot.start}</span>
                     <SmartImage
                       src="/admin/access_time.svg"
@@ -283,7 +303,7 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
                     />
                   </span>
                   <span>-</span>
-                  <span className="flex border border-[#3a3a3a] px-4 py-2 rounded-full">
+                  <span className="flex border border-[#3A3A3A] px-4 py-2 rounded-full">
                     <span className="mr-2">{slot.end}</span>
                     <SmartImage
                       src="/admin/access_time.svg"

@@ -710,7 +710,6 @@ export const updateSlot = async (slotId: number, updatedSlot: any) => {
     });
     return response.data;
   } catch (error:any) {
-    console.error("Error occurred while updating slot:", error);
     throw new Error(error.response?.data?.details || "An error occurred while deleting the slot");
   }
 };

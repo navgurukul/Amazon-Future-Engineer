@@ -25,13 +25,13 @@ const Calendar: React.FC = () => {
     setShowTimeSlotCalendar(true); // Show TimeSlotCalendar when clicked
   };
 
-  useEffect(() => {
-    const shouldManageSlots = localStorage.getItem("shouldManageSlots");
-    if (shouldManageSlots === "true") {
-      handleManageSlotsClick();
-      localStorage.removeItem("shouldManageSlots");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const shouldManageSlots = localStorage.getItem("shouldManageSlots");
+  //   if (shouldManageSlots === "true") {
+  //     handleManageSlotsClick();
+  //     localStorage.removeItem("shouldManageSlots");
+  //   }
+  // }, []);
 
 
   return (
