@@ -39,12 +39,12 @@ const Booking = () => {
             </div>
             <div className="flex flex-row items-center gap-4 text-darkslategray">
               <div className="w-[67px] h-12 relative">
-              <SmartImage
-                alt="Batch Strength Icon"
-                src="/nanopage/reshot-icon-student-DRC3YF56MU.svg"
-                layout="fill"
-                  objectFit="contain"
-              />
+                <SmartImage
+                  alt="Batch Strength Icon"
+                  src="/nanopage/reshot-icon-student-DRC3YF56MU.svg"
+                  fill
+                  style={{ objectFit: 'contain' }}
+                />
               </div>
               <div className="flex flex-col">
                 {/* <b className="leading-[170%] text-extrabold">Batch Strength</b> */}
@@ -166,12 +166,11 @@ const Booking = () => {
           </div>
           {/* <div className="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl"> */}
           <div
-  className={`lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl ${
-    hasShadow
-      ? "shadow-[-1px_-2px_2px_rgba(0,0,0,0.06),-2px_-1px_1px_rgba(0,0,0,0.04),-1px_-5px_5px_rgba(0,0,0,0.08)]"
-      : ""
-  }`}
->
+            className={`lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl ${hasShadow
+                ? "shadow-[-1px_-2px_2px_rgba(0,0,0,0.06),-2px_-1px_1px_rgba(0,0,0,0.04),-1px_-5px_5px_rgba(0,0,0,0.08)]"
+                : ""
+              }`}
+          >
             <div
               className="flex flex-col gap-4 text-center"
               onClick={handleRoute}
