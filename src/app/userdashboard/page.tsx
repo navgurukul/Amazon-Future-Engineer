@@ -5,7 +5,7 @@ import PhoneSecondPopup from "./_components/PhoneSecondPopup";
 import Header from "@/components/Header";
 import { getUserData } from "@/utils/api";
 import type { NextPage } from "next";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useState, useEffect } from "react";
@@ -115,7 +115,7 @@ const Page: NextPage = () => {
                 <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#3a3a3a] text-left mb-4">Nano Sprint</h3>
                 <div className="flex flex-col gap-4 md:gap-8 md:flex-row">
                   <div className="flex items-center gap-3">
-                    <Image
+                    <SmartImage
                       className="w-auto h-8"
                       alt="calendar icon"
                       src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg"
@@ -128,7 +128,7 @@ const Page: NextPage = () => {
                     <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{new Date(event.booking_for).toLocaleDateString()}</p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Image
+                    <SmartImage
                       className="w-auto h-8"
                       alt="time icon"
                       src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg"
@@ -141,7 +141,7 @@ const Page: NextPage = () => {
                     <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{`${event.start_time} to ${event.end_time}`}</p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Image
+                    <SmartImage
                       className="w-auto h-8"
                       alt="students icon"
                       src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg"

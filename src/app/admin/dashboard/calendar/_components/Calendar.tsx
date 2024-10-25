@@ -5,7 +5,7 @@ import BookingPopup from "./BookingPopup";
 import FullCalendarComponent from "./FullCalendarComponent";
 import TimeSlotCalendar from "./TimeSlotCalendar";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useState, useEffect } from "react";
 
 
@@ -47,7 +47,7 @@ const Calendar: React.FC = () => {
                 <span className="relative font-medium leading-[170%]">Create Booking</span>
               </Button> */}
               <Button className="bg-[#f091b2] rounded-full h-14 flex items-center justify-center px-8 py-2 box-border gap-2">
-                <Image width={24} height={24} className="w-6 h-6 relative flex-shrink-0" alt="settings" src={settingsIcon} />
+                <SmartImage width={24} height={24} className="w-6 h-6 relative flex-shrink-0" alt="settings" src={settingsIcon} />
                 <span onClick={handleManageSlotsClick} className="relative font-medium leading-[170%]">Manage Slots</span>
               </Button>
             </div>

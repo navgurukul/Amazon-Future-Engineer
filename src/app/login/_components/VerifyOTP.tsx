@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { verifyOtp, resendOtp } from "@/utils/api";
 import { getProgramData } from "@/utils/api";
 import Cookies from "js-cookie";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import LoginSuccess from "./LoginSuccess";
 import React, {
@@ -139,7 +139,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
       <LoginSuccess show={loginSuccess} />
       <div className="flex flex-col items-start gap-8 self-stretch md:self-auto">
         <div className="flex gap-2">
-          <Image
+          <SmartImage
             src="/login/chevron_left.svg"
             alt="back"
             onClick={handlePreviousScreen}

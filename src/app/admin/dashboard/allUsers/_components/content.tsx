@@ -19,7 +19,7 @@ import {
 import { getAllUsersAndBookings } from "@/utils/api";
 import { format } from "date-fns";
 import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useMemo, useState, useEffect } from "react";
 
 const Dashboard: React.FC = () => {
@@ -326,7 +326,7 @@ const Dashboard: React.FC = () => {
             </h1>
             <div className="flex">
               <div className="relative flex items-center gap-4 w-full">
-                <Image
+                <SmartImage
                   className="absolute left-4 z-10"
                   src="/admin/search.svg"
                   width={24}
@@ -352,7 +352,7 @@ const Dashboard: React.FC = () => {
 
             <div className="flex gap-4">
               <div className="flex items-center gap-2">
-                <Image
+                <SmartImage
                   src="/admin/filter_list.svg"
                   width={24}
                   height={24}

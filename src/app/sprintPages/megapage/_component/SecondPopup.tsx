@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import Image from 'next/image';
+import SmartImage from 'next/image';
 import React from 'react';
 
 const SecondPopup: FC= () => {
@@ -14,7 +14,7 @@ const SecondPopup: FC= () => {
       >
         <div className="flex flex-col items-center justify-start text-lg text-gray-full font-body-body-reg">
           <div className="w-full flex flex-col items-center justify-start gap-2">
-            <Image className="w-60 relative max-h-full" alt="Line Decoration" src="/nanopage/Rectangle 2933.svg"
+            <SmartImage className="w-60 relative max-h-full" alt="Line Decoration" src="/nanopage/Rectangle 2933.svg"
             width={240}  
             height={60} />
             <div className="relative leading-[170%] font-medium text-center">

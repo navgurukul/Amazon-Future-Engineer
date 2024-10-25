@@ -15,7 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useState, useEffect } from "react";
 import { fetchBookings } from "@/utils/api";
 import { format } from 'date-fns';
@@ -120,7 +120,7 @@ const Dashboard = () => {
               Upcoming Bookings
             </h1>
             <div className="relative flex items-center gap-4 w-full">
-              <Image
+              <SmartImage
                 className="absolute left-4 z-10"
                 src="/admin/search.svg"
                 width={24}

@@ -1,5 +1,5 @@
 import DialogHeader from "@/components/DialogHeader";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import React, {useState } from "react";
 
@@ -63,7 +63,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
               { icon: "/userDashboard/reshot-icon-student-DRC3YF56MU.svg", text: `${bookingData?.students} Students` },
             ].map((item, index) => (
               <div key={index} className="flex flex-row items-center justify-start gap-3">
-                <Image src={item.icon} alt="" width={32} height={32} className="w-8 h-8" />
+                <SmartImage src={item.icon} alt="" width={32} height={32} className="w-8 h-8" />
                 <div className="relative whitespace-nowrap text-bodyM md:text-body1 font-['Amazon Ember'] leading-normal">{item.text}</div>
               </div>
             ))}

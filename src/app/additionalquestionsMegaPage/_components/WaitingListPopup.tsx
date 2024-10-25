@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
@@ -61,7 +61,7 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
     <div className="fixed inset-0 flex justify-center bg-black bg-opacity-70">
       <div className="w-full h-auto p-4 md:px-12 bg-white shadow-md min-h-screen bg-bg-surface-default flex flex-col items-center pb-[64px]">
        
-        <Image
+        <SmartImage
         className="w-full max-w-full h-[75px] relative mt-24 md:mt-36 px-6 md:px-0"
         src="/symbols/Frame 31751-1.svg"
         alt="Coding Symbol"
@@ -103,10 +103,11 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
             >
               {copied ? (
                 <>
-                  <img
+                  <SmartImage
                     src="/userDashboard/checkmark_icon.png"
                     alt="Check Icon"
-                    className="h-[16px] w-[16px]"
+                    width={16}
+                    height={16}
                   />
                   <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
                     Copied!
@@ -114,10 +115,11 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
                 </>
               ) : (
                 <>
-                  <img
+                  <SmartImage
                     src="/userDashboard/content_copy.svg"
                     alt="Copy Icon"
-                    className="h-[16px] w-[16px]"
+                    width={16}
+                    height={16}
                   />
                   <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
                     Copy

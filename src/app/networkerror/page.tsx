@@ -1,7 +1,7 @@
 "use client";
 
 import { NextPage } from "next";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import Header from "@/components/Header";
 import React, { useState } from "react";
 
@@ -55,7 +55,7 @@ const Page: NextPage = () => {
             <div className="flex justify-center items-center min-h-screen bg-white px-4">
                 <div className="w-full max-w-[360px] md:max-w-[592px] rounded-lg flex-col justify-center items-center gap-6 md:gap-8 inline-flex md:px-8">
                     <div className="w-[160px] h-[160px] relative">
-                        <Image
+                        <SmartImage
                             src="/login/Bad Connection 3 1.svg"
                             alt="Network Error"
                             width={160}

@@ -77,7 +77,7 @@
 "use client";
 
 import type { NextPage } from 'next';
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -113,7 +113,7 @@ const SecondPopup: NextPage = () => {
         Call Us
       </div>
 
-      {/* <Image
+      {/* <SmartImage
         className="w-5 h-5 cursor-pointer"
         alt="close"
         src="/userDashboard/close.svg"
@@ -129,7 +129,7 @@ const SecondPopup: NextPage = () => {
             />
     </div>
 
-    {/* Image Section */}
+    {/* SmartImage Section */}
     <div className="w-full flex items-center justify-center mt-4">
       <img
         className="w-full h-[75px]"
