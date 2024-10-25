@@ -1,7 +1,9 @@
+import SmartImage from "@/components/SmartImage";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { addNewSlots, deleteSlot, updateSlot } from "@/utils/api";
 import React, { useState } from "react";
+
 
 interface EventSlot {
   id: number;
@@ -292,14 +294,22 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
                 </>
               ) : (
                 <>
-                  <span className="flex border border-[#3a3a3a] px-4 py-2 rounded-full">
+              <span className="flex border border-[#3A3A3A] px-4 py-2 rounded-full">
                     <span className="mr-2">{slot.start}</span>
-                    <img src="/admin/access_time.svg" alt="Access Time Icon" />
+                    <SmartImage
+                      src="/admin/access_time.svg"
+                      alt="Access Time Icon"
+                      width={24} height={24}
+                    />
                   </span>
                   <span>-</span>
-                  <span className="flex border border-[#3a3a3a] px-4 py-2 rounded-full">
+                  <span className="flex border border-[#3A3A3A] px-4 py-2 rounded-full">
                     <span className="mr-2">{slot.end}</span>
-                    <img src="/admin/access_time.svg" alt="Access Time Icon" />
+                    <SmartImage
+                      src="/admin/access_time.svg"
+                      alt="Access Time Icon"
+                      width={24} height={24}
+                    />
                   </span>
                 </>
               )}
