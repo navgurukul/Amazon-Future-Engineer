@@ -108,7 +108,6 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   });
 
 
-
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
       // Function to handle the "Yes" confirmation
       const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
@@ -141,7 +140,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     try {
       const response = await getFeedback(
         Number(bookingProp.user.id),
-        parseInt(bookingDetails.slot, 10)
+        Number( bookingProp.slot_id)
       );
       const hasTeacherFeedback = Array.isArray(response.data) && response.data.some((feedback: { is_teacher: any; }) => feedback.is_teacher);
       if (hasTeacherFeedback) {
@@ -151,7 +150,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     } catch (error) {
       console.error("Error fetching feedbacks:", error);
     }
-  }, [bookingDetails.slot, bookingProp.user.id]);
+  }, [bookingProp.slot_id, bookingProp.user.id]);
 
   useEffect(() => {
     fetchFeedbacks();
@@ -206,7 +205,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
       try {
         const feedbackData = {
           user_id: Number(bookingProp.user.id),
-          slot_id: parseInt(bookingDetails.slot, 10),
+          slot_id: Number( bookingProp.slot_id),
           program_id: bookingProp.program_id,
           feedback: feedbackContent,
           rating: 5,
@@ -222,7 +221,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
       }
     },
     [
-      bookingDetails.slot,
+      bookingProp.slot_id,
       bookingProp.program_id,
       bookingProp.user.id,
       fetchFeedbacks,
@@ -234,7 +233,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
       try {
         const feedbackData = {
           user_id: Number(bookingProp.user.id),
-          slot_id: parseInt(bookingDetails.slot, 10),
+          slot_id: Number( bookingProp.slot_id),
           program_id: bookingProp.program_id,
           feedback: feedbackContent,
           rating: 5,
@@ -248,7 +247,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         console.error("Error adding student feedback:", error);
       }
     },
-    [bookingDetails.slot, bookingProp.program_id, fetchFeedbacks]
+    [bookingProp.slot_id, bookingProp.program_id, fetchFeedbacks]
   );
 
 
