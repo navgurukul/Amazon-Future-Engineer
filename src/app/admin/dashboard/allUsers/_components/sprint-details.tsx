@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import SubmitPopup from "../../upcomingBookings/_components/SubmitPopup"
 import Booking from "../../../_components/booking/page"
+import SmartImage from "@/components/SmartImage";
 interface BookingDetails {
   name: string;
   email: string;
@@ -281,7 +282,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                     {/* Conditionally render the slot input based on the selected program */}
                     {(bookingDetails.programName === "Nano Sprint" ||
                       bookingDetails.programName === "-") && (
-                      <div className="flex flex-row justify-between items-center space-x-4">
+                      <div className=" relative w-full flex flex-row justify-between items-center space-x-4">
                         <Label className="font-subTitle1-bold text-subTitle1 font-extrabold text-text-primary leading-[170%]">
                           Slot
                         </Label>
@@ -294,6 +295,13 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
 
                           className={`w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1 ${disableAllButtons ? "bg-grey-300" : ""}`}
                         />
+                        <SmartImage
+                        className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                        src="/admin/calendar_today (1).svg"
+                        alt="calendar"
+                        width={24}
+                        height={24}
+                      />
                       </div>
                     )}
                   </CardContent>
