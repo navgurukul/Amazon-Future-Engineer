@@ -123,9 +123,8 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
           onClick={() => handleChange("nano")}
         >
           <SmartImage
-            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
-              page.nano ? "" : "mix-blend-luminosity"
-            }`}
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${page.nano ? "" : "mix-blend-luminosity"
+              }`}
             alt="Nano Sprints"
             // src={!page.nano ? "/nanopage/Vector (1).svg" : "/nanopage/Vector.svg"}
             src={
@@ -153,9 +152,8 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
           onClick={() => handleChange("mini")}
         >
           <SmartImage
-            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
-              page.mini ? "" : "mix-blend-luminosity"
-            }`}
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${page.mini ? "" : "mix-blend-luminosity"
+              }`}
             alt="Mini Sprints"
             src={
               !page.mini
@@ -182,9 +180,8 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
           onClick={() => handleChange("mega")}
         >
           <SmartImage
-            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
-              page.mega ? "" : "mix-blend-luminosity"
-            }`}
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${page.mega ? "" : "mix-blend-luminosity"
+              }`}
             alt="Mega Sprints"
             src={
               !page.mega
@@ -246,12 +243,12 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
         <div className="flex flex-row gap-6 justify-between">
           <figure className="w-full sm:w-[33.33%] h-auto relative">
             <img className="rounded-md w-full h-full object-cover absolute z-10" src="/nanopage/Rectangle4-4.jpeg" alt="Third SmartImage" />
-      <img
-        className="hidden md:block absolute bottom-[-5%] left-[-22%] w-[25%] h-auto z-0"
-        src="/nanopage/colon.svg"
-        alt="colon"
-        />
-        </figure>
+            <img
+              className="hidden md:block absolute bottom-[-5%] left-[-22%] w-[25%] h-auto z-0"
+              src="/nanopage/colon.svg"
+              alt="colon"
+            />
+          </figure>
 
           <figure className="w-full sm:w-[33.33%] h-auto">
             <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle3-5.jpeg" alt="Fourth SmartImage" />

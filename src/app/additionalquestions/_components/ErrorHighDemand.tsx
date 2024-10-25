@@ -131,7 +131,6 @@ const ErrorHighDemand: NextPage<ErrorHighDemandProps> = ({ closePopup, errorMess
                   <SmartImage
                     src="/userDashboard/checkmark_icon.png"
                     alt="Check Icon"
-                    // className="h-[16px] w-[16px]"
                     width={16}
                     height={16}
                   />

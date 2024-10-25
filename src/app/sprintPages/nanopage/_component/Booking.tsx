@@ -34,8 +34,8 @@ const Booking: NextPage<BookingProps> = ({ handleOfflineBooking }) => {
                 <SmartImage
                   src="/nanopage/reshot-icon-time-YEDR7WZV2Q.svg"
                   alt="Time Icon"
-                  layout="fill"
-                  objectFit="contain"
+                  fill
+                  style={{ objectFit: 'contain' }}
                 />
               </div>
               <div className="flex flex-col">
@@ -52,8 +52,8 @@ const Booking: NextPage<BookingProps> = ({ handleOfflineBooking }) => {
                 <SmartImage
                   src="/nanopage/reshot-icon-student-DRC3YF56MU.svg"
                   alt="Batch Strength Icon"
-                  layout="fill"
-                  objectFit="contain"
+                  fill
+                  style={{ objectFit: 'contain' }}
                 />
               </div>
               <div className="flex flex-col">
@@ -115,14 +115,13 @@ const Booking: NextPage<BookingProps> = ({ handleOfflineBooking }) => {
 
           {/* <div className="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl"> */}
           <div
-  className={`lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl ${
-    hasShadow
-      ? "shadow-[-1px_-2px_2px_rgba(0,0,0,0.06),-2px_-1px_1px_rgba(0,0,0,0.04),-1px_-5px_5px_rgba(0,0,0,0.08)]"
-      : ""
-  }`}
->
+            className={`lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl ${hasShadow
+              ? "shadow-[-1px_-2px_2px_rgba(0,0,0,0.06),-2px_-1px_1px_rgba(0,0,0,0.04),-1px_-5px_5px_rgba(0,0,0,0.08)]"
+              : ""
+              }`}
+          >
             <div className="flex flex-col gap-4 text-center">
-              <div 
+              <div
                 className="w-full h-12 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer"
                 onClick={handleOnlineBooking}
               >
