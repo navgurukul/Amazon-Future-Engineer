@@ -1,12 +1,10 @@
-import type { NextPage } from "next";
 import Booking from "./Booking";
-import SmartImage from "@/components/SmartImage";;
+import SmartImage from "@/components/SmartImage";
+import type { NextPage } from "next";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-
-
-const MainContent:NextPage = () => {
+const MainContent: NextPage = () => {
   const router = useRouter();
   const [page, setPage] = useState({
     nano: "",
@@ -52,7 +50,7 @@ const MainContent:NextPage = () => {
         </nav>
       </header>
 
-      {/* Adjusted sprint images */}
+      {/* Adjusted sprint SmartImages */}
       <section className="w-full flex flex-row md:items-center md:justify-center gap-2 md:gap-12 text-left text-lg md:text-2xl lg:text-3xl overflow-x-auto no-scrollbar">
         <article
           className="flex-shrink-0 w-[36vw] md:w-[118px] flex flex-col items-center justify-start gap-4 cursor-pointer"
@@ -142,7 +140,10 @@ const MainContent:NextPage = () => {
         Mega Sprints: Comprehensive programs that typically span several months,
         culminating in exciting robotics challenges
       </section> */}
-      <h2 className="md:max-w-[100%] text-[#29458c] leading-[150%] text-heading6 md:text-heading5 font-['Amazon Ember'] text-left mt-6 md:mt-10">Mega Sprints: Comprehensive programs that typically span several months, culminating in exciting robotics challenges</h2>
+      <h2 className="md:max-w-[100%] text-[#29458c] leading-[150%] text-heading6 md:text-heading5 font-['Amazon Ember'] text-left mt-6 md:mt-10">
+        Mega Sprints: Comprehensive programs that typically span several months,
+        culminating in exciting robotics challenges
+      </h2>
 
       {/* First two images in the same row */}
       {/* <div className="flex flex-col sm:flex-row gap-6 justify-between">
@@ -237,55 +238,130 @@ const MainContent:NextPage = () => {
           </figure>
         </div>
       </section> */}
-<section className="hidden md:flex flex-col gap-6">
+      <section className="hidden md:flex flex-col gap-6">
         <div className="flex flex-row gap-6 justify-between">
           <figure className="w-full sm:w-[50%] h-auto">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMe1.jpeg" alt="First SmartImage" />
+            <SmartImage
+              className="rounded-md w-full h-full object-cover"
+              src="/nanopage/RectangleMe1.jpeg"
+              alt="First SmartSmartImage"
+              width={600}
+              height={400}
+      
+            />
           </figure>
           <figure className="w-full sm:w-[50%] h-auto relative">
-            <img className="rounded-md w-full h-full object-cover absolute z-10" src="/nanopage/RectangleMe2.jpeg" alt="Second SmartImage" />
-            <img className="hidden md:block absolute top-[-10%] right-[-14%] h-auto w-[20%] z-0" src="/nanopage/brackets.svg" alt="Brackets" />
+            <SmartImage
+              className="rounded-md w-full h-full object-cover absolute z-10"
+              src="/nanopage/RectangleMe2.jpeg"
+              alt="Second SmartSmartImage"
+              width={600}
+        height={400}
+
+            />
+            <SmartImage
+              className="hidden md:block absolute top-[-10%] right-[-14%] h-auto w-[20%] z-0"
+              src="/nanopage/brackets.svg"
+              alt="Brackets"
+              width={120}
+              height={120}
+            />
           </figure>
-         {/* <img className="hidden md:block w-full absolute m-0 max-w-[100%] top-[30rem] left-[38rem] h-[6rem] z-0" src="/nanopage/brackets.svg" alt="brackets" /> */}
+          {/* <SmartImage className="hidden md:block w-full absolute m-0 max-w-[100%] top-[30rem] left-[38rem] h-[6rem] z-0" src="/nanopage/brackets.svg" alt="brackets" /> */}
         </div>
         <div className="flex flex-row gap-6 justify-between">
           <figure className="w-full sm:w-[33.33%] h-auto relative">
-            <img className="rounded-md w-full h-full object-cover absolute z-10" src="/nanopage/RectangleMe3.jpeg" alt="Third SmartImage" />
-            <img
-        className="hidden md:block absolute bottom-[-5%] left-[-22%] w-[25%] h-auto z-0"
-        src="/nanopage/colon.svg"
-        alt="colon"
-        />
+            <SmartImage
+              className="rounded-md w-full h-full object-cover absolute z-10"
+              src="/nanopage/RectangleMe3.jpeg"
+              alt="Third SmartSmartImage"
+              width={400}
+        height={300}
+            />
+            <SmartImage
+              className="hidden md:block absolute bottom-[-5%] left-[-22%] w-[25%] h-auto z-0"
+              src="/nanopage/colon.svg"
+              alt="colon"
+              width={100}
+              height={100}      
+            />
           </figure>
           <figure className="w-full sm:w-[33.33%] h-auto">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMe4.jpeg" alt="Fourth SmartImage" />
+            <SmartImage
+              className="rounded-md w-full h-full object-cover"
+              src="/nanopage/RectangleMe4.jpeg"
+              alt="Fourth SmartSmartImage"
+              width={400}
+              height={300}
+      
+            />
           </figure>
           <figure className="w-full sm:w-[33.33%] h-auto">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMe5.jpeg" alt="Fifth SmartImage" />
+            <SmartImage
+              className="rounded-md w-full h-full object-cover"
+              src="/nanopage/RectangleMe5.jpeg"
+              alt="Fifth SmartSmartImage"
+              width={400}
+              height={300}
+            />
           </figure>
-          {/*<img className="hidden md:block w-full absolute m-0 max-w-[100%] top-[61rem] left-[-39rem] h-[6rem] z-0" src="/nanopage/colon.svg" alt="colon" /> */}
+          {/*<SmartImage className="hidden md:block w-full absolute m-0 max-w-[100%] top-[61rem] left-[-39rem] h-[6rem] z-0" src="/nanopage/colon.svg" alt="colon" /> */}
         </div>
       </section>
       <section className="flex md:hidden overflow-x-auto no-scrollbar">
         <div className="flex flex-row gap-6">
           <figure className="w-[80%] h-auto flex-shrink-0">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMe1.jpeg" alt="First SmartImage" />
+            <SmartImage
+              className="rounded-md w-full h-full object-cover"
+              src="/nanopage/RectangleMe1.jpeg"
+              alt="First SmartSmartImage"
+              width={600}
+              height={400}
+      
+            />
           </figure>
           <figure className="w-[80%] h-auto flex-shrink-0">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMe2.jpeg" alt="Second SmartImage" />
+            <SmartImage
+              className="rounded-md w-full h-full object-cover"
+              src="/nanopage/RectangleMe2.jpeg"
+              alt="Second SmartSmartImage"
+              width={600}
+        height={400}
+
+            />
           </figure>
           <figure className="w-[80%] h-auto flex-shrink-0">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMe3.jpeg" alt="Third SmartImage" />
+            <SmartImage
+              className="rounded-md w-full h-full object-cover"
+              src="/nanopage/RectangleMe3.jpeg"
+              alt="Third SmartSmartImage"
+              width={600}
+              height={400}
+      
+            />
           </figure>
           <figure className="w-[80%] h-auto flex-shrink-0">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMe4.jpeg" alt="Fourth SmartImage" />
+            <SmartImage
+              className="rounded-md w-full h-full object-cover"
+              src="/nanopage/RectangleMe4.jpeg"
+              alt="Fourth SmartSmartImage"
+              width={600}
+              height={400}
+      
+            />
           </figure>
           <figure className="w-[80%] h-auto flex-shrink-0">
-            <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMe5.jpeg" alt="Fifth SmartImage" />
+            <SmartImage
+              className="rounded-md w-full h-full object-cover"
+              src="/nanopage/RectangleMe5.jpeg"
+              alt="Fifth SmartSmartImage"
+              width={600}
+              height={400}      
+            />
           </figure>
         </div>
       </section>
-      <Booking/>
+      <Booking />
     </main>
   );
 };

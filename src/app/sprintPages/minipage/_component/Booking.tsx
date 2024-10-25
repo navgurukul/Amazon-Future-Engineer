@@ -23,10 +23,12 @@ const Booking = () => {
               </h1>
             </div>
             <div className="flex flex-row items-center gap-4 text-darkslategray">
-              <img
+              <SmartImage 
                 className="w-[67px] h-12 relative"
                 src="/nanopage/reshot-icon-time-YEDR7WZV2Q.svg"
                 alt="Time Icon"
+                width={67}
+                height={48}
               />
               <div className="flex flex-col">
                 {/* <b className="leading-[170%] text-extrabold">Duration</b> */}

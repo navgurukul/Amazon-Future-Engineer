@@ -3,6 +3,7 @@ import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
 
+
 interface CreateAClassProps {
   closePopup: () => void; // Add closePopup as a prop
 }
@@ -96,7 +97,7 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
           </div>
         </div> */}
         <div className="w-full mb-4">
-        <img src="/symbols/Frame 31751.svg" alt="coding symbols" />
+        <SmartImage src="/symbols/Frame 31751.svg" alt="coding symbols" width={75} height={75} />
         </div>
 
         <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">

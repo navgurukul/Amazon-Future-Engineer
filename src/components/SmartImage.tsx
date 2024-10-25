@@ -1,6 +1,6 @@
 
 // import React from 'react';
-// impoSmartImageage, { ImageProps } from 'next/image';
+// impoSmartImageage, { ImageProps } from '@/components/SmartImage';
 // import getConfig from 'next/config';
 // interface SmartImageProps extends Omit<ImageProps, 'src'> {
 //     src: string;
@@ -55,19 +55,14 @@
 
 import Image from 'next/image';
 import { ImageProps } from 'next/image';
-
 const BASE_URL = '/amazon/makerspace-blr';
-
 const SmartImage = ({ src, ...props }: ImageProps) => {
   let processedSrc = src;
-
   if (typeof src === 'string') {
     processedSrc = src.startsWith('http') || src.startsWith(BASE_URL)
       ? src
       : `${BASE_URL}${src.startsWith('/') ? src : `/${src}`}`;
   }
-
   return <Image src={processedSrc} {...props} />;
 };
-
 export default SmartImage;

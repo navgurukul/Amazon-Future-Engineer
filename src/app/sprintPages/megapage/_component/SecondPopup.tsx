@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import SmartImage from 'next/image';
+import SmartImage from '@/components/SmartImage';
 import React from 'react';
 
 const SecondPopup: FC= () => {

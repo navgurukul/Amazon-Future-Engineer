@@ -6,14 +6,13 @@ import ErrorBookingPopup from "../booking/_components/ErrorBookingPopup";
 import CallPopup from "../sprintPages/nanopage/_component/CallPopup";
 import SecondPopup from "../sprintPages/nanopage/_component/SecondPopup";
 import CreateAClass from "./CreateAClass";
+import SmartImage from "@/components/SmartImage";
 import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
 import type { NextPage } from "next";
-// import SmartImage from "@/components/SmartImage";;
+
 import { useRouter } from "next/navigation";
 import { useState, useCallback, useEffect } from "react";
-import SmartImage from "@/components/SmartImage"
-
 
 const HomePage: NextPage = () => {
   const router = useRouter();
@@ -73,7 +72,7 @@ const HomePage: NextPage = () => {
         if (section) {
           // const headerHeight = 120;
           const isMobile = window.innerWidth <= 425;
-        const headerHeight = isMobile ? 180 : 120;
+          const headerHeight = isMobile ? 180 : 120;
           const sectionPosition =
             section.getBoundingClientRect().top + window.pageYOffset;
           window.scrollTo({
@@ -178,20 +177,20 @@ const HomePage: NextPage = () => {
 
   const whatsappLink = `https://wa.me/${6366969292}`;
 
-
   const [copied, setCopied] = useState(false);
 
   const phoneNumber = " +91 63669-69292";
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(phoneNumber)
+    navigator.clipboard
+      .writeText(phoneNumber)
       .then(() => {
         setCopied(true); // Show "Copied!" message
 
         // Reset the message after 2 seconds
         setTimeout(() => setCopied(false), 2000);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error("Failed to copy: ", err);
       });
   };
@@ -397,7 +396,9 @@ const HomePage: NextPage = () => {
                 <div className="text-bodyM md:text-body1 leading-[170%] text-center inline-block text-white font-body1-regular">
                   <span className="font-medium">{`Take a look at the lab through the `}</span>
                   {/* <b className="text-tomato">virtual tour</b> */}
-                  <a href="#virtual-tour" className="text-tomato">virtual tour</a>
+                  <a href="#virtual-tour" className="text-tomato">
+                    virtual tour
+                  </a>
                 </div>
               </div>
             </article>
@@ -526,27 +527,28 @@ const HomePage: NextPage = () => {
                 Registrations are open!
               </div>
               <div className="pt-0 md:pt-4 w-full md:w-auto">
-                <Button
-                  variant='proceedWhite'
-                  onClick={handleBookSessionClick}
-                >
+                <Button variant="proceedWhite" onClick={handleBookSessionClick}>
                   Book a Session
                 </Button>
               </div>
             </div>
 
             {/* SmartImage for larger screens */}
-            <img
+            <SmartImage
               className="hidden md:block absolute bottom-0 right-[10%] h-[8rem] z-0"
               src="/homepage/Frame 31749.svg"
               alt="Coding Symbols 2"
+              layout="fill"
+              objectFit="contain"
             />
 
             {/* SmartImage for smaller screens */}
-            <img
+            <SmartImage
               className="md:hidden block absolute top-0 right-0 h-[4rem] z-0"
               src="/homepage/Frame 31750.svg"
               alt="Coding Symbols 2"
+              layout="fill"
+              objectFit="contain"
             />
           </section>
 
@@ -566,15 +568,14 @@ const HomePage: NextPage = () => {
                 Multi-day skill building workshops
               </div>
               <div className="pt-6 md:pt-8 w-full md:w-auto">
-              <Button
-              variant='proceedWhite'
-                // onClick = {handleLearnMoreMiniClick}
-                onClick={() => handleLearnMoreClick("mini")}
-                // onClick={handleBookSessionClick}
-              >
-              Learn More
-
-              </Button>
+                <Button
+                  variant="proceedWhite"
+                  // onClick = {handleLearnMoreMiniClick}
+                  onClick={() => handleLearnMoreClick("mini")}
+                  // onClick={handleBookSessionClick}
+                >
+                  Learn More
+                </Button>
               </div>
             </article>
 
@@ -594,15 +595,14 @@ const HomePage: NextPage = () => {
                 challenges
               </div>
               <div className="pt-6 md:pt-8 w-full md:w-auto">
-              <Button
-              variant='proceedWhite'
-                // onClick = {handleLearnMoreMiniClick}
-                onClick={() => handleLearnMoreClick("mega")}
-                // onClick={handleBookSessionClick}
-              >
-              Learn More
-
-              </Button>
+                <Button
+                  variant="proceedWhite"
+                  // onClick = {handleLearnMoreMiniClick}
+                  onClick={() => handleLearnMoreClick("mega")}
+                  // onClick={handleBookSessionClick}
+                >
+                  Learn More
+                </Button>
               </div>
             </article>
           </aside>
@@ -625,16 +625,15 @@ const HomePage: NextPage = () => {
 
         <div className="relative z-10 flex flex-col items-start justify-start gap-4 px-4 md:px-8 pl-4 md:pl-12 py-6 md:py-12  lg:mx-6">
           {/* <h2 className="leading-[150%] text-5xl md:text-[25px] font-extrabold leading-tight"> */}
-          <div className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold leading-tight">
+          <div className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold">
             Take a Sneak Peak at AFE Makerspace
           </div>
           <div className="w-full md:w-auto">
-
-          {/* <a
+            {/* <a
             href="#"
           > */}
-            <Button variant="proceedWhite" >Take Virtual Tour</Button>
-          {/* </a> */}
+            <Button variant="proceedWhite">Take Virtual Tour</Button>
+            {/* </a> */}
           </div>
         </div>
       </section>
@@ -653,38 +652,44 @@ const HomePage: NextPage = () => {
               +9163669-69292
             </a> */}
             <strong className="inline-flex items-center">
-                <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
-                  +91 63669-69292
-                </a>
-                <button
-                  className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] flex gap-2 w-[89px] h-[40px]"
-                  onClick={handleCopy}
-                >
-                  {copied ? (
-                    <>
-                      <img
-                        src="/userDashboard/checkmark_icon.png"
-                        alt="Check Icon"
-                        className="h-[16px] w-[16px]"
-                      />
-                      <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
-                        Copied!
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <img
-                        src="/userDashboard/content_copy.svg"
-                        alt="Copy Icon"
-                        className="h-[16px] w-[16px]"
-                      />
-                      <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
-                        Copy
-                      </span>
-                    </>
-                  )}
-                </button>
-              </strong>
+              <a
+                href={whatsappLink}
+                target="_blank"
+                className="text-tomato font-extrabold"
+              >
+                +91 63669-69292
+              </a>
+              <button
+                className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] flex gap-2 w-[89px] h-[40px]"
+                onClick={handleCopy}
+              >
+                {copied ? (
+                  <>
+                    <SmartImage
+                      src="/userDashboard/checkmark_icon.png"
+                      alt="Check Icon"
+                      width={16}
+                      height={16}
+                    />
+                    <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                      Copied!
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <SmartImage
+                      src="/userDashboard/content_copy.svg"
+                      alt="Copy Icon"
+                      width={16}
+                      height={16}
+                    />
+                    <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                      Copy
+                    </span>
+                  </>
+                )}
+              </button>
+            </strong>
           </p>
         </div>
       </section>
