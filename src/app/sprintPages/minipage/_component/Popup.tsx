@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import SmartImage from "@/components/SmartImage";
+
 
 interface PopupProps {
   offlinePopup: boolean;
@@ -37,7 +39,7 @@ const Popup: React.FC<PopupProps> = ({
           {/* Title and Close Button */}
           <div className="flex items-center justify-between text-lg font-amazon-ember w-full">
             <div className="font-extrabold">Helpdesk</div>
-            <img
+            <SmartImage 
               className="w-5 h-5 cursor-pointer"
               alt="close"
               src="/homepage/close.svg"

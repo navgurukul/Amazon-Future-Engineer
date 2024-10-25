@@ -2,7 +2,7 @@
 
 import { Button } from "./ui/button";
 import type { NextPage } from "next";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -42,7 +42,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
         {/* Logo Section */}
         <div className="">
           <div className="hidden md:flex">
-            <Image
+            <SmartImage
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
               src="/login/afe_subbrand_logo_horizontal_blue.svg"
@@ -52,7 +52,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
             />
           </div>
           <div className="md:hidden">
-            <Image
+            <SmartImage
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
               src="/login/Group(12).svg"
@@ -76,7 +76,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
             onClick={handleOfflineBooking}
             className="flex-grow flex justify-center items-center gap-3 px-4 py-2"
           >
-            <Image
+            <SmartImage
               alt="Helpdesk Icon"
               src="/nanopage/reshot-icon-phone-XZTUCW7SFA 1.svg"
               width={24}
@@ -93,7 +93,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
             //   // onClick={handleOfflineBooking}
             //   className="flex-grow flex justify-center items-center gap-3 px-4 py-2"
             // >
-            //   <Image
+            //   <SmartImage
             //     alt="WhatsApp Icon"
             //     src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
             //     width={24}
@@ -108,7 +108,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
   className="flex-grow flex justify-center items-center gap-3 px-4 py-2"
   onClick={() => window.open(whatsappLink, '_blank')}
 >
-  <Image
+  <SmartImage
     alt="WhatsApp Icon"
     src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
     width={24}

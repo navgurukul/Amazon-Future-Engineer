@@ -5,7 +5,7 @@ import PhoneSecondPopup from "./_components/PhoneSecondPopup";
 import Header from "@/components/Header";
 import { getUserData } from "@/utils/api";
 import type { NextPage } from "next";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useState, useEffect } from "react";
@@ -72,7 +72,7 @@ const Page: NextPage = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(phoneNumber)
       .then(() => {
-        setCopied(true); 
+        setCopied(true);
 
         setTimeout(() => setCopied(false), 2000);
       })
@@ -115,7 +115,7 @@ const Page: NextPage = () => {
                 <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#3a3a3a] text-left mb-4">Nano Sprint</h3>
                 <div className="flex flex-col gap-4 md:gap-8 md:flex-row">
                   <div className="flex items-center gap-3">
-                    <Image
+                    <SmartImage
                       className="w-auto h-8"
                       alt="calendar icon"
                       src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg"
@@ -128,7 +128,7 @@ const Page: NextPage = () => {
                     <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{new Date(event.booking_for).toLocaleDateString()}</p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Image
+                    <SmartImage
                       className="w-auto h-8"
                       alt="time icon"
                       src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg"
@@ -141,7 +141,7 @@ const Page: NextPage = () => {
                     <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{`${event.start_time} to ${event.end_time}`}</p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Image
+                    <SmartImage
                       className="w-auto h-8"
                       alt="students icon"
                       src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg"
@@ -177,9 +177,9 @@ const Page: NextPage = () => {
         handleClose={handleCloseFirstPopup}
         handleOpenSecondPopup={handleOpenSecondPopup}
         // userData={userData ? userData[0] : null}
-         userData={userData && userData.length > 0 ? userData[0] : null}
-        // userData={userData && userData.length > 0 && userData[0].booking_id ? userData[0] : null}
-         />
+        userData={userData && userData.length > 0 ? userData[0] : null}
+      // userData={userData && userData.length > 0 && userData[0].booking_id ? userData[0] : null}
+      />
 
       <PhoneSecondPopup
         isOpen={isPhoneSecondPopupOpen}
@@ -203,10 +203,12 @@ const Page: NextPage = () => {
           /> */}
           <div className="md:max-w-[592px] md:max-h-[440px]">
             <a href="https://maps.app.goo.gl/z7QztCwrwcMTnpscA" target="_blank" rel="noopener noreferrer">
-              <img
+              <SmartImage
                 className=" w-full h-auto rounded-lg object-cover cursor-pointer"
                 alt="innovation hub map"
                 src="/userDashboard/map.png"
+                fill
+                style={{ objectFit: 'contain' }}
               />
             </a>
           </div>
@@ -259,10 +261,12 @@ const Page: NextPage = () => {
                 >
                   {copied ? (
                     <>
-                      <img
+                      <SmartImage
                         src="/userDashboard/checkmark_icon.png"
                         alt="Check Icon"
                         className="h-[16px] w-[16px]"
+                        width={16}
+                        height={16}
                       />
                       <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
                         Copied!
@@ -270,10 +274,12 @@ const Page: NextPage = () => {
                     </>
                   ) : (
                     <>
-                      <img
+                      <SmartImage
                         src="/userDashboard/content_copy.svg"
                         alt="Copy Icon"
                         className="h-[16px] w-[16px]"
+                        width={16}
+                        height={16}
                       />
                       <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
                         Copy

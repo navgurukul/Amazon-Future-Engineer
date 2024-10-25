@@ -77,7 +77,7 @@
 "use client";
 
 import type { NextPage } from 'next';
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -98,22 +98,22 @@ const SecondPopup: NextPage = () => {
   if (!isOpen) return null;
 
   return (
-<>
-  {/* Overlay background dimming */}
-  {/* <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div> */}
+    <>
+      {/* Overlay background dimming */}
+      {/* <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div> */}
 
-  {/* Popup */}
-  <div
-    className="fixed inset-0 bg-black bg-opacity-70 flex items-end md:items-center justify-center z-50"
-  >
-    <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-4 md:p-8 flex flex-col items-start gap-4 text-left text-gray-500">
-    {/* Header Section */}
-    <div className="w-full flex items-center justify-between mb-4">
-      <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-heading6-bold">
-        Call Us
-      </div>
+      {/* Popup */}
+      <div
+        className="fixed inset-0 bg-black bg-opacity-70 flex items-end md:items-center justify-center z-50"
+      >
+        <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-4 md:p-8 flex flex-col items-start gap-4 text-left text-gray-500">
+          {/* Header Section */}
+          <div className="w-full flex items-center justify-between mb-4">
+            <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-heading6-bold">
+              Call Us
+            </div>
 
-      {/* <Image
+            {/* <SmartImage
         className="w-5 h-5 cursor-pointer"
         alt="close"
         src="/userDashboard/close.svg"
@@ -121,57 +121,61 @@ const SecondPopup: NextPage = () => {
         height={20}
         onClick={handleClose}
       /> */}
-      <img
+            <SmartImage
               className="w-5 h-5 cursor-pointer"
               alt="close"
               src="/homepage/close.svg"
+              width={20}
+              height={20}
               onClick={handleClose}
             />
-    </div>
+          </div>
 
-    {/* Image Section */}
-    <div className="w-full flex items-center justify-center mt-4">
-      <img
-        className="w-full h-[75px]"
-        src="/userDashboard/Frame 31751.svg"
-        alt="Coding Symbol"
-      />
-    </div>
+          {/* SmartImage Section */}
+          <div className="w-full flex items-center justify-center mt-4">
+            <SmartImage
+              className="w-full h-[75px]"
+              src="/userDashboard/Frame 31751.svg"
+              alt="Coding Symbol"
+              width={20}
+              height={20}
+            />
+          </div>
 
-    {/* Text Section */}
-    <div className="relative md:text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-4 leading-[170%]">
-      Thank you for requesting a callback! We will reach out to you shortly to discuss and confirm your booking plans.
-    {/* <div className="relative text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-8 mb-4 leading-relaxed"> */}
-    </div>
+          {/* Text Section */}
+          <div className="relative md:text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-4 leading-[170%]">
+            Thank you for requesting a callback! We will reach out to you shortly to discuss and confirm your booking plans.
+            {/* <div className="relative text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-8 mb-4 leading-relaxed"> */}
+          </div>
 
-    {/* Contact Information */}
-    <div className="md:text-center text-bodyM md:text-body1">
-      <span className="text-[#3a3a3a] font-medium">
-        In the meantime, feel free to call or WhatsApp on{" "}
-      </span>
-      {/* <span className="text-[#f55c38] font-extrabold">+916366969292</span> */}
-      <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+9163669-69292</a>
-    </div>
+          {/* Contact Information */}
+          <div className="md:text-center text-bodyM md:text-body1">
+            <span className="text-[#3a3a3a] font-medium">
+              In the meantime, feel free to call or WhatsApp on{" "}
+            </span>
+            {/* <span className="text-[#f55c38] font-extrabold">+916366969292</span> */}
+            <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+9163669-69292</a>
+          </div>
 
-    {/* Button */}
-    {/* <button
+          {/* Button */}
+          {/* <button
       className="h-12 px-6 py-2 rounded-full border border-[#f55c38] text-[#f55c38] font-medium mt-2 md:mt-4 w-full sm:w-auto"
       onClick={handleGoToSprints}
     >
       Go to Sprints
     </button> */}
-    <div className="w-full flex flex-row items-center justify-center mt-2 md:mt-4">
+          <div className="w-full flex flex-row items-center justify-center mt-2 md:mt-4">
             <div className="w-full lg:w-auto">
-            <button className="w-full rounded-[100px] flex justify-center items-center cursor-pointer border border-[#f55c38] text-[#f55c38] text-bodyM md:text-body1" onClick={handleGoToSprints}>
-            <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
-              Go to Sprints
+              <button className="w-full rounded-[100px] flex justify-center items-center cursor-pointer border border-[#f55c38] text-[#f55c38] text-bodyM md:text-body1" onClick={handleGoToSprints}>
+                <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
+                  Go to Sprints
+                </div>
+              </button>
             </div>
-          </button>
           </div>
-          </div>
-  </div>
-  </div>
-</>
+        </div>
+      </div>
+    </>
 
   );
 };

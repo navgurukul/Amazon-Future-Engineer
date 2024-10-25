@@ -1,5 +1,4 @@
 // import { callBookingQuery } from "@/utils/api";
-// import Image from "next/image";
 // import React, { useEffect, useState } from "react";
 
 // interface PopupProps {
@@ -79,7 +78,7 @@
 //               Call Us
 //             </div>
 
-//             <Image
+//             <SmartImage
 //               className="w-5 h-5 cursor-pointer"
 //               alt="close"
 //               src="/userDashboard/close.svg"
@@ -160,7 +159,7 @@
 
 import { callBookingQuery } from "@/utils/api";
 // Assuming the API function is correctly imported
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useEffect, useState } from "react";
 
 
@@ -240,7 +239,7 @@ const Popup: React.FC<PopupProps> = ({
             <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-heading6-bold">
               Call Us
             </div>
-            <Image
+            <SmartImage
               className="w-5 h-5 cursor-pointer"
               alt="close"
               src="/userDashboard/close.svg"

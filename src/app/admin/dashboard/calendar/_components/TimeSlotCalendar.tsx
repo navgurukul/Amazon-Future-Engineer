@@ -5,7 +5,7 @@ import { getSlots } from "@/utils/api";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useRef, useEffect, useState } from "react";
 
 
@@ -200,7 +200,7 @@ const TimeSlotCalendar: React.FC = () => {
     return (
         <div className="calendar-container">
             <div className="calendar-header">
-                <Image
+                <SmartImage
                     src="/previous.svg"
                     alt="Previous"
                     width={30}
@@ -209,7 +209,7 @@ const TimeSlotCalendar: React.FC = () => {
                     className="nav-icon"
                 />
                 <h1 className="calendar-title">{currentMonthYear}</h1>
-                <Image
+                <SmartImage
                     src="/next.svg"
                     alt="Next"
                     width={30}

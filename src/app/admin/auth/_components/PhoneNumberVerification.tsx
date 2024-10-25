@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useState, ChangeEvent, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { adminLogin } from "@/utils/api"
@@ -77,7 +77,7 @@ const UserLogin: React.FC = () => {
       <div className="mt-8 ml-4 md:mt-0 md:ml-0">
         <div className="flex flex-col w-[20rem] md:w-[24rem] mx-auto items-start gap-12">
           <div>
-            <Image
+            <SmartImage
               className="hidden md:flex"
               alt="Logo"
               src="/login/afe_subbrand_logo_horizontal_blue.svg"
@@ -85,7 +85,7 @@ const UserLogin: React.FC = () => {
               height={40}
             />
             <div className="md:hidden">
-              <Image
+              <SmartImage
                 className="object-contain cursor-pointer"
                 alt="Reshot Icon"
                 src="/login/Group(12).svg"

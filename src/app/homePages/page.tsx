@@ -6,13 +6,13 @@ import ErrorBookingPopup from "../booking/_components/ErrorBookingPopup";
 import CallPopup from "../sprintPages/nanopage/_component/CallPopup";
 import SecondPopup from "../sprintPages/nanopage/_component/SecondPopup";
 import CreateAClass from "./CreateAClass";
+import SmartImage from "@/components/SmartImage";
 import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
 import type { NextPage } from "next";
-import Image from "next/image";
+
 import { useRouter } from "next/navigation";
 import { useState, useCallback, useEffect } from "react";
-
 
 const HomePage: NextPage = () => {
   const router = useRouter();
@@ -27,19 +27,19 @@ const HomePage: NextPage = () => {
   const images = [
     {
       src: "/homepage/Rectangle4-3.jpeg",
-      alt: "AFE Hub Image 1",
+      alt: "AFE Hub SmartImage 1",
       width: 480,
       height: 288,
     },
     {
       src: "/homepage/Rectangle3-3.jpeg",
-      alt: "AFE Hub Image 2",
+      alt: "AFE Hub SmartImage 2",
       width: 640,
       height: 360,
     },
     {
       src: "/homepage/Rectangle5-3.jpeg",
-      alt: "AFE Hub Image 3",
+      alt: "AFE Hub SmartImage 3",
       width: 480,
       height: 288,
     },
@@ -72,7 +72,7 @@ const HomePage: NextPage = () => {
         if (section) {
           // const headerHeight = 120;
           const isMobile = window.innerWidth <= 425;
-        const headerHeight = isMobile ? 180 : 120;
+          const headerHeight = isMobile ? 180 : 120;
           const sectionPosition =
             section.getBoundingClientRect().top + window.pageYOffset;
           window.scrollTo({
@@ -177,20 +177,20 @@ const HomePage: NextPage = () => {
 
   const whatsappLink = `https://wa.me/${6366969292}`;
 
-
   const [copied, setCopied] = useState(false);
 
   const phoneNumber = " +91 63669-69292";
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(phoneNumber)
+    navigator.clipboard
+      .writeText(phoneNumber)
       .then(() => {
         setCopied(true); // Show "Copied!" message
 
         // Reset the message after 2 seconds
         setTimeout(() => setCopied(false), 2000);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error("Failed to copy: ", err);
       });
   };
@@ -209,7 +209,7 @@ const HomePage: NextPage = () => {
 
       <section className="relative w-full h-[868px] md:h-auto md:min-h-screen">
         <video
-          src="./homepage/video-m.mp4"
+          src="/amazon/makerspace-blr/homepage/video-m.mp4"
           className="absolute top-0 left-0 w-full h-full object-cover brightness-50 bg-black-600"
           autoPlay
           muted
@@ -247,7 +247,7 @@ const HomePage: NextPage = () => {
 
             <Button variant="proceedWhite" onClick={handleOfflineBooking}>
               <div className="flex gap-3 items-center">
-                <Image
+                <SmartImage
                   alt="Helpdesk Icon"
                   src="/nanopage/reshot-icon-phone-XZTUCW7SFA 1.svg"
                   width={24}
@@ -298,7 +298,7 @@ const HomePage: NextPage = () => {
             </p>
 
             {/* <img className="md:block hidden absolute m-0 top-[7.5rem] left-[63.3rem] max-w-full h-[18.369rem] z-0" src="./homepage/Frame 31751.svg" alt="Coding symbols 1" /> */}
-            {/* <Image
+            {/* <SmartImage
               className="hidden md:block absolute top-[7.5vw] left-[59.8vw] w-[30vw] h-auto max-w-full z-0"
               src="./homepage/Frame 31751.svg"
               alt="Coding symbols 1"
@@ -311,7 +311,7 @@ const HomePage: NextPage = () => {
         <div className="relative w-full overflow-hidden flex flex-row items-start justify-start gap-4 px-4 md:px-12">
           {/* Figures for medium and large screens */}
           <figure className="hidden md:block flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[25%] md:h-[360px]">
-            <Image
+            <SmartImage
               className="object-cover w-full h-full rounded-md"
               alt={images[0].alt}
               src={images[0].src}
@@ -320,7 +320,7 @@ const HomePage: NextPage = () => {
             />
           </figure>
           <figure className="hidden md:block flex-none w-[calc(100vw-32px)] h-[calc((100vw-32px)*0.6)] md:w-[48%] md:h-[360px] z-10">
-            <Image
+            <SmartImage
               className="object-cover w-full h-full rounded-md"
               alt={images[1].alt}
               src={images[1].src}
@@ -329,7 +329,7 @@ const HomePage: NextPage = () => {
             />
           </figure>
           <figure className="hidden md:block flex-none w-[calc(100vw-64px)] h-[calc((100vw-32px)*0.6)] md:w-[25%] md:h-[360px] z-10">
-            <Image
+            <SmartImage
               className="object-cover w-full h-full rounded-md"
               alt={images[2].alt}
               src={images[2].src}
@@ -338,10 +338,10 @@ const HomePage: NextPage = () => {
             />
           </figure>
 
-          {/* Image Carousel for Small Screens */}
+          {/* SmartImage Carousel for Small Screens */}
           <div className="block md:hidden w-full h-[calc((100vw-32px)*0.6)] relative">
             <figure className="flex-none w-full h-full">
-              <Image
+              <SmartImage
                 className="object-cover w-full h-full rounded-md"
                 alt={images[currentIndex].alt}
                 src={images[currentIndex].src}
@@ -383,7 +383,7 @@ const HomePage: NextPage = () => {
         <div className="w-full">
           <div className="flex flex-col md:flex-row items-center justify-center md:items-start gap-6 md:gap-8 md:mt-8 mt-6 w-full">
             <article className="flex flex-col items-center w-full md:w-1/4">
-              <Image
+              <SmartImage
                 alt="Step 1"
                 src="/homepage/reshot-icon-family-visit-95EYAPUK63.svg"
                 width={64}
@@ -396,13 +396,15 @@ const HomePage: NextPage = () => {
                 <div className="text-bodyM md:text-body1 leading-[170%] text-center inline-block text-white font-body1-regular">
                   <span className="font-medium">{`Take a look at the lab through the `}</span>
                   {/* <b className="text-tomato">virtual tour</b> */}
-                  <a href="#virtual-tour" className="text-tomato">virtual tour</a>
+                  <a href="#virtual-tour" className="text-tomato">
+                    virtual tour
+                  </a>
                 </div>
               </div>
             </article>
 
             <article className="flex flex-col items-center w-full md:w-1/4">
-              <Image
+              <SmartImage
                 alt="Step 2"
                 src="/homepage/reshot-icon-sprinting-68QMTNKEPC.svg"
                 width={64}
@@ -420,7 +422,7 @@ const HomePage: NextPage = () => {
             </article>
 
             <article className="flex flex-col items-center w-full md:w-1/4">
-              <Image
+              <SmartImage
                 alt="Step 3"
                 src="/homepage/reshot-icon-shape-click-UR7J3LH2YE.svg"
                 width={64}
@@ -447,7 +449,7 @@ const HomePage: NextPage = () => {
             </article>
 
             <article className="flex flex-col items-center w-full md:w-1/4">
-              <Image
+              <SmartImage
                 alt="Step 4"
                 src="/homepage/reshot-icon-deep-learning-UY68HJABWD.svg"
                 width={64}
@@ -494,7 +496,7 @@ const HomePage: NextPage = () => {
               </div>
               <div className="flex flex-row items-center gap-4 mb-[8px] md:mb-[16px]">
                 <figure className="w-11 h-8 flex items-center">
-                  <Image
+                  <SmartImage
                     src="./homepage/reshot-icon-time-YEDR7WZV2Q.svg"
                     alt="Icon"
                     width={44}
@@ -508,7 +510,7 @@ const HomePage: NextPage = () => {
               </div>
               <div className="flex flex-row items-center gap-4 mb-[8px] md:mb-[16px]">
                 <figure className="w-11 h-8 flex items-center">
-                  <Image
+                  <SmartImage
                     src="./homepage/reshot-icon-student-DRC3YF56MU.svg"
                     alt="Student icon"
                     width={44}
@@ -525,28 +527,32 @@ const HomePage: NextPage = () => {
                 Registrations are open!
               </div>
               <div className="pt-0 md:pt-4 w-full md:w-auto">
-                <Button
-                  variant='proceedWhite'
-                  onClick={handleBookSessionClick}
-                >
+                <Button variant="proceedWhite" onClick={handleBookSessionClick}>
                   Book a Session
                 </Button>
               </div>
             </div>
 
-            {/* Image for larger screens */}
-            <img
+            {/* 
+              // SmartImage for larger screens *
+            <SmartImage
               className="hidden md:block absolute bottom-0 right-[10%] h-[8rem] z-0"
               src="/homepage/Frame 31749.svg"
               alt="Coding Symbols 2"
+              width={76}
+                    height={114}
+           
             />
-
-            {/* Image for smaller screens */}
-            <img
+            //  SmartImage for smaller screens 
+            <SmartImage
               className="md:hidden block absolute top-0 right-0 h-[4rem] z-0"
               src="/homepage/Frame 31750.svg"
               alt="Coding Symbols 2"
+              width={76}
+              height={114}
+
             />
+            */}
           </section>
 
           <aside className="w-full lg:w-[30%] flex flex-col gap-6 md:gap-4 lg:min-h-[calc(100vh-14.5rem)]">
@@ -565,15 +571,14 @@ const HomePage: NextPage = () => {
                 Multi-day skill building workshops
               </div>
               <div className="pt-6 md:pt-8 w-full md:w-auto">
-              <Button
-              variant='proceedWhite'
-                // onClick = {handleLearnMoreMiniClick}
-                onClick={() => handleLearnMoreClick("mini")}
-                // onClick={handleBookSessionClick}
-              >
-              Learn More
-
-              </Button>
+                <Button
+                  variant="proceedWhite"
+                  // onClick = {handleLearnMoreMiniClick}
+                  onClick={() => handleLearnMoreClick("mini")}
+                  // onClick={handleBookSessionClick}
+                >
+                  Learn More
+                </Button>
               </div>
             </article>
 
@@ -593,15 +598,14 @@ const HomePage: NextPage = () => {
                 challenges
               </div>
               <div className="pt-6 md:pt-8 w-full md:w-auto">
-              <Button
-              variant='proceedWhite'
-                // onClick = {handleLearnMoreMiniClick}
-                onClick={() => handleLearnMoreClick("mega")}
-                // onClick={handleBookSessionClick}
-              >
-              Learn More
-
-              </Button>
+                <Button
+                  variant="proceedWhite"
+                  // onClick = {handleLearnMoreMiniClick}
+                  onClick={() => handleLearnMoreClick("mega")}
+                  // onClick={handleBookSessionClick}
+                >
+                  Learn More
+                </Button>
               </div>
             </article>
           </aside>
@@ -613,7 +617,7 @@ const HomePage: NextPage = () => {
         id="virtual-tour"
         className="relative h-[60vh] md:h-screen text-left text-white flex items-start overflow-hidden mx-4 md:mx-12"
       >
-        <Image
+        <SmartImage
           className="absolute top-0 left-0 w-full h-full object-cover brightness-50 rounded-lg"
           alt="Background video"
           // src="./homepage/video 2.svg"
@@ -624,16 +628,15 @@ const HomePage: NextPage = () => {
 
         <div className="relative z-10 flex flex-col items-start justify-start gap-4 px-4 md:px-8 pl-4 md:pl-12 py-6 md:py-12  lg:mx-6">
           {/* <h2 className="leading-[150%] text-5xl md:text-[25px] font-extrabold leading-tight"> */}
-          <div className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold leading-tight">
+          <div className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold">
             Take a Sneak Peak at AFE Makerspace
           </div>
           <div className="w-full md:w-auto">
-
-          {/* <a
+            {/* <a
             href="#"
           > */}
-            <Button variant="proceedWhite" >Take Virtual Tour</Button>
-          {/* </a> */}
+            <Button variant="proceedWhite">Take Virtual Tour</Button>
+            {/* </a> */}
           </div>
         </div>
       </section>
@@ -652,38 +655,44 @@ const HomePage: NextPage = () => {
               +9163669-69292
             </a> */}
             <strong className="inline-flex items-center">
-                <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
-                  +91 63669-69292
-                </a>
-                <button
-                  className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] flex gap-2 w-[89px] h-[40px]"
-                  onClick={handleCopy}
-                >
-                  {copied ? (
-                    <>
-                      <img
-                        src="/userDashboard/checkmark_icon.png"
-                        alt="Check Icon"
-                        className="h-[16px] w-[16px]"
-                      />
-                      <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
-                        Copied!
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <img
-                        src="/userDashboard/content_copy.svg"
-                        alt="Copy Icon"
-                        className="h-[16px] w-[16px]"
-                      />
-                      <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
-                        Copy
-                      </span>
-                    </>
-                  )}
-                </button>
-              </strong>
+              <a
+                href={whatsappLink}
+                target="_blank"
+                className="text-tomato font-extrabold"
+              >
+                +91 63669-69292
+              </a>
+              <button
+                className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] flex gap-2 w-[89px] h-[40px]"
+                onClick={handleCopy}
+              >
+                {copied ? (
+                  <>
+                    <SmartImage
+                      src="/userDashboard/checkmark_icon.png"
+                      alt="Check Icon"
+                      width={16}
+                      height={16}
+                    />
+                    <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                      Copied!
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <SmartImage
+                      src="/userDashboard/content_copy.svg"
+                      alt="Copy Icon"
+                      width={16}
+                      height={16}
+                    />
+                    <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                      Copy
+                    </span>
+                  </>
+                )}
+              </button>
+            </strong>
           </p>
         </div>
       </section>

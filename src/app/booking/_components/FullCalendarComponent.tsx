@@ -2,7 +2,7 @@ import { useAllBookings } from "./allBookings";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useRef, useEffect, useState } from "react";
 
 interface FullCalendarComponentProps {
@@ -108,7 +108,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
         Available Dates
       </div>
       <div className="flex justify-between items-center mb-4 px-2 md:px-[20px]">
-        <Image
+        <SmartImage
           src="/previous.svg"
           alt="Previous Month"
           width={30}
@@ -119,7 +119,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
         <h1 className="text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-primary text-center">
           {currentMonthYear}
         </h1>
-        <Image
+        <SmartImage
           src="/next.svg"
           alt="Next Month"
           width={30}
@@ -422,10 +422,11 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
             >
               {copied ? (
                 <>
-                  <img
+                  <SmartImage
                     src="/userDashboard/checkmark_icon.png"
                     alt="Check Icon"
-                    className="h-[16px] w-[16px]"
+                    width={16}
+                    height={16}
                   />
                   <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
                     Copied!
@@ -433,10 +434,11 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
                 </>
               ) : (
                 <>
-                  <img
+                  <SmartImage
                     src="/userDashboard/content_copy.svg"
                     alt="Copy Icon"
-                    className="h-[16px] w-[16px]"
+                    width={16}
+                    height={16}
                   />
                   <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
                     Copy
