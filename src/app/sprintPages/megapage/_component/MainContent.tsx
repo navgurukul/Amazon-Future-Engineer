@@ -3,10 +3,11 @@ import Booking from "./Booking";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useAppState } from "@/context/AppContext";
 
 
-
-const MainContent:NextPage = () => {
+const MainContent: NextPage = () => {
+  const { isLanguageEnglish } = useAppState(); // Access language state
   const router = useRouter();
   const [page, setPage] = useState({
     nano: "",
@@ -43,11 +44,15 @@ const MainContent:NextPage = () => {
       <header className="flex flex-col md:flex-row justify-start gap-8 md:gap-16 text-xl md:text-2xl lg:text-3xl">
         <nav className="text-sm md:text-lg leading-[150%] text-left inline-block">
           <span className="text-darkslateblue text-[#29458c]">
-            <b>Home</b>
+            {/* <b>Home</b> */}
+            <b>{isLanguageEnglish ? "Home" : "ಮನೆ"}</b>
           </span>
           <span className="font-medium">
             <span className="text-darkslateblue">{` / `}</span>
-            <span className="text-darkslategray">Sprints</span>
+            {/* <span className="text-darkslategray">Sprints</span> */}
+            <span className="text-darkslategray">
+              {isLanguageEnglish ? "Sprints" : "ಸ್ಪ್ರಿಂಟ್ಸ್"}
+            </span>
           </span>
         </nav>
       </header>
@@ -59,9 +64,8 @@ const MainContent:NextPage = () => {
           onClick={() => handleChange("nano")}
         >
           <Image
-            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
-              page.nano ? "" : "mix-blend-luminosity"
-            }`}
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${page.nano ? "" : "mix-blend-luminosity"
+              }`}
             alt="Nano Sprints"
             src={
               !page.nano
@@ -86,9 +90,8 @@ const MainContent:NextPage = () => {
           onClick={() => handleChange("mini")}
         >
           <Image
-            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
-              page.mini ? "" : "mix-blend-luminosity"
-            }`}
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${page.mini ? "" : "mix-blend-luminosity"
+              }`}
             alt="Mini Sprints"
             src={
               !page.mini
@@ -113,9 +116,8 @@ const MainContent:NextPage = () => {
           onClick={() => handleChange("mega")}
         >
           <Image
-            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
-              page.mega ? "" : "mix-blend-luminosity"
-            }`}
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${page.mega ? "" : "mix-blend-luminosity"
+              }`}
             alt="Mega Sprints"
             src={
               !page.mega
@@ -142,7 +144,12 @@ const MainContent:NextPage = () => {
         Mega Sprints: Comprehensive programs that typically span several months,
         culminating in exciting robotics challenges
       </section> */}
-      <h2 className="md:max-w-[100%] text-[#29458c] leading-[150%] text-heading6 md:text-heading5 font-['Amazon Ember'] text-left mt-6 md:mt-10">Mega Sprints: Comprehensive programs that typically span several months, culminating in exciting robotics challenges</h2>
+      {/* <h2 className="md:max-w-[100%] text-[#29458c] leading-[150%] text-heading6 md:text-heading5 font-['Amazon Ember'] text-left mt-6 md:mt-10">Mega Sprints: Comprehensive programs that typically span several months, culminating in exciting robotics challenges</h2> */}
+      <h2 className="md:max-w-[100%] text-[#29458c] leading-[150%] text-heading6 md:text-heading5 font-['Amazon Ember'] text-left mt-6 md:mt-10">
+        {isLanguageEnglish
+          ? "Mega Sprints: Comprehensive programs that typically span several months, culminating in exciting robotics challenges"
+          : "ಮೆಗಾ ಸ್ಪ್ರಿಂಟ್ಸ್: ಸಾಮಾನ್ಯವಾಗಿ ಹಲವು ತಿಂಗಳುಗಳಲ್ಲಿ ವ್ಯಾಪಕವಾಗಿ ಸಾಗುವ, ರೋಮಾಂಚಕ ರೊಬೋಟಿಕ್ಸ್ ಸವಾಲುಗಳಲ್ಲಿ ಮುಕ್ತಾಯಗೊಳ್ಳುವ ವ್ಯಾಪಕ ಕಾರ್ಯಕ್ರಮಗಳು"}
+      </h2>
 
       {/* First two images in the same row */}
       {/* <div className="flex flex-col sm:flex-row gap-6 justify-between">
@@ -237,7 +244,7 @@ const MainContent:NextPage = () => {
           </figure>
         </div>
       </section> */}
-<section className="hidden md:flex flex-col gap-6">
+      <section className="hidden md:flex flex-col gap-6">
         <div className="flex flex-row gap-6 justify-between">
           <figure className="w-full sm:w-[50%] h-auto">
             <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMe1.jpeg" alt="First Image" />
@@ -246,16 +253,16 @@ const MainContent:NextPage = () => {
             <img className="rounded-md w-full h-full object-cover absolute z-10" src="/nanopage/RectangleMe2.jpeg" alt="Second Image" />
             <img className="hidden md:block absolute top-[-10%] right-[-14%] h-auto w-[20%] z-0" src="/nanopage/brackets.svg" alt="Brackets" />
           </figure>
-         {/* <img className="hidden md:block w-full absolute m-0 max-w-[100%] top-[30rem] left-[38rem] h-[6rem] z-0" src="/nanopage/brackets.svg" alt="brackets" /> */}
+          {/* <img className="hidden md:block w-full absolute m-0 max-w-[100%] top-[30rem] left-[38rem] h-[6rem] z-0" src="/nanopage/brackets.svg" alt="brackets" /> */}
         </div>
         <div className="flex flex-row gap-6 justify-between">
           <figure className="w-full sm:w-[33.33%] h-auto relative">
             <img className="rounded-md w-full h-full object-cover absolute z-10" src="/nanopage/RectangleMe3.jpeg" alt="Third Image" />
             <img
-        className="hidden md:block absolute bottom-[-5%] left-[-22%] w-[25%] h-auto z-0"
-        src="/nanopage/colon.svg"
-        alt="colon"
-        />
+              className="hidden md:block absolute bottom-[-5%] left-[-22%] w-[25%] h-auto z-0"
+              src="/nanopage/colon.svg"
+              alt="colon"
+            />
           </figure>
           <figure className="w-full sm:w-[33.33%] h-auto">
             <img className="rounded-md w-full h-full object-cover" src="/nanopage/RectangleMe4.jpeg" alt="Fourth Image" />
@@ -285,7 +292,7 @@ const MainContent:NextPage = () => {
           </figure>
         </div>
       </section>
-      <Booking/>
+      <Booking />
     </main>
   );
 };

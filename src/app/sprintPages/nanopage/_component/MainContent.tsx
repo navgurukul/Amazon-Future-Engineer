@@ -3,12 +3,15 @@ import { NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useAppState } from "@/context/AppContext";
 
 interface MainContentProps {
   handleOfflineBooking: () => void;
 }
 
 const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
+  const { isLanguageEnglish } = useAppState(); // Access language state
+
   const router = useRouter();
   const [page, setPage] = useState({
     nano: "nano",
@@ -46,11 +49,16 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
       <header className="flex flex-col md:flex-row justify-start gap-8 md:gap-16 text-xl md:text-2xl lg:text-3xl">
         <nav className="text-sm md:text-lg leading-[150%] text-left inline-block">
           <span className="text-darkslateblue text-[#29458c]">
-            <b>Home</b>
+            {/* <b>Home</b> */}
+            <b>{isLanguageEnglish ? "Home" : "ಮನೆ"}</b>
+
           </span>
           <span className="font-medium">
             <span className="text-darkslateblue">{` / `}</span>
-            <span className="text-darkslategray">Sprints</span>
+            {/* <span className="text-darkslategray">Sprints</span> */}
+            <span className="text-darkslategray">
+              {isLanguageEnglish ? "Sprints" : "ಸ್ಪ್ರಿಂಟ್ಸ್"}
+            </span>
           </span>
         </nav>
       </header>
@@ -123,9 +131,8 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
           onClick={() => handleChange("nano")}
         >
           <Image
-            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
-              page.nano ? "" : "mix-blend-luminosity"
-            }`}
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${page.nano ? "" : "mix-blend-luminosity"
+              }`}
             alt="Nano Sprints"
             // src={!page.nano ? "/nanopage/Vector (1).svg" : "/nanopage/Vector.svg"}
             src={
@@ -153,9 +160,8 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
           onClick={() => handleChange("mini")}
         >
           <Image
-            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
-              page.mini ? "" : "mix-blend-luminosity"
-            }`}
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${page.mini ? "" : "mix-blend-luminosity"
+              }`}
             alt="Mini Sprints"
             src={
               !page.mini
@@ -182,9 +188,8 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
           onClick={() => handleChange("mega")}
         >
           <Image
-            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
-              page.mega ? "" : "mix-blend-luminosity"
-            }`}
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${page.mega ? "" : "mix-blend-luminosity"
+              }`}
             alt="Mega Sprints"
             src={
               !page.mega
@@ -211,7 +216,12 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
         Nano Sprints: One-day experiential learning sessions to ignite interest
         and aspirations in Robotics and AI
       </section> */}
-      <h2 className="md:max-w-[100%] text-[#29458c] leading-[150%] text-heading6 md:text-heading5 font-['Amazon Ember'] text-left mt-6 md:mt-10">Nano Sprints: One-day experiential learning sessions to ignite interest and aspirations in Robotics and AI</h2>
+      {/* <h2 className="md:max-w-[100%] text-[#29458c] leading-[150%] text-heading6 md:text-heading5 font-['Amazon Ember'] text-left mt-6 md:mt-10">Nano Sprints: One-day experiential learning sessions to ignite interest and aspirations in Robotics and AI</h2> */}
+      <h2 className="md:max-w-[100%] text-[#29458c] leading-[150%] text-heading6 md:text-heading5 font-['Amazon Ember'] text-left mt-6 md:mt-10">
+        {isLanguageEnglish
+          ? "Nano Sprints: One-day experiential learning sessions to ignite interest and aspirations in Robotics and AI"
+          : "ರೊಬೊಟಿಕ್ಸ್ ಮತ್ತು ಎಐನಲ್ಲಿ ಆಸಕ್ತಿ ಮತ್ತು ಆಕಾಂಕ್ಷೆಗಳನ್ನು ಹುಟ್ಟುಹಾಕಲು ನ್ಯಾನೊ ಸ್ಪ್ರಿಂಟ್ಸ್ ಒಂದು ದಿನದ ಅನುಭವದ ಕಲಿಕೆ."}
+      </h2>
 
       {/* Third Section */}
       {/* <section className="flex flex-col sm:flex-row gap-6 justify-between">
@@ -246,12 +256,12 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
         <div className="flex flex-row gap-6 justify-between">
           <figure className="w-full sm:w-[33.33%] h-auto relative">
             <img className="rounded-md w-full h-full object-cover absolute z-10" src="/nanopage/Rectangle4-4.jpeg" alt="Third Image" />
-      <img
-        className="hidden md:block absolute bottom-[-5%] left-[-22%] w-[25%] h-auto z-0"
-        src="/nanopage/colon.svg"
-        alt="colon"
-        />
-        </figure>
+            <img
+              className="hidden md:block absolute bottom-[-5%] left-[-22%] w-[25%] h-auto z-0"
+              src="/nanopage/colon.svg"
+              alt="colon"
+            />
+          </figure>
 
           <figure className="w-full sm:w-[33.33%] h-auto">
             <img className="rounded-md w-full h-full object-cover" src="/nanopage/Rectangle3-5.jpeg" alt="Fourth Image" />

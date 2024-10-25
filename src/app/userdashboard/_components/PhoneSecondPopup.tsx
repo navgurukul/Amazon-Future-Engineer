@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Image from "next/image";
 import { useState } from "react";
+import { useAppState } from "@/context/AppContext";
 
 
 // Define the EventData type to match your booking data structure
@@ -18,6 +19,8 @@ interface SecondPopupProps {
 }
 
 const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, userData }) => {
+    const { isLanguageEnglish } = useAppState(); // Get language state from context
+
     const [copied, setCopied] = useState(false);
     if (!userData) return null;  // If no data is available, do not render the popup
 
@@ -64,7 +67,10 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
                         </div>
 
                         <div className="text-[#3a3a3a] text-bodyM2 md:text-subTitle1 leading-[170%] mt-4 font-['Amazon Ember']">
-                            Current Booking Details
+                            {/* Current Booking Details */}
+                            {isLanguageEnglish
+                                ? "Current Booking Details:"
+                                : "ಈಗಿನ ಬುಕಿಂಗ್ ವಿವರಗಳು:"}
                         </div>
 
                         <div className="flex flex-col md:flex-row mt-4 gap-4 md:gap-8">
@@ -90,7 +96,10 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
                             </div>
                         </div>
                         <div className="mt-6 text-gray-700 text-base sm:text-lg font-medium leading-7">
-                            Currently, we are only accepting reschedule requests via calls and WhatsApp. Please contact us at the number below to confirm your session rescheduling.
+                            {/* Currently, we are only accepting reschedule requests via calls and WhatsApp. Please contact us at the number below to confirm your session rescheduling. */}
+                            {isLanguageEnglish
+                                ? "Currently, we are only accepting reschedule requests via calls and WhatsApp. Please contact us on the number below to confirm rescheduling of session."
+                                : "ಈಗ, ನಾವು ಕರೆ ಮತ್ತು ವಾಟ್ಸ್ ಆಪ್ ಮೂಲಕ ಮಾತ್ರ ರೀಶೆಡ್ಯುಲ್ ವಿನಂತಿಗಳನ್ನು ಸ್ವೀಕರಿಸುತ್ತಿದ್ದೇವೆ. ಸೆಷನ್ ರೀಶೆಡ್ಯೂಲ್ ಅನ್ನು ಖಚಿತಪಡಿಸಲು ದಯವಿಟ್ಟು ಕೆಳಗಿನ ನೀಡಿರುವ ನಂಬರ್ ನಲ್ಲಿ ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ."}
                         </div>
                         <div className="mt-6 p-4 bg-[#fff2f2] rounded-lg flex flex-col justify-center items-center">
                             <div>
@@ -102,8 +111,6 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
                             <div className="text-[#3a3a3a] text-bodyM md:text-body1 font-body1-regular leading-[170%]">
                                 AFE Makerspace Helpline
                             </div>
-
-                            
 
                             <button
                                 className=" md:flex px-8 py-2 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] mt-2 w-[89px] h-[40px]"

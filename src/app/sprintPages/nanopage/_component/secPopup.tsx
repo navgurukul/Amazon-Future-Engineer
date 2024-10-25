@@ -4,9 +4,12 @@ import type { NextPage } from 'next';
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useAppState } from "@/context/AppContext";
 
 
 const SecondPopup: NextPage = () => {
+    const { isLanguageEnglish } = useAppState(); // Access language state
+
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(true);
 
@@ -55,7 +58,8 @@ const SecondPopup: NextPage = () => {
                     <div className="w-full flex flex-col items-center justify-start gap-2">
                         <div className="flex items-center justify-between text-lg font-amazon-ember w-full">
                             <div className="font-extrabold text-[#3a3a3a] leading-9 text-xl md:text-2xl lg:text-3xl md:leading-10 lg:leading-[40px]">
-                                Call Us
+                                {/* Call Us */}
+                                Request a Callback
                             </div>
 
                             <Image
@@ -83,11 +87,19 @@ const SecondPopup: NextPage = () => {
                         </div>
 
                         <div className="relative leading-[30.60px] w-full text-left md:text-center text-lg text-[#3a3a3a] font-medium mt-8 gap-8">
-                            Thanks for requesting a callback. We will reach out to you shortly to confirm your booking plans.
+                            {/* Thank you for requesting a callback! We’ll reach out to you shortly to discuss and confirm your booking plans.                         */}
+                            {isLanguageEnglish
+                                ? " Thank you for requesting a callback! We’ll reach out to you shortly to discuss and confirm your booking plans."
+                                : "ಮತ್ತೆ ಕರೆಮಾಡಲು ವಿನಂತಿಸಿದಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು! ನಿಮ್ಮ ಬುಕಿಂಗ್ ಪ್ಲಾನ್ ಗಳನ್ನು ಚರ್ಚಿಸಲು ಮತ್ತು ಖಚಿತಪಡಿಸಲು ನಾವು ಶೀಘ್ರದಲ್ಲೇ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುತ್ತೇವೆ."}
+
                         </div>
                         <div className="self-stretch bg-gainsboro" />
                         <div className="w-full relative text-left md:text-center inline-block text-lg leading-[30.60px]">
-                            <span className="text-[#3a3a3a] text-lg font-medium ">In the meantime, feel free to call or Whatsapp on </span>
+                            <span className="text-[#3a3a3a] text-lg font-medium ">
+                                {isLanguageEnglish
+                                    ? "In the meantime, feel free to call or Whatsapp on"
+                                    : "ಈ ಮಧ್ಯೆ,ನಲ್ಲಿ ನಮಗೆ ಕರೆ ಮಾಡಲು ಅಥವಾ ವಾಟ್ಸ್ ಆಪ್ ಮಾಡಲು ಮುಕ್ತವಾಗಿರಿ."}
+                            </span>
                             {/* <span className="text-[#f55c38] text-lg font-extrabold  whitespace-nowrap md:whitespace-normal ">+916366969292</span> */}
                             <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
                                 +9163669-69292
@@ -98,7 +110,7 @@ const SecondPopup: NextPage = () => {
                         className="h-14 px-8 py-2 rounded-full border border-[#f55c38] flex justify-center items-center mt-8 gap-8 w-full md:w-auto"
                         onClick={handleGoToSprints}
                     >
-                        <span className="text-[#f55c38] text-lg font-medium">Go to Sprints</span>
+                        <span className="text-[#f55c38] text-lg font-medium">Return to Sprints</span>
                     </button>
 
                 </div>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useAppState } from "@/context/AppContext";
 
 
 interface PopupProps {
@@ -8,10 +9,11 @@ interface PopupProps {
 }
 
 const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
+  const { isLanguageEnglish } = useAppState(); // Access language state
 
 
   const [copied, setCopied] = useState(false);
-  
+
   if (!offlinePopup) return null;
 
   const whatsappLink = `https://wa.me/${6366969292}`;
@@ -21,14 +23,14 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
   const phoneNumber = " +91 63669-69292";
 
   const handleCopy = () => {
-      navigator.clipboard.writeText(phoneNumber)
-          .then(() => {
-              setCopied(true);
-              setTimeout(() => setCopied(false), 2000);
-          })
-          .catch(err => {
-              console.error("Failed to copy: ", err);
-          });
+    navigator.clipboard.writeText(phoneNumber)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(err => {
+        console.error("Failed to copy: ", err);
+      });
   };
 
   return (
@@ -43,7 +45,7 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
           <div className="flex items-center justify-between w-full">
             {/* <div className="relative text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-text-primary text-left"> */}
             <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-heading6-bold">
-              Call Us
+              {isLanguageEnglish ? "Call Us" : "ನಮಗೆ ಕರೆ ಮಾಡಿ"}
             </div>
             <img
               className="w-5 h-5 cursor-pointer"
@@ -56,13 +58,18 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
           {/* Description Text */}
           {/* <div className="w-full relative text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-primary text-left inline-block"> */}
           <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-            Need help with booking a session, learning about our program offerings, or have any general questions? We are here for you!
+            {/* Need help with booking a session, learning about our program offerings, or have any general questions? We are here for you! */}
+            {isLanguageEnglish
+              ? "Need help with booking a session, learning about our program offerings, or have any general questions? We are here for you!"
+              : "ಒಂದು ಸೆಷನ್ ಬುಕ್ ಮಾಡಲು, ನಮ್ಮ ಕಾರ್ಯಕ್ರಮದ ಆಫರ್‌ಗಳನ್ನು ತಿಳಿಯಲು, ಅಥವಾ ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಲು ಸಹಾಯ ಬೇಕೆ? ನಾವು ನಿಮ್ಮೊಡನೆ ಇದ್ದೇವೆ!"}
+
           </div>
 
           {/* Response Time */}
           <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-            <b>Opening Hours:</b>
-            <span className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray"> Monday to Friday, 9 AM to 6 PM</span>
+            {/* <b>Opening Hours:</b> */}
+            {isLanguageEnglish ? <b>Opening Hours:</b> : <b>ಪ್ರಾರಂಭ ಸಮಯ:</b>}
+            <span className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray"> {isLanguageEnglish ? "Monday to Friday, 9 AM to 6 PM" : "ಸೋಮವಾರದಿಂದ ಶುಕ್ರವಾರ, ಬೆಳಗ್ಗೆ 9 ರಿಂದ ಸಂಜೆ 6 ರವರೆಗೆ"}</span>
           </div>
 
           {/* Operational Time */}
