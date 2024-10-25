@@ -7,12 +7,13 @@ import {
   quesryBookingStatus,
   updateBookingStatus,
   updateBookingStatusAllUsers,
+  updateBookingDetails
 } from "@/utils/api";
 import { useEffect, useState } from "react";
 
 interface BookingDetails {
   name: string;
-  email: string | null;
+  email: string | any;
   phoneNumber: string;
   dateofRequest: string;
   programName: string;
@@ -41,6 +42,7 @@ interface FooterProps {
   bookings: BookingDetails;
   status: string;
   slotId: number;
+  bookingProp:Booking;
 }
 interface PopupState {
   isCancel: boolean;
@@ -48,6 +50,35 @@ interface PopupState {
   isNotInterested: boolean;
   isUpdate: boolean;
   isConfirm: boolean;
+}
+
+
+interface Booking {
+  user_id(user_id: any): unknown;
+  slot_id(slot_id: any): unknown;
+  id: number;
+  user: {
+    name: string;
+    id: string;
+    email: string;
+    phone: string;
+    school_id?: string;
+  };
+  slot: {
+    venue: {
+      pin_code: any;
+      city: string;
+    };
+    program: {
+      title: string;
+    };
+  };
+  booking_for: string;
+  start_time: string;
+  end_time: string;
+  booking_batch_size: number;
+  created_at: string;
+  status: string;
 }
 
 export default function Footer({
@@ -59,6 +90,7 @@ export default function Footer({
   bookingSingle,
   status,
   slotId,
+  bookingProp
 }: FooterProps) {
   const { toast } = useToast();
   const [isCancelPopupOpen, setIsCancelPopupOpen] = useState<boolean>(false);
@@ -81,7 +113,8 @@ export default function Footer({
     status === "RequestedReschedule" || status === "BookingConfirmed";
   const disableRescheduleOnly = !disableAllButtons && !enableAllButtons;
 
-  console.log("bookingDetails", slotId);
+
+
   useEffect(() => {
     if (slotId !== 0) {
       setPopup((prev) => {
@@ -150,13 +183,37 @@ export default function Footer({
     }
   };
 
+
+   // Save changes to booking details
+   const hadleIsUpdate = async () => { 
+    try {
+      const bookingData = {
+        user_id: Number(bookingProp.user_id),
+        slot_id:  Number(bookingProp.slot_id),
+        booking_batch_size:  Number(bookings.numberOfStudents),
+        visited_batch_size: 0,
+        students_grade: bookings.grade,
+        visiting_time: new Date().toISOString(),
+        school_name: String(bookings.schoolName),
+        udise: bookings.udiseCode,
+        email: bookings.email,
+        address: bookings.city,
+        village: bookings.city,
+        state: "Karnataka",
+        district: bookings.city,
+        pin_code: parseInt(bookings.pincode, 10),
+      };
+      await updateBookingDetails(bookingProp.id, bookingData);
+      window.location.reload()
+    } catch (error) {
+      console.error("Error updating booking details:", error);
+    } 
+  };
+
+
   useEffect(() => {
     if (popup.isUpdate) {
-      toast({
-        title: "Sprint Booking Details Updated Successfully!",
-        description: "",
-        duration: 3000,
-      });
+      hadleIsUpdate ()
     }
     if (popup.isNotInterested) {
       handleNotInterestedStatus();
@@ -172,7 +229,6 @@ export default function Footer({
     if (popup.isConfirm) {
       onSubmitClick("true");
     }
-    console.log("Hello");
   }, [onSubmitClick, popup.isConfirm]);
 
   const [loading, setLoading] = useState(false); // State to handle button loading
