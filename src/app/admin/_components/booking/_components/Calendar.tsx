@@ -8,7 +8,7 @@ import TimeSlots from "./TimeSlots";
 interface CalendarPopupProps {
   handleCalendar: () => void;
   bookingDetails: BookingDetails;
-  calendarData: number; 
+  calendarData: (slot_id: number) => void;
 }
 
 interface BookingDetails {
