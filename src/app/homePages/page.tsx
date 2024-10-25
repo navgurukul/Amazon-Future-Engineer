@@ -533,23 +533,26 @@ const HomePage: NextPage = () => {
               </div>
             </div>
 
-            {/* SmartImage for larger screens */}
+            {/* 
+              // SmartImage for larger screens *
             <SmartImage
               className="hidden md:block absolute bottom-0 right-[10%] h-[8rem] z-0"
               src="/homepage/Frame 31749.svg"
               alt="Coding Symbols 2"
-              layout="fill"
-              objectFit="contain"
+              width={76}
+                    height={114}
+           
             />
-
-            {/* SmartImage for smaller screens */}
+            //  SmartImage for smaller screens 
             <SmartImage
               className="md:hidden block absolute top-0 right-0 h-[4rem] z-0"
               src="/homepage/Frame 31750.svg"
               alt="Coding Symbols 2"
-              layout="fill"
-              objectFit="contain"
+              width={76}
+              height={114}
+
             />
+            */}
           </section>
 
           <aside className="w-full lg:w-[30%] flex flex-col gap-6 md:gap-4 lg:min-h-[calc(100vh-14.5rem)]">

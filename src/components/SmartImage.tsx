@@ -53,6 +53,11 @@
 // export default SmartImage;
 
 
+
+
+
+
+
 import Image from 'next/image';
 import { ImageProps } from 'next/image';
 const BASE_URL = '/amazon/makerspace-blr';
@@ -66,3 +71,4 @@ const SmartImage = ({ src, ...props }: ImageProps) => {
   return <Image src={processedSrc} {...props} />;
 };
 export default SmartImage;
+
