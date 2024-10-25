@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SmartImage from "@/components/SmartImage";
 
 
 interface PopupProps {
@@ -45,11 +46,13 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
             <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-heading6-bold">
               Call Us
             </div>
-            <img
+            <SmartImage
               className="w-5 h-5 cursor-pointer"
               alt="close"
               src="/homepage/close.svg"
               onClick={handleClose}
+              width={20}
+              height={20}
             />
           </div>
 
@@ -79,10 +82,12 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
             >
               {copied ? (
                 <>
-                  <img
+                  <SmartImage
                     src="/userDashboard/checkmark_icon.png"
                     alt="Check Icon"
                     className="h-[16px] w-[16px] mr-2"
+                    width={16}
+                    height={16}
                   />
                   <div className="h-[24px] w-[33px] text-center text-[#F55C38] md:text-body2 font-body2-regular">
                     Copied!
@@ -90,10 +95,12 @@ const CallPopup: React.FC<PopupProps> = ({ offlinePopup, handleClose }) => {
                 </>
               ) : (
                 <>
-                  <img
+                  <SmartImage
                     src="/userDashboard/content_copy.svg"
                     alt="Copy Icon"
                     className="h-[16px] w-[16px] mr-2"
+                    width={16}
+                    height={16}
                   />
                   <div className="h-[24px] w-[33px] text-center text-[#F55C38] md:text-body2 font-body2-regular">
                     Copy

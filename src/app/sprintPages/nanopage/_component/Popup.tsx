@@ -1,5 +1,4 @@
 // import { callBookingQuery } from "@/utils/api";
-// import SmartImage from "@/components/SmartImage";;
 // import React, { useEffect, useState } from "react";
 
 // interface PopupProps {
