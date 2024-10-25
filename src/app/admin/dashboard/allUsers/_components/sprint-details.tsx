@@ -23,6 +23,8 @@ interface BookingDetails {
   slot: string;
 }
 interface Booking {
+  user_id(user_id: any): unknown;
+  slot_id(slot_id: any): unknown;
   id: number;
   user: {
     name: string;
@@ -75,6 +77,8 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   const [bookingSingle, setBookings] = useState<Booking | any>(null);
   const [isCalendar,setIsCalendar] = useState<boolean>();
   const [calendarDataUser,setCalendarDataUser] = useState(0)
+
+
 
 
   const formatDate = (dateString: string) => {
@@ -276,7 +280,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                     })}
                     {/* Conditionally render the slot input based on the selected program */}
                     {(bookingDetails.programName === "Nano Sprint" ||
-                      bookingDetails.programName === "") && (
+                      bookingDetails.programName === "-") && (
                       <div className="flex flex-row justify-between items-center space-x-4">
                         <Label className="font-subTitle1-bold text-subTitle1 font-extrabold text-text-primary leading-[170%]">
                           Slot
@@ -307,6 +311,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
           handleCalendar={handleCalendar}
           status = {bookingProp?.status}
           slotId = {calendarDataUser}
+          bookingProp = {bookingProp}
         />
         </div>
       </div>

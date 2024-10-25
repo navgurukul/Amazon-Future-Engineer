@@ -18,7 +18,7 @@ interface EventSlot {
     date: string;
     available_capacity: number;
     status: string;
-    booking_id: number | undefined;
+    booking_id?: number | undefined;
 }
 
 const TimeSlotCalendar: React.FC = () => {

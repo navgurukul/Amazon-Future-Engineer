@@ -413,7 +413,7 @@ export const getAdminSlotDetails = async (slotId: number) => {
 
 // api to update status
 
-export const updateBookingStatus = async (bookingId: number, status: string,cancel_reason:string,reschedule_reason:string) => {
+export const updateBookingStatus = async (bookingId: number, status: string,cancel_reason?:string,reschedule_reason?:string) => {
   try {
     const response = await api.put(`/bookings/${bookingId}/status`, {
       status: status,
