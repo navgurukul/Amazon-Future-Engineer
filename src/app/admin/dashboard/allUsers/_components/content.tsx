@@ -297,7 +297,7 @@ const Dashboard: React.FC = () => {
   };
 
   const handleLogin = () => {
-    window.open("/login");
+    window.open("/amazon/makerspace-blr/login");
   };
 
   const formatDate = (dateString: string) => {
