@@ -1,5 +1,5 @@
 import LastPart from "./LastPart";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import React from "react";
@@ -39,7 +39,7 @@ const Booking = () => {
             </div>
             <div className="flex flex-row items-center gap-4 text-darkslategray">
               <div className="w-[67px] h-12 relative">
-              <Image
+              <SmartImage
                 alt="Batch Strength Icon"
                 src="/nanopage/reshot-icon-student-DRC3YF56MU.svg"
                 layout="fill"

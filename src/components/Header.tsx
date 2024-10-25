@@ -3,7 +3,7 @@
 import { Button } from "./ui/button";
 import Cookies from "js-cookie";
 import { NextPage } from "next";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter, usePathname } from "next/navigation";
 import React from "react";
 import { useState, useEffect, useCallback, useRef } from "react";
@@ -180,7 +180,7 @@ const Header: NextPage<HeaderProps> = ({
           {/* Reshot Icon */}
           <div className="hidden md:flex items-center gap-[5px]">
             <div className="hidden md:flex">
-              <Image
+              <SmartImage
                 className="object-contain cursor-pointer"
                 alt="Reshot Icon"
                 src={
@@ -195,7 +195,7 @@ const Header: NextPage<HeaderProps> = ({
             </div>
           </div>
           <div className="md:hidden">
-            <Image
+            <SmartImage
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
               src={`/login/Group(${headerBgColor === "transparent" &&
@@ -221,7 +221,7 @@ const Header: NextPage<HeaderProps> = ({
                   onClick={toggleDropdown}
                 >
                   {isDropdownOpen ? (
-                    <Image
+                    <SmartImage
                       src="/login/close.svg"
                       alt="Close"
                       width={24}
@@ -282,7 +282,7 @@ const Header: NextPage<HeaderProps> = ({
                               ಅಇಈ
                             </Button>
                           </div>
-                          <Image
+                          <SmartImage
                             className="object-cover rounded-full cursor-pointer"
                             alt="User Avatar"
                             src="/login/avatarIcon.svg"
@@ -332,7 +332,7 @@ const Header: NextPage<HeaderProps> = ({
                     onClick={handleOfflineBooking}
                     className="flex-grow flex justify-center items-center gap-3 px-4 py-2 border-2 border-[#F55C38] "
                   >
-                    <Image
+                    <SmartImage
                       alt="Helpdesk Icon"
                       src="/nanopage/reshot-icon-phone-XZTUCW7SFA 1.svg"
                       width={24}
@@ -346,7 +346,7 @@ const Header: NextPage<HeaderProps> = ({
 
                 {profileOpen ? (
                   <div className="relative">
-                    <Image
+                    <SmartImage
                       className="object-cover rounded-full cursor-pointer"
                       alt="User Avatar"
                       src="/login/avatarIcon.svg"
@@ -426,7 +426,7 @@ const Header: NextPage<HeaderProps> = ({
               ) : (
                 <div className="p-4 flex flex-col items-center gap-4">
                   {profileOpen ? (
-                    <Image
+                    <SmartImage
                       className="w-10 h-10 object-cover rounded-full"
                       alt="User Avatar"
                       src="/login/avatarIcon.svg"
@@ -482,7 +482,7 @@ const Header: NextPage<HeaderProps> = ({
                   onClick={handleOfflineBooking}
                   className="flex-1 flex-grow flex justify-center items-center gap-3 px-4 py-2 border-2 border-[#F55C38] "
                 >
-                  <Image
+                  <SmartImage
                     alt="Helpdesk Icon"
                     src="/nanopage/reshot-icon-phone-XZTUCW7SFA 1.svg"
                     width={24}
@@ -499,7 +499,7 @@ const Header: NextPage<HeaderProps> = ({
                 // onClick={handleOfflineBooking}
                 className="flex-1  flex-grow flex justify-center items-center gap-3 px-4 py-2 border-text-primary border-[1px] border-solid box-border"
               >
-                <Image
+                <SmartImage
                   alt="WhatsApp Icon"
                   src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
                   width={24}
@@ -518,7 +518,7 @@ const Header: NextPage<HeaderProps> = ({
                 className="flex-1 flex-grow flex justify-center items-center gap-3 px-4 py-2 border-text-primary border-[1px] border-solid box-border"
                 onClick={() => window.open(whatsappLink, '_blank')}
               >
-                <Image
+                <SmartImage
                   alt="WhatsApp Icon"
                   src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
                   width={24}

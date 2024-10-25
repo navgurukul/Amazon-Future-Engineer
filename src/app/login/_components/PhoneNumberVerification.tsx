@@ -1,8 +1,9 @@
 import VerifyOTP from "./VerifyOTP";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useState, ChangeEvent } from "react";
+
 
 const PhoneNumberVerification: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
@@ -67,7 +68,7 @@ const PhoneNumberVerification: React.FC = () => {
         <div className="mt-8 ml-4 md:mt-0 md:ml-0">
           <div className="flex flex-col w-[20rem] md:w-[24rem] mx-auto items-start gap-12">
             <div>
-              <Image
+              <SmartImage
                 // className="w-16 h-16"
                 className="hidden md:flex"
                 
@@ -77,7 +78,7 @@ const PhoneNumberVerification: React.FC = () => {
                 height={40}
               />
               <div className="md:hidden">
-              <Image
+              <SmartImage
                 className="object-contain cursor-pointer"
                 alt="Reshot Icon"
                 src="/login/Group(12).svg"

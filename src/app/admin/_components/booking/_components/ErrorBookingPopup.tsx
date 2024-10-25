@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
 
@@ -33,11 +33,11 @@ const ErrorBookingPopup: NextPage<ErrorBookingPopupProps> = ({ closePopup, error
 
                 {/* Close button (Top Right) */}
                 <div className="w-full relative flex justify-end text-5xl text-text-primary font-webtypestyles-h6 cursor-pointer">
-                    <Image className="w-6 h-6 overflow-hidden shrink-0" alt="Close" src="/homepage/close.svg" width={24} height={24} onClick={onNoClick} />
+                    <SmartImage className="w-6 h-6 overflow-hidden shrink-0" alt="Close" src="/homepage/close.svg" width={24} height={24} onClick={onNoClick} />
                 </div>
 
                 <div className="w-full max-w-auto h-auto flex items-stretch justify-between px-4 relative md:text-center">
-                    <Image
+                    <SmartImage
                         className="w-full h-[160px] relative max-w-full overflow-hidden shrink-0"
                         alt=""
                         src="/nanopage/HighDemandError.svg"

@@ -11,7 +11,7 @@ import {
   updateBookingStatus,
   updateBookingDetails,
 } from "@/utils/api";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useState, useCallback, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -457,7 +457,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                     <div key={feedback.id} className="pb-8 rounded">
                       <div className="flex items-center justify-between mb-2 gap-4 font-body1-regular text-body1">
                         <div className="flex items-center gap-4">
-                          <Image
+                          <SmartImage
                             className="object-cover rounded-full cursor-pointer"
                             alt="User Avatar"
                             src="/login/avatarIcon.svg"
@@ -488,7 +488,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                     <div key={feedback.id} className="pb-8 rounded">
                       <div className="flex items-center justify-between mb-2 gap-4 font-body1-regular text-body1">
                         <div className="flex items-center gap-4">
-                          <Image
+                          <SmartImage
                             className="object-cover rounded-full cursor-pointer"
                             alt="User Avatar"
                             src="/login/avatarIcon.svg"

@@ -1,6 +1,6 @@
 import LastPart from "./LastPart";
 import { NextPage } from "next";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import React from "react";
@@ -31,7 +31,7 @@ const Booking: NextPage<BookingProps> = ({ handleOfflineBooking }) => {
             </div>
             <div className="flex flex-row items-center gap-4 text-darkslategray">
               <div className="w-[67px] h-12 relative">
-                <Image
+                <SmartImage
                   src="/nanopage/reshot-icon-time-YEDR7WZV2Q.svg"
                   alt="Time Icon"
                   layout="fill"
@@ -49,7 +49,7 @@ const Booking: NextPage<BookingProps> = ({ handleOfflineBooking }) => {
             </div>
             <div className="flex flex-row items-center gap-4 text-darkslategray">
               <div className="w-[67px] h-12 relative">
-                <Image
+                <SmartImage
                   src="/nanopage/reshot-icon-student-DRC3YF56MU.svg"
                   alt="Batch Strength Icon"
                   layout="fill"

@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useState } from "react";
 
 
@@ -69,21 +69,21 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
 
                         <div className="flex flex-col md:flex-row mt-4 gap-4 md:gap-8">
                             <div className="flex items-center space-x-3">
-                                <Image className="w-6 h-6 md:w-8 md:h-8" alt="calendar icon" src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg" width={24} height={24} />
+                                <SmartImage className="w-6 h-6 md:w-8 md:h-8" alt="calendar icon" src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg" width={24} height={24} />
                                 <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
                                     {formattedDate}
                                 </div>
                             </div>
 
                             <div className="flex items-center space-x-3">
-                                <Image className="w-6 h-6 md:w-8 md:h-8" alt="time icon" src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg" width={24} height={24} />
+                                <SmartImage className="w-6 h-6 md:w-8 md:h-8" alt="time icon" src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg" width={24} height={24} />
                                 <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
                                     {`${startTime} to ${endTime}`}
                                 </div>
                             </div>
 
                             <div className="flex items-center space-x-3">
-                                <Image className="w-6 h-6 md:w-8 md:h-8" alt="students icon" src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg" width={24} height={24} />
+                                <SmartImage className="w-6 h-6 md:w-8 md:h-8" alt="students icon" src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg" width={24} height={24} />
                                 <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
                                     {`${studentsCount} Students`}
                                 </div>

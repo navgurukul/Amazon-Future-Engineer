@@ -2,7 +2,7 @@ import { useAllBookings } from "./allBookings";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useRef, useEffect, useState } from "react";
 import EventPopup from "./Event";
 
@@ -73,7 +73,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   return (
     <div className="calendar-container">
       <div className="calendar-header">
-        <Image
+        <SmartImage
           src="/previous.svg"
           alt="Previous"
           width={30}
@@ -82,7 +82,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           className="nav-icon"
         />
         <h1 className="calendar-title">{currentMonthYear}</h1>
-        <Image
+        <SmartImage
           src="/next.svg"
           alt="Next"
           width={30}

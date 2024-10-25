@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
@@ -48,11 +48,11 @@ const ErrorHighDemand: NextPage<ErrorHighDemandProps> = ({ closePopup, errorMess
     //     <div className="relative w-full lg:w-1/3 shadow-lg rounded-t-lg lg:rounded-lg bg-white flex flex-col justify-start items-center p-4 md:p-auto gap-8 text-left text-lg text-gray-600 font-nunito max-h-[90vh] lg:max-h-[80vh] overflow-y-auto">
 
     //         <div className="w-full relative flex justify-end text-5xl text-text-primary font-webtypestyles-h6 cursor-pointer">
-    //             <Image className="w-6 h-6 overflow-hidden shrink-0" alt="Close" src="/homepage/close.svg" width={24} height={24} onClick={onNoClick} />
+    //             <SmartImage className="w-6 h-6 overflow-hidden shrink-0" alt="Close" src="/homepage/close.svg" width={24} height={24} onClick={onNoClick} />
     //         </div>
 
     //         <div className="w-full max-w-auto h-auto flex items-stretch justify-between px-4 relative md:text-center">
-    //             <Image
+    //             <SmartImage
     //                 className="w-full h-[160px] relative max-w-full overflow-hidden shrink-0"
     //                 alt=""
     //                 src="/nanopage/HighDemandError.svg"
@@ -98,7 +98,7 @@ const ErrorHighDemand: NextPage<ErrorHighDemandProps> = ({ closePopup, errorMess
     </div> */}
 
           <div className="w-full flex items-center justify-center mt-4">
-            <Image
+            <SmartImage
               className="w-full  h-[160px] relative max-w-full overflow-hidden shrink-0"
               alt=""
               src="/nanopage/HighDemandError.svg"
@@ -138,10 +138,11 @@ const ErrorHighDemand: NextPage<ErrorHighDemandProps> = ({ closePopup, errorMess
                 </>
               ) : (
                 <>
-                  <img
+                  <SmartImage
                     src="/userDashboard/content_copy.svg"
                     alt="Copy Icon"
-                    className="h-[16px] w-[16px]"
+                    width={16}
+                    height={16}
                   />
                   <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
                     Copy

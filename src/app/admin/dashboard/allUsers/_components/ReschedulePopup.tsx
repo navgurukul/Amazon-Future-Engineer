@@ -8,7 +8,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { updateBookingStatus, rescheduleBookingUpdate, getSlotDetailsSlotId } from "@/utils/api";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { format } from "date-fns"; // Add date-fns for formatting
@@ -131,7 +131,7 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
                 value={slotData ? formatSlotDetails(slotData) : ""}
                 readOnly // Make the input field read-only
               />
-              <Image
+              <SmartImage
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
                 src="/admin/calendar_today (1).svg"
                 alt="calendar"

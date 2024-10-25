@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
@@ -48,7 +48,7 @@ const Header: React.FC = () => {
         {/* Logo */}
         <div className="flex-1 flex justify-start">
           <div className="hidden md:flex">
-            <Image
+            <SmartImage
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
               src="/login/afe_subbrand_logo_horizontal_blue.svg"
@@ -57,7 +57,7 @@ const Header: React.FC = () => {
             />
           </div>
           <div className="md:hidden">
-            <Image
+            <SmartImage
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
               src="/login/Group(11).svg"
@@ -89,7 +89,7 @@ const Header: React.FC = () => {
             </Button>
           </div>
           <div className="relative profile-dropdown">
-            <Image
+            <SmartImage
               className="object-cover rounded-full cursor-pointer"
               alt="User Avatar"
               src="/login/avatarIcon.svg"
