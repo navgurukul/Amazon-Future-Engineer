@@ -23,6 +23,7 @@ interface BookingDetails {
 }
 
 interface Booking {
+  slot_id(slot_id: any): unknown;
   program_id: any;
   id: number;
   user: {
@@ -55,7 +56,7 @@ const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingPr
   const [showSprintDetails, setShowSprintDetails] = useState(false);
   const router = useRouter();
 
-  console.log("Tamanna",bookingProp)
+
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -78,7 +79,7 @@ const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingPr
             udiseCode: 'U-213012894', // Assuming this is not provided in the API response
             city: foundBooking.slot.venue.city,
             pincode: foundBooking.slot.venue.pin_code,
-            grade: 'Grade 6', // Assuming this is not provided in the API response
+            grade: '-', // Assuming this is not provided in the API response
             numberOfStudents: foundBooking.booking_batch_size,
             actualNumberOfStudents: foundBooking.visited_batch_size,
             slot: `${formatDate(foundBooking.booking_for)} | ${foundBooking.start_time} to ${foundBooking.end_time}`,

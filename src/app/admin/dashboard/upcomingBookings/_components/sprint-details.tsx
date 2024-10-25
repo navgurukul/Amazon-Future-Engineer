@@ -16,7 +16,6 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 
 interface BookingDetails {
-  // bookingDetails(slot: string, arg1: number): unknown;
   name: string;
   email: string;
   phoneNumber: string;
@@ -49,6 +48,7 @@ interface Feedback {
 
 
 interface Booking {
+  slot_id(slot_id: any): unknown;
   program_id: any;
   id: number;
   user: {
@@ -171,13 +171,12 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     try {
       const bookingData = {
         user_id: Number(bookingProp.user.id),
-        slot_id: parseInt(bookingDetails.slot, 10),
-        program_id: bookingProp.program_id,
+        slot_id: Number( bookingProp.slot_id),
         booking_batch_size: bookingDetails.numberOfStudents,
         visited_batch_size: Number(editedDetails.actualNumberOfStudents),
         students_grade: editedDetails.grade,
-        visiting_time: bookingDetails.dateOfRequest,
-        school_name: editedDetails.schoolName,
+        visiting_time: new Date().toISOString(),
+        school_name: String(editedDetails.schoolName),
         udise: editedDetails.udiseCode,
         email: bookingDetails.email,
         address: bookingDetails.city,
@@ -187,6 +186,14 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         pin_code: parseInt(bookingDetails.pincode, 10),
       };
       await updateBookingDetails(bookingProp.id, bookingData);
+      toast({
+        title: "Success",
+        description: "Data Updated Successfully",
+        variant: "success",
+        duration: 1000,
+      });
+      setIsSaving(false);
+
     } catch (error) {
       console.error("Error updating booking details:", error);
     } finally {

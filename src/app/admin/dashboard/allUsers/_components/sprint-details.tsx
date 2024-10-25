@@ -300,7 +300,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
           {/* Pass programName to Footer */}
           <Footer
           programName={bookingDetails?.programName}
-          bookingId={bookingProp?.id?.toString()}
+          bookingId={bookingProp?.id}
           onSubmitClick={onSubmitClick}
           bookings={bookingDetails}
           bookingSingle={bookingSingle}

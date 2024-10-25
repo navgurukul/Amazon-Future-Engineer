@@ -24,7 +24,7 @@ interface CancelPopupProps {
 
 interface BookingDetails {
   name: string;
-  email: string | null;
+  email: string | any;
   phoneNumber: string;
   dateofRequest: string;
   programName: string;
@@ -83,7 +83,7 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
         slot_id: slotId,
         booking_batch_size: bookings.numberOfStudents,
         students_grade: bookings.grade,
-        visiting_time: "2024-11-30T13:30:00.000Z",
+        visiting_time: new Date().toISOString(),
         status: "BookingConfirmed",
         // query_id: 1,
         school_name: String(bookings.schoolName) ,
@@ -102,6 +102,7 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
         "BookingConfirmed",
         reason
       );
+      window.location.reload()
       onClose()
     } catch (err) {
       console.log(err);

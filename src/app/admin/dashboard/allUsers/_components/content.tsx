@@ -25,6 +25,8 @@ import React, { useMemo, useState, useEffect } from "react";
 const Dashboard: React.FC = () => {
   
   interface User {
+    bookings: any;
+    flatMap(arg0: (entry: any) => any): any;
     id: number;
     name: string | null;
     email: string | null;
@@ -136,7 +138,7 @@ const Dashboard: React.FC = () => {
         return group.flatMap((entry) => {
           if ("bookings" in entry) {
             // Condition 1: If bookings are available
-            return entry.bookings.map((booking) => ({
+            return entry.bookings.map((booking: any) => ({
               user: {
                 name: entry.name || "N/A",
                 phone: entry.phone || "N/A",
@@ -209,7 +211,7 @@ const Dashboard: React.FC = () => {
           return []; // Skip this user, return an empty array
         }
         // Process the user's bookings
-        return user?.bookings.map((booking) => {
+        return user?.bookings.map((booking: any) => {
 
           const processedBooking = {
             ...booking,
