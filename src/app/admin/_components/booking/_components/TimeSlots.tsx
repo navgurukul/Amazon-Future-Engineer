@@ -10,7 +10,7 @@ interface TimeSlotsProps {
   handleBookingPopUp: any;
   handleCalendar :()=>void;
   bookingDetails: BookingDetails;
-  calendarData: number; 
+  calendarData: (slot_id: number) => void;
 }
 
 interface Slot {
