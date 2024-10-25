@@ -164,8 +164,8 @@ const TimeSlotCalendar: React.FC = () => {
           setSelectedSlots(updatedSlots);
         setShowTimeSlotsPopup(false);
 
-        localStorage.setItem("shouldManageSlots", "true");
-        window.location.reload();
+        // localStorage.setItem("shouldManageSlots", "true");
+        // window.location.reload();
       } catch (error) {
         console.error("Error updating slots:", error);
       }
