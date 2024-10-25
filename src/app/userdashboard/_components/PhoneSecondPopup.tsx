@@ -111,10 +111,12 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
                             >
                                 {copied ? (
                                     <>
-                                        <img
+                                        <SmartImage
                                             src="/userDashboard/checkmark_icon.png"
                                             alt="Check Icon"
                                             className="h-[16px] w-[16px] mr-2"
+                                            width={16}
+                                            height={16}
                                         />
                                         <div className="h-[24px] w-[33px] text-center text-[#F55C38] md:text-body2 font-body2-regular">
                                             Copied!
@@ -122,10 +124,12 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
                                     </>
                                 ) : (
                                     <>
-                                        <img
+                                        <SmartImage
                                             src="/userDashboard/content_copy.svg"
                                             alt="Copy Icon"
                                             className="h-[16px] w-[16px] mr-2"
+                                            width={16}
+                                            height={16}
                                         />
                                         <div className="h-[24px] w-[33px] text-center text-[#F55C38] md:text-body2 font-body2-regular">
                                             Copy

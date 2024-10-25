@@ -72,7 +72,7 @@ const Page: NextPage = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(phoneNumber)
       .then(() => {
-        setCopied(true); 
+        setCopied(true);
 
         setTimeout(() => setCopied(false), 2000);
       })
@@ -177,9 +177,9 @@ const Page: NextPage = () => {
         handleClose={handleCloseFirstPopup}
         handleOpenSecondPopup={handleOpenSecondPopup}
         // userData={userData ? userData[0] : null}
-         userData={userData && userData.length > 0 ? userData[0] : null}
-        // userData={userData && userData.length > 0 && userData[0].booking_id ? userData[0] : null}
-         />
+        userData={userData && userData.length > 0 ? userData[0] : null}
+      // userData={userData && userData.length > 0 && userData[0].booking_id ? userData[0] : null}
+      />
 
       <PhoneSecondPopup
         isOpen={isPhoneSecondPopupOpen}
@@ -203,10 +203,12 @@ const Page: NextPage = () => {
           /> */}
           <div className="md:max-w-[592px] md:max-h-[440px]">
             <a href="https://maps.app.goo.gl/z7QztCwrwcMTnpscA" target="_blank" rel="noopener noreferrer">
-              <img
+              <SmartImage
                 className=" w-full h-auto rounded-lg object-cover cursor-pointer"
                 alt="innovation hub map"
                 src="/userDashboard/map.png"
+                fill
+                style={{ objectFit: 'contain' }}
               />
             </a>
           </div>
@@ -259,10 +261,12 @@ const Page: NextPage = () => {
                 >
                   {copied ? (
                     <>
-                      <img
+                      <SmartImage
                         src="/userDashboard/checkmark_icon.png"
                         alt="Check Icon"
                         className="h-[16px] w-[16px]"
+                        width={16}
+                        height={16}
                       />
                       <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
                         Copied!
@@ -270,10 +274,12 @@ const Page: NextPage = () => {
                     </>
                   ) : (
                     <>
-                      <img
+                      <SmartImage
                         src="/userDashboard/content_copy.svg"
                         alt="Copy Icon"
                         className="h-[16px] w-[16px]"
+                        width={16}
+                        height={16}
                       />
                       <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
                         Copy
