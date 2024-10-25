@@ -115,7 +115,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
 
   useEffect(() => {
     if (bookingProp.status !== "BookingConfirmed") {
-      const dateCondition = !bookingProp.booking_for 
+      const dateCondition = !bookingProp.booking_for;
       setBookingDetails({
         name: bookingProp.user.name || "-",
         email: bookingProp.user.email || "-",
@@ -128,10 +128,11 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
         pincode: "-",
         grade: "-",
         numberOfStudents: bookingProp.booking_batch_size || "-",
-        slot: !dateCondition ? 
-          `${formatDate(bookingProp.booking_for)} | ${
-            bookingProp.start_time
-          } to ${bookingProp.end_time}` : "",
+        slot: !dateCondition
+          ? `${formatDate(bookingProp.booking_for)} | ${
+              bookingProp.start_time
+            } to ${bookingProp.end_time}`
+          : "",
       });
     }
     const loadBookingDetails = async () => {
@@ -224,9 +225,10 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     bookingProp?.status === "Cancelled" ||
     bookingProp?.status === "NotInterested";
 
-    
+  const handlePreviousScreen = () => {
+    window.location.reload();
+  };
 
-  
   return (
     <>
       {isCalendar ? (
@@ -241,6 +243,17 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
             {popupValue && (
               <div className="w-[592px] max-w-4xl mx-auto px-4 mt-[48px] mb-[152px] space-y-6">
                 <div className="space-y-8">
+                  <div className="flex gap-2 cursor-pointer" onClick={handlePreviousScreen}>
+                    <SmartImage
+                      src="/login/chevron_left.svg"
+                      alt="back"
+                   
+                      className="cursor-pointer overflow-hidden"
+                      width={24}
+                      height={24}
+                    />
+                    <div className="leading-[170%] font-extrabold">Back</div>
+                  </div>
                   <h1 className="text-heading5 font-heading5-bold leading-[150%] font-extrabold text-midnight-blue-main">
                     Booking Details
                   </h1>
@@ -347,8 +360,8 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                           <Input
                             value={
                               slotData
-                              ? formatSlotDetails(slotData)
-                              : bookingDetails.slot || "-"
+                                ? formatSlotDetails(slotData)
+                                : bookingDetails.slot || "-"
                             }
                             onChange={(e) =>
                               handleInputChange("slot", e.target.value)
