@@ -16,7 +16,7 @@ interface FirstPopupProps {
     isOpen: boolean;
     handleClose: () => void;
     handleOpenSecondPopup: () => void;
-    userData: EventData | null;
+    userData: EventData | any;
 }
 
 const FirstPopup: NextPage<FirstPopupProps> = ({
