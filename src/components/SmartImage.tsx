@@ -1,6 +1,6 @@
 
 // import React from 'react';
-// impoSmartImageage, { ImageProps } from 'next/image';
+// impoSmartImageage, { ImageProps } from '@/components/SmartImage';
 // import getConfig from 'next/config';
 // interface SmartImageProps extends Omit<ImageProps, 'src'> {
 //     src: string;
@@ -53,8 +53,8 @@
 // export default SmartImage;
 
 
-import Image from 'next/image';
-import { ImageProps } from 'next/image';
+import SmartImage from '@/components/SmartImage';
+import { ImageProps } from '@/components/SmartImage';
 
 const BASE_URL = '/amazon/makerspace-blr';
 
@@ -67,7 +67,7 @@ const SmartImage = ({ src, ...props }: ImageProps) => {
       : `${BASE_URL}${src.startsWith('/') ? src : `/${src}`}`;
   }
 
-  return <Image src={processedSrc} {...props} />;
+  return <SmartImage src={processedSrc} {...props} />;
 };
 
 export default SmartImage;

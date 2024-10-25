@@ -47,7 +47,13 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
       <DialogHeader />
 
       <div className="w-full max-w-[592px] h-[75px] md:mt-[120px] mt-[100px] flex items-stretch justify-between px-4 relative md:text-center">
-        <img src="/symbols/Frame 31751.svg" alt="coding symbols" />
+      <SmartImage
+      src="/symbols/Frame 31751.svg"
+      alt="coding symbols"
+      width={75} 
+      height={75} 
+    />
+  
       </div>
 
       <div className="w-full max-w-[592px] md:mt-[60px] mt-[24px] p-4 md:p-8 flex flex-col items-start justify-start gap-6 text-left text-base md:text-lg text-text-primary font-mobiletypestyles-body1 md:font-webtypestyles-body1 bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.06),_0px_2px_1px_rgba(0,_0,_0,_0.04),_0px_1px_5px_rgba(0,_0,_0,_0.08)] rounded-lg px-[16px]">
@@ -87,10 +93,12 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
             >
               {copied ? (
                 <>
-                  <img
+                  <SmartImage
                     src="/userDashboard/checkmark_icon.png"
                     alt="Check Icon"
-                    className="h-[16px] w-[16px]"
+                    width = {16}
+                    height = {16}
+
                   />
                   <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
                     Copied!
@@ -98,10 +106,11 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
                 </>
               ) : (
                 <>
-                  <img
+                  <SmartImage
                     src="/userDashboard/content_copy.svg"
                     alt="Copy Icon"
-                    className="h-[16px] w-[16px]"
+                    width={16}
+                    height={16}
                   />
                   <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
                     Copy

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import SmartImage from 'next/image';
+import SmartImage from '@/components/SmartImage';
 
 const DialogHeader: React.FC = () => {
   const router = useRouter();
