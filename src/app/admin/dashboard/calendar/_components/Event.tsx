@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAdminSlotDetails } from "@/utils/api";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 
 interface EventPopupProps {
   eventId: number;
