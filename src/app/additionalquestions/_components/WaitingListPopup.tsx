@@ -13,6 +13,7 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
   name,
 }) => {
   const router = useRouter();
+  const [copied, setCopied] = useState(false);
 
   const whatsappLink = `https://wa.me/${6366969292}`;
 
@@ -39,7 +40,7 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
     router.push("/sprintPages/minipage");
   };
 
-  const [copied, setCopied] = useState(false);
+  
 
   const phoneNumber = " +91 63669-69292";
 
@@ -161,10 +162,12 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
             >
               {copied ? (
                 <>
-                  <img
+                  <SmartImage
                     src="/userDashboard/checkmark_icon.png"
                     alt="Check Icon"
                     className="h-[16px] w-[16px]"
+                    width={16}
+                    height={16}
                   />
                   <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
                     Copied!
@@ -172,10 +175,12 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
                 </>
               ) : (
                 <>
-                  <img
+                  <SmartImage
                     src="/userDashboard/content_copy.svg"
                     alt="Copy Icon"
                     className="h-[16px] w-[16px]"
+                    width={16}
+                    height={16}
                   />
                   <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
                     Copy

@@ -90,7 +90,7 @@ const Booking: NextPage<BookingProps> = ({ handleOfflineBooking }) => {
 
             <div className="flex flex-row items-center gap-4 text-darkslategray">
               <div className="w-[67px] h-12 relative">
-                <Image
+                <SmartImage
                   src="/nanopage/reshot-icon-student-class-JAMNVGK56B 1.svg"
                   alt="Grades Icon"
                   layout="fill"
