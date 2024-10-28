@@ -243,7 +243,7 @@ const Popup: React.FC<PopupProps> = ({
           <div className="flex items-center justify-between w-full mb:2 md:mb-4">
             <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-heading6-bold">
               {/* Call Us */}
-              {isLanguageEnglish ? "Call Us" : "ನಮಗೆ ಕರೆ ಮಾಡಿ"}
+              {isLanguageEnglish ? "Request a Callback" : "ನಮಗೆ ಕರೆ ಮಾಡಿ"}
             </div>
             <SmartImage
               className="w-5 h-5 cursor-pointer"
@@ -261,27 +261,25 @@ const Popup: React.FC<PopupProps> = ({
               : "ನಾನು ನಾನೋ ಸೆಷನ್ ಬುಕ್ ಮಾಡಲು ಸಹಾಯ ಬೇಕಾದರೆ ಅಥವಾ ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳಿದ್ದರೆ, ನಾವು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಲು ಇಲ್ಲಿದ್ದೇವೆ!"}
 
           </div>
-          <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-            {/* <b>Response Time:</b> */}
+
+          {/* <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
             <b>{isLanguageEnglish ? "Response Time:" : "ಪ್ರತಿಸ್ಪಂದನಾ ಸಮಯ:"}</b>
             <span className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-              {/* Within 24 hours */}
               {isLanguageEnglish
                 ? "Within 24 hours"
                 : "24 ಗಂಟೆಗಳ ಒಳಗೆ"}
             </span>
           </div>
           <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-            {/* <b>Operational Time:</b> */}
             <b>{isLanguageEnglish ? "Operational Time:" : "ಕಾರ್ಯಾಚರಣಾ ಸಮಯ:"}</b>
             <span className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-              {/* Monday to Friday, 9 AM to 6 PM */}
               {isLanguageEnglish
                 ? "Monday to Friday, 9 AM to 6 PM"
                 : "ಸೋಮವಾರದಿಂದ ಶುಕ್ರವಾರ, ಬೆಳಿಗ್ಗೆ 9 ರಿಂದ ಮಧ್ಯಾಹ್ನ 6"}
 
             </span>
-          </div>
+          </div> */}
+
           <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray md:mb-4">
             {/* Please provide your name and phone number, and we all get back to you shortly. */}
             {isLanguageEnglish

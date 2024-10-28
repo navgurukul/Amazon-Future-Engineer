@@ -99,9 +99,10 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
             />
           </div>
         </div> */}
-        <div className="w-full mb-4">
+        
+        {/* <div className="w-full mb-4">
         <SmartImage src="/symbols/Frame 31751.svg" alt="coding symbols" width={75} height={75} />
-        </div>
+        </div> */}
 
         {/* <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray"> */}
         {/* Thank you for your interest in the AFE Makerspace. While the AFE
