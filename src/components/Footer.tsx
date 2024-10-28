@@ -90,11 +90,11 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
             </span>
           </Button> */}
           <SmartImage
-            className="object-cover w-[100%] max-w-[100%]"
-            alt="TIS Logo"
-            src="/login/Logo TIS 1.svg"
-            width={24}
-            height={24}
+          className="object-cover w-[100%] max-w-[100%] hidden md:block"
+           alt="TIS Logo"
+              src="/login/Logo TIS 1.svg"
+              width={24}
+              height={24}
           />
 
           {isMobile && (
