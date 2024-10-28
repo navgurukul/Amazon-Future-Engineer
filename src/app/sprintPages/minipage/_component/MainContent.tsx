@@ -74,20 +74,18 @@ const MainContent: NextPage = () => {
   return (
     <main className="pt-[150px] md:pb-16 pb-12 w-[90%] md:max-w-[70%] mx-auto flex flex-col gap-8">
       <header className="flex flex-col md:flex-row justify-start gap-8 md:gap-16 text-xl md:text-2xl lg:text-3xl">
-        <nav className="text-sm md:text-lg leading-[150%] text-left inline-block">
+        {/* <nav className="text-sm md:text-lg leading-[150%] text-left inline-block">
           <span className="text-darkslateblue text-[#29458c]">
-            {/* <b>Home</b> */}
             <b>{isLanguageEnglish ? "Home" : "ಮನೆ"}</b>
           </span>
           <span className="font-medium">
             <span className="text-darkslateblue">{` / `}</span>
-            {/* <span className="text-darkslategray">Sprints</span> */}
             <span className="text-darkslategray">
               {isLanguageEnglish ? "Sprints" : "ಸ್ಪ್ರಿಂಟ್ಸ್"}
             </span>
 
           </span>
-        </nav>
+        </nav> */}
       </header>
 
       {/* Adjusted sprint images */}
