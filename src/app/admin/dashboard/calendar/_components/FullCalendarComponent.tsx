@@ -19,7 +19,8 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   const { events } = useAllBookings();
   const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
 
-  const whatsappLink = `https://wa.me/${6366969292}`;
+  const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+  const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
 
   const getMonthYear = (date: Date) => {
     const monthNames = [

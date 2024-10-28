@@ -177,7 +177,8 @@ const HomePage: NextPage = () => {
     }
   }, [openSecondPopup]);
 
-  const whatsappLink = `https://wa.me/${6366969292}`;
+  const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+  const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
 
   const [copied, setCopied] = useState(false);
 
@@ -242,14 +243,16 @@ const HomePage: NextPage = () => {
             {/* <div className="w-[800px] h-[72px]"> */}
             {/* <div className="w-full relative text-[1.5rem] leading-[150%] font-extrabold text-white text-left inline-block font-['Amazon Ember Display']"> */}
             <div className="flex gap-4 items-center mb-4">
-              <div className="text-[#f0f0f0] md:text-web-light-background-default text-heading6 font-heading6-bold leading-[150%] w-[100%]">Operated by</div>
+              <div className="text-[#f0f0f0] md:text-web-light-background-default text-heading6 font-heading6-bold leading-[150%] w-[100%]">
+                {isLanguageEnglish ? "Operated by " : "ನಿರ್ವಹಿಸುತ್ತದೆ"}
+              </div>
               <SmartImage
-          className="object-cover w-[100%] h-[56px] relative"
-           alt="TIS Logo"
-              src="/login/Logo TIS 1.svg"
-              width={24}
-              height={24}
-          />
+                className="object-cover w-[100%] h-[56px] relative"
+                alt="TIS Logo"
+                src="/login/Logo TIS 1.svg"
+                width={24}
+                height={24}
+              />
             </div>
             <div className="text-[#f0f0f0] md:text-web-light-background-default text-heading6 font-heading6-bold leading-[150%]">
               {/* <span>
@@ -695,9 +698,8 @@ const HomePage: NextPage = () => {
                   30 to 40 students per session
                 </p> */}
                 <p className="text-bodyM md:text-body1 leading-[170%] font-body1-regular">
-                  {isLanguageEnglish
-                    ? "Grades 6 to 12"
-                    : ""}
+                  {isLanguageEnglish ? "Grades " : "ಗ್ರೇಡ್ಸ್ "}
+                  {isLanguageEnglish ? "6 to 12" : "6 ರಿಂದ 12"}
                 </p>
               </div>
               {/* <p className="w-full leading-[170%] font-medium text-[14px] md:text-[20px]"> */}

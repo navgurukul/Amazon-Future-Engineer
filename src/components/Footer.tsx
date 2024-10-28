@@ -5,6 +5,7 @@ import type { NextPage } from "next";
 import SmartImage from "@/components/SmartImage";;
 import { useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppState } from "@/context/AppContext";
 
 // import router from "next/router";
 
@@ -15,6 +16,7 @@ interface FooterProps {
 const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const { isLanguageEnglish } = useAppState(); 
 
   const onReshotIconClick = () => {
     router.push("/");
@@ -36,7 +38,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
 
   const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
   const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
-  // const whatsappLink = `https://wa.me/${6366969292}`;
+  // const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
 
   return (
     <div className="w-full bg-[#ecf0f3] h-auto text-center text-lg text-gray-800 font-amazon-ember  px-4 py-12 md:py-8 md:px-12 shadow-lg">
@@ -68,7 +70,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
 
         {/* Privacy Policy */}
         <div className="flex justify-center w-full md:w-auto text-body1 font-body1-regular text-darkslategray">
-          Privacy Policy
+          {isLanguageEnglish ? "Privacy Policy" : "ಗೌಪ್ಯತೆ ನೀತಿ"}
         </div>
 
         {/* Helpdesk Section */}

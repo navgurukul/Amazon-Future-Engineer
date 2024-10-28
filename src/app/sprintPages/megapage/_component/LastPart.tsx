@@ -7,7 +7,8 @@ import { useState } from "react";
 const LastPart = () => {
   const { isLanguageEnglish } = useAppState(); // Access language state
 
-  const whatsappLink = `https://wa.me/${6366969292}`;
+  const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+  const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
 
   const [copied, setCopied] = useState(false);
 

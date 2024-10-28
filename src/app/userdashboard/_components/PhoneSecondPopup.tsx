@@ -30,7 +30,8 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
     const endTime = userData.end_time;
     const studentsCount = userData.booking_batch_size;
 
-    const whatsappLink = `https://wa.me/${6366969292}`;
+    const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+    const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
 
 
     const phoneNumber = " +91 63669-69292";
@@ -54,7 +55,10 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
                         <div className="flex justify-between items-center">
 
                             <div className="text-[#3a3a3a] text-subHeading1 md:text-heading6 font-['Amazon Ember Display'] leading-[150%] text-left">
-                                Reschedule Nano Sprint
+                                {/* Reschedule Nano Sprint */}
+                                <span>
+                                    {isLanguageEnglish ? "Reschedule Nano Sprint" : "ನಾನು ನಾನೋ ಸ್ಪ್ರಿಂಟ್ ಪುನಃ ಶೆಡ್ಯೂಲ್ ಮಾಡಿರಿ"}
+                                </span>
                             </div>
                             <button
                                 className="text-gray-400 hover:text-gray-600 focus:outline-none"
@@ -69,8 +73,8 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
                         <div className="text-[#3a3a3a] text-bodyM2 md:text-subTitle1 leading-[170%] mt-4 font-['Amazon Ember']">
                             {/* Current Booking Details */}
                             {isLanguageEnglish
-                                ? "Current Booking Details:"
-                                : "ಈಗಿನ ಬುಕಿಂಗ್ ವಿವರಗಳು:"}
+                                ? "Current Booking Details"
+                                : "ಈಗಿನ ಬುಕಿಂಗ್ ವಿವರಗಳು"}
                         </div>
 
                         <div className="flex flex-col md:flex-row mt-4 gap-4 md:gap-8">
@@ -108,9 +112,9 @@ const PhoneSecondPopup: NextPage<SecondPopupProps> = ({ isOpen, handleClose, use
                                 </a>
                             </div>
 
-                            <div className="text-[#3a3a3a] text-bodyM md:text-body1 font-body1-regular leading-[170%]">
+                            {/* <div className="text-[#3a3a3a] text-bodyM md:text-body1 font-body1-regular leading-[170%]">
                                 AFE Makerspace Helpline
-                            </div>
+                            </div> */}
 
                             <button
                                 className=" md:flex px-8 py-2 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] mt-2 w-[89px] h-[40px]"

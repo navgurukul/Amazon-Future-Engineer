@@ -9,6 +9,7 @@ import SmartImage from "@/components/SmartImage";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { useAppState } from "@/context/AppContext";
 
 
 interface EventData {
@@ -26,8 +27,10 @@ const Page: NextPage = () => {
   const router = useRouter();
   const [userData, setUserData] = useState<EventData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { isLanguageEnglish } = useAppState(); // Get language state from context
 
-  const whatsappLink = `https://wa.me/${6366969292}`;
+  const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+  const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,7 +63,7 @@ const Page: NextPage = () => {
 
   const handleCloseSecondPopup = () => setIsPhoneSecondPopupOpen(false);
   const handleBookSessionClick = () => {
-    console.log("need to add logic for this")
+    // console.log("need to add logic for this")
   }
 
 
@@ -71,7 +74,7 @@ const Page: NextPage = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(phoneNumber)
       .then(() => {
-        setCopied(true); 
+        setCopied(true);
 
         setTimeout(() => setCopied(false), 2000);
       })
@@ -94,7 +97,11 @@ const Page: NextPage = () => {
         {/* <div className="text-[#29458c]  text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px] self-stretch">
           My Bookings
         </div> */}
-        <h2 className="self-stretch leading-[150%] text-heading6 md:text-heading5 text-[#29458c]">My Bookings</h2>
+        <h2 className="self-stretch leading-[150%] text-heading6 md:text-heading5 text-[#29458c]">
+          {isLanguageEnglish
+            ? "My Bookings"
+            : "ನನ್ನ ಬುಕಿಂಗ್‌ಗಳು"}
+        </h2>
         {/* <div className="text-[#29458c] text-heading4 font-heading4-bold  sm:text-[32px]  leading-[48px] sm:leading-[48px] self-stretch">
                     My Bookings
                 </div> */}
@@ -111,7 +118,11 @@ const Page: NextPage = () => {
                 {/* <div className="text-left leading-[150%] font-bold text-[1.5rem] md:font-extrabold">
                   Nano Sprint
                 </div> */}
-                <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#3a3a3a] text-left mb-4">Nano Sprint</h3>
+                <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#3a3a3a] text-left mb-4">
+                  {isLanguageEnglish
+                    ? "Nano Sprint"
+                    : "ನ್ಯಾನೋ ಸ್ಪ್ರಿಂಟ್"}
+                </h3>
                 <div className="flex flex-col gap-4 md:gap-8 md:flex-row">
                   <div className="flex items-center gap-3">
                     <SmartImage
@@ -160,14 +171,20 @@ const Page: NextPage = () => {
                 className="text-center text-[#f55c38] text-lg font-medium font-['Amazon Ember'] cursor-pointer px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full md:w-auto mt-6 md:mt-0 text-bodyM md:text-body1"
                 onClick={handleOpenFirstPopup}
               >
-                Reschedule
+                {isLanguageEnglish
+                  ? "Reschedule"
+                  : "ಮರುನಿಗದಿಪಡಿಸಿ"}
               </div>
               {/* </div> */}
               {/* </div> */}
             </div>
           ))
         ) : (
-          <div>No upcoming events found.</div>
+          <div>
+            {isLanguageEnglish
+              ? "No upcoming events found."
+              : "ಯಾವುದೇ ಮುಂಬರುವ ಈವೆಂಟ್‌ಗಳು ಕಂಡುಬಂದಿಲ್ಲ."}
+          </div>
         )}
       </div>
 
@@ -187,7 +204,9 @@ const Page: NextPage = () => {
       <div className="w-full max-w-[90%] lg:max-w-[70%] md:max-w-[90%] h-auto mx-auto relative flex flex-col items-center gap-8 mt-12">
         {/* <div className="text-[#29458c] text-[24px] font-extrabold leading-[36px] text-left sm:text-[32px] sm:leading-[48px] self-start"> */}
         <h2 className="leading-[150%] text-heading6 md:text-heading5 text-[#29458c] text-left self-start w-full max-w-[90%]">
-          How to Reach AFE Makerspace
+          {isLanguageEnglish
+            ? " How to Reach AFE Makerspace?"
+            : "AFE ಮೇಕರ್ಸ್ಪೇಸ್ ಅನ್ನು ಹೇಗೆ ತಲುಪುವುದು?"}
           {/* <span className="block sm:hidden"></span>
           <span className="sm:ml-2">Makerspace</span> */}
         </h2>
@@ -210,7 +229,7 @@ const Page: NextPage = () => {
                 src="/userDashboard/map.png"
                 width={592}
                 height={440}
-                
+
               />
             </a>
           </div>
@@ -218,7 +237,11 @@ const Page: NextPage = () => {
           <div className="w-full flex flex-col gap-4">
             {/* <div className="text-[#3a3a3a] text-[24px] sm:text-xl font-extrabold leading-9"> */}
             <div className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-[#3a3a3a]">
-              Amazon Future Engineer Makerspace</div>
+              
+              {isLanguageEnglish
+            ? "Amazon Future Engineer Makerspace"
+            : "ಅಮೆಜಾನ್ ಫ್ಯೂಚರ್ ಇಂಜಿನಿಯರ್ ಮೇಕರ್ಸ್ಪೇಸ್"}
+              </div>
             {/* <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
             <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
               #41, 3rd Floor, Above Maruti Suzuki Arena, 15th Cross, Margosa Road, Malleshwaram, Bangalore - 560003
@@ -230,7 +253,10 @@ const Page: NextPage = () => {
             {/* <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
 
             <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-              For queries, please call or Whatsapp us on {" "}
+
+              {isLanguageEnglish
+                ? "For queries, please call or Whatsapp us on "
+                : "ಪ್ರಶ್ನೆಗಳಿಗೆ, ದಯವಿಟ್ಟು ನಮಗೆ ಕರೆ ಮಾಡಿ ಅಥವಾ ವಾಟ್ಸಾಪ್ ಮಾಡಿ "}{" "}
               <strong className="inline-flex items-center">
                 <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
                   +91 63669-69292
@@ -278,20 +304,28 @@ const Page: NextPage = () => {
           <div className="flex flex-col justify-start items-start gap-4">
             {/* <div className="text-left text-[#29458c] text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px]"> */}
             <div className="leading-[150%] text-heading6 md:text-heading5 text-[#29458c] text-left self-start">
-              Planned for future sprints?
+              {isLanguageEnglish
+                ? "Planned for future sprints ? "
+                : "ಭವಿಷ್ಯದ ಸ್ಪ್ರಿಂಟ್‌ಗಳಿಗಾಗಿ ಯೋಜಿಸಲಾಗಿದೆಯೇ ?"}
             </div>
             {/* <div className="text-left text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
             <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-              Checkout the sprint details and book
+              {isLanguageEnglish
+                ? "Checkout the sprint details and book"
+                : "ಸ್ಪ್ರಿಂಟ್ ವಿವರಗಳು ಮತ್ತು ಪುಸ್ತಕವನ್ನು ಪರಿಶೀಲಿಸಿ"}
               {/* <br className="block sm:hidden" /> */}
-              one for your students today!
+              {isLanguageEnglish
+                ? "one for your students today!"
+                : "ಇಂದು ನಿಮ್ಮ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಒಂದು!"}
             </div>
           </div>
           <div className="w-full sm:w-auto h-12 sm:h-12 bg-[#f55c38] rounded-[100px] flex items-center justify-center px-4 sm:px-8 py-2 mb-4 cursor-pointer"
             onClick={handleViewSprintDetails}>
             {/* <div className="text-center text-white text-sm sm:text-base font-medium leading-[170%] font-['Amazon Ember']"> */}
             <div className="text-center text-white text-body1 font-medium leading-[170%] font-['Amazon Ember']">
-              View Sprint Details
+              {isLanguageEnglish
+                ? " View Sprint Details"
+                : "ಸ್ಪ್ರಿಂಟ್ ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಿ"}
             </div>
           </div>
         </div>
