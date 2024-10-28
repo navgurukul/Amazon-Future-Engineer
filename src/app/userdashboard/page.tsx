@@ -208,8 +208,9 @@ const Page: NextPage = () => {
                 className="w-full h-auto lg:w-[592px] rounded-lg object-cover cursor-pointer"
                 alt="innovation hub map"
                 src="/userDashboard/map.png"
-                fill
-                style={{ objectFit: 'contain' }}
+                width={592}
+                height={440}
+                
               />
             </a>
           </div>

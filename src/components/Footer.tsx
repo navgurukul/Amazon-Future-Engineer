@@ -34,7 +34,9 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const whatsappLink = `https://wa.me/${6366969292}`;
+  const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+  const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
+  // const whatsappLink = `https://wa.me/${6366969292}`;
 
   return (
     <div className="w-full bg-[#ecf0f3] h-auto text-center text-lg text-gray-800 font-amazon-ember  px-4 py-12 md:py-8 md:px-12 shadow-lg">
@@ -88,11 +90,11 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
             </span>
           </Button> */}
           <SmartImage
-          className="object-cover w-[100%] max-w-[100%]"
-           alt="TIS Logo"
-              src="/login/Logo TIS 1.svg"
-              width={24}
-              height={24}
+            className="object-cover w-[100%] max-w-[100%]"
+            alt="TIS Logo"
+            src="/login/Logo TIS 1.svg"
+            width={24}
+            height={24}
           />
 
           {isMobile && (
@@ -112,20 +114,20 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
             //   </a>
             // </Button>
             <Button
-  variant="proceedWhite"
-  className="flex-grow flex justify-center items-center gap-3 px-4 py-2"
-  onClick={() => window.open(whatsappLink, '_blank')}
->
-  <SmartImage
-    alt="WhatsApp Icon"
-    src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
-    width={24}
-    height={24}
-  />
-  <span className="relative font-medium leading-[170%] text-base text-darkslategray">
-    Chat with Us
-  </span>
-</Button>
+              variant="proceedWhite"
+              className="flex-grow flex justify-center items-center gap-3 px-4 py-2"
+              onClick={() => window.open(whatsappLink, '_blank')}
+            >
+              <SmartImage
+                alt="WhatsApp Icon"
+                src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
+                width={24}
+                height={24}
+              />
+              <span className="relative font-medium leading-[170%] text-base text-darkslategray">
+                Chat with Us
+              </span>
+            </Button>
           )}
         </div>
       </div>
