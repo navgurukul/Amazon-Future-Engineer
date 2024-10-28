@@ -60,7 +60,7 @@ const LastPart = () => {
         {/* <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']"> */}
         <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
           {/* <span>{`Call Us or Whatsapp on `}</span> */}
-          <span>{isLanguageEnglish ? `Call Us or Whatsapp on ` : `ಕಾಲ್ ಮಾಡಿ ಅಥವಾ ವಾಟ್ಸಾಪ್ ಮಾಡಿ `}</span>
+          <span>{isLanguageEnglish ? `Call Us or Whatsapp on ` : `ನಗೆ ಕರೆ ಮಾಡಿ ಅಥವಾ ವಾಟ್ಸ್ ಆಪ್ ಮಾಡಿ. `}</span>
           
           {/* <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+9163669-69292</a> */}
 

@@ -148,7 +148,7 @@ const MainContent: NextPage = () => {
       <h2 className="md:max-w-[100%] text-[#29458c] leading-[150%] text-heading6 md:text-heading5 font-['Amazon Ember'] text-left mt-6 md:mt-10">
         {isLanguageEnglish
           ? "Mini Sprints: Multi-Day Skill Building Workshops on Robotics and AI"
-          : "ಮಿನಿ ಸ್ಪ್ರಿಂಟ್ಸ್: ರೊಬೋಟಿಕ್ಸ್ ಮತ್ತು ಎಐನಲ್ಲಿ ಬಹು ದಿನಗಳ ಕೌಶಲ್ಯ ನಿರ್ಮಾಣ ಕಾರ್ಯಾಗಾರಗಳು"}
+          : "ರೋಬೋಟಿಕ್ಸ್ ಮತ್ತು ಎಐ ಕಾರ್ಯಕ್ರಮದ ಮಿನಿ ಸ್ಪ್ರಿಂಟ್ಸ್: ಹಲವು-ದಿನದ ಕೌಶಲ್ಯ-ನಿರ್ಮಾಣ"}
       </h2>
 
 
