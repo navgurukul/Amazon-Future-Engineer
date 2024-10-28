@@ -5,7 +5,6 @@ import type { NextPage } from "next";
 import SmartImage from "@/components/SmartImage";;
 import { useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppState } from "@/context/AppContext";
 
 // import router from "next/router";
 
@@ -16,7 +15,6 @@ interface FooterProps {
 const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const { isLanguageEnglish } = useAppState(); // Access language state
 
   const onReshotIconClick = () => {
     router.push("/");
@@ -39,7 +37,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
   const whatsappLink = `https://wa.me/${6366969292}`;
 
   return (
-    <div className="w-full bg-orange-main h-auto text-center text-lg text-gray-800 font-amazon-ember  px-4 py-12 md:py-8 md:px-12 shadow-lg">
+    <div className="w-full bg-[#ecf0f3] h-auto text-center text-lg text-gray-800 font-amazon-ember  px-4 py-12 md:py-8 md:px-12 shadow-lg">
       <div className="flex flex-col md:flex-row justify-between items-center h-full gap-6 md:gap-0">
         {/* Logo Section */}
         <div className="">
@@ -47,7 +45,8 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
             <SmartImage
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
-              src="/login/afe_subbrand_logo_horizontal_blue.svg"
+              // src="/login/afe_subbrand_logo_horizontal_blue.svg"
+              src="/login/AFE Makerspace_Blue_Horizontal 2.svg"
               // onClick={onReshotIconClick}
               width={254}
               height={40}
@@ -67,14 +66,13 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
 
         {/* Privacy Policy */}
         <div className="flex justify-center w-full md:w-auto text-body1 font-body1-regular text-darkslategray">
-          {/* Privacy Policy */}
-          {isLanguageEnglish ? "Privacy Policy" : "ಗೋಪ್ಯತೆ ನೀತಿ"}
+          Privacy Policy
         </div>
 
         {/* Helpdesk Section */}
         {/* Helpdesk Section */}
         <div className="flex gap-4 w-full md:w-auto">
-          <Button
+          {/* <Button
             variant="proceedWhite"
             onClick={handleOfflineBooking}
             className="flex-grow flex justify-center items-center gap-3 px-4 py-2"
@@ -86,10 +84,16 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
               height={24}
             />
             <span className="relative font-medium leading-[170%] text-base">
-              {/* Call Us */}
-              {isLanguageEnglish ? "Call Us" : "ನಮಗೆ ಕರೆ ಮಾಡಿ"}
+              Call Us
             </span>
-          </Button>
+          </Button> */}
+          <SmartImage
+          className="object-cover w-[100%] max-w-[100%]"
+           alt="TIS Logo"
+              src="/login/Logo TIS 1.svg"
+              width={24}
+              height={24}
+          />
 
           {isMobile && (
             // <Button
@@ -108,20 +112,20 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
             //   </a>
             // </Button>
             <Button
-              variant="proceedWhite"
-              className="flex-grow flex justify-center items-center gap-3 px-4 py-2"
-              onClick={() => window.open(whatsappLink, '_blank')}
-            >
-              <SmartImage
-                alt="WhatsApp Icon"
-                src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
-                width={24}
-                height={24}
-              />
-              <span className="relative font-medium leading-[170%] text-base text-darkslategray">
-                Chat with Us
-              </span>
-            </Button>
+  variant="proceedWhite"
+  className="flex-grow flex justify-center items-center gap-3 px-4 py-2"
+  onClick={() => window.open(whatsappLink, '_blank')}
+>
+  <SmartImage
+    alt="WhatsApp Icon"
+    src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
+    width={24}
+    height={24}
+  />
+  <span className="relative font-medium leading-[170%] text-base text-darkslategray">
+    Chat with Us
+  </span>
+</Button>
           )}
         </div>
       </div>
