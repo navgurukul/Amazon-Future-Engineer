@@ -220,13 +220,25 @@ const Header: NextPage<HeaderProps> = ({
                 alt="Reshot Icon"
                 src={
                   headerBgColor == "transparent" && bgColor === "home"
-                    ? "/login/afe_subbrand_logo_horizontal_white.svg"
-                    : "/login/afe_subbrand_logo_horizontal_blue.svg"
+                    // ? "/login/afe_subbrand_logo_horizontal_white.svg"
+                    // : "/login/afe_subbrand_logo_horizontal_blue.svg"
+                    ? "/login/AFE Makerspace_White_Horizontal 1.svg"
+                    : "/login/AFE Makerspace_Blue_Horizontal 2.svg"
                 }
-                onClick={onReshotIconClick}
+                // onClick={onReshotIconClick}
                 width={254}
                 height={40}
               />
+              <Button
+              // className="ml-4 bg-transparent hover:bg-transparent"
+              className={`ml-4 ${
+    headerBgColor == "transparent" && bgColor === "home" ? "bg-transparent text-white hover:bg-transparent" : "text-[#3a3a3a] hover:bg-transparent"
+  }`}
+                    variant="proceedWhite"
+                    onClick={() => router.push("/")}
+                  >
+                    Home
+                  </Button>
             </div>
           </div>
           <div className="md:hidden">
