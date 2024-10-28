@@ -5,6 +5,7 @@ import type { NextPage } from "next";
 import SmartImage from "@/components/SmartImage";;
 import { useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppState } from "@/context/AppContext";
 
 // import router from "next/router";
 
@@ -15,6 +16,7 @@ interface FooterProps {
 const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const { isLanguageEnglish } = useAppState(); // Access language state
 
   const onReshotIconClick = () => {
     router.push("/");
@@ -65,7 +67,8 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
 
         {/* Privacy Policy */}
         <div className="flex justify-center w-full md:w-auto text-body1 font-body1-regular text-darkslategray">
-          Privacy Policy
+          {/* Privacy Policy */}
+          {isLanguageEnglish ? "Privacy Policy" : "ಗೋಪ್ಯತೆ ನೀತಿ"}
         </div>
 
         {/* Helpdesk Section */}
@@ -83,7 +86,8 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
               height={24}
             />
             <span className="relative font-medium leading-[170%] text-base">
-              Call Us
+              {/* Call Us */}
+              {isLanguageEnglish ? "Call Us" : "ನಮಗೆ ಕರೆ ಮಾಡಿ"}
             </span>
           </Button>
 
@@ -104,20 +108,20 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
             //   </a>
             // </Button>
             <Button
-  variant="proceedWhite"
-  className="flex-grow flex justify-center items-center gap-3 px-4 py-2"
-  onClick={() => window.open(whatsappLink, '_blank')}
->
-  <SmartImage
-    alt="WhatsApp Icon"
-    src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
-    width={24}
-    height={24}
-  />
-  <span className="relative font-medium leading-[170%] text-base text-darkslategray">
-    Chat with Us
-  </span>
-</Button>
+              variant="proceedWhite"
+              className="flex-grow flex justify-center items-center gap-3 px-4 py-2"
+              onClick={() => window.open(whatsappLink, '_blank')}
+            >
+              <SmartImage
+                alt="WhatsApp Icon"
+                src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
+                width={24}
+                height={24}
+              />
+              <span className="relative font-medium leading-[170%] text-base text-darkslategray">
+                Chat with Us
+              </span>
+            </Button>
           )}
         </div>
       </div>

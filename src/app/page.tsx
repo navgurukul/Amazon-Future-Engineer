@@ -97,6 +97,7 @@ import HomePage from "./homePages/page"; // Import your main Home Page component
 import { useRouter } from "next/navigation";
 import { getProgramData } from "@/utils/api";
 import NetworkErrorPage from "./networkerror/page"; // Correct import for Network Error Page
+import { useAppState } from "@/context/AppContext";
 
 export default function Home() {
   const router = useRouter();

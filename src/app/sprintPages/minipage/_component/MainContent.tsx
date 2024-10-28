@@ -3,8 +3,11 @@ import SmartImage from "@/components/SmartImage";
 import { NextPage } from "next";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useAppState } from "@/context/AppContext";
+
 
 const MainContent: NextPage = () => {
+  const { isLanguageEnglish } = useAppState(); // Access language state
   const router = useRouter();
   const [page, setPage] = useState({
     nano: "",
@@ -41,11 +44,16 @@ const MainContent: NextPage = () => {
       <header className="flex flex-col md:flex-row justify-start gap-8 md:gap-16 text-xl md:text-2xl lg:text-3xl">
         <nav className="text-sm md:text-lg leading-[150%] text-left inline-block">
           <span className="text-darkslateblue text-[#29458c]">
-            <b>Home</b>
+            {/* <b>Home</b> */}
+            <b>{isLanguageEnglish ? "Home" : "ಮನೆ"}</b>
           </span>
           <span className="font-medium">
             <span className="text-darkslateblue">{` / `}</span>
-            <span className="text-darkslategray">Sprints</span>
+            {/* <span className="text-darkslategray">Sprints</span> */}
+            <span className="text-darkslategray">
+              {isLanguageEnglish ? "Sprints" : "ಸ್ಪ್ರಿಂಟ್ಸ್"}
+            </span>
+
           </span>
         </nav>
       </header>
@@ -139,9 +147,13 @@ const MainContent: NextPage = () => {
       {/* <section className="md:max-w-[100%] text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold font-['Amazon Ember'] text-[#29458c] text-left mt-6 md:mt-10">
         Mini Sprints: Multi-Day Skill Building Workshops on Robotics and AI
       </section> */}
+      {/* <h2 className="md:max-w-[100%] text-[#29458c] leading-[150%] text-heading6 md:text-heading5 font-['Amazon Ember'] text-left mt-6 md:mt-10">Mini Sprints: Multi-Day Skill Building Workshops on Robotics and AI</h2> */}
       <h2 className="md:max-w-[100%] text-[#29458c] leading-[150%] text-heading6 md:text-heading5 font-['Amazon Ember'] text-left mt-6 md:mt-10">
-        Mini Sprints: Multi-Day Skill Building Workshops on Robotics and AI
+        {isLanguageEnglish
+          ? "Mini Sprints: Multi-Day Skill Building Workshops on Robotics and AI"
+          : "ರೋಬೋಟಿಕ್ಸ್ ಮತ್ತು ಎಐ ಕಾರ್ಯಕ್ರಮದ ಮಿನಿ ಸ್ಪ್ರಿಂಟ್ಸ್: ಹಲವು-ದಿನದ ಕೌಶಲ್ಯ-ನಿರ್ಮಾಣ"}
       </h2>
+
 
       {/* First two images in the same row */}
       {/* <div className="flex flex-col sm:flex-row gap-6 justify-between">

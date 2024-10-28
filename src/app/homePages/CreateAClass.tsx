@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
+import { useAppState } from "@/context/AppContext";
 
 
 interface CreateAClassProps {
@@ -9,16 +10,18 @@ interface CreateAClassProps {
 }
 
 const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
+  const { isLanguageEnglish } = useAppState(); // Access language state
+
   const router = useRouter();
 
   const onYesClick = useCallback(() => {
     router.push("/login");
   }, [router]);
 
-  useEffect(()=>{
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     // document.body.classList.add("overflow-hidden");
-  },[])
+  }, [])
 
   const onNoClick = useCallback(() => {
     closePopup();
@@ -100,13 +103,45 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
         <SmartImage src="/symbols/Frame 31751.svg" alt="coding symbols" width={75} height={75} />
         </div>
 
-        <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-          Thank you for your interest in the AFE Makerspace. While the AFE
+        {/* <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray"> */}
+        {/* Thank you for your interest in the AFE Makerspace. While the AFE
           Makerspace is for all, we currently prioritize lab bookings for
           students from government schools to ensure equitable access and
           support diverse talent in shaping the future of technology. We
-          appreciate your understanding!
+          appreciate your understanding! */}
+        {/* Thank you for your interest in AFE Makerspace! Currently, we prioritise
+          bookings for <span className="text-[#3a3a3a] leading-[150%] text-bodyM2 md:text-subTitle1 font-['Amazon Ember']">GOVERNMENT SCHOOLS</span>,  to ensure equitable access and support
+          diverse talent in shaping the future of technology
         </div>
+        <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+        Please confirm if your school is a Government Institution.
+        We appreciate your understanding!
+
+        </div> */}
+
+        <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+          {/* Thank you for your interest in the AFE Makerspace. While the AFE
+  Makerspace is for all, we currently prioritize lab bookings for
+  students from government schools to ensure equitable access and
+  support diverse talent in shaping the future of technology. We
+  appreciate your understanding! */}
+          {isLanguageEnglish
+            ? "Thank you for your interest in AFE Makerspace! Currently, we prioritise bookings for "
+            : "AFE ಮೇಕರ್‌ಸ್ಪೇಸ್‌ಗಾಗಿ ನಿಮ್ಮ ಆಸಕ್ತಿಗೆ ಧನ್ಯವಾದಗಳು! ಪ್ರಸ್ತುತ, ನಾವು "}
+          <span className="text-[#3a3a3a] leading-[150%] text-bodyM2 md:text-subTitle1 font-['Amazon Ember']">
+            {isLanguageEnglish ? "GOVERNMENT SCHOOLS" : "ಸರ್ಕಾರಿ ಶಾಲೆಗಳು"}
+          </span>
+          {isLanguageEnglish
+            ? ", to ensure equitable access and support diverse talent in shaping the future of technology."
+            : " ಶಾಶ್ವತ ಪ್ರವೇಶವನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಲು ಮತ್ತು ತಂತ್ರಜ್ಞಾನದ ಭವಿಷ್ಯ ರೂಪಿಸಲು ವಿವಿಧ ಪ್ರತಿಭೆಗಳನ್ನು ಬೆಂಬಲಿಸಲು ಆದ್ಯತೆ ನೀಡುತ್ತೇವೆ."}
+        </div>
+
+        <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+          {isLanguageEnglish
+            ? "Please confirm if your school is a Government Institution. We appreciate your understanding!"
+            : "ದಯವಿಟ್ಟು ನಿಮ್ಮ ಶಾಲೆಯು ಸರ್ಕಾರಿ ಸಂಸ್ಥೆಯಾಗಿದೆ ಎಂದು ಖಚಿತಪಡಿಸಿ. ನಿಮ್ಮ ಸಹಕಾರಕ್ಕೆ ಧನ್ಯವಾದಗಳು!"}
+        </div>
+
 
         {/* Hidden content */}
         <div className="hidden w-[33rem] flex-col gap-2 items-start justify-start">
@@ -138,12 +173,13 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
           </div> */}
           <div className="w-full flex flex-row items-center justify-end mt-2 md:mt-4">
             <div className="w-full lg:w-auto">
-            <button className="w-full bg-[#f55c38] rounded-[100px] flex justify-center items-center cursor-pointer text-white" onClick={onYesClick}>
-            <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
-              Proceed to Login
+              <button className="w-full bg-[#f55c38] rounded-[100px] flex justify-center items-center cursor-pointer text-white" onClick={onYesClick}>
+                <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
+                  {/* Proceed to Login */} 
+                  {isLanguageEnglish ? "Proceed to Login" : "ಲಾಗಿನ್‌ಗೆ ಮುಂದುವರಿಯಿರಿ"}
+                </div>
+              </button>
             </div>
-          </button>
-          </div>
           </div>
         </div>
       </div>
