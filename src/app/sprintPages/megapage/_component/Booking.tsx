@@ -195,7 +195,7 @@ const Booking = () => {
               </p> */}
               <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4 mb-8">
                 {isLanguageEnglish
-                  ? "Be the first to know when Mega Sprints launch. Leave your details to receive updates."
+                  ? "New programs are on the way. Keep an eye out for updates and announcements!"
                   : "ಮೇಗಾ ಸ್ಪ್ರಿಂಟ್ಸ್ ಪ್ರಾರಂಭವಾದಾಗ ಮೊದಲನೆಯದಾಗಿ ತಿಳಿಯಿರಿ. ನವೀಕರಣಗಳನ್ನು ಪಡೆಯಲು ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಬಿಡಿ."}
               </p>
               {/* <div className="flex flex-row items-center gap-4 md:mb-10">

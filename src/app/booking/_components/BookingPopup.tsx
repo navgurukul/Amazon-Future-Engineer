@@ -1,7 +1,7 @@
 import DialogHeader from "@/components/DialogHeader";
 import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
-import React, {useState } from "react";
+import React, { useState } from "react";
 
 
 interface BookingPopupProps {
@@ -33,7 +33,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(phoneNumber)
       .then(() => {
-        setCopied(true); 
+        setCopied(true);
 
         setTimeout(() => setCopied(false), 2000);
       })
@@ -46,15 +46,15 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
     <div className="w-full min-h-screen bg-bg-surface-default flex flex-col items-center pb-[64px] md:px-8 px-[16px]">
       <DialogHeader />
 
-      <div className="w-full max-w-[592px] h-[75px] md:mt-[120px] mt-[100px] flex items-stretch justify-between px-4 relative md:text-center">
-      <SmartImage
-      src="/symbols/Frame 31751.svg"
-      alt="coding symbols"
-      width={75} 
-      height={75} 
-    />
-  
-      </div>
+      {/* <div className="w-full max-w-[592px] h-[75px] md:mt-[120px] mt-[100px] flex items-stretch justify-between px-4 relative md:text-center">
+        <SmartImage
+          src="/symbols/Frame 31751.svg"
+          alt="coding symbols"
+          width={75}
+          height={75}
+        />
+
+      </div> */}
 
       <div className="w-full max-w-[592px] md:mt-[60px] mt-[24px] p-4 md:p-8 flex flex-col items-start justify-start gap-6 text-left text-base md:text-lg text-text-primary font-mobiletypestyles-body1 md:font-webtypestyles-body1 bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.06),_0px_2px_1px_rgba(0,_0,_0,_0.04),_0px_1px_5px_rgba(0,_0,_0,_0.08)] rounded-lg px-[16px]">
         <div className="flex flex-col items-start justify-start gap-4 w-full">
@@ -77,7 +77,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
         </div>
 
         <p className="self-stretch relative leading-[170%] font-['Amazon Ember'] text-bodyM md:text-body1  md:text-center">
-          Thank you for your interest in booking a Nano Sprint at the AFE Makerspace, {bookingData?.name}! We will send you a confirmation email and SMS once your request has been approved by AFE Makerspace team.
+          Thank you for your interest in booking a Nano Sprint at the AFE Makerspace! We will send you a confirmation email and SMS once your request has been approved by AFE Makerspace team
         </p>
 
         <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray md:text-center">
@@ -96,8 +96,8 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
                   <SmartImage
                     src="/userDashboard/checkmark_icon.png"
                     alt="Check Icon"
-                    width = {16}
-                    height = {16}
+                    width={16}
+                    height={16}
 
                   />
                   <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
