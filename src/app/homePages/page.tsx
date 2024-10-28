@@ -336,7 +336,7 @@ const HomePage: NextPage = () => {
               them a glimpse into the careers of the future, encouraging them to
               think big while exploring and creating
             </p> */}
-            <p className="w-full md:w-1/2 relative text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray">
+            <p className="w-full md:w-3/4 relative text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray">
               {isLanguageEnglish
                 ? "The Amazon Future Engineer Makerspace is a Robotics and AI lab built by AFE and operated by our partner, The Innovation Story (TIS). At the AFE Makerspace, we provide exciting learning opportunities in robotics and computer science, offering students a glimpse into future careers while encouraging them to think big as they explore and create"
                 : "AFE ಮೇಕರ್‌ಸ್ಪೇಸ್‌ನಲ್ಲಿ, ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ರೋಬೋಟಿಕ್ಸ್ ಮತ್ತು ಕಂಪ್ಯೂಟರ್ ಸೈನ್ಸ್‌ನಲ್ಲಿ ರೋಚಕವಾದ ಕಲಿಕೆ ಸಾಧ್ಯತಗಳನ್ನು ನೀಡುತ್ತೇವೆ. ಅವರ ಭವಿಷ್ಯದ ವೃತ್ತಿಪರ ಬದುಕಿಗೆ ಒಂದು ಚಿಕ್ಕ ನೋಟವನ್ನು ನೀಡುವುದು ನಮ್ಮ ಉದ್ದೇಶ, ಅವರು ಅನ್ವೇಷಣೆ ಮತ್ತು ಸೃಷ್ಟಿಯ ಮೂಲಕ ದೊಡ್ಡದಾಗಿ ಯೋಚಿಸಲು ಪ್ರೇರೇಪಿಸುತ್ತೇವೆ."}
@@ -348,7 +348,7 @@ const HomePage: NextPage = () => {
               technology
             </p> */}
 
-            <p className="w-full md:w-1/2 relative text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray mt-4">
+            <p className="w-full md:w-3/4 relative text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray mt-4">
               {isLanguageEnglish
                 ? "By prioritizing government school students, we ensure equitable access and support diverse talent in shaping the future of technology."
                 : "ಸರ್ಕಾರಿ ಶಾಲಾ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಆದ್ಯತೆ ನೀಡುವ ಮೂಲಕ, ನಾವು ತಾರತಮ್ಯವಿಲ್ಲದ ಪ್ರವೇಶವನ್ನು ಖಚಿತಪಡಿಸುತ್ತೇವೆ ಮತ್ತು ತಂತ್ರಜ್ಞಾನ ಭವಿಷ್ಯವನ್ನು ರೂಪಿಸುವಲ್ಲಿ ವೈವಿಧ್ಯಮಯ ಪ್ರತಿಭೆಯನ್ನು ಬೆಂಬಲಿಸುತ್ತೇವೆ."}
@@ -426,14 +426,14 @@ const HomePage: NextPage = () => {
         </div>
       </section>
 
-      <section className="relative w-full bg-[#29458c] flex flex-col items-start justify-start py-12 md:py-16 px-4 md:px-12 gap-[0px] text-white">
-        <header className="w-full md:w-[800px] flex flex-col items-start justify-start gap-[16px]">
+      <section className="relative w-full bg-[#d4dae8] flex flex-col items-center justify-center py-12 md:py-16 px-4 md:px-12 gap-[0px] text-white">
+        <header className="w-full flex flex-col items-center justify-start gap-[16px]">
           {/* <div className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold">
             Are You a Government School Teacher in or around Bengaluru?
           </div> */}
-          <div className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold">
+          <div className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold text-midnight-blue-main">
             {isLanguageEnglish
-              ? "Are You a Government School Teacher in or around Bengaluru?"
+              ? "Are You a Government School Teacher?"
               : "ನೀವು ಬೆಂಗಳೂರು ಅಥವಾ ಅದ್ಭುತ ಪ್ರದೇಶದ ಸರ್ಕಾರಿ ಶಾಲಾ ಶಿಕ್ಷಕರಾ?"}
           </div>
 
@@ -441,7 +441,7 @@ const HomePage: NextPage = () => {
             Help inspire the next generation of tech leaders by registering your
             students to visit the AFE Makerspace in a few simple steps:
           </div> */}
-          <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular">
+          <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray">
             {isLanguageEnglish
               ? "Help inspire the next generation of tech leaders by registering your students to visit the AFE Makerspace in a few simple steps:"
               : "ತಾಂತ್ರಿಕ ನಾಯಕರ ಮುಂದಿನ ತಲೆಮಾರನ್ನು ಪ್ರೇರೇಪಿಸಲು, ಕೆಲವು ಸರಳ ಹಂತಗಳಲ್ಲಿ ನಿಮ್ಮ ವಿದ್ಯಾರ್ಥಿಗಳನ್ನು AFE ಮೇಕರ್‌ಸ್ಪೇಸ್‌ ಗೆ ನೋಂದಾಯಿಸಿ:"}
@@ -453,7 +453,8 @@ const HomePage: NextPage = () => {
             <article className="flex flex-col items-center w-full md:w-1/4">
               <SmartImage
                 alt="Step 1"
-                src="/homepage/reshot-icon-family-visit-95EYAPUK63.svg"
+                // src="/homepage/reshot-icon-family-visit-95EYAPUK63.svg"
+                src="/homepage/AFE Labs Icons_Visit AFE Makerspace Virtually 02 1.svg"
                 width={64}
                 height={64}
               />
@@ -461,16 +462,16 @@ const HomePage: NextPage = () => {
                 {/* <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2">
                   Visit AFE Makerspace Virtually
                 </div> */}
-                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2">
+                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2 text-midnight-blue-main">
                   {isLanguageEnglish
                     ? "Visit AFE Makerspace Virtually"
                     : "AFE ಮೇಕರ್‌ಸ್ಪೇಸ್‌ಗೆ ವರ್ಚುವಲ್ ಭೇಟಿ ನೀಡಿರಿ"}
                 </div>
                 <div className="text-bodyM md:text-body1 leading-[170%] text-center inline-block text-white font-body1-regular">
                   {/* <span className="font-medium">{`Take a look at the lab through the `}</span> */}
-                  <span className="font-medium">
+                  <span className="font-medium text-darkslategray">
                     {isLanguageEnglish
-                      ? "Take a look at the lab through the "
+                      ? "Take a "
                       : "ಲೇಬ್ನಲ್ಲಿ ನೋಡಿ "}
                   </span>
                   {/* <b className="text-tomato">virtual tour</b> */}
@@ -478,6 +479,11 @@ const HomePage: NextPage = () => {
                   <a href="#virtual-tour" className="text-tomato">
                     {isLanguageEnglish ? "virtual tour" : "ವರ್ಚುವಲ್ ಟೂರ್"}
                   </a>
+                  <span className="font-medium text-darkslategray">
+                    {isLanguageEnglish
+                      ? " to explore our lab"
+                      : "ಲೇಬ್ನಲ್ಲಿ ನೋಡಿ "}
+                  </span>
                 </div>
               </div>
             </article>
@@ -485,7 +491,8 @@ const HomePage: NextPage = () => {
             <article className="flex flex-col items-center w-full md:w-1/4">
               <SmartImage
                 alt="Step 2"
-                src="/homepage/reshot-icon-sprinting-68QMTNKEPC.svg"
+                // src="/homepage/reshot-icon-sprinting-68QMTNKEPC.svg"
+                src="/homepage/AFE Labs Icons_Discover Our Programs 02 1.svg"
                 width={64}
                 height={64}
               />
@@ -493,7 +500,7 @@ const HomePage: NextPage = () => {
                 {/* <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2">
                   Discover Our Programs
                 </div> */}
-                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2">
+                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2 text-midnight-blue-main">
                   {isLanguageEnglish
                     ? "Discover Our Programs"
                     : "ನಮ್ಮ ಕಾರ್ಯಕ್ರಮಗಳನ್ನು ಅನ್ವೇಷಿಸಿ"}
@@ -503,9 +510,9 @@ const HomePage: NextPage = () => {
                   We offer three programs: Nano, Mini, and Mega sprints. Choose
                   the one that best fit your classrooms learning goals.
                 </div> */}
-                <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-center">
+                <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-center text-darkslategray">
                   {isLanguageEnglish
-                    ? "We offer three programs: Nano, Mini, and Mega sprints. Choose the one that best fits your classroom's learning goals."
+                    ? "Choose Nano, Mini, or Mega based on your classroom's goals"
                     : "ನಾವು ಮೂರು ಕಾರ್ಯಕ್ರಮಗಳನ್ನು ಒದಗಿಸುತ್ತೇವೆ: ನಾನೊ, ಮಿನಿ ಮತ್ತು ಮೆಗಾ ಸ್ಪ್ರಿಂಟ್ಸ್. ನಿಮ್ಮ ವರ್ಗದ ಶಿಕ್ಷಣ ಗುರಿಗಳಿಗೆ ಒಪ್ಪುವ ಒಂದನ್ನು ಆಯ್ಕೆ ಮಾಡಿ."}
                 </div>
               </div>
@@ -514,7 +521,8 @@ const HomePage: NextPage = () => {
             <article className="flex flex-col items-center w-full md:w-1/4">
               <SmartImage
                 alt="Step 3"
-                src="/homepage/reshot-icon-shape-click-UR7J3LH2YE.svg"
+                // src="/homepage/reshot-icon-shape-click-UR7J3LH2YE.svg"
+                src="/homepage/AFE Labs Icons_Book Your Session 02 1.svg"
                 width={64}
                 height={64}
               />
@@ -522,7 +530,7 @@ const HomePage: NextPage = () => {
                 {/* <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2">
                   Book Your Session
                 </div> */}
-                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2">
+                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2 text-midnight-blue-main">
                   {isLanguageEnglish
                     ? "Book Your Session"
                     : "ನಿಮ್ಮ ಸೆಷನ್ ಅನ್ನು ಬುಕ್ ಮಾಡಿ"}
@@ -540,9 +548,9 @@ const HomePage: NextPage = () => {
                   </a>
                   . Currently, we are only taking bookings for Nano sprints.
                 </div> */}
-                <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-center">
+                <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-center text-darkslategray">
                   {isLanguageEnglish
-                    ? "Select a time slot and book your session through our online system or by calling us on"
+                    ? "Pick a time slot and book online or call"
                     : "ನೀವು ಆಸಕ್ತಿಯ ಸಮಯವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ ಮತ್ತು ನಮ್ಮ ಆನ್‌ಲೈನ್ ವ್ಯವಸ್ಥೆ ಮೂಲಕ ಅಥವಾ ನಮಗೆ ಕರೆ ಮಾಡುವ ಮೂಲಕ ನಿಮ್ಮ ಸೆಷನ್ ಅನ್ನು ಬುಕ್ ಮಾಡಿ"}
                   <a
                     href={whatsappLink}
@@ -553,7 +561,7 @@ const HomePage: NextPage = () => {
                     {isLanguageEnglish ? "+9163669-69292" : "+9163669-69292"}
                   </a>
                   {isLanguageEnglish
-                    ? ". Currently, we are only taking bookings for Nano sprints."
+                    ? ". Nano Sprints available now"
                     : ". ಪ್ರಸ್ತುತ, ನಾವು ಕೇವಲ ನಾನೊ ಸ್ಪ್ರಿಂಟ್ಗಳಿಗಾಗಿ ಬುಕ್ಕಿಂಗ್‌ಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುತ್ತೇವೆ."}
                 </div>
               </div>
@@ -562,7 +570,8 @@ const HomePage: NextPage = () => {
             <article className="flex flex-col items-center w-full md:w-1/4">
               <SmartImage
                 alt="Step 4"
-                src="/homepage/reshot-icon-deep-learning-UY68HJABWD.svg"
+                // src="/homepage/reshot-icon-deep-learning-UY68HJABWD.svg"
+                src="/homepage/AFE Labs Icons_Visit and Start Learning 02 1.svg"
                 width={64}
                 height={64}
               />
@@ -574,14 +583,14 @@ const HomePage: NextPage = () => {
                   Bring your students to AFE Makerspace and enjoy a hands-on
                   experience with robotics and AI!
                 </div> */}
-                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2">
+                <div className="text-bodyM2 md:text-subTitle1 leading-[170%] font-subTitle1-bold text-center mt-4 mb-2 text-midnight-blue-main">
                   {isLanguageEnglish
                     ? "Visit and Start Learning"
                     : "ಬೇಟಿ ನೀಡಿ ಮತ್ತು ಕಲಿಯಲು ಪ್ರಾರಂಭಿಸಿ"}
                 </div>
-                <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-center">
+                <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-center text-darkslategray">
                   {isLanguageEnglish
-                    ? "Bring your students to AFE Makerspace and enjoy a hands-on experience with robotics and AI!"
+                    ? "Bring your students and enjoy a hands-on experience with robotics and AI"
                     : "ನಿಮ್ಮ ವಿದ್ಯಾರ್ಥಿಗಳನ್ನು AFE ಮೇಕರ್‌ಸ್ಪೇಸ್‌ ಗೆ ಕೊಂಡೊಯ್ಯಿರಿ ಮತ್ತು ರೋಬೋಟಿಕ್ಸ್ ಮತ್ತು AI ಯೊಂದಿಗೆ ಕೈಪಿಡಿ ಅನುಭವವನ್ನು ಆನಂದಿಸಿ!"}
                 </div>
               </div>
@@ -590,15 +599,15 @@ const HomePage: NextPage = () => {
         </div>
       </section>
 
-      <section className="relative w-full flex flex-col items-start justify-start gap-6 md:gap-8 text-[#29458c] px-4 my-12 md:my-16 md:px-12">
-        <article className="w-full max-w-screen-lg flex flex-col items-start justify-start">
+      <section className="relative flex flex-col items-start justify-start gap-6 md:gap-8 text-[#29458c] my-12 md:my-16 md:w-3/4 mx-4 md:mx-auto">
+        <article className="w-full flex flex-col items-center justify-start">
           {/* <h2 className="w-full leading-[150%] font-extrabold text-5xl md:text-[25px]"> */}
           {/* <div className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold">
             Programs at AFE Makerspace
           </div> */}
           <div className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold">
             {isLanguageEnglish
-              ? "Programs at AFE Makerspace"
+              ? "Programs at Amazon Future Engineer Makerspace"
               : "AFE ಮೇಕರ್‌ಸ್ಪೇಸ್‌ನಲ್ಲಿ ಕಾರ್ಯಕ್ರಮಗಳು"}
           </div>
         </article>
@@ -648,7 +657,7 @@ const HomePage: NextPage = () => {
                 </p> */}
                 <p className="text-bodyM md:text-body1 leading-[170%] font-body1-regular">
                   {isLanguageEnglish
-                    ? "1 Day (3 hours)"
+                    ? "1 day session (3 hours)"
                     : "1 ದಿನ (3 ಗಂಟೆಗಳು)"}
                 </p>
               </div>
@@ -667,8 +676,27 @@ const HomePage: NextPage = () => {
                 </p> */}
                 <p className="text-bodyM md:text-body1 leading-[170%] font-body1-regular">
                   {isLanguageEnglish
-                    ? "30 to 40 students per session"
+                    ? "30 to 40 Students per session"
                     : "ಒಂದು ಸೆಷನ್‌ಗೆ 30 ರಿಂದ 40 ವಿದ್ಯಾರ್ಥಿಗಳು"}
+                </p>
+              </div>
+              <div className="flex flex-row items-center gap-4 mb-[8px] md:mb-[16px]">
+                <figure className="w-11 h-8 flex items-center">
+                  <SmartImage
+                    src="./homepage/reshot-icon-student-class-JAMNVGK56B 1.svg"
+                    alt="Student icon"
+                    width={44}
+                    height={32}
+                  />
+                </figure>
+                {/* <p className="leading-[170%] font-medium text-[14px] md:text-[20px]"> */}
+                {/* <p className="text-bodyM md:text-body1 leading-[170%] font-body1-regular">
+                  30 to 40 students per session
+                </p> */}
+                <p className="text-bodyM md:text-body1 leading-[170%] font-body1-regular">
+                  {isLanguageEnglish
+                    ? "Grades 6 to 12"
+                    : ""}
                 </p>
               </div>
               {/* <p className="w-full leading-[170%] font-medium text-[14px] md:text-[20px]"> */}
@@ -715,20 +743,20 @@ const HomePage: NextPage = () => {
             */}
           </section>
 
-          <aside className="w-full lg:w-[30%] flex flex-col gap-6 md:gap-4 lg:min-h-[calc(100vh-14.5rem)]">
-            <article className="w-full bg-[#cdeaea] flex flex-col items-start p-4 md:p-8 gap-6 h-full rounded-md">
+          <aside className="w-full lg:w-[40%] flex flex-col gap-6 md:gap-4 lg:min-h-[calc(100vh-14.5rem)]">
+            <article className="w-full bg-[#049796] flex flex-col items-start p-4 md:p-8 gap-6 h-full rounded-md">
               <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
                 {/* <h3 className="leading-[1.5] font-extrabold text-[#29458c]"> */}
                 {/* <div className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#29458c]">
                   Mini Sprints
                 </div> */}
-                <div className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#29458c]">
+                <div className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#fff]">
                   {isLanguageEnglish ? "Mini Sprints" : "ಮಿನಿ ಸ್ಪ್ರಿಂಟ್ಸ್"}
                 </div>
                 {/* <span className="rounded-full bg-[#ffad33] h-8 flex items-center justify-center px-4 text-sm text-white font-medium">
                   Upcoming
                 </span> */}
-                <span className="rounded-full bg-[#ffad33] h-8 flex items-center justify-center px-4 text-sm text-white font-medium">
+                <span className="rounded-full bg-[#29458c] h-8 flex items-center justify-center px-4 text-sm text-white font-medium">
                   {isLanguageEnglish ? "Upcoming" : "ಬರುವಿಕೆಯಲ್ಲಿ"}
                 </span>
               </header>
@@ -736,13 +764,14 @@ const HomePage: NextPage = () => {
               {/* <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray">
                 Multi-day skill building workshops
               </div> */}
-              <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray">
+              <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-[#fff]">
                 {isLanguageEnglish
                   ? "Multi-day skill building workshops"
                   : "ಬಹುದಿನಗಳ ಕೌಶಲ್ಯ ವೃದ್ಧಿ ಕಾರ್ಯಾಗಾರಗಳು"}
               </div>
 
-              <div className="pt-6 md:pt-8 w-full md:w-auto">
+              {/* <div className="pt-6 md:pt-8 w-full md:w-auto"> */}
+              <div className="w-full md:w-auto">
                 {/* <Button
                   variant='proceedWhite'
                   // onClick = {handleLearnMoreMiniClick}
@@ -761,20 +790,20 @@ const HomePage: NextPage = () => {
               </div>
             </article>
 
-            <article className="w-full bg-[#fdded7] flex flex-col items-start p-4 md:p-8 gap-6 h-full rounded-md">
+            <article className="w-full bg-[#ffad33] flex flex-col items-start p-4 md:p-8 gap-6 h-full rounded-md">
               <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
                 {/* <h3 className="leading-[150%] font-extrabold text-[#29458c]"> */}
                 {/* <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#29458c]">
                   Mega Sprints
                 </h3> */}
-                <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#29458c]">
+                <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#fff]">
                   {isLanguageEnglish ? "Mega Sprints" : "ಮೆಗಾ ಸ್ಪ್ರಿಂಟ್ಸ್"}
                 </h3>
 
                 {/* <span className="rounded-full bg-[#ffad33] h-8 flex items-center justify-center px-4 text-sm text-white font-medium">
                   Upcoming
                 </span> */}
-                <span className="rounded-full bg-[#ffad33] h-8 flex items-center justify-center px-4 text-sm text-white font-medium">
+                <span className="rounded-full bg-[#29458c] h-8 flex items-center justify-center px-4 text-sm text-white font-medium">
                   {isLanguageEnglish ? "Upcoming" : "ಬರುವಿಕೆಯಲ್ಲಿ"}
                 </span>
 
@@ -784,12 +813,12 @@ const HomePage: NextPage = () => {
                 Comprehensive programs leading to exciting competitive robotics
                 challenges
               </div> */}
-              <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray">
+              <div className="text-bodyM md:text-body1 leading-[170%] font-body1-regular text-[#fff]">
                 {isLanguageEnglish
                   ? "Comprehensive programs leading to exciting competitive robotics challenges"
                   : "ಆಕರ್ಷಕ ಸ್ಪರ್ಧಾತ್ಮಕ ರೋಬೋಟಿಕ್ಸ್ ಚಾಲೆಂಜ್‌ಗಳಿಗೆ ಬೆಳೆಸುವ ಸಮಗ್ರ ಕಾರ್ಯಕ್ರಮಗಳು"}
               </div>
-              <div className="pt-6 md:pt-8 w-full md:w-auto">
+              <div className="w-full md:w-auto">
                 <Button
                   variant='proceedWhite'
                   // onClick = {handleLearnMoreMiniClick}
@@ -809,7 +838,8 @@ const HomePage: NextPage = () => {
       {/* Fifth Section */}
       <section
         id="virtual-tour"
-        className="relative h-[60vh] md:h-screen text-left text-white flex items-start overflow-hidden mx-4 md:mx-12"
+        // className="relative h-[60vh] md:h-screen text-left text-white flex items-start overflow-hidden mx-4 md:mx-12"
+        className="relative h-[60vh] md:h-screen text-white flex justify-center overflow-hidden md:w-3/4 mx-4 md:mx-auto"
       >
         <SmartImage
           className="absolute top-0 left-0 w-full h-full object-cover brightness-50 rounded-lg"
@@ -820,14 +850,14 @@ const HomePage: NextPage = () => {
           height={1080}
         />
 
-        <div className="relative z-10 flex flex-col items-start justify-start gap-4 px-4 md:px-8 pl-4 md:pl-12 py-6 md:py-12  lg:mx-6">
+        <div className="relative z-10 flex flex-col items-start justify-start gap-4 px-4 md:px-8 pl-4 py-6 md:py-12 lg:mx-6">
           {/* <h2 className="leading-[150%] text-5xl md:text-[25px] font-extrabold leading-tight"> */}
           {/* <div className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold leading-tight">
             Take a Sneak Peak at AFE Makerspace
           </div> */}
           <div className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold leading-tight">
             {isLanguageEnglish
-              ? "Take a Sneak Peak at AFE Makerspace"
+              ? "Take a Sneak Peak at Amazon Future Engineer Makerspace"
               : "AFE ಮಾರ್ಕರ್ಸ್‌ಪೇಸ್‌ನಲ್ಲಿ ಒಂದು ಸುಳಿವು ಪಡೆಯಿರಿ"}
           </div>
           <div className="w-full md:w-auto">
@@ -836,9 +866,9 @@ const HomePage: NextPage = () => {
             href="#"
           > */}
             {/* <Button variant="proceedWhite" >Take Virtual Tour</Button> */}
-            <Button variant="proceedWhite">
+            {/* <Button variant="proceedWhite">
               {isLanguageEnglish ? "Take Virtual Tour" : "ವಿರ್ಚುವಲ್ ಟೂರ್ನ್ನು ಕೈಗೊಳ್ಳಿ"}
-            </Button>
+            </Button> */}
             {/* </a> */}
           </div>
         </div>

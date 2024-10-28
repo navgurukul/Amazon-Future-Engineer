@@ -199,7 +199,7 @@ const Header: NextPage<HeaderProps> = ({
                     ? "/login/AFE Makerspace_White_Horizontal 1.svg"
                     : "/login/AFE Makerspace_Blue_Horizontal 2.svg"
                 }
-                onClick={onReshotIconClick}
+                // onClick={onReshotIconClick}
                 width={254}
                 height={40}
               />
