@@ -1,6 +1,7 @@
 import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import { useAppState } from "@/context/AppContext";
 
 
 interface WaitingListPopupProps {
@@ -14,6 +15,7 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
 }) => {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
+  const { isLanguageEnglish } = useAppState();
 
   const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
   const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
@@ -133,7 +135,8 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
           <div className="flex flex-col items-start justify-start gap-4 w-full text-center">
               {/* <div className="w-full text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-midnight-blue-main text-center"> */}
               <div className="w-full leading-[150%] md:text-heading6 font-heading6-bold text-midnight-blue-main text-center">
-                Mini Sprint Waiting List
+                {isLanguageEnglish?"Mini Sprint Waiting List":"ಮಿನಿ ಸ್ಪ್ರಿಂಟ್ ಕಾಯುವ ಪಟ್ಟಿ"}
+                
               </div>
           </div>
 

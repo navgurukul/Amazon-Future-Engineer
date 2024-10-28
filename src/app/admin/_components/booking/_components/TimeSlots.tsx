@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 interface TimeSlotsProps {
   selectedDate: Date | null;
   handleBookingPopUp: any;
-  handleCalendar :()=>void;
+  handleCalendar: () => void;
   bookingDetails: BookingDetails;
   calendarData: (slot_id: number) => void;
 }
@@ -49,12 +49,12 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [students, setStudents] = useState("");
-  const [nameError, setNameError] = useState<string | null>(null); 
+  const [nameError, setNameError] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [studentsError, setStudentsError] = useState<string | null>(null);
   const [bookingStatus, setBookingStatus] = useState<string | null>(null);
   const [slots, setSlots] = useState<Slot[]>([]);
-  const [isOpen,setIsOpen] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   useEffect(() => {
     if (selectedDate) {
@@ -65,12 +65,12 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     }
   }, [selectedDate, events]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const phoneNumber = localStorage.getItem("loginData")
-    ? JSON.parse(localStorage.getItem("loginData") || "{}").data.phone
-    : "";
+      ? JSON.parse(localStorage.getItem("loginData") || "{}").data.phone
+      : "";
     setPhone(phoneNumber)
-  },[])
+  }, [])
 
   const formatTimeRange = (start: Date, end: Date) => {
     const formatTime = (date: Date) => {
@@ -106,11 +106,11 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
   };
 
   const handleIsopen = async () => {
-    
+
     const studentCount = parseInt(bookingDetails.numberOfStudents);
     const minStudents = selectedSlot?.capacity === 40 ? 12 : 1;
     const maxStudents = selectedSlot?.capacity || 40;
-    
+
     if (studentCount < minStudents || studentCount > maxStudents) {
       toast({
         title: `Please enter a number between ${minStudents} and ${maxStudents}.`,
@@ -128,15 +128,15 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
         .split(" - ")
         .map((part: string) => parseInt(part.split(" ")[1]));
 
-        const bookingData = {
-          slot_id: Number(selectedSlot.event.id),
-          program_id:programId,
-          venue_id: venueId,
-          booking_batch_size:Number(bookingDetails.numberOfStudents),
-        };
+      const bookingData = {
+        slot_id: Number(selectedSlot.event.id),
+        program_id: programId,
+        venue_id: venueId,
+        booking_batch_size: Number(bookingDetails.numberOfStudents),
+      };
 
       // const response = await bookSlot(bookingData);
-      calendarData( Number(selectedSlot.event.id));
+      calendarData(Number(selectedSlot.event.id));
 
       setBookingStatus("Booking successful!");
       handleBookingPopUp({
@@ -168,23 +168,26 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
           Choose a Time Slot
         </div>
         <div className="self-stretch flex flex-col items-start justify-start gap-4 text-center">
-          <div className="self-stretch flex flex-col lg:flex-row items-start justify-start flex-wrap content-start gap-4">
+          {/* <div className="self-stretch flex flex-col lg:flex-row items-start justify-start flex-wrap content-start gap-4"> */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 w-full">
             {slots.map((slot, index) => (
               <div key={index} className="w-full sm:flex-1">
                 <button
-                  className={`w-full rounded-lg h-14 flex flex-row items-center justify-center py-2 px-8 ${
-                    slot.status === "Booked"
+                  // className={`w-full sm:flex-1 rounded-lg h-14 flex flex-row items-center justify-center py-2 px-8 ${
+                  className={`w-full rounded-lg h-14 flex flex-row items-center justify-center px-2 text-sm md:text-base ${slot.status === "Booked"
                       ? "bg-grey-300 text-[#6d6d6d]"
                       : selectedSlot?.time === slot.time
-                      ? "bg-[#fdded7] text-incandescent-main border-[1px] border-incandescent-main border-solid box-border"
-                      : slot.available
-                      ? "border-text-primary1 border-[1px] border-solid text-text-primary1 cursor-pointer"
-                      : "bg-red-100 border-[#fdded7] border-[1px] border-solid text-incandescent-main cursor-not-allowed"
-                  }`}
+                        // ? "bg-[#fdded7] text-incandescent-main border-[1px] border-incandescent-main border-solid box-border"
+                        ? "bg-[#FDDED7] text-incandescent-main border-[1px] border-incandescent-main border-solid"
+                        : slot.available
+                          ? "border-text-primary1 border-[1px] border-solid text-text-primary1 cursor-pointer"
+                          : "bg-red-100 border-[#fdded7] border-[1px] border-solid text-incandescent-main cursor-not-allowed"
+                    }`}
                   onClick={() => slot.available && handleSlotSelection(slot)}
                   disabled={!slot.available}
                 >
-                  <div className="relative leading-[170%] font-medium">
+                  {/* <div className="relative leading-[170%] font-medium"> */}
+                  <div className="relative font-medium whitespace-nowrap">
                     {slot.time}
                   </div>
                 </button>
@@ -198,9 +201,9 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
             ))}
           </div>
         </div>
-      <Button variant="proceed" onClick={handleIsopen}>Reschedule</Button>
-      {isOpen && <ReschedulePopup isOpen = {isOpen} onClose={closeCancelPopup}/>}
-      </div>    
+        <Button variant="proceed" onClick={handleIsopen}>Reschedule</Button>
+        {isOpen && <ReschedulePopup isOpen={isOpen} onClose={closeCancelPopup} />}
+      </div>
     </div>
   );
 };

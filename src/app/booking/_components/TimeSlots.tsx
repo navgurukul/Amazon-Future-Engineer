@@ -26,7 +26,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [students, setStudents] = useState("");
-  const [nameError, setNameError] = useState<string | null>(null); 
+  const [nameError, setNameError] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [studentsError, setStudentsError] = useState<string | null>(null);
   const [bookingStatus, setBookingStatus] = useState<string | null>(null);
@@ -41,12 +41,12 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     }
   }, [selectedDate, events]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const phoneNumber = localStorage.getItem("loginData")
-    ? JSON.parse(localStorage.getItem("loginData") || "{}").data.phone
-    : "";
+      ? JSON.parse(localStorage.getItem("loginData") || "{}").data.phone
+      : "";
     setPhone(phoneNumber)
-  },[])
+  }, [])
 
   const formatTimeRange = (start: Date, end: Date) => {
     const formatTime = (date: Date) => {
@@ -97,7 +97,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     //   setPhoneError("Please enter a phone number starting with 6 or above.");
     //   return;
     // }
-    
+
     // Name validation
     const namePattern = /^[A-Za-z\s]+$/;
     if (!name.trim()) {
@@ -110,7 +110,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     const studentCount = parseInt(students);
     const minStudents = selectedSlot?.capacity === 40 ? 12 : 1;
     const maxStudents = selectedSlot?.capacity || 40;
-    
+
     if (studentCount < minStudents || studentCount > maxStudents) {
       setStudentsError(`Please enter a number between ${minStudents} and ${maxStudents}.`);
       return;
@@ -163,23 +163,26 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
           Choose a Time Slot
         </div>
         <div className="self-stretch flex flex-col items-start justify-start gap-4 text-center">
-          <div className="self-stretch flex flex-col lg:flex-row items-start justify-start flex-wrap content-start gap-4">
+          {/* <div className="self-stretch flex flex-col lg:flex-row items-start justify-start flex-wrap content-start gap-4"> */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 w-full">
             {slots.map((slot, index) => (
               <button
                 key={index}
-                className={`w-full sm:flex-1 rounded-lg h-14 flex flex-row items-center justify-center py-2 px-8 ${
-                  slot.status === "Booked"
-                    ? "bg-grey-300 text-[#6d6d6d]"
-                    : selectedSlot?.time === slot.time
-                    ? "bg-[#fdded7] text-incandescent-main border-[1px] border-incandescent-main border-solid box-border"
+                // className={`w-full sm:flex-1 rounded-lg h-14 flex flex-row items-center justify-center py-2 px-8 ${
+                className={`w-full rounded-lg h-14 flex flex-row items-center justify-center px-2 text-sm md:text-base ${slot.status === "Booked"
+                  ? "bg-grey-300 text-[#6d6d6d]"
+                  : selectedSlot?.time === slot.time
+                    // ? "bg-[#fdded7] text-incandescent-main border-[1px] border-incandescent-main border-solid box-border"
+                    ? "bg-[#FDDED7] text-incandescent-main border-[1px] border-incandescent-main border-solid"
                     : slot.available
-                    ? "border-text-primary1 border-[1px] border-solid text-text-primary1 cursor-pointer"
-                    : "bg-red-100 border-[#fdded7] border-[1px] border-solid text-incandescent-main cursor-not-allowed"
-                }`}
+                      ? "border-text-primary1 border-[1px] border-solid text-text-primary1 cursor-pointer"
+                      : "bg-red-100 border-[#fdded7] border-[1px] border-solid text-incandescent-main cursor-not-allowed"
+                  }`}
                 onClick={() => slot.available && handleSlotSelection(slot)}
                 disabled={!slot.available}
               >
-                <div className="relative leading-[170%] font-medium">
+                {/* <div className="relative leading-[170%] font-medium"> */}
+                <div className="relative font-medium whitespace-nowrap">
                   {slot.time}
                 </div>
               </button>
@@ -211,7 +214,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               required
               className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-lg w-full"
             />
-             {nameError && (
+            {nameError && (
               <div className="text-red-500 text-sm">{nameError}</div>
             )}
           </div>
@@ -242,8 +245,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
             <div className="relative leading-[170%] font-medium">
               <span>
                 Number of Students
-                {selectedSlot.capacity === 40 
-                  ? " (min 12, max 40)" 
+                {selectedSlot.capacity === 40
+                  ? " (min 12, max 40)"
                   : ` (max ${selectedSlot.capacity})`}
               </span>
               <span className="text-incandescent-main">*</span>
