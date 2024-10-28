@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import SmartImage from "@/components/SmartImage";;
+import SmartImage from "@/components/SmartImage";
 import { useState } from "react";
 import { useAppState } from "@/context/AppContext";
 
