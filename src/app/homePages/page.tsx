@@ -709,7 +709,7 @@ const HomePage: NextPage = () => {
                   ? "Registrations are open!"
                   : " ನೋಂದಣಿಗಳು ಓಪನ್ ಆಗಿವೆ!"}
               </div>
-              <div className="pt-0 md:pt-4 w-full md:w-auto ">
+              <div className="w-full flex justify-between items-end">
                 {/* <Button
                   variant='proceedWhite'
                   onClick={handleBookSessionClick}
@@ -719,6 +719,13 @@ const HomePage: NextPage = () => {
                 <Button variant='proceedWhite' onClick={handleBookSessionClick}>
                   {isLanguageEnglish ? "Book a Session" : "ಆನ್‌ಲೈನ್ ಸೆಷನ್‌ನ್ನು ಬುಕ್ ಮಾಡಿ"}
                 </Button>
+                <SmartImage 
+                className="relative hidden md:block"
+                src="/homepage/AFE Labs Icons_NANO SPRINT - AFE Labs (White) 1.svg"
+                alt="Mini Sprints"
+                width={160}
+              height={160}
+                />
               </div>
             </div>
 
@@ -744,7 +751,7 @@ const HomePage: NextPage = () => {
             */}
           </section>
 
-          <aside className="w-full lg:w-[40%] flex flex-col gap-6 md:gap-4 lg:min-h-[calc(100vh-14.5rem)]">
+          <aside className="w-full lg:w-[40%] flex flex-col gap-6 md:gap-8 lg:min-h-[calc(100vh-14.5rem)]">
             <article className="w-full bg-[#049796] flex flex-col items-start p-4 md:p-8 gap-4 h-full rounded-md">
               <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
                 {/* <h3 className="leading-[1.5] font-extrabold text-[#29458c]"> */}
@@ -772,7 +779,7 @@ const HomePage: NextPage = () => {
               </div>
 
               {/* <div className="pt-6 md:pt-8 w-full md:w-auto"> */}
-              <div className="w-full md:w-auto md:mt-4">
+              <div className="w-full flex justify-between items-end">
                 {/* <Button
                   variant='proceedWhite'
                   // onClick = {handleLearnMoreMiniClick}
@@ -782,12 +789,19 @@ const HomePage: NextPage = () => {
                   Learn More
 
                 </Button> */}
-                <Button
+                  <Button
                   variant='proceedWhite'
                   onClick={() => handleLearnMoreClick("mini")}
                 >
                   {isLanguageEnglish ? "Learn More" : "ಹೆಚ್ಚು ತಿಳಿಯಿರಿ"}
                 </Button>
+                <SmartImage
+                className="relative hidden md:block"
+                src="/homepage/AFE Labs Icons_MINI SPRINT - AFE Labs (White) 1.svg"
+                alt="Mini Sprints"
+                width={64}
+              height={64}
+                />
               </div>
             </article>
 
@@ -819,7 +833,7 @@ const HomePage: NextPage = () => {
                   ? "Comprehensive programs leading to exciting competitive robotics challenges"
                   : "ಆಕರ್ಷಕ ಸ್ಪರ್ಧಾತ್ಮಕ ರೋಬೋಟಿಕ್ಸ್ ಚಾಲೆಂಜ್‌ಗಳಿಗೆ ಬೆಳೆಸುವ ಸಮಗ್ರ ಕಾರ್ಯಕ್ರಮಗಳು"}
               </div>
-              <div className="w-full md:w-auto md:mt-4">
+              <div className="w-full flex justify-between items-end">
                 <Button
                   variant='proceedWhite'
                   // onClick = {handleLearnMoreMiniClick}
@@ -830,6 +844,13 @@ const HomePage: NextPage = () => {
                   {isLanguageEnglish ? "Learn More" : "ಹೆಚ್ಚು ತಿಳಿಯಿರಿ"}
 
                 </Button>
+                <SmartImage
+                className="relative hidden md:block"
+                src="/homepage/Mega Sprint - AFE Labs Icon (White) 1.svg"
+                alt="Mega Sprints"
+                width={64}
+              height={64}
+                />
               </div>
             </article>
           </aside>
