@@ -38,6 +38,9 @@ const Header: NextPage<HeaderProps> = ({
   const [showBothButtons, setShowBothButtons] = useState<boolean>(false);
   const [logoutSuccess, setLogoutSuccess] = useState<boolean>(false);
 
+  const { isLanguageEnglish } = useAppState(); // Get language state from context
+  const dispatch = useAppDispatch(); // Get dispatch function from context
+
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] =
     useState<boolean>(false);
 
@@ -117,16 +120,30 @@ const Header: NextPage<HeaderProps> = ({
   //   window.location.href = translatedUrl;
   // };
 
-  const handleLanguageToggle = () => {
-    handleLanguageToggleContext()
-    if (currentLang === "en") {
-      setCurrentLang("kn");
-      // redirectToGoogleTranslator("kn");
-    } else {
-      setCurrentLang("en");
-      // redirectToGoogleTranslator("en");
-    }
-  };
+  // const handleLanguageToggle = () => {
+  //   handleLanguageToggleContext()
+  //   if (currentLang === "en") {
+  //     setCurrentLang("kn");
+  //     // redirectToGoogleTranslator("kn");
+  //   } else {
+  //     setCurrentLang("en");
+  //     // redirectToGoogleTranslator("en");
+  //   }
+  // };
+
+  const handleLanguageToggle = () => { 
+    // Toggle language in context
+    handleLanguageToggleContext();
+    
+    // Determine new language
+    const newLang = currentLang === "en" ? "kn" : "en";
+    
+    // Set the new language in local state
+    setCurrentLang(newLang);
+    
+    // Store the selected language in local storage
+    localStorage.setItem("currentLang", newLang);
+};
 
   const handleProfileClick = () => {
     setIsProfileDropdownOpen((prev) => !prev);
@@ -166,12 +183,21 @@ const Header: NextPage<HeaderProps> = ({
 
   const whatsappLink = `https://wa.me/${6366969292}`;
 
-  const { isLanguageEnglish } = useAppState(); // Get language state from context
-  const dispatch = useAppDispatch(); // Get dispatch function from context
+  
 
   const handleLanguageToggleContext = () => {
     dispatch({ type: "TOGGLE_LANGUAGE" }); // Dispatch toggle action
   };
+
+  useEffect(() => {
+    const savedLang = localStorage.getItem("currentLang");
+    if (savedLang) {
+        // Ensure the saved language is valid before setting it
+        if (savedLang === "en" || savedLang === "kn") {
+            setCurrentLang(savedLang as "en" | "kn");
+        }
+    }
+}, []);
 
   return (
     <>

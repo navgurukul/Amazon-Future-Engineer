@@ -183,7 +183,7 @@ const Booking: NextPage<BookingProps> = ({ handleOfflineBooking }) => {
                     Book Over Call
                   </div> */}
                   <div className="leading-[170%] font-medium text-text-primary">
-                    {isLanguageEnglish ? "Book Over Call" : "ಕೋಲ್ ಮೂಲಕ ಬುಕ್ ಮಾಡಿ"}
+                    {isLanguageEnglish ? "Request a Callback" : "ಕೋಲ್ ಮೂಲಕ ಬುಕ್ ಮಾಡಿ"}
                   </div>
                 </div>
               </div>
@@ -221,7 +221,7 @@ const Booking: NextPage<BookingProps> = ({ handleOfflineBooking }) => {
                 </div> */}
                 
                 <div className="leading-[170%] font-medium text-text-primary">
-                  {isLanguageEnglish ? "Book Over Call" : "ಕೋಲ್ ಮೂಲಕ ಬುಕ್ ಮಾಡಿ"}
+                  {isLanguageEnglish ? "Request a Callback" : "ಕೋಲ್ ಮೂಲಕ ಬುಕ್ ಮಾಡಿ"}
                 </div>
 
               </div>
