@@ -207,7 +207,7 @@ const HomePage: NextPage = () => {
         bgColor="home"
       />
 
-      <section className="relative w-full h-[868px] md:h-auto md:min-h-screen">
+      <section className="relative w-full h-[920px] md:h-auto md:min-h-screen">
         <video
           src="/amazon/makerspace-blr/homepage/video-m.mp4"
           className="absolute top-0 left-0 w-full h-full object-cover brightness-50 bg-black-600"
@@ -228,6 +228,16 @@ const HomePage: NextPage = () => {
             {/* </div> */}
             {/* <div className="w-[800px] h-[72px]"> */}
             {/* <div className="w-full relative text-[1.5rem] leading-[150%] font-extrabold text-white text-left inline-block font-['Amazon Ember Display']"> */}
+            <div className="flex gap-4 items-center mb-4">
+              <div className="text-[#f0f0f0] md:text-web-light-background-default text-heading6 font-heading6-bold leading-[150%] w-[100%]">Operated by</div>
+              <SmartImage
+          className="object-cover w-[100%] h-[56px] relative"
+           alt="TIS Logo"
+              src="/login/Logo TIS 1.svg"
+              width={24}
+              height={24}
+          />
+            </div>
             <div className="text-[#f0f0f0] md:text-web-light-background-default text-heading6 font-heading6-bold leading-[150%]">
               <span>
                 {" "}
@@ -276,25 +286,20 @@ const HomePage: NextPage = () => {
         </div>
       )}
 
-      <section className="relative w-full overflow-visible text-left text-xl text-midnight-blue-main py-4 mt-12 md:py-12 md:mt-16 pb-12 md:pb-16">
-        <article className="w-full flex flex-col items-start justify-start gap-4 px-4 md:px-12 mb-6 md:mb-8">
+      <section className="relative w-full overflow-visible text-center text-xl text-midnight-blue-main py-4 mt-12 md:py-12 md:mt-16 pb-12 md:pb-16">
+        <article className="w-full flex flex-col items-center justify-center gap-4 px-4 md:px-12 mb-6 md:mb-8">
           {/* <h2 className="relative leading-[150%] text-5xl md:text-[25px] font-extrabold"> */}
           <h2 className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold">
-            What is the AFE Makerspace?
+            What is Amazon Future Engineer Makerspace?
           </h2>
-          <div>
+          <div className="flex flex-col items-center justify-center">
             {/* <p className="w-full md:w-1/2 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3A3A3A] font-['Amazon Ember']"> */}
-            <p className="w-full md:w-1/2 relative text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray">
-              At the AFE Makerspace, we provide exciting learning opportunities
-              in robotics and computer science for students. Our goal is to give
-              them a glimpse into the careers of the future, encouraging them to
-              think big while exploring and creating
+            <p className="w-full md:w-3/4 relative text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray">
+              The Amazon Future Engineer Makerspace is a Robotics and AI lab built by AFE and operated by our partner, The Innovation Story (TIS). At the AFE Makerspace, we provide exciting learning opportunities in robotics and computer science, offering students a glimpse into future careers while encouraging them to think big as they explore and create
             </p>
             {/* <p className="w-full md:w-1/2 relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3A3A3A] font-['Amazon Ember'] mt-4"> */}
-            <p className="w-full md:w-1/2 relative text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray mt-4">
-              By prioritizing government school students, we ensure equitable
-              access and support diverse talent in shaping the future of
-              technology
+            <p className="w-full md:w-3/4 relative text-bodyM md:text-body1 leading-[170%] font-body1-regular text-darkslategray mt-4">
+              By prioritizing government school students, we ensure equitable access and foster diverse talent to shape the future of technology
             </p>
 
             {/* <img className="md:block hidden absolute m-0 top-[7.5rem] left-[63.3rem] max-w-full h-[18.369rem] z-0" src="./homepage/Frame 31751.svg" alt="Coding symbols 1" /> */}
@@ -641,7 +646,7 @@ const HomePage: NextPage = () => {
         </div>
       </section>
 
-      <section className="relative mx-4 md:mx-12 flex flex-col items-start justify-start gap-4 text-[#29458c] py-8 md:py-16">
+      <section className="relative mx-4 md:mx-12 flex flex-col items-center justify-start gap-4 text-[#29458c] py-8 md:py-16">
         {/* <h2 className="w-full text-5xl font-extrabold leading-[150%] md:text-[25px]"> */}
         <div className="leading-[150%] text-heading6 md:text-heading5 font-heading5-bold">
           Have Questions or Want to Book a Session?
