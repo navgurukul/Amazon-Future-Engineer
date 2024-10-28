@@ -17,7 +17,8 @@ interface BookingPopupProps {
 const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
   const router = useRouter();
 
-  const whatsappLink = `https://wa.me/${6366969292}`;
+  const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+  const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
 
   if (!isOpen) return null;
 

@@ -25,7 +25,7 @@ const Booking = () => {
                 Programs Details
               </h1> */}
               <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">
-                ಕಾರ್ಯಕ್ರಮದ ವಿವರಗಳು
+                {isLanguageEnglish ? "Program Details" : "ಕಾರ್ಯಕ್ರಮದ ವಿವರಗಳು"}
               </h1>
             </div>
             <div className="flex flex-row items-center gap-4 text-darkslategray">
