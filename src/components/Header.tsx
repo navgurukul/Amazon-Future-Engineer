@@ -173,6 +173,16 @@ const Header: NextPage<HeaderProps> = ({
     dispatch({ type: "TOGGLE_LANGUAGE" }); // Dispatch toggle action
   };
 
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("isLanguageEnglish");
+    if (storedLanguage) {
+      const isEnglish = JSON.parse(storedLanguage);
+      if (isEnglish !== isLanguageEnglish) {
+        dispatch({ type: "TOGGLE_LANGUAGE" });
+      }
+    }
+  }, [dispatch, isLanguageEnglish]);
+
   return (
     <>
           <LogoutSuccess show={logoutSuccess} />

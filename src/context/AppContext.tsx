@@ -7,11 +7,20 @@ const StateContext = createContext<AppState | undefined>(undefined);
 const DispatchContext = createContext<AppDispatch | undefined>(undefined);
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  // useEffect(() => {
+  //   const storedLanguage = localStorage.getItem("isLanguageEnglish");
+  //   if (storedLanguage !== null) {
+  //     const isLanguageEnglish = JSON.parse(storedLanguage);
+  //     dispatch({ type: "TOGGLE_LANGUAGE" }); // Ensure state syncs with localStorage on mount.
+  //   }
+  // }, []);
   useEffect(() => {
     const storedLanguage = localStorage.getItem("isLanguageEnglish");
     if (storedLanguage !== null) {
       const isLanguageEnglish = JSON.parse(storedLanguage);
-      dispatch({ type: "TOGGLE_LANGUAGE" }); // Ensure state syncs with localStorage on mount.
+      if (isLanguageEnglish !== state.isLanguageEnglish) {
+        dispatch({ type: "TOGGLE_LANGUAGE" });
+      }
     }
   }, []);
   return (
