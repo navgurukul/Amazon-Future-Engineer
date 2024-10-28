@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
+import SmartImage from "@/components/SmartImage";
 import { useAppState } from "@/context/AppContext";
+
 
 
 const LastPart = () => {
@@ -75,10 +77,12 @@ const LastPart = () => {
             >
               {copied ? (
                 <>
-                  <img
+                  <SmartImage
                     src="/userDashboard/checkmark_icon.png"
                     alt="Check Icon"
                     className="h-[16px] w-[16px]"
+                    width={16}
+                    height={16}
                   />
                   <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
                     Copied!
@@ -86,10 +90,12 @@ const LastPart = () => {
                 </>
               ) : (
                 <>
-                  <img
+                  <SmartImage
                     src="/userDashboard/content_copy.svg"
                     alt="Copy Icon"
                     className="h-[16px] w-[16px]"
+                    width={16}
+                    height={16}
                   />
                   <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
                     Copy

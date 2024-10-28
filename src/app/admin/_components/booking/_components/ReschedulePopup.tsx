@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -67,7 +67,7 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
                 className="w-full rounded-81xl border-text-primary1 border-[1px] border-solid h-14 px-4 text-lg font-medium pr-12" // Add padding-right to make space for the image
                 placeholder="Choose Slot"
               />
-              <Image
+              <SmartImage
                 className="absolute right-4 top-1/2 transform -translate-y-1/2"
                 src="/admin/calendar_today (1).svg"
                 alt="calendar"

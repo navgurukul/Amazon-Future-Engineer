@@ -1,8 +1,9 @@
 import type { NextPage } from "next";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
 import { useAppState } from "@/context/AppContext";
+
 
 interface CreateAClassProps {
   closePopup: () => void; // Add closePopup as a prop
@@ -31,28 +32,28 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
       <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-4 md:p-8 flex flex-col items-start gap-4 text-left text-gray-500">
         {/* Popup content */}
         <div className="flex items-center justify-between w-full mb-4">
-          <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">{isLanguageEnglish ? "Welcome to AFE Makerspace" : "AFE ಮೇಕರ್‌ಸ್ಪೇಸ್‌ಗೆ ಸ್ವಾಗತ"}</div>
-          {/* Close button */}
-          <Image className="w-6 relative h-6 overflow-hidden shrink-0 cursor-pointer" alt="" src="/homepage/close.svg" width={24} height={24} onClick={onNoClick} />
+        <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">Welcome to AFE Makerspace</div>
+                {/* Close button */}
+        <SmartImage className="w-6 relative h-6 overflow-hidden shrink-0 cursor-pointer" alt="" src="/homepage/close.svg" width={24} height={24} onClick={onNoClick}/>
         </div>
 
         {/* <div className="w-full max-w-[592px] h-[75px] flex items-stretch justify-between px-4 relative md:text-center">
-          <Image
+          <SmartImage
             src="/symbols/Vector (8).svg"
-            alt="Image 1"
+            alt="SmartImage 1"
             width={30}
             height={30}
             className="rounded-full self-start mt-8"
           />
           <div className="flex items-center self-center">
-            <Image
+            <SmartImage
               src="/symbols/Vector (7).svg"
               alt="Arrow Left"
               width={20}
               height={20}
               className="mt-8"
             />
-            <Image
+            <SmartImage
               src="/symbols/Vector (4).svg"
               alt="Arrow Right"
               width={20}
@@ -60,36 +61,36 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
               className="ml-1 mt-14"
             />
           </div>
-          <Image
+          <SmartImage
             src="symbols/colon (1).svg"
             alt="Colon"
             width={32}
             height={32}
             className="self-end mb-10"
           />
-          <Image
+          <SmartImage
             src="/symbols/Vector (2).svg"
-            alt="Image 2"
+            alt="SmartImage 2"
             width={32}
             height={32}
             className="self-end mt-2 md:hidden"
           />
-          <Image
+          <SmartImage
             src="/symbols/Vector (5).svg"
-            alt="Image 3"
+            alt="SmartImage 3"
             width={30}
             height={30}
             className="self-center"
           />
           <div className="items-center self-start mt-2 hidden md:flex">
-            <Image
+            <SmartImage
               src="/symbols/Vector (9).svg"
               alt="Arrow Left"
               width={16}
               height={16}
               className="mt-4"
             />
-            <Image
+            <SmartImage
               src="/symbols/Vector (6).svg"
               alt="Arrow Right"
               width={16}
@@ -98,9 +99,9 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
             />
           </div>
         </div> */}
-        {/* <div className="w-full mb-4">
-        <img src="/symbols/Frame 31751.svg" alt="coding symbols" />
-        </div> */}
+        <div className="w-full mb-4">
+        <SmartImage src="/symbols/Frame 31751.svg" alt="coding symbols" width={75} height={75} />
+        </div>
 
         {/* <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray"> */}
         {/* Thank you for your interest in the AFE Makerspace. While the AFE
@@ -148,7 +149,7 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
             Foundation Track
           </div>
           <div className="flex flex-row items-center justify-start gap-4 text-center">
-            <Image
+            <SmartImage
               className="w-12 h-12"
               alt=""
               src="courseicon.svg"

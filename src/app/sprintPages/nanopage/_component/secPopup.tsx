@@ -1,7 +1,7 @@
 "use client";
 
 import type { NextPage } from 'next';
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAppState } from "@/context/AppContext";
@@ -62,7 +62,7 @@ const SecondPopup: NextPage = () => {
                                 Request a Callback
                             </div>
 
-                            <Image
+                            <SmartImage
                                 className="w-5 h-5 cursor-pointer"
                                 alt="close"
                                 src="/userDashboard/close.svg"
@@ -73,16 +73,16 @@ const SecondPopup: NextPage = () => {
                         </div>
 
                         <div className="w-full max-w-[592px] h-auto mt-6 flex items-center justify-between px-4 relative md:text-center">
-                            <Image src="/symbols/Vector (8).svg" alt="Image 1" width={30} height={30} className="rounded-full self-start mt-4" />
+                            <SmartImage src="/symbols/Vector (8).svg" alt="SmartImage 1" width={30} height={30} className="rounded-full self-start mt-4" />
                             <div className="flex items-center self-center">
-                                <Image src="/symbols/Vector (7).svg" alt="Arrow Left" width={20} height={20} className="mt-2" />
-                                <Image src="/symbols/Vector (4).svg" alt="Arrow Right" width={20} height={20} className="ml-1 mt-4" />
+                                <SmartImage src="/symbols/Vector (7).svg" alt="Arrow Left" width={20} height={20} className="mt-2" />
+                                <SmartImage src="/symbols/Vector (4).svg" alt="Arrow Right" width={20} height={20} className="ml-1 mt-4" />
                             </div>
-                            <Image src="/symbols/Vector (2).svg" alt="Image 2" width={32} height={32} className="self-end md:hidden" />
-                            <Image src="/symbols/Vector (5).svg" alt="Image 3" width={30} height={30} className="self-center" />
+                            <SmartImage src="/symbols/Vector (2).svg" alt="SmartImage 2" width={32} height={32} className="self-end md:hidden" />
+                            <SmartImage src="/symbols/Vector (5).svg" alt="SmartImage 3" width={30} height={30} className="self-center" />
                             <div className="items-center self-start mt-2 hidden md:flex">
-                                <Image src="/symbols/Vector (9).svg" alt="Arrow Left" width={16} height={16} className="mt-2" />
-                                <Image src="/symbols/Vector (6).svg" alt="Arrow Right" width={16} height={16} className="ml-1 mt-4" />
+                                <SmartImage src="/symbols/Vector (9).svg" alt="Arrow Left" width={16} height={16} className="mt-2" />
+                                <SmartImage src="/symbols/Vector (6).svg" alt="Arrow Right" width={16} height={16} className="ml-1 mt-4" />
                             </div>
                         </div>
 

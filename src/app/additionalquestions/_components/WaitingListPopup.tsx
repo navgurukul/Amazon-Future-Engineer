@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
@@ -59,22 +59,22 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
     <div className="fixed inset-0 flex justify-center bg-black bg-opacity-70">
       <div className="w-full h-auto p-4 md:px-12 bg-white shadow-md min-h-screen bg-bg-surface-default flex flex-col items-center pb-[64px]">
         {/* <div className="w-full max-w-[592px] h-[75px] mt-[120px] flex items-stretch justify-between px-4 relative md:text-center">
-          <Image
+          <SmartImage
             src="/symbols/Vector (8).svg"
-            alt="Image 1"
+            alt="SmartImage 1"
             width={30}
             height={30}
             className="rounded-full self-start mt-8"
           />
           <div className="flex items-center self-center">
-            <Image
+            <SmartImage
               src="/symbols/Vector (7).svg"
               alt="Arrow Left"
               width={20}
               height={20}
               className="mt-8"
             />
-            <Image
+            <SmartImage
               src="/symbols/Vector (4).svg"
               alt="Arrow Right"
               width={20}
@@ -82,36 +82,36 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
               className="ml-1 mt-14"
             />
           </div>
-          <Image
+          <SmartImage
             src="symbols/colon (1).svg"
             alt="Colon"
             width={32}
             height={32}
             className="self-end mb-10"
           />
-          <Image
+          <SmartImage
             src="/symbols/Vector (2).svg"
-            alt="Image 2"
+            alt="SmartImage 2"
             width={32}
             height={32}
             className="self-end mt-2 md:hidden"
           />
-          <Image
+          <SmartImage
             src="/symbols/Vector (5).svg"
-            alt="Image 3"
+            alt="SmartImage 3"
             width={30}
             height={30}
             className="self-center"
           />
           <div className="items-center self-start mt-2 hidden md:flex">
-            <Image
+            <SmartImage
               src="/symbols/Vector (9).svg"
               alt="Arrow Left"
               width={16}
               height={16}
               className="mt-4"
             />
-            <Image
+            <SmartImage
               src="/symbols/Vector (6).svg"
               alt="Arrow Right"
               width={16}
@@ -120,7 +120,7 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
             />
           </div>
         </div> */}
-        <Image
+        <SmartImage
         className="w-full max-w-full h-[75px] relative mt-24 md:mt-36 px-6 md:px-0"
         src="/symbols/Frame 31751-1.svg"
         alt="Coding Symbol"

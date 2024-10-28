@@ -1,10 +1,11 @@
 import EditDatePopup from "./EditDatePopup";
 import EditTimeSlotsPopup from "./EditTimeSlotsPopup";
 import { useAllBookings } from "./allBookings";
+import { getSlots } from "@/utils/api";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useRef, useEffect, useState } from "react";
 
 
@@ -17,7 +18,7 @@ interface EventSlot {
     date: string;
     available_capacity: number;
     status: string;
-    booking_id: number;
+    booking_id?: number | undefined;
 }
 
 const TimeSlotCalendar: React.FC = () => {
@@ -28,9 +29,9 @@ const TimeSlotCalendar: React.FC = () => {
     const [showTimeSlotsPopup, setShowTimeSlotsPopup] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [popupPosition, setPopupPosition] = useState<{ top: number; left: number } | null>(null);
-    const [timeSlotsPopupPosition, setTimeSlotsPopupPosition] = useState<{ top: number; left: number } | null>(null);
     const [selectedDayName, setSelectedDayName] = useState<string>("");
     const [selectedSlots, setSelectedSlots] = useState<EventSlot[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const getMonthYear = (date: Date) => {
         const monthNames = [
@@ -82,7 +83,7 @@ const TimeSlotCalendar: React.FC = () => {
         }
 
         const { top, left } = el.getBoundingClientRect();
-        setPopupPosition({ top: top - 10, left: left + (el.offsetWidth / 2) - 50 });
+        setPopupPosition({ top: top - 50, left: left + (el.offsetWidth / 2) - 50 });
 
         setSelectedDate(date);
         setSelectedDayName(date.toLocaleDateString('en-US', { weekday: 'long' }));
@@ -98,8 +99,10 @@ const TimeSlotCalendar: React.FC = () => {
                 id: Number(event.id),
                 start: new Date(event.start).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit', hour12: false }),
                 end: new Date(event.end).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit', hour12: false }),
-                program_id: parseInt(programId.replace('Program ', '')),
-                venue_id: parseInt(venueId),
+                // program_id: parseInt(programId.replace('Program ', '')),
+                program_id: 1,
+                // venue_id: parseInt(venueId),
+                venue_id: 2,
                 date: date.toISOString().split('T')[0],
                 available_capacity: event.extendedProps.availableCapacity,
                 status: event.extendedProps.status,
@@ -109,7 +112,6 @@ const TimeSlotCalendar: React.FC = () => {
 
         setSelectedSlots(slotsForDate);
 
-        setTimeSlotsPopupPosition({ top: 100, left: 515 });
         setShowPopup(true);
     };
 
@@ -120,7 +122,6 @@ const TimeSlotCalendar: React.FC = () => {
 
     const handleEditAllDays = () => {
         setShowPopup(false);
-        // Implement logic for editing all days of the same name
     };
 
     const handleClosePopup = () => {
@@ -128,23 +129,59 @@ const TimeSlotCalendar: React.FC = () => {
         setShowTimeSlotsPopup(false);
     };
 
-    const handleUpdateSlots = async (updatedSlots: EventSlot[]) => {
-        console.log("Updated slots:", updatedSlots);
-         // Re-fetch events to get the updated slots
-    // Optionally, close the popup or perform other actions
-    setShowTimeSlotsPopup(false);
+    const handleUpdateSlots = async (
+      updatedSlots: EventSlot[]
+    ): Promise<void> => {
+      console.log("handleUpdateSlots called with:", updatedSlots);
+      try {
+        console.log("Starting to update slots:", updatedSlots);
+
+        // Ensure all slots are processed in parallel
+        await Promise.all(
+          updatedSlots.map(async (slot) => {
+            if (!slot.id) {
+              console.warn("Slot ID is missing for a slot:", slot);
+              return;
+            }
+
+            console.log("Updating slot:", slot);
+
+            console.log(
+              "Slot updated successfully, fetching data for slot:",
+              slot.id
+            );
+          })
+        );
+
+        console.log("Successfully updated all slots.");
+
+        const calendarApi = calendarRef.current?.getApi?.();
+        if (calendarApi) {
+          calendarApi.refetchEvents();
+        } else {
+          console.warn("calendarRef is not available or getApi is undefined");
+        }
+          setSelectedSlots(updatedSlots);
+        setShowTimeSlotsPopup(false);
+
+        // localStorage.setItem("shouldManageSlots", "true");
+        // window.location.reload();
+      } catch (error) {
+        console.error("Error updating slots:", error);
+      }
     };
+
+
 
     const isBeforeToday = (date: Date) => {
       const today = new Date();
-      today.setHours(0, 0, 0, 0); // Ignore time part
+      today.setHours(0, 0, 0, 0);
       return date < today;
     };
 
     const handleDayCellClassNames = (arg: any) => {
       const date = arg.date;
 
-      // Disable previous dates and Sundays
       if (isBeforeToday(date) || date.getDay() === 0) {
         return ["disabled-date"];
       }
@@ -155,7 +192,6 @@ const TimeSlotCalendar: React.FC = () => {
     const handleDayCellDidMount = (arg: any) => {
       const date = arg.date;
 
-      // Style previous dates and Sundays
       if (isBeforeToday(date) || date.getDay() === 0) {
         arg.el.style.backgroundColor = "#f5f5f5";
       }
@@ -164,7 +200,7 @@ const TimeSlotCalendar: React.FC = () => {
     return (
         <div className="calendar-container">
             <div className="calendar-header">
-                <Image
+                <SmartImage
                     src="/previous.svg"
                     alt="Previous"
                     width={30}
@@ -173,7 +209,7 @@ const TimeSlotCalendar: React.FC = () => {
                     className="nav-icon"
                 />
                 <h1 className="calendar-title">{currentMonthYear}</h1>
-                <Image
+                <SmartImage
                     src="/next.svg"
                     alt="Next"
                     width={30}
@@ -216,7 +252,6 @@ const TimeSlotCalendar: React.FC = () => {
                         return null;
                     }}
                 />
-                  {/* Render the overlay and popups if either popup is visible */}
         {(showPopup || showTimeSlotsPopup) && (
             <>
                 <div className="overlay" />
@@ -227,7 +262,7 @@ const TimeSlotCalendar: React.FC = () => {
                         onEditAllThursdays={handleEditAllDays}
                         onClose={handleClosePopup}
                         style={{
-                            position: 'absolute',
+                            position: 'fixed',
                             top: `${popupPosition.top}px`,
                             left: `${popupPosition.left}px`,
                             zIndex: 1000
@@ -235,17 +270,18 @@ const TimeSlotCalendar: React.FC = () => {
                     />
                 )}
 
-                {showTimeSlotsPopup && timeSlotsPopupPosition && (
+                {showTimeSlotsPopup && (
                     <EditTimeSlotsPopup
                         selectedDate={selectedDate?.toDateString() || ""}
                         onClose={handleClosePopup}
                         slots={selectedSlots}
                         style={{
-                            position: 'absolute',
-                            top: `${timeSlotsPopupPosition.top}px`,
-                            left: `${timeSlotsPopupPosition.left}px`,
-                            zIndex: 1000
-                        }}
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 1000
+        }}
                         onUpdateSlots={handleUpdateSlots}
                     />
                 )}

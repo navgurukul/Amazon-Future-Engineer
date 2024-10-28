@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useCallback } from "react";
 
 interface PopupProps {
@@ -21,7 +21,7 @@ const Popup: NextPage<PopupProps> = ({ closeHelpDeskPopup }) => {
       <div className="flex flex-col gap-4 flex-grow">
         <div className="flex items-center justify-between text-lg font-amazon-ember w-full">
           <div className="font-extrabold">Helpdesk</div>
-          <Image
+          <SmartImage
             className="w-6 h-6 cursor-pointer"
             alt="close"
             src="/homepage/close.svg"

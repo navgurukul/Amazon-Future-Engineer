@@ -160,15 +160,32 @@ export const getProgramData = async (venue_id: number) => {
 
 // Function to call the booking query API
 export const callBookingQuery = async (bookingData: {
-  name: string;
-  phone: string;
+  // name: string;
+  // phone: string;
   program_id: number;
   venue_id: number;
-  query_type: string;
+  // query_type: string;
 }) => {
   try {
-    const response = await api.post('/queries/call-booking-query', bookingData);
+    const token = getToken(); // Retrieve the token
+    if (!token) {
+      console.error("Authorization token is missing.");
+      throw new Error("Authorization token is missing.");
+    }
+
+    // Log token to make sure it's retrieved correctly
+    console.log("Authorization token:", token);
+
+    const response = await api.post('/queries/call-booking-query', bookingData,
+       {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add the Bearer token
+        },
+      }
+    );
+    console.log("Response from booking query:", response.data);
     return response.data;
+    
   } catch (error: any) {
     console.error('Error calling booking query:', error);
     throw error.response?.data || error;
@@ -312,11 +329,12 @@ export const getFeedback = async (user_id: number, slot_id: number) => {
 };
 
 
+
+
 //Admin edit api Function to update booking details
 export const updateBookingDetails = async (bookingId: number, bookingData: {
   user_id: number;
   slot_id: number;
-  program_id: number;
   booking_batch_size: number;
   visited_batch_size: number;
   students_grade: string;
@@ -371,7 +389,6 @@ export const updateSlotDetails = async (id: number) => {
 };
 
 // Get slot by slotId
-
 export const getAdminSlotDetails = async (slotId: number) => {
   try {
     const token = getAdminToken()  ||  getToken() ;
@@ -396,13 +413,61 @@ export const getAdminSlotDetails = async (slotId: number) => {
 
 // api to update status
 
-export const updateBookingStatus = async (bookingId: number, status: string) => {
+export const updateBookingStatus = async (bookingId: number, status: string,cancel_reason?:string,reschedule_reason?:string) => {
   try {
     const response = await api.put(`/bookings/${bookingId}/status`, {
-      status: status
+      status: status,
+      cancel_reason:cancel_reason,
+      reschedule_reason:reschedule_reason
     }, {
       headers: {
         'Content-Type': 'application/json'
+      }
+    });
+    console.log("responseeee", response);
+    return response.data;
+  } catch (error: any) {
+    console.error('Error updating booking status:', error);
+    throw error;
+  }
+};
+
+export const rescheduleBooking = async (booking_id: number) => {
+  try {
+    const response = await api.put(
+      `/bookings/${booking_id}/status`,
+      { status: "RequestedReschedule" },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error("Error rescheduling booking:", error);
+    throw error;
+  }
+};
+
+
+// api to update booking query on all users for not intersted and reschadule
+
+export const quesryBookingStatus = async (program_id: number,venue_id:number, status: string) => {
+  const token = getAdminToken()  ||  getToken() ;
+  if (!token) {
+    throw new Error('No token found');
+  }
+  try {
+    const response = await api.post(`/queries/call-booking-query`, {
+      program_id: program_id,
+      venue_id:venue_id,
+      status:status
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+
       }
     });
     return response.data;
@@ -415,37 +480,38 @@ export const updateBookingStatus = async (bookingId: number, status: string) => 
 
 
 
-
 // Add this new function to update slot details
-export const updateSlotTime = async (
-  slotId: number,
-  updatedData: {
-    program_id: number;
-    venue_id: number;
-    date: string;
-    start_time: string;
-    end_time: string;
-    available_capacity: number;
-    status: string;
-  }
-) => {
-  const token = getAdminToken();
+// export const updateSlotTime = async (
+//   slotId: number,
+//   updatedData: {
+//     program_id: number;
+//     venue_id: number;
+//     date: string;
+//     start_time: string;
+//     end_time: string;
+//     available_capacity: number;
+//     status: string;
+//   }
+// ) => {
+//   const token = getAdminToken();
   
-  if (!token) {
-    throw new Error('No admin token found');
-  }
-  try {
-    const response = await api.put(`/slotmanagement/${slotId}`, updatedData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    return response.data;
-  } catch (error: any) {
-    throw new Error(error.response?.data?.details || 'An error occurred while updating slot');
-  }
-}
+//   if (!token) {
+//     throw new Error('No admin token found');
+//   }
+//   console.log("Updatedddddd data:", updatedData);
+  
+//   try {
+//     const response = await api.put(`/slotmanagement/${slotId}`, updatedData, {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//         'Content-Type': 'application/json',
+//       },
+//     });
+//     return response.data;
+//   } catch (error: any) {
+//     throw new Error(error.response?.data?.details || 'An error occurred while updating slot');
+//   }
+// }
 
 // Update details of existing booking
 
@@ -487,5 +553,163 @@ export const updateBookingStatusAllUsers = async (
     throw new Error(
       error.response?.data?.message || "Error updating booking status"
     );
+  }
+};
+
+
+
+// Function to fetch all users and bookings
+export const getAllUsersAndBookings = async (program: string, page: number = 1, limit: number = 10) => {
+  const token = getAdminToken();
+
+  if (!token) {
+    throw new Error('No token found');
+  }
+
+  try {
+    const params: any = {
+      page,
+      limit,
+    };
+
+    // Only include 'program' if it's not empty
+    if (program) {
+      params.program = program;
+    }
+
+    const response = await api.get(`/bookings/admin/getAllUsersAndBookings`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params, // Pass the params object directly
+    });
+
+    return response.data;
+  } catch (error: any) {
+    return error
+    // throw error;
+  }
+};
+
+
+
+// Function to reschedule a booking
+export const rescheduleBookingUpdate = async (bookingId: number, rescheduleData: {
+  user_id: number;
+  name: string;
+  slot_id: number;
+  booking_batch_size: number;
+  students_grade: string;
+  visiting_time: string;
+  status: string;
+  // query_id: number;
+  school_name: string;
+  udise: string;
+  email: string;
+  address: string;
+  village: string;
+  state: string;
+  district: string;
+  pin_code: any;
+}) => {
+  const token = getAdminToken() || getToken();
+
+  if (!token) {
+    throw new Error('No token found');
+  }
+
+  try {
+    const response = await api.put(`/bookings/${bookingId}`, rescheduleData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+
+
+// Function to fetch slot details bySlot  ID
+export const getSlotDetailsSlotId = async (slotId: number) => {
+  const token = getAdminToken() || getToken();
+
+  if (!token) {
+    throw new Error('No token found');
+  }
+
+  try {
+    const response = await api.get(`/slotmanagement/slot/${slotId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+
+// Add new slots
+export const addNewSlots = async (newSlots: {
+  program_id: number;
+  venue_id: number;
+  date: string;
+  start_time: string;
+  end_time: string;
+  available_capacity: number;
+  status: string;
+}) => {
+  const token = getAdminToken();
+  if (!token) {
+    throw new Error('No admin token found');
+  }
+  try {
+    const response = await api.post(
+      "/slotmanagement/add",
+      newSlots,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.details || 'An error occurred while adding new slots');
+  }
+};
+
+// New function to delete a slot
+export const deleteSlot = async (slot_id: number) => {
+  const token = getAdminToken();
+  if (!token) {
+    throw new Error('No admin token found');
+  }
+  try {
+    const response = await api.delete(`/slotmanagement/delete/${slot_id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.details || 'An error occurred while deleting the slot');
+  }
+};
+
+// Update a slot
+export const updateSlot = async (slotId: number, updatedSlot: any) => {
+  const token = getAdminToken();
+  if (!token) {
+    throw new Error("No admin token found");
+  }
+  try {
+    const response = await api.put(`slotmanagement/${slotId}`, updatedSlot, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error:any) {
+    throw new Error(error.response?.data?.details || "An error occurred while deleting the slot");
   }
 };
