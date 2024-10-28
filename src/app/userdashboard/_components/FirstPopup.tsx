@@ -144,7 +144,8 @@ const FirstPopup: NextPage<FirstPopupProps> = ({
               </div>
 
               {/* Request Reschedule button (full width for small screens) */}
-              <div className="w-full md:w-auto h-14 px-8 py-2 bg-[#f55c38] rounded-full justify-center items-center flex cursor-pointer" onClick={handleOpenSecondPopup}>
+              {/* <div className="w-full md:w-auto h-14 px-8 py-2 bg-[#f55c38] rounded-full justify-center items-center flex cursor-pointer" onClick={handleOpenSecondPopup}> */}
+              <div className="w-full md:w-auto h-14 px-8 py-2 bg-[#F55C38] rounded-full justify-center items-center flex cursor-pointer" onClick={handleRequestReschedule}>
                 <div className="text-center text-white text-base md:text-lg font-medium">
                   {/* Request Reschedule */}
                   <span>

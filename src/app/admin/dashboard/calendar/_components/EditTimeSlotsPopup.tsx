@@ -1,10 +1,8 @@
 import SmartImage from "@/components/SmartImage";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import { toast, useToast } from "@/hooks/use-toast";
 import { addNewSlots, deleteSlot, updateSlot } from "@/utils/api";
 import React, { useState } from "react";
-
-
 interface EventSlot {
   id: number;
   start: string;
@@ -16,7 +14,6 @@ interface EventSlot {
   status: string;
   booking_id?: number;
 }
-
 interface EditTimeSlotsPopupProps {
   selectedDate: string;
   onClose: () => void;
@@ -24,7 +21,6 @@ interface EditTimeSlotsPopupProps {
   style?: React.CSSProperties;
   onUpdateSlots: (updatedSlots: EventSlot[]) => void;
 }
-
 const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
   selectedDate,
   onClose,
@@ -32,11 +28,10 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
   style,
   onUpdateSlots,
 }) => {
-  const { toast } = useToast();
   const [editableSlots, setEditableSlots] = useState<EventSlot[]>(slots);
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
+  const { toast } = useToast();
   const handleInputChange = (
     index: number,
     field: "start" | "end",
@@ -46,55 +41,58 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
     updatedSlots[index][field] = value;
     setEditableSlots(updatedSlots);
   };
-
-  // For all 3 operations
   const handleUpdate = async () => {
-    setError(null); // Clear any previous errors
-
+    setError(null);
     try {
       const existingSlotIds = editableSlots.map((slot) => slot.id);
-
-      // ** Filter out slots that were removed (not in editableSlots anymore) **
       const slotsToDelete = slots.filter(
         (slot) => !existingSlotIds.includes(slot.id)
       );
+      // if (slotsToDelete.length > 0) {
+      //   console.log("Tamanna Jiiii",slotsToDelete)
+      //   const deletePromises = slotsToDelete.map((slot) => {
+      //     if (slot.booking_id) {
+      //       throw new Error(
+      //         `Slot cannot be deleted as it is associated with a booking.`
+      //       );
+      //     }
+      //     return deleteSlot(slot.id);
+      //   });
 
-      console.log("Slots to be deleted:", slotsToDelete);
-
-      // ** Delete Slots **
       if (slotsToDelete.length > 0) {
-        const deletePromises = slotsToDelete.map((slot) => {
-          if (slot.booking_id) {
-            throw new Error(
-              `Slot with ID ${slot.id} cannot be deleted as it is associated with a booking.`
-            );
+        const deletePromises = slotsToDelete.map(async (slot) => {
+          try {
+            if (slot.booking_id) {
+              throw new Error(
+                `Slot with ID ${slot.id} cannot be deleted as it is associated with a booking.`
+              );
+            }
+            await deleteSlot(slot.id); // Call the deleteSlot function
+            toast({
+              title: "Deleted",
+              description: "Slot has been removed successfully!",
+              variant: "success",
+              duration: 3000,
+            });
+          } catch (error: any) {
+            console.error("Error deleting slot:", slot, error);
+            toast({
+              title: "Deletion Error",
+              description: "Failed to delete slot. Please try again.",
+              variant: "destructive",
+              duration: 3000,
+            });
           }
-          toast({
-            title: "Deleted",
-            description: "Slot has been removed successfully!",
-            variant: "success",
-            duration: 3000,
-          });
-          return deleteSlot(slot.id); // Call the deleteSlot function
         });
 
         await Promise.all(deletePromises);
-        console.log("Deleted slots:", slotsToDelete);
-
-        // ** Update local state for deleted slots **
         const updatedEditableSlots = editableSlots.filter((slot) =>
           existingSlotIds.includes(slot.id)
         );
         setEditableSlots(updatedEditableSlots);
-
-        // Call onUpdateSlots to update the parent component
         onUpdateSlots(updatedEditableSlots);
       }
-
-      // ** Add New Slots **
       const newSlots = editableSlots.filter((slot) => slot.id === 0);
-      console.log("New slots to be added:", newSlots);
-
       if (newSlots.length > 0) {
         const formattedNewSlots = newSlots.map((slot) => {
           const parsedDate = new Date(slot.date);
@@ -102,12 +100,9 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
             throw new Error(`Invalid date format: ${slot.date}`);
           }
           const year = parsedDate.getFullYear();
-          const month = String(parsedDate.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+          const month = String(parsedDate.getMonth() + 1).padStart(2, "0");
           const day = String(parsedDate.getDate()).padStart(2, "0");
-
           const formattedDate = `${year}-${month}-${day}T00:00:00.000Z`;
-          console.log("formattedDate", formattedDate);
-
           const formatTime = (time: string) => {
             const [hours, minutes] = time.split(":");
             const date = new Date();
@@ -118,51 +113,27 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
               hour12: false,
             });
           };
-
-          const start_time = formatTime(slot.start);
-          const end_time = formatTime(slot.end);
-
-          console.log("start_time", start_time);
-          console.log("end_time", end_time);
-
           return {
             program_id: Number(slot.program_id),
             venue_id: Number(slot.venue_id),
             date: formattedDate,
-            start_time: start_time,
-            end_time: end_time,
+            start_time: formatTime(slot.start),
+            end_time: formatTime(slot.end),
             available_capacity: Number(slot.available_capacity),
             status: slot.status,
           };
         });
-
         for (const slot of formattedNewSlots) {
           try {
-            await addNewSlots(slot); // Call the API to add new slots
-            console.log("Added new slot:", slot);
-            toast({
-              title: "Success",
-              description: "Slot created successfully",
-              variant: "success",
-              duration: 3000,
-            });
+            await addNewSlots(slot);
+            
           } catch (error) {
             console.error("Error adding slot:", slot, error);
+            setError("Failed to add new slot. Please try again.");
           }
         }
       }
-
-      // ** Update Existing Slots **
       const slotsToUpdate = editableSlots.filter((slot) => slot.id !== 0);
-      console.log("Slots to be updated:", slotsToUpdate);
-
-      const updatedSlots: EventSlot[] = slots.map((slot) => ({
-        ...slot,
-        // Make any modifications necessary, for example:
-        available_capacity: slot.available_capacity, // Example modification
-      }));
-      // onUpdateSlots(updatedSlots);
-
       if (slotsToUpdate.length > 0) {
         const updatePromises = slotsToUpdate.map((slot) => {
           const parsedDate = new Date(slot.date);
@@ -170,11 +141,9 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
             throw new Error(`Invalid date format: ${slot.date}`);
           }
           const year = parsedDate.getFullYear();
-          const month = String(parsedDate.getMonth() + 1).padStart(2, "0"); // Months are 0-based
-          const day = String(parsedDate.getDate() + 1).padStart(2, "0");
+          const month = String(parsedDate.getMonth() + 1).padStart(2, "0");
+          const day = String(parsedDate.getDate()).padStart(2, "0");
           const formattedDate = `${year}-${month}-${day}T00:00:00.000Z`;
-          console.log("formattedDate", formattedDate);
-
           const formatTime = (time: string) => {
             const [hours, minutes] = time.split(":");
             const date = new Date();
@@ -185,44 +154,34 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
               hour12: false,
             });
           };
-
-          const start_time = formatTime(slot.start);
-          const end_time = formatTime(slot.end);
-
           const updatedSlot = {
             program_id: Number(slot.program_id),
             venue_id: Number(slot.venue_id),
             date: formattedDate,
-            start_time: start_time,
-            end_time: end_time,
-            available_capacity: Math.min(
-              Math.max(Number(slot.available_capacity) || 12, 1),
-              39
-            ),
+            start_time: formatTime(slot.start),
+            end_time: formatTime(slot.end),
+            available_capacity: Number(slot.available_capacity),
             status: slot.status,
           };
-          return updateSlot(slot.id, updatedSlot); // Call the deleteSlot function
+          return updateSlot(slot.id, updatedSlot).catch((err) => {
+            console.error("Error updating slot:", slot, err);
+            throw new Error(
+              "Slot cannot be updated as it is associated with a booking."
+            );
+          });
         });
         await Promise.all(updatePromises);
       }
-      // Finally, update the parent component with the new slots
       onUpdateSlots(editableSlots);
-      // toast({
-      //   title: "Updated",
-      //   description: "Slot updated successfully",
-      //   variant: "success",
-      //   duration: 3000,
-      // });
     } catch (err: any) {
-      setError(err.message || "Failed to update slots. Please try again.");
+      console.error("Error updating slots:", err);
+      setError("Failed to update slots. Please try again.");
     }
   };
-
   const handleDeleteSlot = (index: number) => {
     const updatedSlots = editableSlots.filter((_, i) => i !== index);
     setEditableSlots(updatedSlots);
   };
-
   const handleNewSlots = () => {
     setEditableSlots([
       ...editableSlots,
@@ -230,7 +189,6 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
         id: 0,
         start: "00:00",
         end: "00:00",
-        // program_id: slots[0].program_id,
         program_id: 1,
         venue_id: 2,
         date: selectedDate,
@@ -240,7 +198,6 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
       },
     ]);
   };
-
   return (
     <div
       style={style}
@@ -294,7 +251,7 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
                 </>
               ) : (
                 <>
-              <span className="flex border border-[#3A3A3A] px-4 py-2 rounded-full">
+                  <span className="flex border border-[#3A3A3A] px-4 py-2 rounded-full">
                     <span className="mr-2">{slot.start}</span>
                     <SmartImage
                       src="/admin/access_time.svg"
