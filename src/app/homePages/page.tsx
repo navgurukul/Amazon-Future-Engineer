@@ -209,10 +209,11 @@ const HomePage: NextPage = () => {
         bgColor="home"
       />
 
-      <section className="relative w-full h-[920px] md:h-auto md:min-h-screen">
+      <section className="relative w-full h-[920px] md:h-auto md:min-h-screen overflow-hidden">
         <video
-          src="/amazon/makerspace-blr/homepage/video-m.mp4"
-          className="absolute top-0 left-0 w-full h-full object-cover brightness-50 bg-black-600"
+          // src="/amazon/makerspace-blr/homepage/video-m.mp4"
+          src="/amazon/makerspace-blr/homepage/AFE Lab website banner.mp4"
+          className="absolute inset-0 top-0 left-0 w-full h-full object-cover brightness-50 bg-black-600"
           autoPlay
           muted
           loop
@@ -617,7 +618,7 @@ const HomePage: NextPage = () => {
           </div>
         </article>
 
-        <div className="w-full flex flex-col lg:flex-row items-stretch justify-start gap-6 md:gap-4 text-[#fff]">
+        <div className="w-full flex flex-col lg:flex-row items-stretch justify-start gap-6 md:gap-8 text-[#fff]">
           <section className="flex-1 bg-[#29458c] flex flex-col items-start justify-start p-4 md:p-8 relative gap-8 lg:min-h-[calc(100vh-14.5rem)] rounded-md">
             <div className="w-full max-w-screen-md flex flex-col items-start justify-start gap-6 md:gap-4 z-0">
               <header className="flex flex-row items-center justify-start gap-4 text-[17px] font-bold">
@@ -713,7 +714,7 @@ const HomePage: NextPage = () => {
                   ? "Registrations are open!"
                   : " ನೋಂದಣಿಗಳು ಓಪನ್ ಆಗಿವೆ!"}
               </div>
-              <div className="pt-0 md:pt-4 w-full md:w-auto">
+              <div className="pt-0 md:pt-4 w-full md:w-auto ">
                 {/* <Button
                   variant='proceedWhite'
                   onClick={handleBookSessionClick}
@@ -749,7 +750,7 @@ const HomePage: NextPage = () => {
           </section>
 
           <aside className="w-full lg:w-[40%] flex flex-col gap-6 md:gap-4 lg:min-h-[calc(100vh-14.5rem)]">
-            <article className="w-full bg-[#049796] flex flex-col items-start p-4 md:p-8 gap-6 h-full rounded-md">
+            <article className="w-full bg-[#049796] flex flex-col items-start p-4 md:p-8 gap-4 h-full rounded-md">
               <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
                 {/* <h3 className="leading-[1.5] font-extrabold text-[#29458c]"> */}
                 {/* <div className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#29458c]">
@@ -776,7 +777,7 @@ const HomePage: NextPage = () => {
               </div>
 
               {/* <div className="pt-6 md:pt-8 w-full md:w-auto"> */}
-              <div className="w-full md:w-auto">
+              <div className="w-full md:w-auto md:mt-4">
                 {/* <Button
                   variant='proceedWhite'
                   // onClick = {handleLearnMoreMiniClick}
@@ -795,7 +796,7 @@ const HomePage: NextPage = () => {
               </div>
             </article>
 
-            <article className="w-full bg-[#ffad33] flex flex-col items-start p-4 md:p-8 gap-6 h-full rounded-md">
+            <article className="w-full bg-[#ffad33] flex flex-col items-start p-4 md:p-8 gap-4 h-full rounded-md">
               <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
                 {/* <h3 className="leading-[150%] font-extrabold text-[#29458c]"> */}
                 {/* <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#29458c]">
@@ -823,7 +824,7 @@ const HomePage: NextPage = () => {
                   ? "Comprehensive programs leading to exciting competitive robotics challenges"
                   : "ಆಕರ್ಷಕ ಸ್ಪರ್ಧಾತ್ಮಕ ರೋಬೋಟಿಕ್ಸ್ ಚಾಲೆಂಜ್‌ಗಳಿಗೆ ಬೆಳೆಸುವ ಸಮಗ್ರ ಕಾರ್ಯಕ್ರಮಗಳು"}
               </div>
-              <div className="w-full md:w-auto">
+              <div className="w-full md:w-auto md:mt-4">
                 <Button
                   variant='proceedWhite'
                   // onClick = {handleLearnMoreMiniClick}
