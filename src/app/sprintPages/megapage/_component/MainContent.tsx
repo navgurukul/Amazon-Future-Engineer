@@ -15,6 +15,38 @@ const MainContent: NextPage = () => {
     mega: "mega",
   });
 
+  const images = [
+    "/nanopage/RectangleMe1.jpeg",
+    "/nanopage/RectangleMe2.jpeg",
+    "/nanopage/RectangleMe3.jpeg",
+    "/nanopage/RectangleMe4.jpeg",
+    "/nanopage/RectangleMe5.jpeg",
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // const nextSlide = () => {
+  //   setCurrentIndex((prevIndex) =>
+  //     prevIndex + 3 >= images.length ? 0 : prevIndex + 3
+  //   );
+  // };
+
+  // const prevSlide = () => {
+  //   setCurrentIndex((prevIndex) =>
+  //     prevIndex - 3 < 0 ? images.length - 3 : prevIndex - 3
+  //   );
+  // };
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length); // Loops back to first image
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    ); // Loops back to last image
+  };
+
   const handleChange = (name: string) => {
     if (name === "nano") {
       router.push("/sprintPages/nanopage");
@@ -70,11 +102,11 @@ const MainContent: NextPage = () => {
             alt="Nano Sprints"
             src={
               !page.nano
-                ? "/nanopage/reshot-icon-triangle-puzzle-block-A4BNSTCJ6D 1(1).svg"
-                : "/nanopage/reshot-icon-triangle-puzzle-block-A4BNSTCJ6D 1.svg"
+                ? "/nanopage/NANO SPRINT ICON - grey.png"
+                : "/nanopage/NANO SPRINT ICON.svg"
             }
-            width={110}
-            height={110}
+            width={48}
+            height={48}
           />
           <p
             className={
@@ -100,11 +132,11 @@ const MainContent: NextPage = () => {
             alt="Mini Sprints"
             src={
               !page.mini
-                ? "/nanopage/reshot-icon-block-stacking-tower-4TBWAMFDY8 1(1).svg"
-                : "/nanopage/reshot-icon-block-stacking-tower-4TBWAMFDY8 1.svg"
+                ? "/nanopage/MINI SPRINT ICON - grey.png"
+                : "/nanopage/MINI SPRINT ICON.svg"
             }
-            width={110}
-            height={110}
+            width={48}
+            height={48}
           />
           <p
             className={
@@ -130,11 +162,11 @@ const MainContent: NextPage = () => {
             alt="Mega Sprints"
             src={
               !page.mega
-                ? "/nanopage/reshot-icon-3x3x3-puzzle-block-PUT9QD5ZER 1(1).svg"
-                : "/nanopage/reshot-icon-3x3x3-puzzle-block-PUT9QD5ZER 1.svg"
+                ? "/nanopage/MEGA SPRINT ICON - grey.png"
+                : "/nanopage/MEGA SPRINT ICON.svg"
             }
-            width={110}
-            height={110}
+            width={48}
+            height={48}
           />
           <p
             className={
@@ -256,129 +288,75 @@ const MainContent: NextPage = () => {
           </figure>
         </div>
       </section> */}
-      <section className="hidden md:flex flex-col gap-6">
-        <div className="flex flex-row gap-6 justify-between">
-          <figure className="w-full sm:w-[50%] h-auto">
-            <SmartImage
-              className="rounded-md w-full h-full object-cover"
-              src="/nanopage/RectangleMe1.jpeg"
-              alt="First SmartSmartImage"
-              width={600}
-              height={400}
-      
-            />
-          </figure>
-          <figure className="w-full sm:w-[50%] h-auto relative">
-            <SmartImage
-              className="rounded-md w-full h-full object-cover absolute z-10"
-              src="/nanopage/RectangleMe2.jpeg"
-              alt="Second SmartSmartImage"
-              width={600}
-        height={400}
+      <div className="relative w-full">
+        {/* Carousel for medium and large screens */}
+        <section className="hidden md:flex flex-col gap-6">
+          <div className="relative">
+            {/* Images Row */}
+            <div className="flex flex-row justify-center gap-4">
+              {images.slice(currentIndex, currentIndex + 3).map((src, index) => (
+                <figure key={index} className="w-[33.33%] relative">
+                  <SmartImage
+                    className="rounded-md w-full h-[300px] object-cover"
+                    src={src}
+                    alt={`Slide ${index + 1}`}
+                    width={600}
+                    height={400}
+                  />
+                </figure>
+              ))}
+            </div>
 
-            />
+            {/* Left Arrow Button */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-incandescent-light rounded-full mx-4"
+            >
+              <span className="text-incandescent-main text-lg">&#60;</span> {/* Change 'text-white' to your desired color */}
+            </button>
+
+            {/* Right Arrow Button */}
+            <button
+              onClick={nextSlide}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-incandescent-light rounded-full mx-4"
+            >
+              <span className="text-incandescent-main text-lg ">&#62;</span> {/* Change 'text-white' to your desired color */}
+            </button>
+          </div>
+        </section>
+
+        {/* Carousel for small screens */}
+        <section className="flex md:hidden items-center justify-center gap-2">
+          {/* Left Arrow Button */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-incandescent-light rounded-full mx-0.5"
+          >
+            <span className="text-incandescent-main text-lg">&#60;</span> {/* Change 'text-white' to your desired color */}
+          </button>
+
+
+
+          {/* Single Image Display */}
+          <figure className="w-[80%] max-w-md flex-shrink-0">
             <SmartImage
-              className="hidden md:block absolute top-[-10%] right-[-14%] h-auto w-[20%] z-0"
-              src="/nanopage/brackets.svg"
-              alt="Brackets"
-              width={120}
-              height={120}
-            />
-          </figure>
-          {/* <SmartImage className="hidden md:block w-full absolute m-0 max-w-[100%] top-[30rem] left-[38rem] h-[6rem] z-0" src="/nanopage/brackets.svg" alt="brackets" /> */}
-        </div>
-        <div className="flex flex-row gap-6 justify-between">
-          <figure className="w-full sm:w-[33.33%] h-auto relative">
-            <SmartImage
-              className="rounded-md w-full h-full object-cover absolute z-10"
-              src="/nanopage/RectangleMe3.jpeg"
-              alt="Third SmartSmartImage"
-              width={400}
-        height={300}
-            />
-            <SmartImage
-              className="hidden md:block absolute bottom-[-5%] left-[-22%] w-[25%] h-auto z-0"
-              src="/nanopage/colon.svg"
-              alt="colon"
-              width={100}
-              height={100}      
-            />
-          </figure>
-          <figure className="w-full sm:w-[33.33%] h-auto">
-            <SmartImage
-              className="rounded-md w-full h-full object-cover"
-              src="/nanopage/RectangleMe4.jpeg"
-              alt="Fourth SmartSmartImage"
-              width={400}
-              height={300}
-      
-            />
-          </figure>
-          <figure className="w-full sm:w-[33.33%] h-auto">
-            <SmartImage
-              className="rounded-md w-full h-full object-cover"
-              src="/nanopage/RectangleMe5.jpeg"
-              alt="Fifth SmartSmartImage"
+              className="rounded-md w-full h-[300px] object-cover"
+              src={images[currentIndex]}
+              alt={`Slide ${currentIndex + 1}`}
               width={400}
               height={300}
             />
           </figure>
-          {/*<SmartImage className="hidden md:block w-full absolute m-0 max-w-[100%] top-[61rem] left-[-39rem] h-[6rem] z-0" src="/nanopage/colon.svg" alt="colon" /> */}
-        </div>
-      </section>
-      <section className="flex md:hidden overflow-x-auto no-scrollbar">
-        <div className="flex flex-row gap-6">
-          <figure className="w-[80%] h-auto flex-shrink-0">
-            <SmartImage
-              className="rounded-md w-full h-full object-cover"
-              src="/nanopage/RectangleMe1.jpeg"
-              alt="First SmartSmartImage"
-              width={600}
-              height={400}
-      
-            />
-          </figure>
-          <figure className="w-[80%] h-auto flex-shrink-0">
-            <SmartImage
-              className="rounded-md w-full h-full object-cover"
-              src="/nanopage/RectangleMe2.jpeg"
-              alt="Second SmartSmartImage"
-              width={600}
-        height={400}
 
-            />
-          </figure>
-          <figure className="w-[80%] h-auto flex-shrink-0">
-            <SmartImage
-              className="rounded-md w-full h-full object-cover"
-              src="/nanopage/RectangleMe3.jpeg"
-              alt="Third SmartSmartImage"
-              width={600}
-              height={400}
-      
-            />
-          </figure>
-          <figure className="w-[80%] h-auto flex-shrink-0">
-            <SmartImage
-              className="rounded-md w-full h-full object-cover"
-              src="/nanopage/RectangleMe4.jpeg"
-              alt="Fourth SmartSmartImage"
-              width={600}
-              height={400}
-      
-            />
-          </figure>
-          <figure className="w-[80%] h-auto flex-shrink-0">
-            <SmartImage
-              className="rounded-md w-full h-full object-cover"
-              src="/nanopage/RectangleMe5.jpeg"
-              alt="Fifth SmartSmartImage"
-              width={600}
-              height={400}      
-            />
-          </figure>
-        </div>
-      </section>
+          {/* Right Arrow Button */}
+          <button
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-incandescent-light rounded-full mx-0.5"
+          >
+            <span className="text-incandescent-main text-lg ">&#62;</span> {/* Change 'text-white' to your desired color */}
+          </button>
+        </section>
+      </div>
       <Booking />
     </main>
   );

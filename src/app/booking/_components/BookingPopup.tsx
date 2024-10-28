@@ -48,7 +48,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
     <div className="w-full min-h-screen bg-bg-surface-default flex flex-col items-center pb-[64px] md:px-8 px-[16px]">
       <DialogHeader />
 
-      <div className="w-full max-w-[592px] h-[75px] md:mt-[120px] mt-[100px] flex items-stretch justify-between px-4 relative md:text-center">
+      {/* <div className="w-full max-w-[592px] h-[75px] md:mt-[120px] mt-[100px] flex items-stretch justify-between px-4 relative md:text-center">
         <SmartImage
           src="/symbols/Frame 31751.svg"
           alt="coding symbols"
@@ -56,7 +56,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
           height={75}
         />
 
-      </div>
+      </div> */}
 
       <div className="w-full max-w-[592px] md:mt-[60px] mt-[24px] p-4 md:p-8 flex flex-col items-start justify-start gap-6 text-left text-base md:text-lg text-text-primary font-mobiletypestyles-body1 md:font-webtypestyles-body1 bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.06),_0px_2px_1px_rgba(0,_0,_0,_0.04),_0px_1px_5px_rgba(0,_0,_0,_0.08)] rounded-lg px-[16px]">
         <div className="flex flex-col items-start justify-start gap-4 w-full">
