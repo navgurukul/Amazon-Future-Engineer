@@ -161,6 +161,7 @@ import { callBookingQuery } from "@/utils/api";
 // Assuming the API function is correctly imported
 import SmartImage from "@/components/SmartImage";;
 import React, { useEffect, useState } from "react";
+import { useAppState } from "@/context/AppContext";
 
 
 interface PopupProps {
@@ -179,6 +180,10 @@ const Popup: React.FC<PopupProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [nameError, setNameError] = useState<string | null>(null);
+  const { isLanguageEnglish } = useAppState(); // Access language state
+
+
+
   const [callStatus, setCallStatus] = useState<string>("");
 
   useEffect(() => {
@@ -237,7 +242,8 @@ const Popup: React.FC<PopupProps> = ({
         <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-4 md:p-8 flex flex-col items-start gap-4 text-left text-gray-500">
           <div className="flex items-center justify-between w-full mb:2 md:mb-4">
             <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-heading6-bold">
-              Call Us
+              {/* Call Us */}
+              {isLanguageEnglish ? "Call Us" : "ನಮಗೆ ಕರೆ ಮಾಡಿ"}
             </div>
             <SmartImage
               className="w-5 h-5 cursor-pointer"
@@ -249,23 +255,45 @@ const Popup: React.FC<PopupProps> = ({
             />
           </div>
           <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-            Need assistance with booking a Nano session or have general queries? We are here to help!
+            {/* Need assistance with booking a Nano session or have general queries? We are here to help! */}
+            {isLanguageEnglish
+              ? "Need assistance with booking a Nano session or have general queries? We are here to help!"
+              : "ನಾನು ನಾನೋ ಸೆಷನ್ ಬುಕ್ ಮಾಡಲು ಸಹಾಯ ಬೇಕಾದರೆ ಅಥವಾ ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳಿದ್ದರೆ, ನಾವು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಲು ಇಲ್ಲಿದ್ದೇವೆ!"}
+
           </div>
           <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-            <b>Response Time:</b>
-            <span> Within 24 hours</span>
+            {/* <b>Response Time:</b> */}
+            <b>{isLanguageEnglish ? "Response Time:" : "ಪ್ರತಿಸ್ಪಂದನಾ ಸಮಯ:"}</b>
+            <span className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+              {/* Within 24 hours */}
+              {isLanguageEnglish
+                ? "Within 24 hours"
+                : "24 ಗಂಟೆಗಳ ಒಳಗೆ"}
+            </span>
           </div>
           <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-            <b>Operational Time:</b>
-            <span> Monday to Friday, 9 AM to 6 PM</span>
+            {/* <b>Operational Time:</b> */}
+            <b>{isLanguageEnglish ? "Operational Time:" : "ಕಾರ್ಯಾಚರಣಾ ಸಮಯ:"}</b>
+            <span className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+              {/* Monday to Friday, 9 AM to 6 PM */}
+              {isLanguageEnglish
+                ? "Monday to Friday, 9 AM to 6 PM"
+                : "ಸೋಮವಾರದಿಂದ ಶುಕ್ರವಾರ, ಬೆಳಿಗ್ಗೆ 9 ರಿಂದ ಮಧ್ಯಾಹ್ನ 6"}
+
+            </span>
           </div>
           <div className="relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray md:mb-4">
-            Please provide your name and phone number, and we will get back to you shortly.
+            {/* Please provide your name and phone number, and we all get back to you shortly. */}
+            {isLanguageEnglish
+              ? "Please provide your name and phone number, and we will get back to you shortly."
+              : "ದಯವಿಟ್ಟು ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ದೂರವಾಣಿ ಸಂಖ್ಯೆಯನ್ನು ಒದಗಿಸಿ, ಮತ್ತು ನಾವು ನಿಮಗೆ ತಕ್ಷಣ ಕರೆದೊಯ್ಯುತ್ತೇವೆ."}
+
           </div>
           <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
             <div className="flex flex-col gap-2 w-full">
               <label className="font-medium text-[#3a3a3a] leading-[170%] text-body2" htmlFor="name">
-                Name <span className="text-[#f55c38]">*</span>
+              {isLanguageEnglish ? "Name" : "ಹೆಸರು"}
+              <span className="text-[#f55c38]">*</span>
               </label>
               <input
                 id="name"
@@ -282,7 +310,8 @@ const Popup: React.FC<PopupProps> = ({
             </div>
             <div className="flex flex-col gap-2 w-full">
               <label className="font-medium leading-[170%] text-[#3a3a3a] text-body2" htmlFor="phone">
-                Phone Number <span className="text-[#f55c38]">*</span>
+              {isLanguageEnglish ? "Phone Number" : "ಫೋನ್ ಸಂಖ್ಯೆ"}
+              <span className="text-[#f55c38]">*</span>
               </label>
               <input
                 id="phone"
@@ -302,7 +331,8 @@ const Popup: React.FC<PopupProps> = ({
                   className="w-full bg-[#f55c38] rounded-[100px] flex justify-center items-center cursor-pointer text-white"
                 >
                   <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
-                    Request a Callback
+                    {/* Request a Callback */}
+                    {isLanguageEnglish ? "Request a Callback" : "ಕಾಲ್‌ಬ್ಯಾಕ್ ಕೇಳಿ"}
                   </div>
                 </button>
               </div>

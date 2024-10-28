@@ -3,12 +3,15 @@ import SmartImage from "@/components/SmartImage";
 import { NextPage } from "next";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useAppState } from "@/context/AppContext";
 
 interface MainContentProps {
   handleOfflineBooking: () => void;
 }
 
 const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
+  const { isLanguageEnglish } = useAppState(); // Access language state
+
   const router = useRouter();
   const [page, setPage] = useState({
     nano: "nano",
@@ -46,11 +49,16 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
       <header className="flex flex-col md:flex-row justify-start gap-8 md:gap-16 text-xl md:text-2xl lg:text-3xl">
         <nav className="text-sm md:text-lg leading-[150%] text-left inline-block">
           <span className="text-darkslateblue text-[#29458c]">
-            <b>Home</b>
+            {/* <b>Home</b> */}
+            <b>{isLanguageEnglish ? "Home" : "ಮನೆ"}</b>
+
           </span>
           <span className="font-medium">
             <span className="text-darkslateblue">{` / `}</span>
-            <span className="text-darkslategray">Sprints</span>
+            {/* <span className="text-darkslategray">Sprints</span> */}
+            <span className="text-darkslategray">
+              {isLanguageEnglish ? "Sprints" : "ಸ್ಪ್ರಿಂಟ್ಸ್"}
+            </span>
           </span>
         </nav>
       </header>
@@ -211,9 +219,11 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
         Nano Sprints: One-day experiential learning sessions to ignite interest
         and aspirations in Robotics and AI
       </section> */}
+      {/* <h2 className="md:max-w-[100%] text-[#29458c] leading-[150%] text-heading6 md:text-heading5 font-['Amazon Ember'] text-left mt-6 md:mt-10">Nano Sprints: One-day experiential learning sessions to ignite interest and aspirations in Robotics and AI</h2> */}
       <h2 className="md:max-w-[100%] text-[#29458c] leading-[150%] text-heading6 md:text-heading5 font-['Amazon Ember'] text-left mt-6 md:mt-10">
-        Nano Sprints: One-day experiential learning sessions to ignite interest
-        and aspirations in Robotics and AI
+        {isLanguageEnglish
+          ? "Nano Sprints: One-day experiential learning sessions to ignite interest and aspirations in Robotics and AI"
+          : "ರೊಬೊಟಿಕ್ಸ್ ಮತ್ತು ಎಐನಲ್ಲಿ ಆಸಕ್ತಿ ಮತ್ತು ಆಕಾಂಕ್ಷೆಗಳನ್ನು ಹುಟ್ಟುಹಾಕಲು ನ್ಯಾನೊ ಸ್ಪ್ರಿಂಟ್ಸ್ ಒಂದು ದಿನದ ಅನುಭವದ ಕಲಿಕೆ."}
       </h2>
 
       {/* Third Section */}

@@ -8,6 +8,7 @@ import { useRouter, usePathname } from "next/navigation";
 import React from "react";
 import { useState, useEffect, useCallback, useRef } from "react";
 import LogoutSuccess from "./LogoutSuccess";
+import { useAppDispatch, useAppState } from "@/context/AppContext";
 
 interface HeaderProps {
   bgColor: string;
@@ -117,6 +118,7 @@ const Header: NextPage<HeaderProps> = ({
   // };
 
   const handleLanguageToggle = () => {
+    handleLanguageToggleContext()
     if (currentLang === "en") {
       setCurrentLang("kn");
       // redirectToGoogleTranslator("kn");
@@ -163,6 +165,13 @@ const Header: NextPage<HeaderProps> = ({
 
 
   const whatsappLink = `https://wa.me/${6366969292}`;
+
+  const { isLanguageEnglish } = useAppState(); // Get language state from context
+  const dispatch = useAppDispatch(); // Get dispatch function from context
+
+  const handleLanguageToggleContext = () => {
+    dispatch({ type: "TOGGLE_LANGUAGE" }); // Dispatch toggle action
+  };
 
   return (
     <>
@@ -351,7 +360,8 @@ const Header: NextPage<HeaderProps> = ({
                       height={24}
                     />
                     <span className="relative font-medium leading-[170%] text-base">
-                      Call Us
+                      {/* Call Us */}
+                      {isLanguageEnglish ? "Call Us" : "ನಮಗೆ ಕರೆ ಮಾಡಿ"}
                     </span>
                   </Button>
                 )}
@@ -378,7 +388,8 @@ const Header: NextPage<HeaderProps> = ({
                             className="block w-full text-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition duration-150 ease-in-out"
                           >
                             <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-text-primary text-center">
-                              Dashboard
+                              {/* Dashboard */}
+                              {isLanguageEnglish ? "Dashboard" : "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್"}
                             </div>
                           </button>
                           <button
@@ -386,7 +397,8 @@ const Header: NextPage<HeaderProps> = ({
                             className="block w-full text-center px-4 py-3 text-sm text-red-600 hover:bg-gray-100 transition duration-150 ease-in-out"
                           >
                             <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-incandescent-main text-center">
-                              Logout
+                              {/* Logout */}
+                              {isLanguageEnglish ? "Logout" : "ಲಾಗ್‌ಔಟ್"}
                             </div>
                           </button>
                         </div>
@@ -402,7 +414,8 @@ const Header: NextPage<HeaderProps> = ({
                     }
                     onClick={handleBookSessionClick}
                   >
-                    Login
+                    {/* Login */}
+                    {isLanguageEnglish ? "Login" : "ಲಾಗಿನ್"}
                   </Button>
                 )}
               </>
@@ -422,7 +435,8 @@ const Header: NextPage<HeaderProps> = ({
                       className="block w-full text-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition duration-150 ease-in-out"
                     >
                       <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-text-primary text-center">
-                        Dashboard
+                        {/* Dashboard */}
+                        {isLanguageEnglish ? "Dashboard" : "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್"}
                       </div>
                     </button>
                     <button
@@ -430,7 +444,8 @@ const Header: NextPage<HeaderProps> = ({
                       className="block w-full text-center px-4 py-3 text-sm text-red-600 hover:bg-gray-100 transition duration-150 ease-in-out"
                     >
                       <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-incandescent-main text-center">
-                        Logout
+                        {/* Logout */}
+                        {isLanguageEnglish ? "Logout" : "ಲಾಗ್‌ಔಟ್"}
                       </div>
                     </button>
                   </div>
@@ -447,7 +462,8 @@ const Header: NextPage<HeaderProps> = ({
                     />
                   ) : (
                     <Button variant="proceed" onClick={handleBookSessionClick}>
-                      Login
+                      {/* Login */}
+                      {isLanguageEnglish ? "Login" : "ಲಾಗಿನ್"}
                     </Button>
                   )}
                   <div
@@ -501,7 +517,8 @@ const Header: NextPage<HeaderProps> = ({
                     height={24}
                   />
                   <span className="relative font-medium leading-[170%] text-base">
-                    Call Us
+                    {/* Call Us */}
+                    {isLanguageEnglish ? "Call Us" : "ನಮಗೆ ಕರೆ ಮಾಡಿ"}
                   </span>
                 </Button>
               )}
@@ -537,7 +554,8 @@ const Header: NextPage<HeaderProps> = ({
                   height={24}
                 />
                 <span className="relative font-medium leading-[170%] text-base text-darkslategray">
-                  Chat with Us
+                  {/* Chat with Us */}
+                  {isLanguageEnglish ? "Chat with Us" : "ನಮ್ಮೊಂದಿಗೆ ಚಾಟ್ ಮಾಡಿ"}
                 </span>
               </Button>
 

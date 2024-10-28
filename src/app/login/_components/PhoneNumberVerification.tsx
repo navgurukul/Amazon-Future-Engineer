@@ -48,7 +48,7 @@ const PhoneNumberVerification: React.FC = () => {
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      handleProceed();  
+      handleProceed();
     }
 
     const charCode = event.key.charCodeAt(0);
@@ -66,14 +66,18 @@ const PhoneNumberVerification: React.FC = () => {
         />
       ) : (
         <div className="mt-8 ml-4 md:mt-0 md:ml-0">
-          <div className="flex flex-col w-[20rem] md:w-[24rem] mx-auto items-start gap-12">
+          <div className="flex flex-col w-[20rem] md:w-[24rem] mx-auto gap-6">
+            <div className="hidden md:flex justify-center items-center h-full text-5xl leading-[150%] font-extrabold font-heading4-bold text-midnight-blue-main text-center">
+              Login to
+            </div>
             <div>
               <SmartImage
                 // className="w-16 h-16"
                 className="hidden md:flex"
-                
+
                 alt="Logo"
-                src="/login/afe_subbrand_logo_horizontal_blue.svg"
+                // src="/login/afe_subbrand_logo_horizontal_blue.svg"
+                src="/login/AFE Makerspace_Blue_Horizontal 2.svg"
                 width={354}
                 height={40}
               />
@@ -88,16 +92,15 @@ const PhoneNumberVerification: React.FC = () => {
             </div>
             </div>
             <div className="flex flex-col items-start gap-6 self-stretch w-full">
-              <div className="relative text-5xl leading-[150%] font-extrabold font-heading4-bold text-midnight-blue-main text-left">
+              <div className="md:hidden flex relative text-5xl leading-[150%] font-extrabold font-heading4-bold text-midnight-blue-main text-left">
                 Login to AFE Makerspace
               </div>
 
               <div className="w-full flex flex-col gap-1">
                 <label
                   htmlFor="phone"
-                  className={`relative text-sm leading-[170%] font-medium font-['Amazon Ember'] ${
-                    errorMessage ? "text-error-main" : "text-text-primary"
-                  }`}
+                  className={`relative text-sm leading-[170%] font-medium font-['Amazon Ember'] ${errorMessage ? "text-error-main" : "text-text-primary"
+                    }`}
                 >
                   Phone Number
                 </label>
@@ -109,11 +112,10 @@ const PhoneNumberVerification: React.FC = () => {
                     id="phone"
                     type="tel"
                     placeholder={errorMessage ? "" : "xxxxxxxxxx"}
-                    className={`pl-12 rounded-full border h-14 text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-hint text-left ${
-                      errorMessage
-                        ? "border-error-main"
-                        : "border-web-light-text-primary"
-                    }`}
+                    className={`pl-12 rounded-full border h-14 text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-hint text-left ${errorMessage
+                      ? "border-error-main"
+                      : "border-web-light-text-primary"
+                      }`}
                     value={phoneNumber}
                     onChange={handlePhoneNumber}
                     // onKeyPress={handleKeyPress}

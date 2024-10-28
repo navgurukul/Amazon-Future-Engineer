@@ -1,10 +1,14 @@
 import React from "react";
 import SmartImage from "@/components/SmartImage";
 import { useState} from "react";
+import { useAppState } from "@/context/AppContext";
 
 
 const LastPart = () => {
   const whatsappLink = `https://wa.me/${6366969292}`;
+  
+  const { isLanguageEnglish } = useAppState(); // Access language state
+
 
   const [copied, setCopied] = useState(false);
 
@@ -13,7 +17,7 @@ const LastPart = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(phoneNumber)
       .then(() => {
-        setCopied(true); 
+        setCopied(true);
 
         setTimeout(() => setCopied(false), 2000);
       })
@@ -42,12 +46,18 @@ const LastPart = () => {
       </div> */}
       <div className="flex flex-col w-full gap-4">
         {/* <h1 className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left"> */}
-        <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
+        {/* <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
           Have Questions?
+        </h1> */}
+        <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
+          {isLanguageEnglish ? "Have Questions?" : "ಪ್ರಶ್ನೆಗಳಿದೆಯೆ?"}
         </h1>
         {/* <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']"> */}
         <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-          <span>{`Call Us or Whatsapp on `}</span>
+          {/* <span>{`Call Us or Whatsapp on `}</span> */}
+          <span>
+            {isLanguageEnglish ? "Call Us or Whatsapp on " : "ನಮ್ಮನ್ನು ಕರೆಮಾಡಿ ಅಥವಾ ವಾಟ್ಸಾಪ್ ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ "}
+          </span>
           {/* <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+9163669-69292</a> */}
 
           <strong className="inline-flex items-center">
@@ -55,7 +65,7 @@ const LastPart = () => {
               +91 63669-69292
             </a>
             <button
-              className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] flex gap-2 w-[89px] h-[40px]"
+              className="hidden md:inline-flex px-3 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] gap-2 w-[89px] h-[40px]"
               onClick={handleCopy}
             >
               {copied ? (
