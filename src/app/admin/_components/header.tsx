@@ -68,7 +68,7 @@ const Header: React.FC = () => {
         </div>
         {/* Language Toggle and Avatar */}
         <div className="flex-1 flex justify-end items-center space-x-4">
-          <div className="p-2  h-[48px] flex items-center  bg-incandescent-light rounded-full md:gap-1 gap-2">
+          {/* <div className="p-2  h-[48px] flex items-center  bg-incandescent-light rounded-full md:gap-1 gap-2">
             <Button
               variant={currentLang === "en" ? "proceed" : "proceedWhite"}
               className={`${
@@ -87,7 +87,7 @@ const Header: React.FC = () => {
             >
               ಅಇಈ
             </Button>
-          </div>
+          </div> */}
           <div className="relative profile-dropdown">
             <SmartImage
               className="object-cover rounded-full cursor-pointer"
