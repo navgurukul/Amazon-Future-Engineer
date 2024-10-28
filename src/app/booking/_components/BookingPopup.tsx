@@ -1,7 +1,8 @@
 import DialogHeader from "@/components/DialogHeader";
 import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
-import React, {useState } from "react";
+import React, { useState } from "react";
+import { useAppState } from "@/context/AppContext";
 
 
 interface BookingPopupProps {
@@ -15,6 +16,7 @@ interface BookingPopupProps {
 }
 
 const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
+  const { isLanguageEnglish } = useAppState(); // Access language state
   const router = useRouter();
   const [copied, setCopied] = useState(false);
 
@@ -33,7 +35,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(phoneNumber)
       .then(() => {
-        setCopied(true); 
+        setCopied(true);
 
         setTimeout(() => setCopied(false), 2000);
       })
@@ -47,19 +49,24 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
       <DialogHeader />
 
       <div className="w-full max-w-[592px] h-[75px] md:mt-[120px] mt-[100px] flex items-stretch justify-between px-4 relative md:text-center">
-      <SmartImage
-      src="/symbols/Frame 31751.svg"
-      alt="coding symbols"
-      width={75} 
-      height={75} 
-    />
-  
+        <SmartImage
+          src="/symbols/Frame 31751.svg"
+          alt="coding symbols"
+          width={75}
+          height={75}
+        />
+
       </div>
 
       <div className="w-full max-w-[592px] md:mt-[60px] mt-[24px] p-4 md:p-8 flex flex-col items-start justify-start gap-6 text-left text-base md:text-lg text-text-primary font-mobiletypestyles-body1 md:font-webtypestyles-body1 bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.06),_0px_2px_1px_rgba(0,_0,_0,_0.04),_0px_1px_5px_rgba(0,_0,_0,_0.08)] rounded-lg px-[16px]">
         <div className="flex flex-col items-start justify-start gap-4 w-full">
           <div className="w-full flex md:justify-center">
-            <h2 className="text-xl md:text-5xl leading-[150%] font-['Amazon Ember Display']  md:text-heading6 text-left md:text-center text-subHeading1">Nano Sprint</h2>
+            <h2 className="text-xl md:text-5xl leading-[150%] font-['Amazon Ember Display']  md:text-heading6 text-left md:text-center text-subHeading1">
+              {/* Nano Sprint */}
+              <span>
+                {isLanguageEnglish ? "Nano Sprint" : "ನಾನೋ ಸ್ಪ್ರಿಂಟ್"}
+              </span>
+            </h2>
           </div>
 
           <div className="flex flex-col md:flex-row items-start md:items-center justify-start gap-6 md:gap-8 w-full">
@@ -77,11 +84,22 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
         </div>
 
         <p className="self-stretch relative leading-[170%] font-['Amazon Ember'] text-bodyM md:text-body1  md:text-center">
-          Thank you for your interest in booking a Nano Sprint at the AFE Makerspace, {bookingData?.name}! We will send you a confirmation email and SMS once your request has been approved by AFE Makerspace team.
+          {/* Thank you for your interest in booking a Nano Sprint at the AFE Makerspace, {bookingData?.name}! We will send you a confirmation email and SMS once your request has been approved by AFE Makerspace team. */}
+          <span>
+            {isLanguageEnglish
+              ? `Thank you for your interest in booking a Nano Sprint at the AFE Makerspace, ${bookingData?.name}! We will send you a confirmation email and SMS once your request has been approved by AFE Makerspace team.`
+              : `AFE ಮೇಕರ್‌ಸ್ಪೇಸ್‌ನಲ್ಲಿ ನ್ಯಾನೋ ಸ್ಪ್ರಿಂಟ್ ಬುಕ್ ಮಾಡುವ ನಿಮ್ಮ ಆಸಕ್ತಿಗೆ ಧನ್ಯವಾದಗಳು, ${bookingData?.name}! ನಿಮ್ಮ ವಿನಂತಿಯನ್ನು AFE ಮೇಕರ್‌ಸ್ಪೇಸ್ ತಂಡದಿಂದ ಅನುಮೋದನೆ ಪಡೆದ ನಂತರ, ನಾವು ನಿಮಗೆ ದೃಢೀಕರಣ ಇಮೇಲ್ ಮತ್ತು SMS ಕಳುಹಿಸುತ್ತೇವೆ.`}
+          </span>
+
         </p>
 
         <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray md:text-center">
-          <span>{`Have questions? Call Us or Whatsapp on `}</span>
+          {/* <span>{`Have questions? Call Us or Whatsapp on `}</span> */}
+          <span>
+            {isLanguageEnglish
+              ? `Have questions? Call Us or Whatsapp on `
+              : `ಪ್ರಶ್ನೆಗಳಿದ್ದರೆ? ನಮಗೆ ಕರೆ ಅಥವಾ ವಾಟ್ಸಾಪ್ ಮಾಡಿ `}
+          </span>
           {/* <a href={whatsappLink} target="_blank" className="text-tomato font-['Amazon Ember'] text-bodyM2 md:text-subTitle1">+9163669-69292</a> */}
           <strong className="inline-flex items-center">
             <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
@@ -96,8 +114,8 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
                   <SmartImage
                     src="/userDashboard/checkmark_icon.png"
                     alt="Check Icon"
-                    width = {16}
-                    height = {16}
+                    width={16}
+                    height={16}
 
                   />
                   <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
@@ -126,7 +144,13 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
         onClick={handleGoToDashboard}
         className="mt-8 md:w-auto relative rounded-[100px] border-incandescent-main border-[1px] border-solid box-border h-14 flex flex-row items-center justify-center py-2 px-4 md:px-8 text-center text-lg text-incandescent-main font-webtypestyles-buttonlarge w-full"
       >
-        <div className="relative leading-[170%] font-medium md:text-body1 text-bodyM">Return to Dashboard</div>
+        <div className="relative leading-[170%] font-medium md:text-body1 text-bodyM">
+          <span>
+            {isLanguageEnglish
+              ? "Return to Dashboard"
+              : "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್‌ಗೆ ಹಿಂತಿರುಗಿ"}
+          </span>
+        </div>
       </button>
     </div>
   );

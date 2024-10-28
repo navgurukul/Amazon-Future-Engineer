@@ -5,12 +5,15 @@ import DialogHeader from "@/components/DialogHeader";
 import WaitingListPopup from "./_components/WaitingListPopup";
 import { createWaitingList } from "@/utils/api";
 import ErrorHighDemand from "./_components/ErrorHighDemand";
+import { useAppState } from "@/context/AppContext";
 
 const MiniPage = () => {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showErrorPopup, setShowErrorPopup] = useState(false); // State for error popup
   const [errorMessage, setErrorMessage] = useState(''); // State for error message
+  const { isLanguageEnglish } = useAppState(); // Access language state
+
 
   interface FormData {
     name: string;
@@ -20,7 +23,7 @@ const MiniPage = () => {
     email: string;
     pincode: string;
   }
-  
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     phoneNo: "",
@@ -30,7 +33,7 @@ const MiniPage = () => {
     pincode: "",
   });
   const [errors, setErrors] = useState<Partial<FormData>>({});
-  
+
   interface MiniProgram {
     venue_id: string;
     id: string;
@@ -43,7 +46,7 @@ const MiniPage = () => {
     const phoneNumber = localStorage.getItem("loginData")
       ? JSON.parse(localStorage.getItem("loginData") || "{}").data.phone
       : "";
-      setFormData(prev => ({ ...prev,  phoneNo: phoneNumber }))
+    setFormData(prev => ({ ...prev, phoneNo: phoneNumber }))
     const programData = JSON.parse(localStorage.getItem("programData") || "[]");
     const foundMiniProgram = programData.find((program: { title: string; }) => program.title === "MINI");
     setMiniProgram(foundMiniProgram);
@@ -69,7 +72,7 @@ const MiniPage = () => {
     if (formData.pincode && !/^[1-9][0-9]{5}$/.test(formData.pincode.trim())) {
       newErrors.pincode = "Enter a valid 6-digit";
     }
-    
+
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -95,7 +98,7 @@ const MiniPage = () => {
         };
         await createWaitingList(waitingListData);
         setIsModalOpen(true);
-      } catch (error:any) {
+      } catch (error: any) {
         console.error('Error joining waiting list:', error);
         setErrorMessage(error.message);
         setShowErrorPopup(true);
@@ -112,21 +115,31 @@ const MiniPage = () => {
     <div className="pt-[120px] w-full min-h-screen bg-white flex flex-col justify-center items-center gap-8 md:gap-16">
       <DialogHeader />
       <div className="w-full md:w-[592px] rounded-lg flex flex-col justify-start items-center gap-8 p-4 md:p-6">
-        <h1 className="text-[#3a3a3a] text-[1.25rem] md:text-[24px] font-extrabold">Join Mini Sprint Waiting List</h1>
+        <h1 className="text-[#3a3a3a] text-[1.25rem] md:text-[24px] font-extrabold">
+          {/* Join Mini Sprint Waiting List */}
+          <span>
+            {isLanguageEnglish ? "Join Mini Sprint Waiting List" : "ಮಿನಿ ಸ್ಪ್ರಿಂಟ್ ಆಗೋಚಿ ಪಟ್ಟಿಗೆ ಸೇರಿ"}
+          </span>
+        </h1>
         <p className="text-[#6d6d6d] text-[1rem] leading-[170%]">
-          Please share the following details below and we will connect with you as soon as the Mini Sprint program is launched at the lab.
+          {/* Please share the following details below and we will connect with you as soon as the Mini Sprint program is launched at the lab. */}
+          <span>
+            {isLanguageEnglish
+              ? "Please share the following details below and we will connect with you as soon as the Mini Sprint program is launched at the lab."
+              : "ದಯವಿಟ್ಟು ಕೆಳಗಿನ ವಿವರಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಿ ಮತ್ತು ನಾವು ಲ್ಯಾಬ್‌ನಲ್ಲಿ ಮಿನಿ ಸ್ಪ್ರಿಂಟ್ ಪ್ರೋಗ್ರಾಮ್ ಪ್ರಾರಂಭವಾದಾಗ ನಿಮ್ಮೊಂದಿಗೆ ಸಂಪರ್ಕ ಮಾಡುತ್ತೇವೆ."}
+          </span>
         </p>
-        
+
         {Object.entries(formData).map(([key, value]) => (
           <div key={key} className="w-full flex flex-col gap-2">
-          <label className="text-[#3a3a3a] text-sm font-medium">
-          {key === "schoolName"
-            ? "School Name" :
-            key.charAt(0).toUpperCase() +
-            key.slice(1).replace("No", " Number")}
-          {key === "name" || key === "phoneNo" ? <span className="text-[#f55c38]">*</span> : null}
-        </label>
-        
+            <label className="text-[#3a3a3a] text-sm font-medium">
+              {key === "schoolName"
+                ? "School Name" :
+                key.charAt(0).toUpperCase() +
+                key.slice(1).replace("No", " Number")}
+              {key === "name" || key === "phoneNo" ? <span className="text-[#f55c38]">*</span> : null}
+            </label>
+
             {key === "city" ? (
               <input className="w-full h-12 md:h-14 px-4 py-2 bg-[#dedede] rounded-full border border-[#3a3a3a]" value={value} readOnly />
             ) : key === "phoneNo" ? (
@@ -160,7 +173,10 @@ const MiniPage = () => {
           className="w-full md:w-auto h-12 md:h-14 px-6 md:px-8 py-2 bg-[#f55c38] rounded-full text-white"
           onClick={handleJoinWaitingList}
         >
-          Join Waiting List
+          {/* Join Waiting List */}
+          <span>
+            {isLanguageEnglish ? "Join Waiting List" : "ಆಗೋಚಿ ಪಟ್ಟಿ ಸೇರಿ"}
+          </span>
         </button>
       </div>
       <WaitingListPopup isOpen={isModalOpen} name={formData.name} />

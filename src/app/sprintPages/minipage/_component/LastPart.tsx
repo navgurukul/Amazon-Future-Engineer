@@ -65,7 +65,7 @@ const LastPart = () => {
               +91 63669-69292
             </a>
             <button
-              className="hidden md:inline-flex px-3 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] gap-2 w-[89px] h-[40px]"
+              className="inline-flex px-3 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] gap-2 w-[89px] h-[40px]"
               onClick={handleCopy}
             >
               {copied ? (

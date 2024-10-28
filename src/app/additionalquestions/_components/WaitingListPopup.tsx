@@ -1,6 +1,7 @@
 import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import { useAppState } from "@/context/AppContext";
 
 
 interface WaitingListPopupProps {
@@ -12,6 +13,7 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
   isOpen,
   name,
 }) => {
+  const { isLanguageEnglish } = useAppState(); // Access language state
   const router = useRouter();
   const [copied, setCopied] = useState(false);
 
@@ -40,14 +42,14 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
     router.push("/sprintPages/minipage");
   };
 
-  
+
 
   const phoneNumber = " +91 63669-69292";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(phoneNumber)
       .then(() => {
-        setCopied(true); 
+        setCopied(true);
 
         setTimeout(() => setCopied(false), 2000);
       })
@@ -122,74 +124,89 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
           </div>
         </div> */}
         <SmartImage
-        className="w-full max-w-full h-[75px] relative mt-24 md:mt-36 px-6 md:px-0"
-        src="/symbols/Frame 31751-1.svg"
-        alt="Coding Symbol"
-        width={75}
-        height={75}
+          className="w-full max-w-full h-[75px] relative mt-24 md:mt-36 px-6 md:px-0"
+          src="/symbols/Frame 31751-1.svg"
+          alt="Coding Symbol"
+          width={75}
+          height={75}
         />
         <div className="w-full max-w-[592px] mt-[24px] md:mt-[60px] p-6 md:p-8 flex flex-col items-start justify-start gap-6 text-left text-base md:text-lg text-text-primary font-mobiletypestyles-body1 md:font-webtypestyles-body1 bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.06),_0px_2px_1px_rgba(0,_0,_0,_0.04),_0px_1px_5px_rgba(0,_0,_0,_0.08)] rounded-lg sm:px-[16px]">
           <div className="flex flex-col items-start justify-start gap-4 w-full text-center">
-              {/* <div className="w-full text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-midnight-blue-main text-center"> */}
-              <div className="w-full leading-[150%] md:text-heading6 font-heading6-bold text-midnight-blue-main text-center">
-                Mini Sprint Waiting List
-              </div>
+            {/* <div className="w-full text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-midnight-blue-main text-center"> */}
+            <div className="w-full leading-[150%] md:text-heading6 font-heading6-bold text-midnight-blue-main text-center">
+              {/* Mini Sprint Waiting List */}
+              <span>
+                {isLanguageEnglish ? "Mini Sprint Waiting List" : "ಮಿನಿ ಸ್ಪ್ರಿಂಟ್ ನಿರೀಕ್ಷಣಾ ಪಟ್ಟಿಗೆ"}
+              </span>
+            </div>
           </div>
 
           {/* <div className="w-full relative text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-primary text-center inline-block"> */}
           <div className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray md:text-center">
-            Thanks for your interest. We will contact you via the phone number
-            or email provided when the program is launched
+            {/* Thanks for your interest. We will contact you via the phone number
+            or email provided when the program is launched */}
+            <span>
+              {isLanguageEnglish
+                ? "Thanks for your interest. We will contact you via the phone number or email provided when the program is launched."
+                : "ನಿಮ್ಮ ಆಸಕ್ತಿಗೆ ಧನ್ಯವಾದಗಳು. ಕಾರ್ಯಕ್ರಮ ಪ್ರಾರಂಭವಾದಾಗ ನಾವು ಒದಗಿಸಿದ ದೂರವಾಣಿ ಸಂಖ್ಯೆಯ ಅಥವಾ ಇಮೇಲ್ ಮೂಲಕ ನಿಮ್ಮ ಸಂಪರ್ಕಕ್ಕೆ ಬರುತ್ತೇವೆ."}
+            </span>
           </div>
 
           <div className="w-full text-[18px] leading-[170%] md:text-center">
-          <div>
-            {/* <div> */}
-            <span className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray md:text-center">{`In the meantime, feel free to call or Whatsapp on `}</span>
-            {/* </div> */}
-            {/* <div> */}
-            {/* <span className="font-extrabold font-amazon-ember text-tomato">
+            <div>
+              {/* <div> */}
+              <span className="text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray md:text-center">
+                {/* {`In the meantime, feel free to call or Whatsapp on `} */}
+                <span>
+                  {isLanguageEnglish
+                    ? `In the meantime, feel free to call or Whatsapp on `
+                    : `ಈ ನಡುವೆ, ದಯವಿಟ್ಟು ಕರೆ ಅಥವಾ ವಾಟ್ಸಾಪ್ ಮಾಡಲು ಸ್ವೇಚ್ಛೆಯಿಂದ ನಿರ್ಧರಿಸಿರಿ `}
+                </span>
+              </span>
+              {/* </div> */}
+              {/* <div> */}
+              {/* <span className="font-extrabold font-amazon-ember text-tomato">
               +916366969292
             </span> */}
-            {/* <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold inline">+9163669-69292</a> */}
-            <strong className="inline-flex items-center">
-            <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
-              +91 63669-69292
-            </a>
-            <button
-              className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] flex gap-2 w-[89px] h-[40px]"
-              onClick={handleCopy}
-            >
-              {copied ? (
-                <>
-                  <SmartImage
-                    src="/userDashboard/checkmark_icon.png"
-                    alt="Check Icon"
-                    className="h-[16px] w-[16px]"
-                    width={16}
-                    height={16}
-                  />
-                  <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
-                    Copied!
-                  </span>
-                </>
-              ) : (
-                <>
-                  <SmartImage
-                    src="/userDashboard/content_copy.svg"
-                    alt="Copy Icon"
-                    className="h-[16px] w-[16px]"
-                    width={16}
-                    height={16}
-                  />
-                  <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
-                    Copy
-                  </span>
-                </>
-              )}
-            </button>
-          </strong>
-            {/* </div> */}
+              {/* <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold inline">+9163669-69292</a> */}
+              <strong className="inline-flex items-center">
+                <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
+                  +91 63669-69292
+                </a>
+                <button
+                  className="inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%]  gap-2 w-[89px] h-[40px]"
+                  onClick={handleCopy}
+                >
+                  {copied ? (
+                    <>
+                      <SmartImage
+                        src="/userDashboard/checkmark_icon.png"
+                        alt="Check Icon"
+                        className="h-[16px] w-[16px]"
+                        width={16}
+                        height={16}
+                      />
+                      <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                        Copied!
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <SmartImage
+                        src="/userDashboard/content_copy.svg"
+                        alt="Copy Icon"
+                        className="h-[16px] w-[16px]"
+                        width={16}
+                        height={16}
+                      />
+                      <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                        Copy
+                      </span>
+                    </>
+                  )}
+                </button>
+              </strong>
+              {/* </div> */}
             </div>
           </div>
         </div>
@@ -200,14 +217,17 @@ const WaitingListPopup: React.FC<WaitingListPopupProps> = ({
           </span>
         </div> */}
         <div className="w-full flex flex-row items-center justify-center mt-2 md:mt-4 mt-[48px]">
-            <div className="w-full lg:w-auto">
+          <div className="w-full lg:w-auto">
             <button className="w-full rounded-[100px] flex justify-center items-center cursor-pointer border border-[#f55c38] text-[#f55c38] text-bodyM md:text-body1" onClick={handleGoToSprints}>
-            <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
-              Return to Sprints
-            </div>
-          </button>
+              <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
+                {/* Return to Sprints */}
+                <span>
+                  {isLanguageEnglish ? "Return to Sprints" : "ಪುನಃ ಸ್ಪ್ರಿಂಟ್‌ಗಳಿಗೆ ಹಿಂತಿರುಗಿ"}
+                </span>
+              </div>
+            </button>
           </div>
-          </div>
+        </div>
       </div>
     </div>
   );

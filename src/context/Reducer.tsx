@@ -9,6 +9,7 @@ type State = {
   export const initialState: State = {
     isLanguageEnglish: JSON.parse(localStorage.getItem("isLanguageEnglish") || "true"), // Default to English or load saved state
   };
+  
   export const reducer = (state: State, action: Action): State => {
     switch (action.type) {
       case "TOGGLE_LANGUAGE":

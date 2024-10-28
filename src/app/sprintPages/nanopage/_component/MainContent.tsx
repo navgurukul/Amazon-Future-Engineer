@@ -131,9 +131,8 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
           onClick={() => handleChange("nano")}
         >
           <SmartImage
-            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
-              page.nano ? "" : "mix-blend-luminosity"
-            }`}
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${page.nano ? "" : "mix-blend-luminosity"
+              }`}
             alt="Nano Sprints"
             // src={!page.nano ? "/nanopage/Vector (1).svg" : "/nanopage/Vector.svg"}
             src={
@@ -151,7 +150,10 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
                 : "leading-[150%] font-extrabold text-[#bdbdbd]"
             }
           >
-            Nano Sprints
+            {/* Nano Sprints */}
+            <span>
+              {isLanguageEnglish ? "Nano Sprints" : "ನಾನೋ ಸ್ಪ್ರಿಂಟ್‌ಗಳು"}
+            </span>
           </p>
         </article>
 
@@ -161,9 +163,8 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
           onClick={() => handleChange("mini")}
         >
           <SmartImage
-            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
-              page.mini ? "" : "mix-blend-luminosity"
-            }`}
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${page.mini ? "" : "mix-blend-luminosity"
+              }`}
             alt="Mini Sprints"
             src={
               !page.mini
@@ -180,7 +181,10 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
                 : "leading-[150%] font-extrabold text-[#bdbdbd]"
             }
           >
-            Mini Sprints
+            {/* Mini Sprints */}
+            <span>
+              {isLanguageEnglish ? "Mini Sprints" : "ಮಿನಿ ಸ್ಪ್ರಿಂಟ್‌ಗಳು"}
+            </span>
           </p>
         </article>
 
@@ -190,9 +194,8 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
           onClick={() => handleChange("mega")}
         >
           <SmartImage
-            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${
-              page.mega ? "" : "mix-blend-luminosity"
-            }`}
+            className={`w-[25%] md:w-[50%] h-auto object-cover rounded-md ${page.mega ? "" : "mix-blend-luminosity"
+              }`}
             alt="Mega Sprints"
             src={
               !page.mega
@@ -209,7 +212,10 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
                 : "leading-[150%] font-extrabold text-[#bdbdbd]"
             }
           >
-            Mega Sprints
+            {/* Mega Sprints */}
+            <span>
+              {isLanguageEnglish ? "Mega Sprints" : "ಮೆಗಾ ಸ್ಪ್ರಿಂಟ್‌ಗಳು"}
+            </span>
           </p>
         </article>
       </section>
@@ -288,7 +294,7 @@ const MainContent: NextPage<MainContentProps> = ({ handleOfflineBooking }) => {
               src="/nanopage/colon.svg"
               alt="colon"
               width={100}
-              height={100}  
+              height={100}
             />
           </figure>
 

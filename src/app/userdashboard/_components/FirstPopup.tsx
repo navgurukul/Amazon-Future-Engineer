@@ -16,10 +16,10 @@ interface EventData {
 }
 
 interface FirstPopupProps {
-    isOpen: boolean;
-    handleClose: () => void;
-    handleOpenSecondPopup: () => void;
-    userData: EventData | any;
+  isOpen: boolean;
+  handleClose: () => void;
+  handleOpenSecondPopup: () => void;
+  userData: EventData | any;
 }
 
 const FirstPopup: NextPage<FirstPopupProps> = ({
@@ -39,8 +39,8 @@ const FirstPopup: NextPage<FirstPopupProps> = ({
   const endTime = userData.end_time;
   const studentsCount = userData.booking_batch_size;
 
-   // Function to handle reschedule click
-   const handleRequestReschedule = async () => {
+  // Function to handle reschedule click
+  const handleRequestReschedule = async () => {
     try {
       if (userData) {
         console.log("Userdata", userData); // Add this to check if the function is triggered
@@ -57,7 +57,7 @@ const FirstPopup: NextPage<FirstPopupProps> = ({
       console.error("Error requesting reschedule:", error);
     }
   };
- 
+
 
 
   return (
@@ -68,7 +68,10 @@ const FirstPopup: NextPage<FirstPopupProps> = ({
 
             <div className="flex justify-between items-center">
               <div className="text-[#3a3a3a] text-subHeading1 md:text-heading6 font-['Amazon Ember Display'] leading-[150%] text-left">
-                Reschedule Nano Sprint
+                {/* Reschedule Nano Sprint */}
+                <span>
+                  {isLanguageEnglish ? "Reschedule Nano Sprint" : "ನಾನು ನಾನೋ ಸ್ಪ್ರಿಂಟ್ ಪುನಃ ಶೆಡ್ಯೂಲ್ ಮಾಡಿರಿ"}
+                </span>
               </div>
               <button className="text-gray-400 hover:text-gray-600 focus:outline-none" onClick={handleClose}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -80,8 +83,8 @@ const FirstPopup: NextPage<FirstPopupProps> = ({
             {/* Current Booking Details */}
             <div className="text-[#3a3a3a] text-bodyM2 md:text-subTitle1 leading-[170%] mt-4 font-['Amazon Ember']">
               {isLanguageEnglish
-                ? "Current Booking Details:"
-                : "ಈಗಿನ ಬುಕಿಂಗ್ ವಿವರಗಳು:"}
+                ? "Current Booking Details"
+                : "ಈಗಿನ ಬುಕಿಂಗ್ ವಿವರಗಳು"}
             </div>
 
             {/* Booking Info */}
@@ -89,22 +92,22 @@ const FirstPopup: NextPage<FirstPopupProps> = ({
               {/* <div className="flex flex-col space-y-4 md:flex-row md:space-x-24 md:items-baseline"> */}
               <div className="flex flex-col md:flex-row mt-4 gap-4 md:gap-8">
                 <div className="flex items-center space-x-3">
-                <SmartImage className="w-6 h-6 md:w-8 md:h-8" alt="calendar icon" src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg" width={24} height={24} />
-                <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
+                  <SmartImage className="w-6 h-6 md:w-8 md:h-8" alt="calendar icon" src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg" width={24} height={24} />
+                  <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
                     {formattedDate}
                   </div>
                 </div>
 
                 <div className="flex items-center space-x-3">
-                <SmartImage className="w-6 h-6 md:w-8 md:h-8" alt="time icon" src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg" width={24} height={24} />
-                <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
+                  <SmartImage className="w-6 h-6 md:w-8 md:h-8" alt="time icon" src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg" width={24} height={24} />
+                  <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
                     {`${startTime} to ${endTime}`}
                   </div>
                 </div>
 
                 <div className="flex items-center space-x-3">
-                <SmartImage className="w-6 h-6 md:w-8 md:h-8" alt="students icon" src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg" width={24} height={24} />
-                <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
+                  <SmartImage className="w-6 h-6 md:w-8 md:h-8" alt="students icon" src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg" width={24} height={24} />
+                  <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
                     {`${studentsCount} Students`}
                   </div>
                 </div>
@@ -114,7 +117,7 @@ const FirstPopup: NextPage<FirstPopupProps> = ({
               <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] mt-6 md:mt-8">
                 {/* We recommend rescheduling only in cases of emergencies.{` `}  */}
                 {isLanguageEnglish
-                  ? "We recommend rescheduling only in cases of emergencies.{` `}"
+                  ? "We recommend rescheduling only in cases of emergencies."
                   : "ತುರ್ತು ಸಂದರ್ಭಗಳಲ್ಲಿ ಮಾತ್ರ ರೀಶೆಡ್ಯುಲ್ ಮಾಡಲು ನಾವು ಶಿಫಾರಸು ಮಾಡುತ್ತೇವೆ."}
 
                 <span className="md:block">
@@ -133,14 +136,20 @@ const FirstPopup: NextPage<FirstPopupProps> = ({
               {/* Cancel button hidden on small screens */}
               <div className="hidden md:flex px-8 py-2 rounded-full border border-[#3a3a3a] justify-center items-center cursor-pointer" onClick={handleClose}>
                 <div className="text-center text-[#3a3a3a] text-base md:text-lg font-medium">
-                  Cancel
+                  {/* Cancel */}
+                  <span>
+                    {isLanguageEnglish ? "Cancel" : "ನಿಲ್ಲಿಸಿ"}
+                  </span>
                 </div>
               </div>
 
               {/* Request Reschedule button (full width for small screens) */}
               <div className="w-full md:w-auto h-14 px-8 py-2 bg-[#f55c38] rounded-full justify-center items-center flex cursor-pointer" onClick={handleOpenSecondPopup}>
                 <div className="text-center text-white text-base md:text-lg font-medium">
-                  Request Reschedule
+                  {/* Request Reschedule */}
+                  <span>
+                    {isLanguageEnglish ? "Request Reschedule" : "ಪುನಃ ಶೆಡ್ಯೂಲ್ ಮಾಡುವಂತೆ ಕೇಳಿ"}
+                  </span>
                 </div>
               </div>
             </div>

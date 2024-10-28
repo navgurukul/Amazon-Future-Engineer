@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { useAppState } from "@/context/AppContext";
 
 
 
@@ -11,6 +12,7 @@ interface ErrorHighDemandProps {
 }
 
 const ErrorHighDemand: NextPage<ErrorHighDemandProps> = ({ closePopup, errorMessage }) => {
+  const { isLanguageEnglish } = useAppState(); // Access language state
   const router = useRouter();
 
   const whatsappLink = `https://wa.me/${6366969292}`;
@@ -35,7 +37,7 @@ const ErrorHighDemand: NextPage<ErrorHighDemandProps> = ({ closePopup, errorMess
   const handleCopy = () => {
     navigator.clipboard.writeText(phoneNumber)
       .then(() => {
-        setCopied(true); 
+        setCopied(true);
 
         setTimeout(() => setCopied(false), 2000);
       })
@@ -109,56 +111,71 @@ const ErrorHighDemand: NextPage<ErrorHighDemandProps> = ({ closePopup, errorMess
           </div>
 
           <div className="relative md:text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-4 leading-[170%]">
-            We are experiencing a very high demand right now. Please try booking your sprint again in a few minutes. We apologize for the inconvenience
+            {/* We are experiencing a very high demand right now. Please try booking your sprint again in a few minutes. We apologize for the inconvenience */}
+            <span>
+              {isLanguageEnglish
+                ? "We are experiencing a very high demand right now. Please try booking your sprint again in a few minutes. We apologize for the inconvenience."
+                : "ನಾವು ಈ ಸಂದರ್ಭದಲ್ಲಿ ಅತ್ಯಂತ ಹೆಚ್ಚಿನ ಬೇಡಿಕೆಯನ್ನು ಅನುಭವಿಸುತ್ತಿದ್ದೇವೆ. ದಯವಿಟ್ಟು ಕೆಲವು ನಿಮಿಷಗಳಲ್ಲಿ ನಿಮ್ಮ ಸ್ಪ್ರಿಂಟ್ ಪುನಃ ಬುಕ್ ಮಾಡಲು ಪ್ರಯತ್ನಿಸಿ. ತೊಂದರೆಗಾಗಿ ಕ್ಷಮಿಸಿ."}
+            </span>
           </div>
 
           <div className="md:text-center text-bodyM md:text-body1">
             <span className="text-[#3a3a3a] font-medium">
-              In the meantime, feel free to call or WhatsApp on{" "}
+              {/* In the meantime, feel free to call or WhatsApp on{" "} */}
+              <span>
+                {isLanguageEnglish
+                  ? "In the meantime, feel free to call or WhatsApp on "
+                  : "ಈ ಮಧ್ಯದಲ್ಲಿ, ದಯವಿಟ್ಟು ಕರೆ ಅಥವಾ ವಾಟ್ಸಾಪ್ ಮಾಡಿ "}
+              </span>
             </span>
             {/* <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+9163669-69292</a> */}
 
             <strong className="inline-flex items-center">
-            <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
-              +91 63669-69292
-            </a>
-            <button
-              className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] flex gap-2 w-[89px] h-[40px]"
-              onClick={handleCopy}
-            >
-              {copied ? (
-                <>
-                  <SmartImage
-                    src="/userDashboard/checkmark_icon.png"
-                    alt="Check Icon"
-                    width={16}
-                    height={16}
-                  />
-                  <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
-                    Copied!
-                  </span>
-                </>
-              ) : (
-                <>
-                  <SmartImage
-                    src="/userDashboard/content_copy.svg"
-                    alt="Copy Icon"
-                    width={16}
-                    height={16}
-                  />
-                  <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
-                    Copy
-                  </span>
-                </>
-              )}
-            </button>
-          </strong>
+              <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
+                +91 63669-69292
+              </a>
+              <button
+                className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] flex gap-2 w-[89px] h-[40px]"
+                onClick={handleCopy}
+              >
+                {copied ? (
+                  <>
+                    <SmartImage
+                      src="/userDashboard/checkmark_icon.png"
+                      alt="Check Icon"
+                      width={16}
+                      height={16}
+                    />
+                    <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                      Copied!
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <SmartImage
+                      src="/userDashboard/content_copy.svg"
+                      alt="Copy Icon"
+                      width={16}
+                      height={16}
+                    />
+                    <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                      Copy
+                    </span>
+                  </>
+                )}
+              </button>
+            </strong>
           </div>
           <div className="w-full flex flex-row items-center justify-center mt-2 md:mt-4">
             <div className="w-full lg:w-auto">
               <button className="w-full rounded-[100px] flex justify-center items-center cursor-pointer border border-[#f55c38] text-[#f55c38] text-bodyM md:text-body1" onClick={handleGoToSprintPage}>
                 <div className="px-8 py-2 text-center font-medium font-['Amazon Ember'] leading-[170%]">
-                  Go to Sprints
+                  {/* Go to Sprints */}
+                  <span>
+                    {isLanguageEnglish
+                      ? "Go to Sprints"
+                      : "ಸ್ಪ್ರಿಂಟ್ಸ್ ಗೆ ಹೋಗಿ"}
+                  </span>
                 </div>
               </button>
             </div>

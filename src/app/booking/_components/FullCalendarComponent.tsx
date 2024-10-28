@@ -4,6 +4,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import SmartImage from "@/components/SmartImage";;
 import React, { useRef, useEffect, useState } from "react";
+import { useAppState } from "@/context/AppContext";
 
 interface FullCalendarComponentProps {
   setSelectedDate: (date: Date) => void;
@@ -17,6 +18,8 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   const [selectedDateState, setSelectedDateState] = useState<Date | null>(null);
   // const events = useAllBookings();
   const { events } = useAllBookings();
+  const { isLanguageEnglish } = useAppState(); // Access language state
+
 
   const whatsappLink = `https://wa.me/${6366969292}`;
 
@@ -94,7 +97,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   const handleCopy = () => {
     navigator.clipboard.writeText(phoneNumber)
       .then(() => {
-        setCopied(true); 
+        setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       })
       .catch(err => {
@@ -105,7 +108,11 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   return (
     <div className="calendar-container">
       <div className="w-full md:pl-[20px] text-lg leading-[170%] font-extrabold font-webtypestyles-subtitle1 text-text-primary text-left mb-6 pl-2">
-        Available Dates
+        {/* Available Dates */}
+        <span>
+          {isLanguageEnglish ? "Available Dates" : "ಲಭ್ಯವಿರುವ ದಿನಾಂಕಗಳು"}
+        </span>
+
       </div>
       <div className="flex justify-between items-center mb-4 px-2 md:px-[20px]">
         <SmartImage
@@ -407,10 +414,17 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
       </div> */}
       <div className="flex flex-col w-full gap-4">
         <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main font-extrabold">
-          Have Questions?
+          {/* Have Questions? */}
+          <span>
+            {isLanguageEnglish ? "Have Questions?" : "ಪ್ರಶ್ನೆಗಳಿವೆಯೆ?"}
+          </span>
         </h1>
         <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-          <span>{`Call Us or Whatsapp on `}</span> <br/>
+          {/* <span>{`Call Us or Whatsapp on `}</span> <br /> */}
+          <span>
+            {isLanguageEnglish ? `Call Us or Whatsapp on ` : `ನಮಗೆ ಕರೆ ಅಥವಾ ವಾಟ್ಸಾಪ್ ಮಾಡಿ `}
+          </span>
+          <br />
           {/* <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+9163669-69292</a> */}
           <strong className="inline-flex items-center">
             <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
