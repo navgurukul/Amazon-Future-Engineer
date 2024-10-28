@@ -36,7 +36,9 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const whatsappLink = `https://wa.me/${6366969292}`;
+  const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+  const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
+  // const whatsappLink = `https://wa.me/${6366969292}`;
 
   return (
     <div className="w-full bg-[#ecf0f3] h-auto text-center text-lg text-gray-800 font-amazon-ember  px-4 py-12 md:py-8 md:px-12 shadow-lg">

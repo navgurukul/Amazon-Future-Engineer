@@ -92,7 +92,7 @@ const SecondPopup: NextPage = () => {
                         <div className="relative leading-[30.60px] w-full text-left md:text-center text-lg text-[#3a3a3a] font-medium mt-8 gap-8">
                             {/* Thank you for requesting a callback! We’ll reach out to you shortly to discuss and confirm your booking plans.                         */}
                             {isLanguageEnglish
-                                ? " Thank you for requesting a callback! We’ll reach out to you shortly to discuss and confirm your booking plans."
+                                ? " Thank you for requesting a callback! We will reach out to you shortly to discuss and confirm your booking plans."
                                 : "ಮತ್ತೆ ಕರೆಮಾಡಲು ವಿನಂತಿಸಿದಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು! ನಿಮ್ಮ ಬುಕಿಂಗ್ ಪ್ಲಾನ್ ಗಳನ್ನು ಚರ್ಚಿಸಲು ಮತ್ತು ಖಚಿತಪಡಿಸಲು ನಾವು ಶೀಘ್ರದಲ್ಲೇ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುತ್ತೇವೆ."}
 
                         </div>
