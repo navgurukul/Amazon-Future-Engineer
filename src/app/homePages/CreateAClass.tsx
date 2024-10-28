@@ -32,9 +32,14 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
       <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-4 md:p-8 flex flex-col items-start gap-4 text-left text-gray-500">
         {/* Popup content */}
         <div className="flex items-center justify-between w-full mb-4">
-        <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">Welcome to AFE Makerspace</div>
-                {/* Close button */}
-        <SmartImage className="w-6 relative h-6 overflow-hidden shrink-0 cursor-pointer" alt="" src="/homepage/close.svg" width={24} height={24} onClick={onNoClick}/>
+          <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">
+            {/* Welcome to AFE Makerspace */}
+            <span>
+              {isLanguageEnglish ? "Welcome to AFE Makerspace" : "AFE ಮಾಕರ್‌ಸ್ಪೇಸ್‌ಗೆ ಸುಸ್ವಾಗತ"}
+            </span>
+          </div>
+          {/* Close button */}
+          <SmartImage className="w-6 relative h-6 overflow-hidden shrink-0 cursor-pointer" alt="" src="/homepage/close.svg" width={24} height={24} onClick={onNoClick} />
         </div>
 
         {/* <div className="w-full max-w-[592px] h-[75px] flex items-stretch justify-between px-4 relative md:text-center">
@@ -99,7 +104,7 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
             />
           </div>
         </div> */}
-        
+
         {/* <div className="w-full mb-4">
         <SmartImage src="/symbols/Frame 31751.svg" alt="coding symbols" width={75} height={75} />
         </div> */}
@@ -176,7 +181,7 @@ const CreateAClass: NextPage<CreateAClassProps> = ({ closePopup }) => {
             <div className="w-full lg:w-auto">
               <button className="w-full bg-[#f55c38] rounded-[100px] flex justify-center items-center cursor-pointer text-white" onClick={onYesClick}>
                 <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
-                  {/* Proceed to Login */} 
+                  {/* Proceed to Login */}
                   {isLanguageEnglish ? "Proceed to Login" : "ಲಾಗಿನ್‌ಗೆ ಮುಂದುವರಿಯಿರಿ"}
                 </div>
               </button>

@@ -87,12 +87,22 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
     const otpString = otp.join("");
 
     if (otp.some((digit) => digit === "")) {
-      setError("Please enter an OTP to proceed");
+      // setError("Please enter an OTP to proceed");
+      setError(
+        isLanguageEnglish 
+          ? "Please enter an OTP to proceed" 
+          : "ದಯವಿಟ್ಟು ಮುಂದುವರಿಯಲು OTP ಅನ್ನು ನಮೂದಿಸಿ"
+      );
       return;
     }
 
     if (otpString.length !== length) {
-      setError("Please enter a valid OTP");
+      // setError("Please enter a valid OTP");
+      setError(
+        isLanguageEnglish 
+          ? "Please enter a valid OTP" 
+          : "ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ OTP ಅನ್ನು ನಮೂದಿಸಿ"
+      );
       return;
     }
 
@@ -117,7 +127,13 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
       router.push("/sprintPages/nanopage");
     } catch (err: any) {
       setMessage("");
-      setError("Please enter a valid OTP");
+      // setError("Please enter a valid OTP");
+      setError(
+        isLanguageEnglish 
+          ? "Please enter a valid OTP" 
+          : "ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ OTP ಅನ್ನು ನಮೂದಿಸಿ"
+      );
+     
     }
   };
 
@@ -127,15 +143,18 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
       setSeconds(119);
       setIsResendAllowed(false);
     } catch (err: any) {
-      setError("Please enter a valid OTP");
+      // setError("Please enter a valid OTP");
+      setError(
+        isLanguageEnglish 
+          ? "Please enter a valid OTP" 
+          : "ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ OTP ಅನ್ನು ನಮೂದಿಸಿ"
+      );
     }
   };
 
   const handlePreviousScreen = () => {
     setShowOTPVerification(false);
   };
-
-
 
 
   return (

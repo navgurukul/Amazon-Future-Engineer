@@ -80,9 +80,11 @@ import type { NextPage } from 'next';
 import SmartImage from "@/components/SmartImage";;
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useAppState } from "@/context/AppContext";
 
 
 const SecondPopup: NextPage = () => {
+  const { isLanguageEnglish } = useAppState(); // Access language state
   const router = useRouter();
   const whatsappLink = `https://wa.me/${6366969292}`;
   const handleGoToSprints = () => {
@@ -110,7 +112,12 @@ const SecondPopup: NextPage = () => {
           {/* Header Section */}
           <div className="w-full flex items-center justify-between mb-4">
             <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-heading6-bold">
-              Request a Callback
+              {/* Request a Callback */}
+              <span>
+                {isLanguageEnglish
+                  ? "Request a Callback"
+                  : "ಕಾಲ್ಬಾಕ್‌ ಅನ್ನು ವಿನಂತಿಸಿ"}
+              </span>
             </div>
 
             {/* <SmartImage
@@ -144,7 +151,12 @@ const SecondPopup: NextPage = () => {
 
           {/* Text Section */}
           <div className="relative md:text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-4 leading-[170%]">
-            Thank you for requesting a callback! We will reach out to you shortly to discuss and confirm your booking plans
+            {/* Thank you for requesting a callback! We will reach out to you shortly to discuss and confirm your booking plans */}
+            <span>
+              {isLanguageEnglish
+                ? "Thank you for requesting a callback! We will reach out to you shortly to discuss and confirm your booking plans."
+                : "ಕಾಲ್ಬಾಕ್‌ಗಾಗಿ ವಿನಂತಿಸಿದಕ್ಕೆ ಧನ್ಯವಾದಗಳು! ನಿಮ್ಮ ಬುಕ್ಕಿಂಗ್ ಯೋಜನೆಗಳನ್ನು ಚರ್ಚಿಸಲು ಮತ್ತು ದೃಢೀಕರಿಸಲು ಶೀಘ್ರದಲ್ಲೇ ನಿಮ್ಮ ಸಂಪರ್ಕಕ್ಕೆ ಬರಿಯುತ್ತೇವೆ."}
+            </span>
 
             {/* <div className="relative text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-8 mb-4 leading-relaxed"> */}
           </div>
@@ -168,7 +180,12 @@ const SecondPopup: NextPage = () => {
             <div className="w-full lg:w-auto">
               <button className="w-full rounded-[100px] flex justify-center items-center cursor-pointer border border-[#f55c38] text-[#f55c38] text-bodyM md:text-body1" onClick={handleGoToSprints}>
                 <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
-                  Return to Nano Sprints
+                  {/* Return to Nano Sprints */}
+                  <span>
+                    {isLanguageEnglish
+                      ? "Return to Nano Sprints"
+                      : "ನಾನೋ ಸ್ಪ್ರಿಂಟ್‌ಗಳಿಗೆ ಹಿಂದಿರುಗಿ"}
+                  </span>
                 </div>
               </button>
             </div>
