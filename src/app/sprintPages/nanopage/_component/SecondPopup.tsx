@@ -110,7 +110,7 @@ const SecondPopup: NextPage = () => {
           {/* Header Section */}
           <div className="w-full flex items-center justify-between mb-4">
             <div className="text-[#3a3a3a] leading-[150%] text-subHeading1 md:text-heading6 font-heading6-bold">
-              Call Us
+              Request a Callback
             </div>
 
             {/* <SmartImage
@@ -132,7 +132,7 @@ const SecondPopup: NextPage = () => {
           </div>
 
           {/* SmartImage Section */}
-          <div className="w-full flex items-center justify-center mt-4">
+          {/* <div className="w-full flex items-center justify-center mt-4">
             <SmartImage
               className="w-full h-[75px]"
               src="/userDashboard/Frame 31751.svg"
@@ -140,22 +140,22 @@ const SecondPopup: NextPage = () => {
               width={20}
               height={20}
             />
-          </div>
+          </div> */}
 
           {/* Text Section */}
           <div className="relative md:text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-4 leading-[170%]">
-            Thank you for requesting a callback! We will reach out to you shortly to discuss and confirm your booking plans.
+            Thank you for requesting a callback! We will reach out to you shortly to discuss and confirm your booking plans
+
             {/* <div className="relative text-center text-bodyM md:text-body1 text-[#3a3a3a] font-medium mt-8 mb-4 leading-relaxed"> */}
           </div>
 
           {/* Contact Information */}
-          <div className="md:text-center text-bodyM md:text-body1">
+          {/* <div className="md:text-center text-bodyM md:text-body1">
             <span className="text-[#3a3a3a] font-medium">
               In the meantime, feel free to call or WhatsApp on{" "}
             </span>
-            {/* <span className="text-[#f55c38] font-extrabold">+916366969292</span> */}
             <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+9163669-69292</a>
-          </div>
+          </div> */}
 
           {/* Button */}
           {/* <button
@@ -168,7 +168,7 @@ const SecondPopup: NextPage = () => {
             <div className="w-full lg:w-auto">
               <button className="w-full rounded-[100px] flex justify-center items-center cursor-pointer border border-[#f55c38] text-[#f55c38] text-bodyM md:text-body1" onClick={handleGoToSprints}>
                 <div className="px-8 py-4 text-center font-medium font-['Amazon Ember'] leading-[170%]">
-                  Go to Sprints
+                  Return to Nano Sprints
                 </div>
               </button>
             </div>
