@@ -1,15 +1,16 @@
 "use client";
 
+import CallPopup from "../sprintPages/nanopage/_component/CallPopup";
 import FirstPopup from "./_components/FirstPopup";
 import PhoneSecondPopup from "./_components/PhoneSecondPopup";
 import Header from "@/components/Header";
+import SmartImage from "@/components/SmartImage";
+import { useAppState } from "@/context/AppContext";
 import { getUserData } from "@/utils/api";
 import type { NextPage } from "next";
-import SmartImage from "@/components/SmartImage";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { useAppState } from "@/context/AppContext";
 
 
 interface EventData {
@@ -28,6 +29,7 @@ const Page: NextPage = () => {
   const [userData, setUserData] = useState<EventData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { isLanguageEnglish } = useAppState(); // Get language state from context
+  const [offlinePopup, setOfflinePopup] = useState<boolean>(false);
 
   const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
   const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
@@ -66,6 +68,21 @@ const Page: NextPage = () => {
     // console.log("need to add logic for this")
   }
 
+  const handleClose = () => {
+    setOfflinePopup(false);
+    document.body.classList.remove("overflow-hidden");
+  };
+
+  const handleOfflineBooking: () => void = () => {
+    setOfflinePopup(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleOfflineBookingClose = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    // document.body.classList.add("overflow-hidden");
+  };
+
 
   const [copied, setCopied] = useState(false);
 
@@ -86,9 +103,7 @@ const Page: NextPage = () => {
   return (
     <>
       <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
-        <Header bgColor="" openSecondPopup={false} handleOfflineBooking={function (): void {
-          throw new Error("Function not implemented.");
-        }} offlinePopup={false} bookingPopup={false} handleBookSessionClick={handleBookSessionClick} />
+        <Header bgColor="" openSecondPopup={false} handleOfflineBooking={handleOfflineBooking} offlinePopup={false} bookingPopup={false} handleBookSessionClick={handleBookSessionClick} />
       </div>
       {/* <Header isLoggedIn={true} /> */}
       {/* <div className="mt-[184px] max-w-[90%] sm:max-w-[1216px] h-auto flex flex-col justify-start items-center gap-8 mb-8 mx-auto relative"> */}
@@ -339,6 +354,11 @@ const Page: NextPage = () => {
           {/* <img className="hidden md:block mt-16 w-[80%] float-right" src="/userDashboard/Frame 31752.svg" alt="Coding symbol" /> */}
         </div>
       </div>
+      <CallPopup
+        offlinePopup={offlinePopup}
+        handleClose={handleClose}
+        handleOfflineBookingClose={handleOfflineBookingClose}
+      />
     </>
   );
 };
