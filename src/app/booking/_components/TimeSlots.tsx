@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAllBookings } from "./allBookings";
 import { bookSlot, getSlotDetails } from "@/utils/api";
 import { Button } from "@/components/ui/button";
+import { useAppState } from "@/context/AppContext";
 
 interface TimeSlotsProps {
   selectedDate: Date | null;
@@ -31,6 +32,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
   const [studentsError, setStudentsError] = useState<string | null>(null);
   const [bookingStatus, setBookingStatus] = useState<string | null>(null);
   const [slots, setSlots] = useState<Slot[]>([]);
+  const { isLanguageEnglish } = useAppState(); // Access language state
+
 
   useEffect(() => {
     if (selectedDate) {
@@ -158,11 +161,17 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
       <div className="self-stretch flex flex-col items-start justify-start gap-4">
         {displayDate && (
           <div className="self-stretch relative leading-[170%] font-extrabold text-lg text-midnight-blue-main">
-            Booking for {displayDate.toDateString()}
+            {/* Booking for {displayDate.toDateString()} */}
+            <span>
+              {isLanguageEnglish ? `Booking for ${displayDate.toDateString()}` : `ಬುಕ್ಕಿಂಗ್ ಮಾಡಲು ${displayDate.toDateString()}`}
+            </span>
           </div>
         )}
         <div className="self-stretch relative leading-[170%] font-extrabold text-lg">
-          Choose a Time Slot
+          {/* Choose a Time Slot */}
+          <span>
+            {isLanguageEnglish ? "Choose a Time Slot" : "ಒಂದು ಕಾಲದ ಆಯ್ಕೆ ಮಾಡಿ"}
+          </span>
         </div>
         <div className="self-stretch flex flex-col items-start justify-start gap-4 text-center">
           {/* <div className="self-stretch flex flex-col lg:flex-row items-start justify-start flex-wrap content-start gap-4"> */}
@@ -199,12 +208,18 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
           className="w-full flex flex-col items-start justify-start gap-4 text-sm"
         >
           <div className="self-stretch relative text-lg leading-[170%] font-extrabold">
-            Almost Done!
+            {/* Almost Done! */}
+            <span>
+              {isLanguageEnglish ? "Almost Done!" : "ಹೀಗೊಂದು ಮುಗಿಯಿತು!"}
+            </span>
           </div>
 
           <div className="self-stretch flex flex-col items-start justify-start gap-2">
             <div className="relative leading-[170%] font-medium">
-              <span>Name</span>
+              {/* <span>Name</span> */}
+              <span>
+                {isLanguageEnglish ? "Name" : "ಹೆಸರು"}
+              </span>
               <span className="text-incandescent-main">*</span>
             </div>
             <input
@@ -223,7 +238,10 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
 
           <div className="self-stretch flex flex-col items-start justify-start gap-2">
             <div className="relative leading-[170%] font-medium">
-              <span>Phone Number</span>
+              {/* <span>Phone Number</span> */}
+              <span>
+                {isLanguageEnglish ? "Phone Number" : "ದೂರವಾಣಿ ಸಂಖ್ಯೆ"}
+              </span>
               <span className="text-incandescent-main">*</span>
             </div>
             <div className="relative flex items-center w-full bg-[#dedede] rounded-full">
@@ -245,11 +263,21 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
 
           <div className="self-stretch flex flex-col items-start justify-start gap-2">
             <div className="relative leading-[170%] font-medium">
-              <span>
+              {/* <span>
                 Number of Students
                 {selectedSlot.capacity === 40
                   ? " (min 12, max 40)"
                   : ` (max ${selectedSlot.capacity})`}
+              </span> */}
+               <span>
+                {isLanguageEnglish ? "Number of Students" : "ವಿದ್ಯಾರ್ಥಿಗಳ ಸಂಖ್ಯೆ"}
+                {selectedSlot.capacity === 40
+                  ? isLanguageEnglish
+                    ? " (min 12, max 40)"
+                    : " (ಕನಿಷ್ಠ 12, ಗರಿಷ್ಠ 40)"
+                  : isLanguageEnglish
+                    ? ` (max ${selectedSlot.capacity})`
+                    : ` (ಗರ್ಸ್ತ ${selectedSlot.capacity})`}
               </span>
               <span className="text-incandescent-main">*</span>
             </div>
@@ -258,7 +286,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               name="students"
               value={students}
               onChange={(e) => setStudents(e.target.value)}
-              placeholder={`Enter students`}
+              // placeholder={`Enter students`}
+              placeholder={isLanguageEnglish ? "Enter students" : "ವಿದ್ಯಾರ್ಥಿಗಳನ್ನು ನಮೂದಿಸಿ"}
               min={selectedSlot.capacity === 40 ? 12 : 1}
               max={selectedSlot.capacity}
               required
@@ -274,7 +303,10 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               type="submit"
               className="w-full h-14 rounded-full bg-incandescent-main text-web-light-background-default font-button1-bold text-lg leading-[170%] hover:bg-incandescent-main hover:text-web-light-background-default whitespace-nowrap overflow-hidden text-ellipsis"
             >
-              Book Now
+              {/* Book Now */}
+              <span>
+                {isLanguageEnglish ? "Book Now" : "ಈಗ ಬುಕ್ಕಿಂಗ್ ಮಾಡಿ"}
+              </span>
             </Button>
           </div>
         </form>

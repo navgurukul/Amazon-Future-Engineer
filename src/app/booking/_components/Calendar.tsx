@@ -5,11 +5,15 @@ import FullCalendarComponent from "./FullCalendarComponent";
 import TimeSlots from "./TimeSlots";
 import DialogHeader from "@/components/DialogHeader";
 // import ErrorBookingPopup from "./ErrorBookingPopup";
+import { useAppState } from "@/context/AppContext";
+
 
 const Calendar: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [bookingStatus, setBookingStatus] = useState<boolean>(false);
   const [bookingData, setBookingData] = useState<any>(null);
+  const { isLanguageEnglish } = useAppState(); // Access language state
+
 
   // const [showErrorPopup, setShowErrorPopup] = useState(false);
   // const [errorMessage, setErrorMessage] = useState('');
@@ -44,7 +48,12 @@ const Calendar: React.FC = () => {
           <DialogHeader />
           <div className="pt-[120px] px-4 md:px-8 pb-[48px]">
             <h5 className="text-13xl leading-[150%] font-extrabold font-webtypestyles-h5 text-midnight-blue-main pb-[32px] md:text-center">
-              Book a Nano Sprint
+              {/* Book a Nano Sprint */}
+              <span>
+                {isLanguageEnglish
+                  ? "Book a Nano Sprint"
+                  : "ನ್ಯಾನೋ ಸ್ಪ್ರಿಂಟ್ ಬುಕ್ ಮಾಡಿ"}
+              </span>
             </h5>
             <div className="flex flex-col lg:flex-row w-full justify-center">
               <div className="w-full lg:w-[40%]">

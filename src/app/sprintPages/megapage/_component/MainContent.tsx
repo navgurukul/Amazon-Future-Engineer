@@ -113,7 +113,10 @@ const MainContent: NextPage = () => {
                 : "leading-[150%] font-extrabold text-[#bdbdbd]"
             }
           >
-            Nano Sprints
+            {/* Nano Sprints */}
+            <span>
+              {isLanguageEnglish ? "Nano Sprints" : "ನಾನೋ ಸ್ಪ್ರಿಂಟ್‌ಗಳು"}
+            </span>
           </p>
         </article>
         <article
@@ -140,7 +143,10 @@ const MainContent: NextPage = () => {
                 : "leading-[150%] font-extrabold text-[#bdbdbd]"
             }
           >
-            Mini Sprints
+            {/* Mini Sprints */}
+            <span>
+              {isLanguageEnglish ? "Mini Sprints" : "ಮಿನಿ ಸ್ಪ್ರಿಂಟ್‌ಗಳು"}
+            </span>
           </p>
         </article>
         <article
@@ -167,7 +173,10 @@ const MainContent: NextPage = () => {
                 : "leading-[150%] font-extrabold text-[#bdbdbd]"
             }
           >
-            Mega Sprints
+            {/* Mega Sprints */}
+            <span>
+              {isLanguageEnglish ? "Mega Sprints" : "ಮೆಗಾ ಸ್ಪ್ರಿಂಟ್‌ಗಳು"}
+            </span>
           </p>
         </article>
       </section>
