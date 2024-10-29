@@ -208,9 +208,6 @@ const Booking: NextPage<BookingProps> = ({ handleOfflineBooking }) => {
                 <div className="leading-[170%] font-medium text-white">
                   {isLanguageEnglish ? "Book Online" : "ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಬುಕ್ ಮಾಡಿ"}
                 </div>
-                <div className="leading-[170%] font-medium text-white">
-                  {isLanguageEnglish ? "Book Online" : "ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಬುಕ್ ಮಾಡಿ"}
-                </div>
               </div>
               <div
                 className="w-full h-12 flex items-center justify-center rounded-81xl bg-orange-main py-2 px-8 cursor-pointer"
