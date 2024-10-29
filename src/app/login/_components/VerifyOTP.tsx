@@ -12,6 +12,7 @@ import React, {
   ChangeEvent,
   KeyboardEvent,
 } from "react";
+import { useAppState } from "@/context/AppContext";
 
 interface VerifyOTPProps {
   length?: number;
@@ -32,6 +33,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
   const [loginSuccess, setLoginSuccess] = useState<boolean>(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
+  const { isLanguageEnglish } = useAppState();
 
   useEffect(() => {
     if (inputRefs.current[0]) {
@@ -74,7 +76,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
     }
 
     if (e.key === "Enter") {
-      handleVerifyOTP();  
+      handleVerifyOTP();
     }
 
   };
@@ -98,13 +100,13 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
       const response = await verifyOtp(phoneNumber, otpString);
       localStorage.setItem("loginData", JSON.stringify(response));
       Cookies.set("loginData", JSON.stringify(response), { expires: 7 });
-      
-      setLoginSuccess(true); 
+
+      setLoginSuccess(true);
 
       setTimeout(() => {
-        setLoginSuccess(false); 
-        router.push("/sprintPages/nanopage"); 
-      }, 10000); 
+        setLoginSuccess(false);
+        router.push("/sprintPages/nanopage");
+      }, 10000);
 
       const userId = JSON.stringify(response.userId);
       localStorage.setItem("LoginId", userId);
@@ -131,7 +133,7 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
     setShowOTPVerification(false);
   };
 
-  
+
 
 
   return (
@@ -147,11 +149,12 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
             width={24}
             height={24}
           />
-          <div className="leading-[170%] font-extrabold">Back</div>
+          <div className="leading-[170%] font-extrabold">{isLanguageEnglish ? "Back" : "ಹಿಂದೆ"}</div>
         </div>
         <div className="flex flex-col gap-6 w-full">
           <div className="text-5xl leading-[150%] font-extrabold font-webtypestyles-h6 text-midnight-blue-main text-left">
-            Please enter the OTP
+
+            {isLanguageEnglish ? "Please enter the OTP" : "ದಯವಿಟ್ಟು OTP ನಮೂದಿಸಿ"}
           </div>
           <div className="flex flex-col gap-6 w-full">
             <div>
@@ -187,12 +190,14 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
                   onClick={handleResendOTP}
                   className="font-['Amazon Ember Display'] text-midnight-blue-main text-left underline"
                 >
-                  Resend OTP
+
+                  {isLanguageEnglish ? "Resend OTP" : "OTP ಅನ್ನು ಮರುಕಳುಹಿಸಿ"}
                 </button>
               ) : (
                 <span>
-                  Taking too long?{" "}
-                  <span className="text-incandescent-main">Resend code</span> in{" "}
+                  {isLanguageEnglish ? "Taking too long?" : "ತುಂಬಾ ಸಮಯ ತೆಗೆದುಕೊಳ್ಳುತ್ತಿದೆಯೇ?"}{" "}
+                  <span className="text-incandescent-main">
+                  {isLanguageEnglish ? "Resend code" : "ಕೋಡ್ ಅನ್ನು ಮರುಕಳುಹಿಸಿ"}</span> {isLanguageEnglish ? "in" : "ಒಳಗೆ"}{" "}
                   {`${Math.floor(seconds / 60)}:${seconds % 60 < 10 ? `0${seconds % 60}` : seconds % 60
                     } s`}
                 </span>
@@ -204,7 +209,8 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
                 onClick={handleVerifyOTP}
                 className="flex w-full sm:w-full md:w-[23rem] h-14 py-2 px-8 justify-center items-center gap-2 rounded-[6.25rem] font-medium "
               >
-                Verify OTP
+
+                {isLanguageEnglish ? "Verify OTP" : "OTP ಪರಿಶೀಲಿಸಿ"}
               </Button>
             </div>
 

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import SmartImage from "@/components/SmartImage";;
 import React, { useState, ChangeEvent } from "react";
+import { useAppState } from "@/context/AppContext";
 
 
 const PhoneNumberVerification: React.FC = () => {
@@ -10,6 +11,7 @@ const PhoneNumberVerification: React.FC = () => {
   const [showOTPVerification, setShowOTPVerification] =
     useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const { isLanguageEnglish } = useAppState();
 
   const handlePhoneNumber = (event: ChangeEvent<HTMLInputElement>) => {
     setPhoneNumber(event.target.value);
@@ -68,7 +70,9 @@ const PhoneNumberVerification: React.FC = () => {
         <div className="mt-8 ml-4 md:mt-0 md:ml-0">
           <div className="flex flex-col w-[20rem] md:w-[24rem] mx-auto gap-6">
             <div className="hidden md:flex justify-center items-center h-full text-5xl leading-[150%] font-extrabold font-heading4-bold text-midnight-blue-main text-center">
-              Login to
+              {isLanguageEnglish
+                ? "Login to"
+                : "ಗೆ ಲಾಗಿನ್ ಮಾಡಿ"}
             </div>
             <div>
               <SmartImage
@@ -82,18 +86,20 @@ const PhoneNumberVerification: React.FC = () => {
                 height={40}
               />
               <div className="md:hidden">
-              <SmartImage
-                className="object-contain cursor-pointer"
-                alt="Reshot Icon"
-                src="/login/Group(12).svg"
-                width={120}
-                height={40}
-              />
-            </div>
+                <SmartImage
+                  className="object-contain cursor-pointer"
+                  alt="Reshot Icon"
+                  src="/login/Group(12).svg"
+                  width={120}
+                  height={40}
+                />
+              </div>
             </div>
             <div className="flex flex-col items-start gap-6 self-stretch w-full">
               <div className="md:hidden flex relative text-5xl leading-[150%] font-extrabold font-heading4-bold text-midnight-blue-main text-left">
-                Login to AFE Makerspace
+                {isLanguageEnglish
+                  ? "Login to AFE Makerspace"
+                  : "AFE ಮೇಕರ್ಸ್ಪೇಸ್ಗೆ ಲಾಗಿನ್ ಮಾಡಿ"}
               </div>
 
               <div className="w-full flex flex-col gap-1">
@@ -102,7 +108,10 @@ const PhoneNumberVerification: React.FC = () => {
                   className={`relative text-sm leading-[170%] font-medium font-['Amazon Ember'] ${errorMessage ? "text-error-main" : "text-text-primary"
                     }`}
                 >
-                  Phone Number
+
+                  {isLanguageEnglish
+                    ? "Phone Number"
+                    : "ದೂರವಾಣಿ ಸಂಖ್ಯೆ"}
                 </label>
                 <div className="relative flex items-center gap-4 w-full">
                   <span className="absolute z-40 left-4 text-lgleading-[170%] font-medium font-webtypestyles-body1 text-text-secondary text-left">
@@ -134,7 +143,9 @@ const PhoneNumberVerification: React.FC = () => {
                   onClick={handleProceed}
                   className="w-full h-14 rounded-full bg-incandescent-main text-web-light-background-default font-button1-bold text-lg leading-[170%] hover:bg-incandescent-main hover:text-web-light-background-default"
                 >
-                  Proceed
+                  {isLanguageEnglish
+                    ? "Proceed"
+                    : "ಮುಂದುವರೆಯಿರಿ"}
                 </Button>
               </div>
             </div>

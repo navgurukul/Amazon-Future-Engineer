@@ -127,7 +127,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
                 height={24}
               />
               <span className="relative font-medium leading-[170%] text-base text-darkslategray">
-                Chat with Us
+              {isLanguageEnglish ? "Chat with Us" : "ನಮ್ಮೊಂದಿಗೆ ಚಾಟ್ ಮಾಡಿ"}
               </span>
             </Button>
           )}

@@ -235,9 +235,9 @@ const Booking = () => {
                   {/* <div className="leading-[170%] font-medium text-white">
                     Join Waiting List
                   </div> */}
-                  <div className="leading-[170%] font-medium text-white">
+                  {/* <div className="leading-[170%] font-medium text-white">
                     {isLanguageEnglish ? "Join Waiting List" : "ಕಾದಲು ಪಟ್ಟಿಯಲ್ಲಿ ಸೇರಿ"}
-                  </div>
+                  </div> */}
                 </div>
                 {/* <div
                   className="w-full h-14 flex items-center justify-center rounded-81xl bg-orange-main py-2 px-8 cursor-pointer"
@@ -252,7 +252,7 @@ const Booking = () => {
             </div>
           </div>
           {/* <div className="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl"> */}
-          <div
+          {/* <div
             className={`lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl ${hasShadow
               ? "shadow-[-1px_-2px_2px_rgba(0,0,0,0.06),-2px_-1px_1px_rgba(0,0,0,0.04),-1px_-5px_5px_rgba(0,0,0,0.08)]"
               : ""
@@ -268,7 +268,7 @@ const Booking = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
