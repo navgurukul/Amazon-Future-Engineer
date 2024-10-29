@@ -42,7 +42,7 @@ interface FooterProps {
   bookings: BookingDetails;
   status: string;
   slotId: number;
-  bookingProp:Booking;
+  bookingProp: Booking;
 }
 interface PopupState {
   isCancel: boolean;
@@ -184,13 +184,13 @@ export default function Footer({
   };
 
 
-   // Save changes to booking details
-   const hadleIsUpdate = async () => { 
+  // Save changes to booking details
+  const hadleIsUpdate = async () => {
     try {
       const bookingData = {
         user_id: Number(bookingProp.user_id),
-        slot_id:  Number(bookingProp.slot_id),
-        booking_batch_size:  Number(bookings.numberOfStudents),
+        slot_id: Number(bookingProp.slot_id),
+        booking_batch_size: Number(bookings.numberOfStudents),
         visited_batch_size: 0,
         students_grade: bookings.grade,
         visiting_time: new Date().toISOString(),
@@ -207,13 +207,13 @@ export default function Footer({
       window.location.reload()
     } catch (error) {
       console.error("Error updating booking details:", error);
-    } 
+    }
   };
 
 
   useEffect(() => {
     if (popup.isUpdate) {
-      hadleIsUpdate ()
+      hadleIsUpdate()
     }
     if (popup.isNotInterested) {
       handleNotInterestedStatus();
@@ -225,8 +225,17 @@ export default function Footer({
     }
   }, [popup.isUpdate, toast, popup.isNotInterested]);
 
+  const updateStatus = async () => {
+    await updateBookingStatus(
+      Number(bookingId),
+      "BookingConfirmed",
+    );
+  }
+
   useEffect(() => {
     if (popup.isConfirm) {
+      hadleIsUpdate();
+      updateStatus();
       onSubmitClick("true");
     }
   }, [onSubmitClick, popup.isConfirm]);
@@ -285,15 +294,15 @@ export default function Footer({
                 )}
                 {(programName === "Mini Sprint" ||
                   programName === "Mega Sprint") && (
-                  <Button
-                    className="h-14 px-8 border rounded-full text-[#3A3A3A] border-[#3A3A3A] bg-white hover:text-white"
-                    aria-label="Mark as Not Interested"
-                    disabled={disableAllButtons || loading}
-                    onClick={() => handlePopup("isNotInterested")}
-                  >
-                    Mark as Not Interested
-                  </Button>
-                )}
+                    <Button
+                      className="h-14 px-8 border rounded-full text-[#3A3A3A] border-[#3A3A3A] bg-white hover:text-white"
+                      aria-label="Mark as Not Interested"
+                      disabled={disableAllButtons || loading}
+                      onClick={() => handlePopup("isNotInterested")}
+                    >
+                      Mark as Not Interested
+                    </Button>
+                  )}
               </div>
               <div className="flex gap-4">
                 {(programName === "Nano Sprint" || programName === "-") && (
@@ -331,26 +340,26 @@ export default function Footer({
                 )}
                 {(programName === "Mini Sprint" ||
                   programName === "Mega Sprint") && (
-                  <>
-                    <Button
-                      variant="proceed"
-                      className="h-14 px-8 bg-blue-800 text-white rounded-full hover:bg-blue-900"
-                      aria-label="Update Sprint Details"
-                      disabled={disableRescheduleOnly || loading}
-                      onClick={() => handlePopup("isConfirm")}
-                    >
-                      Update Sprint Details
-                    </Button>
-                    <Button
-                      variant="proceed"
-                      className="h-14 px-8 bg-[#F55C38] text-white rounded-full"
-                      aria-label="Go to Dashboard"
+                    <>
+                      <Button
+                        variant="proceed"
+                        className="h-14 px-8 bg-blue-800 text-white rounded-full hover:bg-blue-900"
+                        aria-label="Update Sprint Details"
+                        disabled={disableRescheduleOnly || loading}
+                        onClick={() => handlePopup("isConfirm")}
+                      >
+                        Update Sprint Details
+                      </Button>
+                      <Button
+                        variant="proceed"
+                        className="h-14 px-8 bg-[#F55C38] text-white rounded-full"
+                        aria-label="Go to Dashboard"
                       // onClick={() => handleStatusChange('Completed', 'Booking')}
-                    >
-                      Go to Dashboard
-                    </Button>
-                  </>
-                )}
+                      >
+                        Go to Dashboard
+                      </Button>
+                    </>
+                  )}
               </div>
             </nav>
           </div>
@@ -368,9 +377,9 @@ export default function Footer({
               handleCalendar={handleCalendar}
               isOpen={popup.isReschedule}
               onClose={closeCancelPopup}
-              slotId = {slotId}
-              bookingId = { bookingId}
-              bookings = {bookings}
+              slotId={slotId}
+              bookingId={bookingId}
+              bookings={bookings}
             />
           )}
           {/* {popup.isNotInterested &&  <CancelPopup  name="interested" isOpen={popup.isNotInterested} onClose={closeCancelPopup}  bookingSingle={bookingSingle}/>}  */}

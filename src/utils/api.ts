@@ -50,9 +50,12 @@ export const bookSlot = async (bookingData: {
   program_id: number;
   venue_id: number;
   booking_batch_size: number;
+  name:string;
+  // phone_number:string;
   // students_grade: string;
 }) => {
-  const token = getAdminToken()  ||  getToken() 
+  // const token = getAdminToken()  ||  getToken() 
+  const token =getToken() 
 
   if (!token) {
     throw new Error('No token found');
@@ -84,7 +87,7 @@ export const verifyOtp = async (phone: string, otp: string) => {
 
 // User Dashboard 
 export const getUserData = async () => {
-  const token = getAdminToken()  ||  getToken() ;
+  const token = getToken() ;
 
   if (!token) {
     throw new Error('No token found');
@@ -116,10 +119,12 @@ interface WaitingListData {
 }
 
 export const createWaitingList = async (waitingListData: WaitingListData) => {
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1LCJwaG9uZSI6Iis5MTk5NTcyNzk4NjEiLCJwcm9maWxlX2NvbXBsZXRlIjpmYWxzZSwiaWF0IjoxNzI5NTk1ODkzLCJleHAiOjE3Mjk2ODIyOTN9.hju1nBs5M88FXljpQWN4RrxkQX8iyusIaWJf-cX_v_s";
-
+  // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1LCJwaG9uZSI6Iis5MTk5NTcyNzk4NjEiLCJwcm9maWxlX2NvbXBsZXRlIjpmYWxzZSwiaWF0IjoxNzI5NTk1ODkzLCJleHAiOjE3Mjk2ODIyOTN9.hju1nBs5M88FXljpQWN4RrxkQX8iyusIaWJf-cX_v_s";
+  const token = getToken() ;
+  console.log("token:",token)
   if (!token) {
     throw new Error('No token found');
+    
   }
 
   try {
@@ -160,7 +165,7 @@ export const getProgramData = async (venue_id: number) => {
 
 // Function to call the booking query API
 export const callBookingQuery = async (bookingData: {
-  // name: string;
+  name: string;
   // phone: string;
   program_id: number;
   venue_id: number;
