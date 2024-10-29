@@ -281,7 +281,7 @@ const HomePage: NextPage = () => {
             </Button> */}
             <Button variant="proceed" onClick={handleBookSessionClick}>
               {isLanguageEnglish
-                ? "Book a Session Online"
+                ? "Book a Session"
                 : "ಆನ್‌ಲೈನ್ ಸೆಷನ್‌ನ್ನು ಬುಕ್ ಮಾಡಿ"}
             </Button>
 
@@ -617,7 +617,7 @@ const HomePage: NextPage = () => {
         </article>
 
         <div className="w-full flex flex-col lg:flex-row items-stretch justify-start gap-6 md:gap-8 text-[#fff]">
-          <section className="flex-1 bg-[#29458c] flex flex-col items-start justify-start p-4 md:p-8 relative gap-8 lg:min-h-[calc(100vh-14.5rem)] rounded-md">
+          <section className="flex-1 bg-[#29458c] flex flex-col items-start justify-start p-4 md:p-8 relative gap-8 lg:min-h-full rounded-md">
             <div className="w-full max-w-screen-md flex flex-col items-start justify-start gap-6 md:gap-4 z-0">
               <header className="flex flex-row items-center justify-start gap-4 text-[17px] font-bold">
                 {/* <h3 className="leading-[150%] font-bold md:font-extrabold text-white"> */}
@@ -718,11 +718,11 @@ const HomePage: NextPage = () => {
                 >
                   Book a Session
                 </Button> */}
-                <Button variant='proceedWhite' onClick={handleBookSessionClick}>
+                <Button className="lg:absolute bottom-8 left-8" variant='proceedWhite' onClick={handleBookSessionClick}>
                   {isLanguageEnglish ? "Book a Session" : "ಆನ್‌ಲೈನ್ ಸೆಷನ್‌ನ್ನು ಬುಕ್ ಮಾಡಿ"}
                 </Button>
                 <SmartImage 
-                className="relative hidden md:block"
+                className="absolute hidden md:block right-8 bottom-8"
                 src="/homepage/AFE Labs Icons_NANO SPRINT - AFE Labs (White) 1.svg"
                 alt="Mini Sprints"
                 width={160}
@@ -753,8 +753,8 @@ const HomePage: NextPage = () => {
             */}
           </section>
 
-          <aside className="w-full lg:w-[40%] flex flex-col gap-6 md:gap-8 lg:min-h-[calc(100vh-14.5rem)]">
-            <article className="w-full bg-[#049796] flex flex-col items-start p-4 md:p-8 gap-4 h-full rounded-md">
+          <aside className="w-full lg:w-[40%] flex flex-col gap-6 md:gap-8 lg:min-h-full">
+            <article className="w-full bg-[#049796] flex flex-col items-start p-4 md:p-8 gap-4 h-auto rounded-md">
               <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
                 {/* <h3 className="leading-[1.5] font-extrabold text-[#29458c]"> */}
                 {/* <div className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#29458c]">
@@ -807,7 +807,7 @@ const HomePage: NextPage = () => {
               </div>
             </article>
 
-            <article className="w-full bg-[#ffad33] flex flex-col items-start p-4 md:p-8 gap-4 h-full rounded-md">
+            <article className="w-full bg-[#ffad33] flex flex-col items-start p-4 md:p-8 gap-4 h-auto rounded-md">
               <header className="flex flex-row items-center justify-start gap-4 text-2xl font-bold">
                 {/* <h3 className="leading-[150%] font-extrabold text-[#29458c]"> */}
                 {/* <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#29458c]">
@@ -915,7 +915,7 @@ const HomePage: NextPage = () => {
             {/* <span> Call or Whatsapp us on </span> */}
             <span>
               {isLanguageEnglish
-                ? "Call or Whatsapp us on"
+                ? "Call or Whatsapp us on "
                 : "ನಮ್ಮನ್ನು ಕರೆ ಮಾಡಿರಿ ಅಥವಾ ವಾಟ್ಸಾಪ್ ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ"}
             </span>
             {/* <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">

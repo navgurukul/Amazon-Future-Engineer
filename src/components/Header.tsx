@@ -77,7 +77,7 @@ const Header: NextPage<HeaderProps> = ({
   }, []);
 
   const handleScroll = useCallback(() => {
-    const scrollPosition = window.scrollY;
+    const scrollPosition = window.scrollY+700;
     const windowHeight = window.innerHeight;
 
     if (scrollPosition > 0) {
