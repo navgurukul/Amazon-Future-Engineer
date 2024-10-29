@@ -150,11 +150,12 @@ const Dashboard: React.FC = () => {
             // Condition 2: If no booking but query exists
             return {
               user: {
-                name: entry.name || "N/A",
-                phone: entry.phone || "N/A",
+                name: entry.user.name || "N/A",
+                phone: entry.user.phone || "N/A",
+                email: entry.user.email || "N/A",
               },
               id: entry.user.id,
-              user_id: entry.user.id,
+              user_id: entry.query.id,
               program_id: entry.query.program_id,
               venue_id: entry.user.venue_id,
               booking_batch_size: 0, // Set to 0 or an appropriate value
