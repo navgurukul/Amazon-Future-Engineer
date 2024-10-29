@@ -128,6 +128,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
         program_id: programId,
         venue_id: venueId,
         booking_batch_size: studentCount,
+        name:name,
+        // phone_number:phone
       };
 
       const response = await bookSlot(bookingData);

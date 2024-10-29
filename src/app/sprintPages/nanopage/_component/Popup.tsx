@@ -216,7 +216,7 @@ const Popup: React.FC<PopupProps> = ({
     const nanoProgram = programData.find((program: any) => program.title === "NANO");
 
     const bookingData = {
-      // name,
+      name,
       // phone: phoneNumber,
       program_id: nanoProgram?.id,
       venue_id: nanoProgram?.venue_id,
