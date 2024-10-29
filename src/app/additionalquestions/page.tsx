@@ -1,11 +1,13 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import DialogHeader from "@/components/DialogHeader";
-import WaitingListPopup from "./_components/WaitingListPopup";
-import { createWaitingList } from "@/utils/api";
+
 import ErrorHighDemand from "./_components/ErrorHighDemand";
+import WaitingListPopup from "./_components/WaitingListPopup";
+import DialogHeader from "@/components/DialogHeader";
 import { useAppState } from "@/context/AppContext";
+import { createWaitingList } from "@/utils/api";
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+
 
 // Translation object for dynamic field labels and placeholders
 const translations = {
@@ -72,13 +74,17 @@ const MiniPage = () => {
     const newErrors: Partial<FormData> = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = getTranslation("name", isLanguageEnglish) + " is required";
+      newErrors.name =
+        getTranslation("name", isLanguageEnglish) +
+        `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
     } else if (!/^[A-Za-z\s]+$/.test(formData.name.trim())) {
       newErrors.name = getTranslation("name", isLanguageEnglish) + " should contain only letters";
     }
 
     if (!formData.schoolName.trim()) {
-      newErrors.schoolName = getTranslation("schoolName", isLanguageEnglish) + " is required";
+      newErrors.schoolName =
+        getTranslation("schoolName", isLanguageEnglish) +
+        `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
     } else if (!/^[A-Za-z\s]+$/.test(formData.schoolName.trim())) {
       newErrors.schoolName = getTranslation("schoolName", isLanguageEnglish) + " should contain only letters";
     }

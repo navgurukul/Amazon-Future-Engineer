@@ -161,7 +161,7 @@ const Page: NextPage = () => {
                     {/* <div className="text-[#3a3a3a] flex items-center text-lg gap-[2rem] font-medium font-['Amazon Ember'] leading-[30.60px]">
                       {`${event.booking_batch_size} Students`}
                     </div> */}
-                    <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{`${event.booking_batch_size} Students`}</p>
+                    <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{`${event.booking_batch_size} `} {isLanguageEnglish ? "Students" : "ವಿದ್ಯಾರ್ಥಿಗಳು"}</p>
                   </div>
                 </div>
               </div>
@@ -244,11 +244,17 @@ const Page: NextPage = () => {
               </div>
             {/* <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
             <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-              #41, 3rd Floor, Above Maruti Suzuki Arena, 15th Cross, Margosa Road, Malleshwaram, Bangalore - 560003
+              {isLanguageEnglish
+              ? "#41, 3rd Floor, Above Maruti Suzuki Arena, 15th Cross, Margosa Road, Malleshwaram, Bangalore - 560003"
+              : "#41, 3ನೇ ಮಹಡಿ, ಮಾರುತಿ ಸುಜುಕಿ ಅರೆನಾ ಮೇಲೆ, 15ನೇ ಕ್ರಾಸ್, ಮಾರ್ಗೋಸಾ ರಸ್ತೆ, ಮಲ್ಲೇಶ್ವರಂ, ಬೆಂಗಳೂರು - 560003"
+              }
             </div>
             {/* <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
             <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-              Landmark: Near Veena Stores
+              {isLanguageEnglish
+                ? "Landmark: Near Veena Stores"
+                : "ಹೆಗ್ಗುರುತು: ವೀಣಾ ಸ್ಟೋರ್ಸ್ ಹತ್ತಿರ"
+                }
             </div>
             {/* <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
 

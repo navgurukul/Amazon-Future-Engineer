@@ -1,9 +1,15 @@
 import VerifyOTP from "./VerifyOTP";
+import SmartImage from "@/components/SmartImage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import SmartImage from "@/components/SmartImage";;
-import React, { useState, ChangeEvent } from "react";
 import { useAppState } from "@/context/AppContext";
+import { set } from "date-fns";
+import React, { useState, ChangeEvent } from "react";
+
+
+;
+
+
 
 
 const PhoneNumberVerification: React.FC = () => {
@@ -22,17 +28,26 @@ const PhoneNumberVerification: React.FC = () => {
     const phonePattern = /^[6-9]\d{9}$/;
 
     if (!phoneNumber) {
-      setErrorMessage("Please enter a phone number to proceed");
+      // setErrorMessage("Please enter a phone number to proceed");
+      setErrorMessage(
+        isLanguageEnglish
+          ? "Please enter a phone number to proceed"
+          : "ಮುಂದುವರಿಯಲು ದಯವಿಟ್ಟು ಫೋನ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ"
+      );
       return;
     }
 
     if (phoneNumber.length !== 10) {
-      setErrorMessage("Please enter a 10 digit phone number");
+      setErrorMessage(
+        isLanguageEnglish
+          ? "Please enter a 10 digit phone number"
+          : "ದಯವಿಟ್ಟು 10 ಅಂಕಿಯ ಫೋನ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ"
+      );
       return;
     }
 
     if (!phonePattern.test(phoneNumber)) {
-      setErrorMessage("Please enter a phone number starting with 6 or above");
+      setErrorMessage(isLanguageEnglish ? "Please enter a phone number starting with 6 or above" : "ದಯವಿಟ್ಟು 6 ಅಥವಾ ಅದಕ್ಕಿಂತ ಹೆಚ್ಚಿನ ಫೋನ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ");
       return;
     }
 
@@ -157,5 +172,3 @@ const PhoneNumberVerification: React.FC = () => {
 };
 
 export default PhoneNumberVerification;
-
-
