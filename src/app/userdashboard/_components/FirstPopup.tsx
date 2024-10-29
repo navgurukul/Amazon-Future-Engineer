@@ -108,7 +108,8 @@ const FirstPopup: NextPage<FirstPopupProps> = ({
                 <div className="flex items-center space-x-3">
                   <SmartImage className="w-6 h-6 md:w-8 md:h-8" alt="students icon" src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg" width={24} height={24} />
                   <div className="text-[#3a3a3a] text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember']">
-                    {`${studentsCount} Students`}
+                    {`${studentsCount}`}
+                    {isLanguageEnglish ? " Students" : " ವಿದ್ಯಾರ್ಥಿಗಳು"}
                   </div>
                 </div>
               </div>

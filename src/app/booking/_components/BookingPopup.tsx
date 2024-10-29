@@ -69,7 +69,7 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ isOpen, bookingData }) => {
             {[
               { icon: "/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg", text: bookingData?.date },
               { icon: "/userDashboard/reshot-icon-time-SRKEMN64PU.svg", text: bookingData?.time },
-              { icon: "/userDashboard/reshot-icon-student-DRC3YF56MU.svg", text: `${bookingData?.students} Students` },
+              { icon: "/userDashboard/reshot-icon-student-DRC3YF56MU.svg", text: `${bookingData?.students}${isLanguageEnglish ? " Students" : " ವಿದ್ಯಾರ್ಥಿಗಳು"}` },
             ].map((item, index) => (
               <div key={index} className="flex flex-row items-center justify-start gap-3">
                 <SmartImage src={item.icon} alt="" width={32} height={32} className="w-8 h-8" />
