@@ -181,7 +181,8 @@ const MiniPage = () => {
             </div>
           );
         })}
-
+        {showErrorPopup && 
+      <div className="text-[#f55c38]">You have already registered in the waiting list</div>}
         <button
           className="w-full md:w-auto h-12 md:h-14 px-6 md:px-8 py-2 bg-[#f55c38] rounded-full text-white"
           onClick={handleJoinWaitingList}
@@ -190,9 +191,9 @@ const MiniPage = () => {
         </button>
       </div>
       <WaitingListPopup isOpen={isModalOpen} name={formData.name} />
-      {showErrorPopup && (
+      {/* {showErrorPopup && (
         <ErrorHighDemand closePopup={closeErrorPopup} errorMessage={errorMessage} />
-      )}
+      )} */}
     </div>
   );
 };
