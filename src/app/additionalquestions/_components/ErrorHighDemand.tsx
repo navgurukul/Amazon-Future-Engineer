@@ -124,7 +124,8 @@ const ErrorHighDemand: NextPage<ErrorHighDemandProps> = ({
                 onClick={handleGoToSprintPage}
               >
                 <div className="px-8 py-2 text-center font-medium leading-[170%]">
-                  Go to Sprints
+                  {/* Go to Sprints */}
+                  {isLanguageEnglish ? "Go to Sprints" : "ಸ್ಪ್ರಿಂಟ್ಗಳಿಗೆ ಹೋಗಿ"}
                 </div>
               </button>
             </div>
