@@ -221,6 +221,7 @@ const Popup: React.FC<PopupProps> = ({
       program_id: nanoProgram?.id,
       venue_id: nanoProgram?.venue_id,
       // query_type: "",
+      status: "CallRequested"
     };
 
     try {
