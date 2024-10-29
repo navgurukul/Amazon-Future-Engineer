@@ -4,7 +4,7 @@ import ErrorHighDemand from "./_components/ErrorHighDemand";
 import WaitingListPopup from "./_components/WaitingListPopup";
 import DialogHeader from "@/components/DialogHeader";
 import { useAppState } from "@/context/AppContext";
-import { createWaitingList } from "@/utils/api";
+import { createWaitingList, callBookingQuery } from "@/utils/api";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
@@ -70,6 +70,8 @@ const MiniPage = () => {
     setMiniProgram(foundMiniProgram);
   }, []);
 
+
+
   const validateForm = () => {
     const newErrors: Partial<FormData> = {};
 
@@ -106,6 +108,17 @@ const MiniPage = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const waitingData = {
+    name: formData.name,
+    program_id: Number(miniProgram?.id),
+    venue_id: Number(miniProgram?.venue_id),
+    status: "AwaitingInfo"
+  };
+  
+  const updateWaitingQueryStatus = async () => {
+    await callBookingQuery(waitingData);
+  }
+
   const handleJoinWaitingList = async () => {
     if (validateForm()) {
       try {
@@ -119,6 +132,7 @@ const MiniPage = () => {
           school_name: formData.schoolName,
         };
         await createWaitingList(waitingListData);
+        updateWaitingQueryStatus();
         setIsModalOpen(true);
       } catch (error: any) {
         console.error("Error joining waiting list:", error);
@@ -159,11 +173,10 @@ const MiniPage = () => {
                 )}
               </label>
               <input
-                className={`w-full h-12 md:h-14 px-4 py-2 rounded-full border ${
-                  isDisabled
+                className={`w-full h-12 md:h-14 px-4 py-2 rounded-full border ${isDisabled
                     ? "bg-gray-200 text-gray-500 cursor-not-allowed"
                     : "border-[#3a3a3a]"
-                }`}
+                  }`}
                 type={key === "email" ? "email" : "text"}
                 name={key}
                 value={value}

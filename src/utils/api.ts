@@ -170,6 +170,7 @@ export const callBookingQuery = async (bookingData: {
   program_id: number;
   venue_id: number;
   // query_type: string;
+  status:string;
 }) => {
   try {
     const token = getToken(); // Retrieve the token
