@@ -104,10 +104,12 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     // Name validation
     const namePattern = /^[A-Za-z\s]+$/;
     if (!name.trim()) {
-      setNameError("Name is required");
+      // setNameError("Name is required");
+      setNameError(isLanguageEnglish ? "Name is required" : "ಹೆಸರು ಅಗತ್ಯವಿದೆ");
       return;
     } else if (!namePattern.test(name.trim())) {
-      setNameError("Name should only contain letters");
+      // setNameError("Name should only contain letters");
+      setNameError(isLanguageEnglish ? "Name should only contain letters" : "ಹೆಸರು ಅಕ್ಷರಗಳನ್ನು ಮಾತ್ರ ಹೊಂದಿರಬೇಕು");
       return;
     }
     const studentCount = parseInt(students);
@@ -115,7 +117,12 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     const maxStudents = selectedSlot?.capacity || 40;
 
     if (studentCount < minStudents || studentCount > maxStudents) {
-      setStudentsError(`Please enter a number between ${minStudents} and ${maxStudents}.`);
+      // setStudentsError(`Please enter a number between ${minStudents} and ${maxStudents}.`);
+      setStudentsError(
+        isLanguageEnglish 
+          ? `Please enter a number between ${minStudents} and ${maxStudents}.` 
+          : `${minStudents} ಮತ್ತು ${maxStudents} ನಡುವೆ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.`
+      );
       return;
     }
 
@@ -135,7 +142,12 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
 
       const response = await bookSlot(bookingData);
 
-      setBookingStatus("Booking successful!");
+      // setBookingStatus("Booking successful!");
+      setBookingStatus(
+        isLanguageEnglish 
+          ? "Booking successful!" 
+          : "ಬುಕಿಂಗ್ ಯಶಸ್ವಿಯಾಗಿದೆ!"
+      );
       handleBookingPopUp({
         name: name,
         date: selectedDate ? selectedDate.toDateString() : 'Date not selected',
@@ -148,7 +160,12 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
       setStudents("");
       setSelectedSlot(null);
     } catch (error) {
-      setBookingStatus("Booking failed. Please try again.");
+      // setBookingStatus("Booking failed. Please try again.");
+      setBookingStatus(
+        isLanguageEnglish 
+          ? "Booking failed. Please try again." 
+          : "ಬುಕಿಂಗ್ ವಿಫಲವಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
+      );
     }
   };
 
@@ -282,7 +299,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               name="students"
               value={students}
               onChange={(e) => setStudents(e.target.value)}
-              placeholder={`Enter students`}
+              // placeholder={`Enter students`}
+              placeholder={isLanguageEnglish ? "Enter students" : "ವಿದ್ಯಾರ್ಥಿಗಳನ್ನು ನಮೂದಿಸಿ"}
               min={selectedSlot.capacity === 40 ? 12 : 1}
               max={selectedSlot.capacity}
               required

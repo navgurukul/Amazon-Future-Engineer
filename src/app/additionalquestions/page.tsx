@@ -133,14 +133,21 @@ const MiniPage = () => {
         {Object.entries(formData).map(([key, value]) => (
           <div key={key} className="w-full flex flex-col gap-2">
             <label className="text-[#3a3a3a] text-sm font-medium">
-              {key === "schoolName"
+              {/* {key === "schoolName"
                 ? "School Name" :
                 key.charAt(0).toUpperCase() +
                 key.slice(1).replace("No", " Number")}
+              {key === "name" || key === "phoneNo" ? <span className="text-[#f55c38]">*</span> : null} */}
+              {key === "schoolName"
+                ? (isLanguageEnglish ? "School Name" : "ಶಾಲೆಯ ಹೆಸರು") :
+                key.charAt(0).toUpperCase() +
+                key.slice(1).replace("No", " Number")}
               {key === "name" || key === "phoneNo" ? <span className="text-[#f55c38]">*</span> : null}
+
             </label>
 
-            {key === "city" ? (
+            {key === "city" 
+            ?   (
               <input className="w-full h-12 md:h-14 px-4 py-2 bg-[#dedede] rounded-full border border-[#3a3a3a]" value={value} readOnly />
             ) : key === "phoneNo" ? (
               <div className="relative flex items-center bg-[#dedede] rounded-full">
@@ -153,16 +160,19 @@ const MiniPage = () => {
                   onChange={handleInputChange}
                   placeholder="xxxxxxxxxx"
                   disabled
+                  
                 />
               </div>
             ) : (
               <input
                 className="w-full h-12 md:h-14 px-4 py-2 rounded-full border border-[#3a3a3a]"
-                type={key === "email" ? "email" : "text"}
+                // type={key === "email" ? "email" : "text"}
+                type={key === "email" ? (isLanguageEnglish ? "email" : "ಇಮೇಲ್") : "text"}
                 name={key}
                 value={value}
                 onChange={handleInputChange}
-                placeholder={`Enter your ${key}`}
+                // placeholder={`Enter your ${key}`}
+                placeholder={isLanguageEnglish ? `Enter your ${key}` : `ನಿಮ್ಮ ${key === "name" ? "ಹೆಸರು" : key === "schoolName" ? "ಶಾಲೆಯ ಹೆಸರು" : key === "phoneNo" ? "ಫೋನ್ ನಂಬರ್" : key === "email" ? "ಇಮೇಲ್" : key} ನಮೂದಿಸಿ`}
               />
             )}
             {errors[key as keyof FormData] && <p className="text-red-500 text-sm">{errors[key as keyof FormData]}</p>}

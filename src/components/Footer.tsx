@@ -70,7 +70,12 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
 
         {/* Privacy Policy */}
         <div className="flex justify-center w-full md:w-auto text-body1 font-body1-regular text-darkslategray">
-          Privacy Policy
+          {/* Privacy Policy */}
+          <span>
+            {isLanguageEnglish
+              ? "Privacy Policy"
+              : "ಗೋಪ್ಯತಾ ನೀತಿ"}
+          </span>
         </div>
 
         {/* Helpdesk Section */}
@@ -92,11 +97,11 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
             </span>
           </Button> */}
           <SmartImage
-          className="object-cover w-[100%] max-w-[100%] hidden md:block"
-           alt="TIS Logo"
-              src="/login/Logo TIS 1.svg"
-              width={24}
-              height={24}
+            className="object-cover w-[100%] max-w-[100%] hidden md:block"
+            alt="TIS Logo"
+            src="/login/Logo TIS 1.svg"
+            width={24}
+            height={24}
           />
 
           {isMobile && (

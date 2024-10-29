@@ -261,11 +261,11 @@ const Booking = () => {
               className="flex-col gap-4 text-center"
               onClick={handleRoute}
             >
-              <div className="w-full h-12 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer">
+              {/* <div className="w-full h-12 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer">
                 <div className="leading-[170%] font-medium text-white">
                   Join Waiting List
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

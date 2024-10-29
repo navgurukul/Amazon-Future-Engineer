@@ -131,26 +131,26 @@ const Header: NextPage<HeaderProps> = ({
   //   }
   // };
 
-  const handleLanguageToggle = () => { 
+  const handleLanguageToggle = () => {
     // Toggle language in context
     handleLanguageToggleContext();
-    
+
     // Determine new language
     const newLang = currentLang === "en" ? "kn" : "en";
-    
+
     // Set the new language in local state
     setCurrentLang(newLang);
-    
+
     // Store the selected language in local storage
     localStorage.setItem("currentLang", newLang);
-};
+  };
 
   const handleProfileClick = () => {
     setIsProfileDropdownOpen((prev) => !prev);
   };
 
   const handleDoubleClickProfile = () => {
-    setIsProfileDropdownOpen(false); 
+    setIsProfileDropdownOpen(false);
   };
 
 
@@ -193,16 +193,16 @@ const Header: NextPage<HeaderProps> = ({
   useEffect(() => {
     const savedLang = localStorage.getItem("currentLang");
     if (savedLang) {
-        // Ensure the saved language is valid before setting it
-        if (savedLang === "en" || savedLang === "kn") {
-            setCurrentLang(savedLang as "en" | "kn");
-        }
+      // Ensure the saved language is valid before setting it
+      if (savedLang === "en" || savedLang === "kn") {
+        setCurrentLang(savedLang as "en" | "kn");
+      }
     }
-}, []);
+  }, []);
 
   return (
     <>
-          <LogoutSuccess show={logoutSuccess} />
+      <LogoutSuccess show={logoutSuccess} />
 
       <div
         className={`fixed z-50 w-full ${isDropdownOpen || bgColor !== "home" ? "bg-white" : headerBgColor
@@ -231,15 +231,19 @@ const Header: NextPage<HeaderProps> = ({
                 height={40}
               />
               <Button
-              // className="ml-4 bg-transparent hover:bg-transparent"
-              className={`ml-4 ${
-    headerBgColor == "transparent" && bgColor === "home" ? "bg-transparent text-white hover:bg-transparent" : "text-[#3a3a3a] hover:bg-transparent"
-  }`}
-                    variant="proceedWhite"
-                    onClick={() => router.push("/")}
-                  >
-                    Home
-                  </Button>
+                // className="ml-4 bg-transparent hover:bg-transparent"
+                className={`ml-4 ${headerBgColor == "transparent" && bgColor === "home" ? "bg-transparent text-white hover:bg-transparent" : "text-[#3a3a3a] hover:bg-transparent"
+                  }`}
+                variant="proceedWhite"
+                onClick={() => router.push("/")}
+              >
+                {/* Home */}
+                <span>
+                  {isLanguageEnglish
+                    ? "Home"
+                    : "ಮನೆ"}
+                </span>
+              </Button>
             </div>
           </div>
           <div className="md:hidden">
@@ -247,10 +251,10 @@ const Header: NextPage<HeaderProps> = ({
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
               src={`/login/Group(${headerBgColor === "transparent" &&
-                  bgColor === "home" &&
-                  !isDropdownOpen
-                  ? "11"
-                  : "12"
+                bgColor === "home" &&
+                !isDropdownOpen
+                ? "11"
+                : "12"
                 }).svg`}
               onClick={onReshotIconClick}
               // width={120}
@@ -281,20 +285,20 @@ const Header: NextPage<HeaderProps> = ({
                         <>
                           <div
                             className={`w-[24px] h-[2px] relative rounded-full ${headerBgColor === "transparent" && !isDropdownOpen
-                                ? "bg-white"
-                                : "bg-black"
+                              ? "bg-white"
+                              : "bg-black"
                               }`}
                           />
                           <div
                             className={`w-[16px] h-[2px] relative rounded-full ${headerBgColor === "transparent" && !isDropdownOpen
-                                ? "bg-white"
-                                : "bg-black"
+                              ? "bg-white"
+                              : "bg-black"
                               }`}
                           />
                           <div
                             className={`w-[8px] h-[2px] relative rounded-full ${headerBgColor === "transparent" && !isDropdownOpen
-                                ? "bg-white"
-                                : "bg-black"
+                              ? "bg-white"
+                              : "bg-black"
                               }`}
                           />
                         </>
@@ -351,8 +355,8 @@ const Header: NextPage<HeaderProps> = ({
                 <div
 
                   className={` p-2  h-[48px] flex items-center rounded-full md:gap-1 gap-2  bg-${headerBgColor !== "transparent" || bgColor != "home"
-                      ? "incandescent-light"
-                      : "white"
+                    ? "incandescent-light"
+                    : "white"
                     }`}
                 >
                   <Button
@@ -402,7 +406,7 @@ const Header: NextPage<HeaderProps> = ({
                       width={56}
                       height={56}
                       onClick={handleProfileClick}
-                      // onDoubleClick={handleDoubleClickProfile}
+                    // onDoubleClick={handleDoubleClickProfile}
                     />
                     {isProfileDropdownOpen && (
                       <div ref={dropdownRef}
