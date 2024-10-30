@@ -213,10 +213,12 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           color: #fff !important; /* Text color */
           border: none !important; /* Remove borders if any */
           margin-bottom: 8px;
+          cursor: pointer;
         }
 
         .fc-event-low-capacity {
           background: var(--Incandescent-Main, #00A36C) !important;
+          cursor: pointer;
           }
           
         .fc-daygrid-event-dot, .fc-event-time {
