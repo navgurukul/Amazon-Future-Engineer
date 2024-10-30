@@ -63,16 +63,34 @@ const PhoneNumberVerification: React.FC = () => {
     }
   };
 
+  // const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (event.key === "Enter") {
+  //     handleProceed();
+  //   }
+
+  //   const charCode = event.key.charCodeAt(0);
+  //   if (charCode < 48 || charCode > 57) {
+  //     event.preventDefault();
+  //   }
+  // };
+
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      handleProceed();
+    const allowedKeys = ["Backspace", "ArrowLeft", "ArrowRight", "Delete", "Enter"];
+  
+    if (allowedKeys.includes(event.key)) {
+      if (event.key === "Enter") {
+        handleProceed(); // Call handleProceed on Enter
+      }
+      return; // Allow essential keys
     }
 
+    // Only allow numeric keys (0-9)
     const charCode = event.key.charCodeAt(0);
     if (charCode < 48 || charCode > 57) {
       event.preventDefault();
     }
   };
+  
 
   return (
     <div className="flex justify-center md:items-center">
@@ -144,6 +162,7 @@ const PhoneNumberVerification: React.FC = () => {
                     onChange={handlePhoneNumber}
                     // onKeyPress={handleKeyPress}
                     onKeyDown={handleKeyPress}
+                    // onKeyDown={handleKeyPress}
                   />
                 </div>
                 {errorMessage && (

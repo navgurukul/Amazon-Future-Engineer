@@ -459,13 +459,14 @@ export const rescheduleBooking = async (booking_id: number) => {
 
 // api to update booking query on all users for not intersted and reschadule
 
-export const quesryBookingStatus = async (program_id: number,venue_id:number, status: string) => {
+export const quesryBookingStatus = async (name:string,program_id: number,venue_id:number, status: string) => {
   const token = getAdminToken()  ||  getToken() ;
   if (!token) {
     throw new Error('No token found');
   }
   try {
     const response = await api.post(`/queries/call-booking-query`, {
+      name:name,
       program_id: program_id,
       venue_id:venue_id,
       status:status
