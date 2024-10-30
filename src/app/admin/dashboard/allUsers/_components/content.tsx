@@ -23,7 +23,7 @@ import SmartImage from "@/components/SmartImage";;
 import React, { useMemo, useState, useEffect } from "react";
 
 const Dashboard: React.FC = () => {
-  
+
   interface User {
     bookings: any;
     flatMap(arg0: (entry: any) => any): any;
@@ -111,11 +111,11 @@ const Dashboard: React.FC = () => {
           itemsPerPage
         );
         setUsers(result.data || []);
-      } catch (error:any) {
+      } catch (error: any) {
         console.error("Failed to fetch bookings", error);
         if (error.response.data.status === "error"
-          ){
-            setIsLoading(false);
+        ) {
+          setIsLoading(false);
           return error.response.data.message
         }
         setIsLoading(false);
@@ -144,7 +144,7 @@ const Dashboard: React.FC = () => {
                 phone: entry.phone || "N/A",
               },
               ...booking,
-              
+
             }));
           } else if ("query" in entry) {
             // Condition 2: If no booking but query exists
@@ -228,7 +228,7 @@ const Dashboard: React.FC = () => {
     }
   }, [users]);
 
- 
+
 
   const singleObjectBookings = allBookings.map((booking) => {
     return booking;
@@ -237,8 +237,8 @@ const Dashboard: React.FC = () => {
   // Filter the bookings
   const filteredBookings = singleObjectBookings.filter((booking) => {
     const normalizedSearchQuery = searchQuery.toLowerCase();
-    if (normalizedSearchQuery==="nano" || normalizedSearchQuery==="mini" || normalizedSearchQuery==="mega"){
-      console.log("Tamanna",normalizedSearchQuery)
+    if (normalizedSearchQuery === "nano" || normalizedSearchQuery === "mini" || normalizedSearchQuery === "mega") {
+      console.log("Tamanna", normalizedSearchQuery)
     }
     const matchesSearch =
       (booking.user.name &&
@@ -248,7 +248,7 @@ const Dashboard: React.FC = () => {
         booking.venue.city.toLowerCase().includes(normalizedSearchQuery)) ||
       (booking?.program &&
         booking?.program?.title.toLowerCase().includes(normalizedSearchQuery)) ||
-      `${booking?.booking?.booking_for || booking?.booking_for} | ${booking?.booking?.start_time || booking?.start_time  } to ${booking?.booking?.end_time || booking?.end_time}`
+      `${booking?.booking?.booking_for || booking?.booking_for} | ${booking?.booking?.start_time || booking?.start_time} to ${booking?.booking?.end_time || booking?.end_time}`
         .toLowerCase()
         .includes(normalizedSearchQuery);
 
@@ -402,8 +402,11 @@ const Dashboard: React.FC = () => {
                     <SelectItem value="BookingRequested">
                       Booking Requested
                     </SelectItem>
-                    <SelectItem value="AwaitingInfo">
+                    <SelectItem value="JoinedWaitingList">
                       Joined Waitlist
+                    </SelectItem>
+                    <SelectItem value="AwaitingInfo">
+                      AwaitingInfo
                     </SelectItem>
                     <SelectItem value="Cancelled">Cancelled</SelectItem>
                     <SelectItem value="NotInterested">
@@ -481,9 +484,9 @@ const Dashboard: React.FC = () => {
                           {booking.program_id === 1
                             ? "NANO"
                             : booking.program_id === 2
-                            ? "MINI"
-                            : booking.program_id === 3 ? 
-                            "MEGA" : "-"}
+                              ? "MINI"
+                              : booking.program_id === 3 ?
+                                "MEGA" : "-"}
                         </TableCell>
                         <TableCell className="border-0">
                           {booking.user.phone}
@@ -492,7 +495,7 @@ const Dashboard: React.FC = () => {
                           {booking.booking_batch_size}
                         </TableCell>
                         <TableCell className="border-0">
-                          {booking.created_at === null 
+                          {booking.created_at === null
                             ? "N/A"
                             : formatDate(booking.created_at)
                           }
@@ -501,8 +504,8 @@ const Dashboard: React.FC = () => {
                           {booking.start_time === ""
                             ? "N/A"
                             : `${formatTime(
-                                booking.start_time
-                              )} to ${formatTime(booking.end_time)}`}
+                              booking.start_time
+                            )} to ${formatTime(booking.end_time)}`}
                         </TableCell>
                         <TableCell className="border-0">Bengaluru</TableCell>
                         <TableCell className="border-0">
@@ -551,19 +554,17 @@ const Dashboard: React.FC = () => {
                 </div>
                 <div className="flex flex-row items-center justify-start gap-4">
                   <ChevronLeft
-                    className={`w-6 h-6 cursor-pointer ${
-                      currentPage === 1
+                    className={`w-6 h-6 cursor-pointer ${currentPage === 1
                         ? "text-gray-400 opacity-50 cursor-not-allowed"
                         : "text-black"
-                    }`}
+                      }`}
                     onClick={() => handlePageChange(currentPage - 1)}
                   />
                   <ChevronRight
-                    className={`w-6 h-6 cursor-pointer ${
-                      currentPage === totalPages
+                    className={`w-6 h-6 cursor-pointer ${currentPage === totalPages
                         ? "text-gray-400 opacity-50 cursor-not-allowed"
                         : "text-black"
-                    }`}
+                      }`}
                     onClick={() => handlePageChange(currentPage + 1)}
                   />
                 </div>

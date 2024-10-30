@@ -176,7 +176,7 @@ export default function Footer({
 
   const handleNotInterestedStatus = async () => {
     try {
-      const reason1 = await quesryBookingStatus(1, 2, "NotInterested"); //needs to be chanage it dynamic
+      const reason1 = await quesryBookingStatus("",1, 2, "NotInterested"); //needs to be chanage it dynamic
       window.location.reload()
     } catch (error) {
       console.error("Error updating booking status:", error);
