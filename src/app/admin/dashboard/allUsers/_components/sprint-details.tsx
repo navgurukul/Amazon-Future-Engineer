@@ -159,6 +159,27 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
             grade: "-",
             numberOfStudents: foundBooking.booking_batch_size,
             slot: `${formatDate(foundBooking.booking_for)} | ${
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
               foundBooking.start_time
             } to ${foundBooking.end_time}`,
           });
