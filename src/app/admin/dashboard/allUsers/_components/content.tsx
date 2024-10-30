@@ -138,7 +138,6 @@ const Dashboard: React.FC = () => {
         return group.flatMap((entry) => {
           if ("school" in entry && entry.school !== null) {
             // New Condition: If school exists and is not null
-            console.log("school",entry)
             return {
               user: {
                 name: entry.name || "N/A",
@@ -219,16 +218,18 @@ const Dashboard: React.FC = () => {
               updated_at: entry.user.created_at,
             };
           } else {
+            console.log("waitinglist",entry)
             // Condition 3: Only users exist
             return {
               user: {
-                name: entry.name || "N/A",
-                phone: entry.phone || "N/A",
+                name: entry.name || entry?.user?.name || "N/A",
+                phone: entry.phone || entry?.user?.phone || "N/A",
+                email: entry.email || entry?.user?.email || "N/A",
               },
               id: 0, // Set to 0 or an appropriate value
-              user_id: entry.id,
-              program_id: 0,// Set to an appropriate value
-              venue_id: 0, // Set to an appropriate value
+              user_id: entry.id || entry?.user?.id,
+              program_id:entry?.waitingList?.program_id ||  0,// Set to an appropriate value
+              venue_id: entry?.waitingList?.venue_id || 0, // Set to an appropriate value
               booking_batch_size: 0,
               visited_batch_size: null,
               visiting_time: null,
@@ -238,12 +239,16 @@ const Dashboard: React.FC = () => {
               query_id: null,
               update_count: 0,
               booking_for: "", // Set an appropriate value or format if needed
-              status: entry.status, // Set appropriate status
+              status: entry?.waitingList?.status || entry.status, // Set appropriate status
               booked_by: "",
               start_time: "",
               end_time: "",
               created_at: new Date().toISOString(),
               updated_at: new Date().toISOString(),
+              city:entry.waitingList?.city || "",
+              school:entry?.waitingList?.school_name || "",
+              pin:entry?.waitingList?.pin_code || 0
+
             };
           }
         });
