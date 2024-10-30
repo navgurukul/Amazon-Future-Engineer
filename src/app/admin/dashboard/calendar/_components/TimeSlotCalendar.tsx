@@ -235,9 +235,20 @@ const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
 
   return (
     <div className="calendar-container" style={{ display: showTimeSlotCalendar ? "block" : "none" }}>
-      <Button className="mb-8" onClick={onBack}>
+      {/* <Button className="mb-8" onClick={onBack}>
         Back
-      </Button>
+      </Button> */}
+      <div className="flex gap-2 cursor-pointer mb-8" onClick={onBack}>
+                    <SmartImage
+                      src="/login/chevron_left.svg"
+                      alt="back"
+                   
+                      className="overflow-hidden"
+                      width={24}
+                      height={24}
+                    />
+                    <div className="leading-[170%] font-extrabold">Back</div>
+                  </div>
       <div className="calendar-header">
         <SmartImage
           src="/previous.svg"
