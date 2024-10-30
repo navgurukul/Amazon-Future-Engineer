@@ -112,7 +112,7 @@ const MiniPage = () => {
     name: formData.name,
     program_id: Number(miniProgram?.id),
     venue_id: Number(miniProgram?.venue_id),
-    status: "AwaitingInfo"
+    status: "JoinedWaitingList"
   };
   
   const updateWaitingQueryStatus = async () => {
@@ -132,7 +132,7 @@ const MiniPage = () => {
           school_name: formData.schoolName,
         };
         await createWaitingList(waitingListData);
-        updateWaitingQueryStatus();
+        // updateWaitingQueryStatus();
         setIsModalOpen(true);
       } catch (error: any) {
         console.error("Error joining waiting list:", error);
