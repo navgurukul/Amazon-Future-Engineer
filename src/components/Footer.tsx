@@ -51,7 +51,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
               alt="Reshot Icon"
               // src="/login/afe_subbrand_logo_horizontal_blue.svg"
               src="/login/AFE Makerspace_Blue_Horizontal 2.svg"
-              // onClick={onReshotIconClick}
+              onClick={onReshotIconClick}
               width={254}
               height={40}
             />
@@ -61,7 +61,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
               src="/login/Group(12).svg"
-              // onClick={onReshotIconClick}
+              onClick={onReshotIconClick}
               width={120}
               height={40}
             />
