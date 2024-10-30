@@ -1,15 +1,24 @@
 "use client";
 
+import SmartImage from "@/components/SmartImage";
 import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
-import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
+
+
+;
+
+
 
 const Header: React.FC = () => {
   const [currentLang, setCurrentLang] = useState<"en" | "kn">("en");
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const router = useRouter();
+
+  const handleIconClick = () => {
+    router.push("/admin/dashboard/upcomingBookings");
+  }
 
   const handleLanguageToggle = () => {
     setCurrentLang(currentLang === "en" ? "kn" : "en");
@@ -47,7 +56,7 @@ const Header: React.FC = () => {
       <div className="flex justify-between items-center px-12 py-8 w-full text-center text-sm font-webtypestyles-buttonlarge">
         {/* Logo */}
         <div className="flex-1 flex justify-start">
-          <div className="hidden md:flex">
+          <div className="hidden md:flex" onClick={handleIconClick}>
             <SmartImage
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
