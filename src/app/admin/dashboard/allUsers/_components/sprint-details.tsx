@@ -154,8 +154,8 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
             programName: "-",
             schoolName: foundBooking.user.school_id || "-",
             udiseCode: "-",
-            city: foundBooking?.slot?.venue?.city || foundBooking.venue.city,
-            pincode: foundBooking?.slot?.venue?.pin_code || foundBooking.venue.pin_code,
+            city: foundBooking?.slot?.venue?.city || foundBooking?.venue?.city || "",
+            pincode: foundBooking?.slot?.venue?.pin_code || foundBooking?.venue?.pin_code || "",
             grade: "-",
             numberOfStudents: foundBooking.booking_batch_size,
             slot: `${formatDate(foundBooking.booking_for)} | ${
