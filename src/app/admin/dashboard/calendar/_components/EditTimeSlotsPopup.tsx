@@ -142,7 +142,7 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
           }
           const year = parsedDate.getFullYear();
           const month = String(parsedDate.getMonth() + 1).padStart(2, "0");
-          const day = String(parsedDate.getDate()).padStart(2, "0");
+          const day = String(parsedDate.getDate() + 1).padStart(2, "0");
           const formattedDate = `${year}-${month}-${day}T00:00:00.000Z`;
           const formatTime = (time: string) => {
             const [hours, minutes] = time.split(":");
