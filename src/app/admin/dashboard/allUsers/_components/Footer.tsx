@@ -4,7 +4,7 @@ import ReschedulePopup from "./ReschedulePopup";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import {
-  quesryBookingStatus,
+  queryBookingStatus,
   updateBookingStatus,
   updateBookingStatusAllUsers,
   updateBookingDetails
@@ -174,9 +174,9 @@ export default function Footer({
     });
   };
 
-  const handleNotInterestedStatus = async () => {
+  const handleNotInterestedStatus = async (status:string) => {
     try {
-      const reason1 = await quesryBookingStatus("",1, 2, "NotInterested"); //needs to be chanage it dynamic
+      const reason1 = await queryBookingStatus(bookings.name,1, 2, status); //needs to be chanage it dynamic
       window.location.reload()
     } catch (error) {
       console.error("Error updating booking status:", error);
@@ -214,9 +214,10 @@ export default function Footer({
   useEffect(() => {
     if (popup.isUpdate) {
       hadleIsUpdate()
+      handleNotInterestedStatus("AwaitingInfo")
     }
     if (popup.isNotInterested) {
-      handleNotInterestedStatus();
+      handleNotInterestedStatus("NotInterested");
       toast({
         title: "User is marked as not intersted",
         description: "",
