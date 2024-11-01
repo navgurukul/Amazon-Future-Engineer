@@ -137,48 +137,24 @@ const Dashboard: React.FC = () => {
       const allBookings: FilteredBooking[] = users.flatMap((group) => {
         return group.flatMap((entry) => {
           if ("school" in entry && entry.school !== null) {
-            // New Condition: If school exists and is not null
-            return {
+            return entry.bookings.map((booking: any) => ({
               user: {
                 name: entry.name || "N/A",
                 phone: entry.phone || "N/A",
                 email: entry.school.email || "N/A",
               },
-              // school: {
-              //   school_name: entry.school.school_name || "N/A",
-              //   address: entry.school.address || "N/A",
-              //   state: entry.school.state || "N/A",
-              //   district: entry.school.district || "N/A",
-              //   pin_code: entry.school.pin_code || "N/A",
-              // },
-              id: 0,
-              user_id: entry.id,
-              program_id: 0,
-              venue_id: 0,
-              booking_batch_size: 0,
-              visited_batch_size: null,
-              visiting_time: null,
-              students_grade: null,
-              reschedule_reason: null,
-              cancel_reason: null,
-              query_id: null,
-              update_count: 0,
-              booking_for: "",
-              status: entry.status,
-              booked_by: "",
-              start_time: "",
-              end_time: "",
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString(),
+              ...booking,  // Spread booking properties here
+          
+              // Pull data from the school object
               school_name: entry.school.school_name || "N/A",
               address: entry.school.address || "N/A",
               state: entry.school.state || "N/A",
               city: entry.school.district || "N/A",
               pin_code: entry.school.pin_code || "N/A",
               village: entry.school.village || "N/A",
-              
-            };
+            }));
           }
+          
           else if ("bookings" in entry) {
             // Condition 1: If bookings are available
             return entry.bookings.map((booking: any) => ({
@@ -218,7 +194,7 @@ const Dashboard: React.FC = () => {
               updated_at: entry.user.created_at,
             };
           } else {
-            console.log("waitinglist",entry)
+            // console.log("waitinglist",entry?.waitingList)
             // Condition 3: Only users exist
             return {
               user: {
@@ -247,7 +223,7 @@ const Dashboard: React.FC = () => {
               updated_at: new Date().toISOString(),
               city:entry.waitingList?.city || "",
               school:entry?.waitingList?.school_name || "",
-              pin:entry?.waitingList?.pin_code || 0
+              pin_code:entry?.waitingList?.pin_code || 0
 
             };
           }
