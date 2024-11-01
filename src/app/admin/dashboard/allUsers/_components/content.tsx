@@ -215,7 +215,7 @@ const Dashboard: React.FC = () => {
               query_id: null,
               update_count: 0,
               booking_for: "", // Set an appropriate value or format if needed
-              status: entry?.waitingList?.status || entry.status, // Set appropriate status
+              status: entry?.waitingList?.status || entry?.status || entry?.user?.status, // Set appropriate status
               booked_by: "",
               start_time: "",
               end_time: "",
@@ -262,9 +262,9 @@ const Dashboard: React.FC = () => {
   // Filter the bookings
   const filteredBookings = singleObjectBookings.filter((booking) => {
     const normalizedSearchQuery = searchQuery.toLowerCase();
-    if (normalizedSearchQuery === "nano" || normalizedSearchQuery === "mini" || normalizedSearchQuery === "mega") {
-      console.log("Tamanna", normalizedSearchQuery)
-    }
+    // if (normalizedSearchQuery === "nano" || normalizedSearchQuery === "mini" || normalizedSearchQuery === "mega") {
+    //   console.log("Tamanna", normalizedSearchQuery)
+    // }
     const matchesSearch =
       (booking.user.name &&
         booking.user.name.toLowerCase().includes(normalizedSearchQuery)) ||

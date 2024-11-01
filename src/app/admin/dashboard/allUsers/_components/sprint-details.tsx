@@ -25,6 +25,9 @@ interface BookingDetails {
   slot: string;
 }
 interface Booking {
+  school_name: string | any
+  pin_code: number;
+  school: string;
   user_id(user_id: any): unknown;
   slot_id(slot_id: any): unknown;
   id: number;
@@ -113,28 +116,28 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     status === "Cancelled" ||
     status === "NotInterested";
 
-  useEffect(() => {
-    if (bookingProp.status !== "BookingConfirmed") {
-      const dateCondition = !bookingProp.booking_for;
-      setBookingDetails({
-        name: bookingProp.user.name || "-",
-        email: bookingProp.user.email || "-",
-        phoneNumber: bookingProp.user.phone || "-",
-        dateofRequest: formatDate(bookingProp.created_at) || "-",
-        programName: "-",
-        schoolName: bookingProp.user.school_id || "-",
-        udiseCode: "-",
-        city: "Bengaluru",
-        pincode: "-",
-        grade: "-",
-        numberOfStudents: bookingProp.booking_batch_size || "-",
-        slot: !dateCondition
-          ? `${formatDate(bookingProp.booking_for)} | ${
-              bookingProp.start_time
-            } to ${bookingProp.end_time}`
-          : "",
-      });
-    }
+    useEffect(() => {
+      if (bookingProp.status !== "BookingConfirmed") {
+        const dateCondition = !bookingProp.booking_for;
+        setBookingDetails({
+          name: bookingProp.user.name || "-",
+          email: bookingProp.user.email || "",
+          phoneNumber: bookingProp.user.phone || "-",
+          dateofRequest: formatDate(bookingProp.created_at) || "-",
+          programName: "-",
+          schoolName: bookingProp?.school_name || bookingProp?.user?.school_id || bookingProp?.school || "-",
+          udiseCode: "-",
+          city: "Bengaluru",
+          pincode:bookingProp?.pin_code || 0,
+          grade: "-",
+          numberOfStudents: bookingProp.booking_batch_size || "-",
+          slot: !dateCondition
+            ? `${formatDate(bookingProp.booking_for)} | ${
+                bookingProp.start_time
+              } to ${bookingProp.end_time}`
+            : "",
+        });
+      }
     const loadBookingDetails = async () => {
       if (bookingProp.id) {
         const bookings = await fetchBookings();
@@ -159,27 +162,6 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
             grade: "-",
             numberOfStudents: foundBooking.booking_batch_size,
             slot: `${formatDate(foundBooking.booking_for)} | ${
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              
               foundBooking.start_time
             } to ${foundBooking.end_time}`,
           });
@@ -228,7 +210,6 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     try {
       const slotData = await getSlotDetailsSlotId(slotId);
       setSlotData(slotData.data[0]); // Assuming data is an array, get the first element
-      console.log(slotData.data[0]);
     } catch (error) {
       console.error("Failed to fetch slot details:", error);
     }
