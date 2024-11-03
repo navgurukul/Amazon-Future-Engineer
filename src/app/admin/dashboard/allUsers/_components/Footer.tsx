@@ -213,8 +213,13 @@ export default function Footer({
 
   useEffect(() => {
     if (popup.isUpdate) {
-      hadleIsUpdate()
-      handleNotInterestedStatus("AwaitingInfo")
+      if (status === "BookingConfirmed"){
+        hadleIsUpdate()
+        updateStatus()
+      }
+      else{
+        handleNotInterestedStatus("AwaitingInfo")
+      }
     }
     if (popup.isNotInterested) {
       handleNotInterestedStatus("NotInterested");

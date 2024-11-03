@@ -119,6 +119,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     useEffect(() => {
       if (bookingProp.status !== "BookingConfirmed") {
         const dateCondition = !bookingProp.booking_for;
+        // console.log("data-show",bookingProp)
         setBookingDetails({
           name: bookingProp.user.name || "-",
           email: bookingProp.user.email || "",
@@ -155,10 +156,10 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
             phoneNumber: foundBooking.user.phone,
             dateofRequest: formatDate(foundBooking.created_at),
             programName: "-",
-            schoolName: foundBooking.user.school_id || "-",
+            schoolName: foundBooking?.school_name || foundBooking?.user?.school_id || foundBooking?.school || "-",
             udiseCode: "-",
             city: foundBooking?.slot?.venue?.city || foundBooking?.venue?.city || "",
-            pincode: foundBooking?.slot?.venue?.pin_code || foundBooking?.venue?.pin_code || "",
+            pincode: foundBooking?.pin_code || foundBooking?.slot?.venue?.pin_code || foundBooking?.venue?.pin_code || "",
             grade: "-",
             numberOfStudents: foundBooking.booking_batch_size,
             slot: `${formatDate(foundBooking.booking_for)} | ${

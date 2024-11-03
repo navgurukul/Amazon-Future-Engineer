@@ -127,6 +127,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
 
   // Use effect to enable/disable button based on field completion
   useEffect(() => {
+    // console.log( "tamanna", bookingProp,bookingDetails)
     const areAllFieldsFilled = checkAllFieldsFilled();
     setIsButtonDisabled(!areAllFieldsFilled); // Disable if not all fields are filled
   }, [editedDetails]);
@@ -168,6 +169,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   const handleSaveChanges = async () => { 
     setIsSaving(true);
     try {
+      // console.log( "raj",editedDetails)
       const bookingData = {
         user_id: Number(bookingProp.user.id),
         slot_id: Number( bookingProp.slot_id),
@@ -177,12 +179,12 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         visiting_time: new Date().toISOString(),
         school_name: String(editedDetails.schoolName),
         udise: editedDetails.udiseCode,
-        email: bookingDetails.email,
+        email: String(bookingDetails.email),
         address: bookingDetails.city,
         village: bookingDetails.city,
         state: "Karnataka",
         district: bookingDetails.city,
-        pin_code: parseInt(bookingDetails.pincode, 10),
+        pin_code: Number(editedDetails.pincode),
       };
       await updateBookingDetails(bookingProp.id, bookingData);
       toast({
@@ -397,7 +399,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                         value={
                           isEditable
                             ? editedDetails[key as keyof typeof editedDetails]
-                            : value?.toString() ?? ""
+                            : value?.toString() ?? "-"
                         }
                         onChange={
                           isEditable
