@@ -242,7 +242,7 @@ export default function Footer({
   const handleNotInterestedStatus = async (status:string) => {
     try {
       const reason1 = await queryBookingStatus(bookings.name,1, 2, status); //needs to be chanage it dynamic
-      // window.location.reload()
+      window.location.reload()
     } catch (error) {
       console.error("Error updating booking status:", error);
     }
@@ -269,7 +269,7 @@ export default function Footer({
         pin_code: parseInt(bookings.pincode, 10),
       };
       await updateBookingDetails(bookingProp.id, bookingData);
-      // window.location.reload()
+      window.location.reload()
     } catch (error) {
       console.error("Error updating booking details:", error);
     }

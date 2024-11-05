@@ -257,7 +257,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   /// Function to handle the "Yes" confirmation
   const handleConfirmYes = async () => {
     try {
-      await updateBookingStatus(Number(bookingProp.user.id), "Completed", "Completed","Completed");
+      await updateBookingStatus(Number(bookingProp.id), "Completed", "Completed","Completed");
       setIsConfirmationOpen(false);
       setIsSubmitPopupOpen(true);
       // Show success toast
@@ -280,6 +280,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   };
 
   const handleSubmitAndCompleteSprint = () => {
+
     setIsConfirmationOpen(true);
     toast({
       title: "Complete Sprint",
