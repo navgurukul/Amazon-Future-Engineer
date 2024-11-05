@@ -60,7 +60,7 @@ const Header: React.FC = () => {
             <SmartImage
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
-              src="/login/afe_subbrand_logo_horizontal_blue.svg"
+              src="/login/afe blue horizontal.svg"
               width={254}
               height={40}
             />
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
             <SmartImage
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
-              src="/login/Group(11).svg"
+              src="/login/afe blue stacked.svg"
               width={100}
               height={30}
             />

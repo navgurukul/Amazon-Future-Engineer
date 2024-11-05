@@ -77,7 +77,7 @@ const Header: NextPage<HeaderProps> = ({
   }, []);
 
   const handleScroll = useCallback(() => {
-    const scrollPosition = window.scrollY+700;
+    const scrollPosition = window.scrollY + 700;
     const windowHeight = window.innerHeight;
 
     if (scrollPosition > 0) {
@@ -223,8 +223,8 @@ const Header: NextPage<HeaderProps> = ({
                   headerBgColor == "transparent" && bgColor === "home"
                     // ? "/login/afe_subbrand_logo_horizontal_white.svg"
                     // : "/login/afe_subbrand_logo_horizontal_blue.svg"
-                    ? "/login/AFE Makerspace_White_Horizontal 1.svg"
-                    : "/login/AFE Makerspace_Blue_Horizontal 2.svg"
+                    ? "/login/afe white horizontal.svg"
+                    : "/login/afe blue horizontal.svg"
                 }
                 onClick={onReshotIconClick}
                 width={254}
@@ -241,7 +241,8 @@ const Header: NextPage<HeaderProps> = ({
               </Button>
             </div>
           </div>
-          <div className="md:hidden">
+
+          {/* <div className="md:hidden">
             <SmartImage
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
@@ -257,7 +258,22 @@ const Header: NextPage<HeaderProps> = ({
               width={100}
               height={30}
             />
+          </div> */}
+
+          <div className="md:hidden">
+            <SmartImage
+              className="object-contain cursor-pointer"
+              alt="Reshot Icon"
+              src={headerBgColor === "transparent" && bgColor === "home" && !isDropdownOpen
+                ? "login/afe white stacked.svg"
+                : "login/afe blue stacked.svg"}
+              onClick={onReshotIconClick}
+              width={100}
+              height={30}
+            />
           </div>
+
+
           {/* Right side buttons */}
           <div className="flex items-center md:gap-4 gap-8">
             {isMobile ? (
