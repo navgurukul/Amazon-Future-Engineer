@@ -114,7 +114,7 @@ const PhoneNumberVerification: React.FC = () => {
 
                 alt="Logo"
                 // src="/login/afe_subbrand_logo_horizontal_blue.svg"
-                src="/login/AFE Makerspace_Blue_Horizontal 2.svg"
+                src="/login/afe blue horizontal.svg"
                 width={354}
                 height={40}
               />
@@ -122,7 +122,7 @@ const PhoneNumberVerification: React.FC = () => {
                 <SmartImage
                   className="object-contain cursor-pointer"
                   alt="Reshot Icon"
-                  src="/login/Group(12).svg"
+                  src="/login/afe blue stacked.svg"
                   width={120}
                   height={40}
                 />
