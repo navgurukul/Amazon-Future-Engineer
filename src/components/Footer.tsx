@@ -84,7 +84,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
         <div className="flex justify-center w-full md:w-auto text-body1 font-body1-regular text-darkslategray">
           <button
             onClick={handlePrivacyPolicyClick}
-            className="text-blue-500 underline"
+            className="text-blue-500 underline ml-2"
           >
             {isLanguageEnglish ? "Privacy Policy" : "ಗೌಪ್ಯತೆ ನೀತಿ"}
           </button>
