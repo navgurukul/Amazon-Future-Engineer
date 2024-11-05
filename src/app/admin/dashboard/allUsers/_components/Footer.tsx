@@ -126,40 +126,105 @@ export default function Footer({
     }
   }, [slotId]);
 
-  // Function to handle popup toggle based on id
+  const validateBookingDetails = (): boolean => {
+    console.log("raj",bookings)
+    const requiredFields = [
+      { 
+        field: bookings.name, 
+        name: 'Name',
+        message: 'Please enter the name'
+      },
+      { 
+        field: bookings.email, 
+        name: 'Email',
+        message: 'Please provide a valid email address'
+      },
+      { 
+        field: bookings.phoneNumber, 
+        name: 'Phone Number',
+        message: 'Please enter a contact phone number'
+      },
+      { 
+        field: bookings.schoolName, 
+        name: 'School Name',
+        message: 'Please enterschool name'
+      },
+      // { 
+      //   field: bookings.udiseCode, 
+      //   name: 'UDISE Code',
+      //   message: 'Please enter the school UDISE code'
+      // },
+      { 
+        field: bookings.city, 
+        name: 'City',
+        message: 'Please enter city'
+      },
+      // { 
+      //   field: bookings.pincode, 
+      //   name: 'Pincode',
+      //   message: 'Please enter your area pincode'
+      // },
+      { 
+        field: bookings.grade, 
+        name: 'Grade',
+        message: 'Please select the grade/class'
+      },
+      { 
+        field: bookings.numberOfStudents, 
+        name: 'Number of Students',
+        message: 'Please enter the number of students'
+      },
+      { 
+        field: bookings.slot, 
+        name: 'Slot',
+        message: 'Please select a time slot for the session'
+      }
+    ];
+
+    console.log("raj",requiredFields)
+  
+    const emptyField = requiredFields.find(
+      ({ field }) => !field || field === '-' || field === ''
+    );
+  
+    if (emptyField) {
+      toast({
+        title: "Required Field",
+        description: emptyField.message,
+        duration: 3000,
+        variant: "error"
+      });
+      return false;
+    }
+  
+    return true;
+  };
+
+
+  // Modified handlePopup to include validation
   const handlePopup = (id: string) => {
+    if ((id === 'isUpdate' || id === 'isConfirm') && !validateBookingDetails()) {
+      return;
+    }
+
     setPopup((prevPopup) => {
       switch (id) {
         case "isCancel":
-          return {
-            ...prevPopup,
-            isCancel: !prevPopup.isCancel,
-          };
+          return { ...prevPopup, isCancel: !prevPopup.isCancel };
         case "isReschedule":
-          return {
-            ...prevPopup,
-            isReschedule: !prevPopup.isReschedule,
-          };
+          return { ...prevPopup, isReschedule: !prevPopup.isReschedule };
         case "isNotInterested":
-          return {
-            ...prevPopup,
-            isNotInterested: !prevPopup.isNotInterested,
-          };
+          return { ...prevPopup, isNotInterested: !prevPopup.isNotInterested };
         case "isUpdate":
-          return {
-            ...prevPopup,
-            isUpdate: !prevPopup.isUpdate,
-          };
+          return { ...prevPopup, isUpdate: !prevPopup.isUpdate };
         case "isConfirm":
-          return {
-            ...prevPopup,
-            isConfirm: !prevPopup.isConfirm,
-          };
+          return { ...prevPopup, isConfirm: !prevPopup.isConfirm };
         default:
-          return prevPopup; // If the id doesn't match any case, return the previous state
+          return prevPopup;
       }
     });
   };
+
 
   const handleCancelClick = () => {
     setIsCancelPopupOpen(true);
@@ -213,8 +278,14 @@ export default function Footer({
 
   useEffect(() => {
     if (popup.isUpdate) {
-      hadleIsUpdate()
-      handleNotInterestedStatus("AwaitingInfo")
+      if (status === "BookingConfirmed"){
+        hadleIsUpdate()
+        updateStatus()
+      }
+      else{
+        hadleIsUpdate()
+        handleNotInterestedStatus("AwaitingInfo")
+      }
     }
     if (popup.isNotInterested) {
       handleNotInterestedStatus("NotInterested");
@@ -355,7 +426,7 @@ export default function Footer({
                         variant="proceed"
                         className="h-14 px-8 bg-[#F55C38] text-white rounded-full"
                         aria-label="Go to Dashboard"
-                      // onClick={() => handleStatusChange('Completed', 'Booking')}
+                        // onClick={() => handleStatusChange('Completed', 'Booking')}
                       >
                         Go to Dashboard
                       </Button>
@@ -364,7 +435,7 @@ export default function Footer({
               </div>
             </nav>
           </div>
-          {/* Conditionally rendering the popups */}
+          {/* Popups */}
           {popup.isCancel && (
             <CancelPopup
               name="cancel"
@@ -383,7 +454,6 @@ export default function Footer({
               bookings={bookings}
             />
           )}
-          {/* {popup.isNotInterested &&  <CancelPopup  name="interested" isOpen={popup.isNotInterested} onClose={closeCancelPopup}  bookingSingle={bookingSingle}/>}  */}
         </footer>
       )}
     </>

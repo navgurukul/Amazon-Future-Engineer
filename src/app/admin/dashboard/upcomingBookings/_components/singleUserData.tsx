@@ -79,7 +79,7 @@ const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingPr
             udiseCode: 'U-213012894', // Assuming this is not provided in the API response
             city: foundBooking.slot.venue.city,
             pincode: foundBooking.slot.venue.pin_code,
-            grade: '-', // Assuming this is not provided in the API response
+            grade: foundBooking.students_grade || "-", // Assuming this is not provided in the API response
             numberOfStudents: foundBooking.booking_batch_size,
             actualNumberOfStudents: foundBooking.visited_batch_size,
             slot: `${formatDate(foundBooking.booking_for)} | ${foundBooking.start_time} to ${foundBooking.end_time}`,

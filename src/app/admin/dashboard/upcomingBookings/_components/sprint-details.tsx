@@ -104,7 +104,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     schoolName: bookingDetails?.schoolName,
     udiseCode: bookingDetails?.udiseCode,
     name: bookingDetails?.name,
-    // email: bookingDetails?.email,
+    email: bookingDetails?.email,
   });
 
 
@@ -120,13 +120,14 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
       editedDetails.grade &&
       editedDetails.schoolName &&
       editedDetails.udiseCode &&
-      editedDetails.name 
-      // && editedDetails.email
+      editedDetails.name && 
+      editedDetails.email
     );
   };
 
   // Use effect to enable/disable button based on field completion
   useEffect(() => {
+    // console.log( "tamanna", bookingProp,bookingDetails)
     const areAllFieldsFilled = checkAllFieldsFilled();
     setIsButtonDisabled(!areAllFieldsFilled); // Disable if not all fields are filled
   }, [editedDetails]);
@@ -168,6 +169,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   const handleSaveChanges = async () => { 
     setIsSaving(true);
     try {
+      // console.log( "raj",editedDetails)
       const bookingData = {
         user_id: Number(bookingProp.user.id),
         slot_id: Number( bookingProp.slot_id),
@@ -177,12 +179,12 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         visiting_time: new Date().toISOString(),
         school_name: String(editedDetails.schoolName),
         udise: editedDetails.udiseCode,
-        email: bookingDetails.email,
+        email: String(editedDetails.email),
         address: bookingDetails.city,
         village: bookingDetails.city,
         state: "Karnataka",
         district: bookingDetails.city,
-        pin_code: parseInt(bookingDetails.pincode, 10),
+        pin_code: Number(editedDetails.pincode),
       };
       await updateBookingDetails(bookingProp.id, bookingData);
       toast({
@@ -247,7 +249,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         console.error("Error adding student feedback:", error);
       }
     },
-    [bookingProp.slot_id, bookingProp.program_id, fetchFeedbacks]
+    [bookingProp.user.id, bookingProp.slot_id, bookingProp.program_id, fetchFeedbacks]
   );
 
 
@@ -255,7 +257,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   /// Function to handle the "Yes" confirmation
   const handleConfirmYes = async () => {
     try {
-      await updateBookingStatus(Number(bookingProp.user.id), "Completed", "Completed","Completed");
+      await updateBookingStatus(Number(bookingProp.id), "Completed", "Completed","Completed");
       setIsConfirmationOpen(false);
       setIsSubmitPopupOpen(true);
       // Show success toast
@@ -278,6 +280,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   };
 
   const handleSubmitAndCompleteSprint = () => {
+
     setIsConfirmationOpen(true);
     toast({
       title: "Complete Sprint",
@@ -374,7 +377,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                     "schoolName",
                     "udiseCode",
                     "name",
-                    // "email"
+                    "email"
                   ].includes(key);
 
                   return (
@@ -397,7 +400,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                         value={
                           isEditable
                             ? editedDetails[key as keyof typeof editedDetails]
-                            : value?.toString() ?? ""
+                            : value?.toString() ?? "-"
                         }
                         onChange={
                           isEditable

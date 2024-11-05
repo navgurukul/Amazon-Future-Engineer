@@ -25,6 +25,12 @@ interface BookingDetails {
   slot: string;
 }
 interface Booking {
+  students_grade: string;
+  udise: string;
+  program: any;
+  school_name: string | any
+  pin_code: number;
+  school: string;
   user_id(user_id: any): unknown;
   slot_id(slot_id: any): unknown;
   id: number;
@@ -113,32 +119,33 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     status === "Cancelled" ||
     status === "NotInterested";
 
-  useEffect(() => {
-    if (bookingProp.status !== "BookingConfirmed") {
-      const dateCondition = !bookingProp.booking_for;
-      setBookingDetails({
-        name: bookingProp.user.name || "-",
-        email: bookingProp.user.email || "-",
-        phoneNumber: bookingProp.user.phone || "-",
-        dateofRequest: formatDate(bookingProp.created_at) || "-",
-        programName: "-",
-        schoolName: bookingProp.user.school_id || "-",
-        udiseCode: "-",
-        city: "Bengaluru",
-        pincode: "-",
-        grade: "-",
-        numberOfStudents: bookingProp.booking_batch_size || "-",
-        slot: !dateCondition
-          ? `${formatDate(bookingProp.booking_for)} | ${
-              bookingProp.start_time
-            } to ${bookingProp.end_time}`
-          : "",
-      });
-    }
+    useEffect(() => {
+      if (bookingProp.status !== "BookingConfirmed") {
+        const dateCondition = !bookingProp.booking_for;
+        // console.log("data-show",bookingProp)
+        setBookingDetails({
+          name: bookingProp.user.name || "-",
+          email: bookingProp.user.email || "",
+          phoneNumber: bookingProp.user.phone || "-",
+          dateofRequest: formatDate(bookingProp.created_at) || "-",
+          programName: bookingProp.program.title || "-",
+          schoolName: bookingProp?.school_name || bookingProp?.user?.school_id || bookingProp?.school || "-",
+          udiseCode:bookingProp?.udise ||  "-",
+          city: "Bengaluru",
+          pincode:bookingProp?.pin_code || 0,
+          grade: bookingProp?.students_grade || "-" ,
+          numberOfStudents: bookingProp.booking_batch_size || "-",
+          slot: !dateCondition
+            ? `${formatDate(bookingProp.booking_for)} | ${
+                bookingProp.start_time
+              } to ${bookingProp.end_time}`
+            : "",
+        });
+      }
     const loadBookingDetails = async () => {
       if (bookingProp.id) {
+        // console.log("data-show",bookingProp)
         const bookings = await fetchBookings();
-        
         const  finalBooking = bookings.find(
           (b: Booking) => b.id === bookingProp.id
         );
@@ -148,38 +155,17 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
         if (foundBooking) {
           setBookingDetails({
             name: foundBooking.user.name || "-",
-            email: foundBooking.user.email,
+            email: bookingProp.user.email ||foundBooking.user.email,
             phoneNumber: foundBooking.user.phone,
             dateofRequest: formatDate(foundBooking.created_at),
             programName: "-",
-            schoolName: foundBooking.user.school_id || "-",
-            udiseCode: "-",
+            schoolName: bookingProp?.school_name || bookingProp?.user?.school_id || bookingProp?.school || "-",
+            udiseCode:bookingProp?.udise ||  "-",
             city: foundBooking?.slot?.venue?.city || foundBooking?.venue?.city || "",
-            pincode: foundBooking?.slot?.venue?.pin_code || foundBooking?.venue?.pin_code || "",
-            grade: "-",
+            pincode: bookingProp?.pin_code || foundBooking?.slot?.venue?.pin_code || foundBooking?.venue?.pin_code || "",
+            grade: bookingProp?.students_grade || "-"            ,
             numberOfStudents: foundBooking.booking_batch_size,
             slot: `${formatDate(foundBooking.booking_for)} | ${
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              
               foundBooking.start_time
             } to ${foundBooking.end_time}`,
           });
@@ -228,7 +214,6 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     try {
       const slotData = await getSlotDetailsSlotId(slotId);
       setSlotData(slotData.data[0]); // Assuming data is an array, get the first element
-      console.log(slotData.data[0]);
     } catch (error) {
       console.error("Failed to fetch slot details:", error);
     }
@@ -307,6 +292,9 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                                   </option>
                                   {key === "programName" && (
                                     <>
+                                     <option value="">
+                                        Select Program
+                                      </option>
                                       <option value="Nano Sprint">
                                         Nano Sprint
                                       </option>
@@ -320,6 +308,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                                   )}
                                   {key === "grade" && (
                                     <>
+                                    <option value="">Select Class</option>
                                       <option value="Class 4th">
                                         Class 4th
                                       </option>
