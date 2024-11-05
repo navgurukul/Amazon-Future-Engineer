@@ -124,19 +124,19 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
         const dateCondition = !bookingProp.booking_for;
         // console.log("data-show",bookingProp)
         setBookingDetails({
-          name: bookingProp.user.name || "-",
-          email: bookingProp.user.email || "",
-          phoneNumber: bookingProp.user.phone || "-",
+          name: bookingProp?.user?.name || "-",
+          email: bookingProp?.user?.email || "",
+          phoneNumber: bookingProp?.user?.phone || "-",
           dateofRequest: formatDate(bookingProp.created_at) || "-",
-          programName: bookingProp.program.title || "-",
+          programName: "-",
           schoolName: bookingProp?.school_name || bookingProp?.user?.school_id || bookingProp?.school || "-",
           udiseCode:bookingProp?.udise ||  "-",
           city: "Bengaluru",
           pincode:bookingProp?.pin_code || 0,
           grade: bookingProp?.students_grade || "-" ,
-          numberOfStudents: bookingProp.booking_batch_size || "-",
+          numberOfStudents: bookingProp?.booking_batch_size || "-",
           slot: !dateCondition
-            ? `${formatDate(bookingProp.booking_for)} | ${
+            ? `${formatDate(bookingProp?.booking_for)} | ${
                 bookingProp.start_time
               } to ${bookingProp.end_time}`
             : "",

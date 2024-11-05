@@ -70,19 +70,19 @@ const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingPr
         const foundBooking = bookings.find((b: Booking) => b.id === bookingProp.id);
         if (foundBooking) {
           setBookingDetails({
-            name: foundBooking.user.name,
-            email: foundBooking.user.email,
-            phoneNumber: foundBooking.user.phone,
-            dateOfRequest: formatDate(foundBooking.created_at),
-            programName: foundBooking.slot.program.title,
-            schoolName: foundBooking.user.school_id || 'N/A',
-            udiseCode: 'U-213012894', // Assuming this is not provided in the API response
-            city: foundBooking.slot.venue.city,
-            pincode: foundBooking.slot.venue.pin_code,
-            grade: foundBooking.students_grade || "-", // Assuming this is not provided in the API response
-            numberOfStudents: foundBooking.booking_batch_size,
-            actualNumberOfStudents: foundBooking.visited_batch_size,
-            slot: `${formatDate(foundBooking.booking_for)} | ${foundBooking.start_time} to ${foundBooking.end_time}`,
+            name: foundBooking?.user?.name || "-",
+            email: foundBooking?.user?.school?.email || "-",
+            phoneNumber: foundBooking?.user?.phone,
+            dateOfRequest: formatDate(foundBooking?.created_at),
+            programName: foundBooking?.slot?.program?.title,
+            schoolName: foundBooking?.user?.school?.school_name || 'N/A',
+            udiseCode: foundBooking?.user?.school?.udise || "-", // Assuming this is not provided in the API response
+            city: foundBooking?.slot?.venue?.city,
+            pincode: foundBooking?.user?.school?.pin_code,
+            grade: foundBooking?.students_grade || "-", // Assuming this is not provided in the API response
+            numberOfStudents: foundBooking?.booking_batch_size,
+            actualNumberOfStudents: foundBooking?.visited_batch_size,
+            slot: `${formatDate(foundBooking?.booking_for)} | ${foundBooking?.start_time} to ${foundBooking?.end_time}`,
 
           });
         }
