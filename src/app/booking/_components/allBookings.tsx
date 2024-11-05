@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getSlots } from "@/utils/api";
 import ErrorBookingPopup from "./ErrorBookingPopup";
+import { useAppState } from "@/context/AppContext";
 
 // Define the Event interface
 interface Event {
@@ -17,6 +18,7 @@ interface Event {
 
 // Custom hook to handle fetching slots
 export const useAllBookings = () => {
+  const { isLanguageEnglish } = useAppState();
   const [events, setEvents] = useState<Event[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -61,7 +63,11 @@ export const useAllBookings = () => {
 
         setEvents(mappedSlots); // Set the mapped slots to state
       } catch (error) {
-        setError("We are experiencing a very high demand right now. Please try again in a few minutes.");
+        // setError("We are experiencing a very high demand right now. Please try again in a few minutes.");
+        setError(isLanguageEnglish 
+          ? "We are experiencing a very high demand right now. Please try again in a few minutes." 
+          : "ನಾವು ಈಗ ಅತ್ಯಂತ ಹೆಚ್ಚಿನ ಬೇಡಿಕೆಯನ್ನು ಅನುಭವಿಸುತ್ತಿದ್ದೇವೆ. ದಯವಿಟ್ಟು ಕೆಲವು ನಿಮಿಷಗಳಲ್ಲಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
+        );
         console.error("Error fetching slots:", error);
       }
     };

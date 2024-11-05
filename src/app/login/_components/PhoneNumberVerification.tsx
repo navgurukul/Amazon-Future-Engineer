@@ -22,17 +22,35 @@ const PhoneNumberVerification: React.FC = () => {
     const phonePattern = /^[6-9]\d{9}$/;
 
     if (!phoneNumber) {
-      setErrorMessage("Please enter a phone number to proceed");
+      // setErrorMessage("Please enter a phone number to proceed");
+      setErrorMessage(
+        isLanguageEnglish
+          ? "Please enter a phone number to proceed"
+          : "ದಯವಿಟ್ಟು ಮುಂದುವರಿಯಲು ದೂರವಾಣಿ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ"
+      );
+
       return;
     }
 
     if (phoneNumber.length !== 10) {
-      setErrorMessage("Please enter a 10 digit phone number");
+      // setErrorMessage("Please enter a 10 digit phone number");
+
+      setErrorMessage(
+        isLanguageEnglish
+          ? "Please enter a 10 digit phone number"
+          : "ದಯವಿಟ್ಟು 10 ಅಂಕೆಗಳ ದೂರವಾಣಿ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ"
+      );
+
       return;
     }
 
     if (!phonePattern.test(phoneNumber)) {
-      setErrorMessage("Please enter a phone number starting with 6 or above");
+      // setErrorMessage("Please enter a phone number starting with 6 or above");
+      setErrorMessage(
+        isLanguageEnglish 
+          ? "Please enter a phone number starting with 6 or above" 
+          : "ದಯವಿಟ್ಟು 6 ಅಥವಾ ಅದಕ್ಕಿಂತ ಮೇಲಿನ ಸಂಖ್ಯೆಯಿಂದ ಪ್ರಾರಂಭವಾಗುವ ದೂರವಾಣಿ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ"
+      );
       return;
     }
 

@@ -180,9 +180,12 @@ const Header: NextPage<HeaderProps> = ({
     };
   }, []);
 
-
+  const whatsappMessage = encodeURIComponent(
+    isLanguageEnglish 
+      ? "Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!" 
+      : "ನಮಸ್ಕಾರ! ನಾನು ಶಿಕ್ಷಕ/ಶಿಕ್ಷಕಿ. AFE ಮೇಕರ್‌ಸ್ಪೇಸ್ ಮತ್ತು ನನ್ನ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಸೆಷನ್‌ ಬುಕ್ ಮಾಡಲು ಹೆಚ್ಚಿನ ಮಾಹಿತಿ ಪಡೆಯಲು ಆಸಕ್ತಿ ಹೊಂದಿದ್ದೇನೆ. ದಯವಿಟ್ಟು ಮುಂದಿನ ಹಂತಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಿ. ಧನ್ಯವಾದಗಳು!"
+  );
   // const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
-  const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
   const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
 
 

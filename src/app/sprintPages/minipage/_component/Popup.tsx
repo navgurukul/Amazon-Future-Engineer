@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import SmartImage from "@/components/SmartImage";
+import { useAppState } from "@/context/AppContext";
+
 
 
 interface PopupProps {
@@ -13,6 +15,7 @@ const Popup: React.FC<PopupProps> = ({
   handleOfflineBookingClose,
   handleClose,
 }) => {
+  const { isLanguageEnglish } = useAppState(); // Access language state
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
@@ -38,8 +41,13 @@ const Popup: React.FC<PopupProps> = ({
         <div className="w-full md:w-1/3 bg-white shadow-lg rounded-lg p-6 flex flex-col items-start gap-4 text-left text-gray-500 font-nunito-sans">
           {/* Title and Close Button */}
           <div className="flex items-center justify-between text-lg font-amazon-ember w-full">
-            <div className="font-extrabold">Helpdesk</div>
-            <SmartImage 
+            <div className="font-extrabold">
+              {/* Helpdesk */}
+              {isLanguageEnglish
+                ? "Helpdesk"
+                : "ಸಹಾಯದesk"}
+            </div>
+            <SmartImage
               className="w-5 h-5 cursor-pointer"
               alt="close"
               src="/homepage/close.svg"
@@ -49,20 +57,34 @@ const Popup: React.FC<PopupProps> = ({
 
           {/* Description Text */}
           <div className="leading-6 font-medium text-sm">
-            You can talk to our representative for sprint information, booking
-            sprints, or any general queries.
+            {/* You can talk to our representative for sprint information, booking
+            sprints, or any general queries. */}
+            {isLanguageEnglish
+              ? "You can talk to our representative for sprint information, booking sprints, or any general queries."
+              : "ನೀವು ಸ್ಪ್ರಿಂಟ್ ಮಾಹಿತಿಗಾಗಿ, ಸ್ಪ್ರಿಂಟ್ಸ್ ಬುಕ್ ಮಾಡಲು ಅಥವಾ ಯಾವುದೇ ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳಿಗೆ ನಮ್ಮ ಪ್ರತಿನಿಧಿಯೊಂದಿಗೆ ಮಾತನಾಡಬಹುದು."}
+
           </div>
 
           {/* Response Time */}
           <div className="leading-6 text-sm">
-            <b>Response Time:</b>{" "}
-            <span className="font-medium">Within 24 hours</span>
+            {/* <b>Response Time:</b>{" "} */}
+            <b>{isLanguageEnglish ? "Response Time:" : "ಪ್ರತಿಕ್ರಿಯಾ ಸಮಯ:"}</b>{" "}
+            <span className="font-medium">
+              {/* Within 24 hours */}
+              {isLanguageEnglish ? "Within 24 hours" : "24 ಗಂಟೆಗಳೊಳಗೆ"}
+            </span>
           </div>
 
           {/* Operational Time */}
           <div className="leading-6 text-sm">
-            <b>Operational Time:</b>{" "}
-            <span className="font-medium">Mon to Fri from 9 AM to 6 PM</span>
+            {/* <b>Operational Time:</b>{" "} */}
+            <b>{isLanguageEnglish ? "Operational Time:" : "ಕಾರ್ಯನಿರ್ವಹಣಾ ಸಮಯ:"}</b>{" "}
+            <span className="font-medium">
+              {/* Mon to Fri from 9 AM to 6 PM */}
+              {isLanguageEnglish
+                ? "Mon to Fri from 9 AM to 6 PM"
+                : "ಸೋಮವಾರದಿಂದ ಶುಕ್ರವಾರ 9 AM ರಿಂದ 6 PM"}
+            </span>
           </div>
 
           {/* Form Starts Here */}
@@ -70,7 +92,9 @@ const Popup: React.FC<PopupProps> = ({
             {/* Name Input */}
             <div className="flex flex-col gap-1 w-full">
               <label className="font-medium text-sm" htmlFor="name">
-                Name <span className="text-[#f55c38]">*</span>
+                {/* Name  */}
+                {isLanguageEnglish ? "Name" : "ಹೆಸರು"}
+                <span className="text-[#f55c38]">*</span>
               </label>
               <input
                 id="name"
@@ -86,7 +110,9 @@ const Popup: React.FC<PopupProps> = ({
             {/* Phone Number Input */}
             <div className="flex flex-col gap-1 w-full">
               <label className="font-medium text-sm" htmlFor="phone">
-                Phone Number <span className="text-[#f55c38]">*</span>
+                {/* Phone Number  */}
+                {isLanguageEnglish ? "Phone Number" : "ಫೋನ್ ಸಂಖ್ಯೆ"}
+                <span className="text-[#f55c38]">*</span>
               </label>
               <input
                 id="phone"
@@ -105,7 +131,8 @@ const Popup: React.FC<PopupProps> = ({
                 type="submit"
                 className="rounded-full bg-[#f55c38] h-14 flex items-center justify-center px-8 cursor-pointer text-white font-amazon-ember"
               >
-                Request a Callback
+                {/* Request a Callback */}
+                {isLanguageEnglish ? "Request a Callback" : "ಕಾಲ್‌ಬ್ಯಾಕ್ ಕೇಳಿ"}
               </button>
             </div>
           </form>

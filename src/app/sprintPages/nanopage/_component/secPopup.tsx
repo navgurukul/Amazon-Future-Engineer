@@ -13,8 +13,13 @@ const SecondPopup: NextPage = () => {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(true);
 
-    const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
-  const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
+    // const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+    const whatsappMessage = encodeURIComponent(
+        isLanguageEnglish
+            ? "Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!"
+            : "ನಮಸ್ಕಾರ! ನಾನು ಶಿಕ್ಷಕ/ಶಿಕ್ಷಕಿ. AFE ಮೇಕರ್‌ಸ್ಪೇಸ್ ಮತ್ತು ನನ್ನ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಸೆಷನ್‌ ಬುಕ್ ಮಾಡಲು ಹೆಚ್ಚಿನ ಮಾಹಿತಿ ಪಡೆಯಲು ಆಸಕ್ತಿ ಹೊಂದಿದ್ದೇನೆ. ದಯವಿಟ್ಟು ಮುಂದಿನ ಹಂತಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಿ. ಧನ್ಯವಾದಗಳು!"
+    );
+    const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
 
     const handleGoToSprints = () => {
         router.push("/sprintPages/nanopage");
@@ -60,7 +65,7 @@ const SecondPopup: NextPage = () => {
                         <div className="flex items-center justify-between text-lg font-amazon-ember w-full">
                             <div className="font-extrabold text-[#3a3a3a] leading-9 text-xl md:text-2xl lg:text-3xl md:leading-10 lg:leading-[40px]">
                                 {/* Call Us */}
-                                {isLanguageEnglish?"Request a Callback":"ಕಾಲ್‌ಬ್ಯಾಕ್‌ಗೆ ವಿನಂತಿಸಿ"}
+                                {isLanguageEnglish ? "Request a Callback" : "ಕಾಲ್‌ಬ್ಯಾಕ್‌ಗೆ ವಿನಂತಿಸಿ"}
                             </div>
 
                             <SmartImage
@@ -111,7 +116,7 @@ const SecondPopup: NextPage = () => {
                         className="h-14 px-8 py-2 rounded-full border border-[#f55c38] flex justify-center items-center mt-8 gap-8 w-full md:w-auto"
                         onClick={handleGoToSprints}
                     >
-                        <span className="text-[#f55c38] text-lg font-medium">{isLanguageEnglish?"Return to Nano Sprints":"ನ್ಯಾನೋ ಸ್ಪ್ರಿಂಟ್‌ಗಳಿಗೆ ಹಿಂತಿರುಗಿ"}</span>
+                        <span className="text-[#f55c38] text-lg font-medium">{isLanguageEnglish ? "Return to Nano Sprints" : "ನ್ಯಾನೋ ಸ್ಪ್ರಿಂಟ್‌ಗಳಿಗೆ ಹಿಂತಿರುಗಿ"}</span>
                     </button>
 
                 </div>

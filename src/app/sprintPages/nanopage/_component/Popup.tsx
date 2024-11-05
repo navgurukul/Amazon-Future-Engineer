@@ -205,10 +205,12 @@ const Popup: React.FC<PopupProps> = ({
 
     // Validate name
     if (!name.trim()) {
-      setNameError("Name is required");
+      // setNameError("Name is required");
+      setNameError(isLanguageEnglish ? "Name is required" : "ಹೆಸರು ಅಗತ್ಯವಾಗಿದೆ");
       return;
     } else if (!namePattern.test(name.trim())) {
-      setNameError("Name should only contain letters");
+      // setNameError("Name should only contain letters");
+      setNameError(isLanguageEnglish ? "Name should only contain letters" : "ಹೆಸರು ಮಾತ್ರ ಅಕ್ಷರಗಳನ್ನು ಒಳಗೊಂಡಿರಬೇಕು");
       return;
     }
 

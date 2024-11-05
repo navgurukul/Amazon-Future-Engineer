@@ -1,8 +1,12 @@
 import { FC } from 'react'
 import SmartImage from '@/components/SmartImage';
 import React from 'react';
+import { useAppState } from "@/context/AppContext";
 
-const SecondPopup: FC= () => {
+
+const SecondPopup: FC = () => {
+  const { isLanguageEnglish } = useAppState(); // Access language state
+
   return (
     <>
       {/* Backdrop Overlay */}
@@ -15,17 +19,28 @@ const SecondPopup: FC= () => {
         <div className="flex flex-col items-center justify-start text-lg text-gray-full font-body-body-reg">
           <div className="w-full flex flex-col items-center justify-start gap-2">
             <SmartImage className="w-60 relative max-h-full" alt="Line Decoration" src="/nanopage/Rectangle 2933.svg"
-            width={240}  
-            height={60} />
+              width={240}
+              height={60} />
             <div className="relative leading-[170%] font-medium text-center">
-            Thanks for requesting a callback. We will reach out to you shortly to confirm your booking plans.
-          </div>
-          <div className="self-stretch bg-gainsboro h-[5px]"/>
+              {/* Thanks for requesting a callback. We will reach out to you shortly to confirm your booking plans. */}
+              {isLanguageEnglish
+                ? "Thanks for requesting a callback. We will reach out to you shortly to confirm your booking plans."
+                : "ಕರೆ ಹಾಕಲು ಧನ್ಯವಾದಗಳು. ನಿಮ್ಮ ಬುಕ್ಕಿಂಗ್ ಯೋಜನೆಗಳನ್ನು ಖಚಿತಪಡಿಸಲು ಶೀಘ್ರದಲ್ಲಿ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುತ್ತೇವೆ."}
+
+            </div>
+            <div className="self-stretch bg-gainsboro h-[5px]" />
           </div>
 
           <div className="self-stretch leading-[170%] font-medium font-webtypestyles-body1 text-center text-text-primary mt-4">
-            <p className="m-0">{`Redirecting to Sprint Information page in 5 seconds or `}</p>
-            <p className="m-0 text-tomato">Go to Sprint Information manually</p>
+            {/* <p className="m-0">{`Redirecting to Sprint Information page in 5 seconds or `}</p> */}
+            <p className="m-0">{isLanguageEnglish
+              ? `Redirecting to Sprint Information page in 5 seconds or `
+              : `5 ಸೆಕೆಂಡುಗಳಲ್ಲಿ ಸ್ಪ್ರಿಂಟ್ ಮಾಹಿತಿ ಪುಟಕ್ಕೆ ಮಾರ್ಗದರ್ಶನ ಮಾಡಲಾಗುತ್ತಿದೆ ಅಥವಾ `}</p>
+
+            {/* <p className="m-0 text-tomato">Go to Sprint Information manually</p> */}
+            <p className="m-0 text-tomato">{isLanguageEnglish
+              ? "Go to Sprint Information manually"
+              : "ಮಾನ್ಯುವಲ್ವಾಗಿ ಸ್ಪ್ರಿಂಟ್ ಮಾಹಿತಿ ಪುಟಕ್ಕೆ ಹೋಗಿ"}</p>
           </div>
         </div>
       </div>

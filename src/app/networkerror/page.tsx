@@ -4,12 +4,15 @@ import { NextPage } from "next";
 import SmartImage from "@/components/SmartImage";;
 import Header from "@/components/Header";
 import React, { useState } from "react";
+import { useAppState } from "@/context/AppContext";
 
 
 const Page: NextPage = () => {
     const [offlinePopup, setOfflinePopup] = useState<boolean>(false);
     const [openSecondPopup, setOpenSecondPopup] = useState<boolean>(false);
     const [bookingPopup, setBookingPopup] = useState<boolean>(false)
+    const { isLanguageEnglish } = useAppState();
+
 
 
     const handleBooking: () => void = () => {
@@ -63,13 +66,18 @@ const Page: NextPage = () => {
                         />
                     </div>
                     <div className="text-center text-[#3a3a3a] text-bodyM md:text-body1 font-body1-regular gap-6 md:gap-8 leading-[170%] max-w-[328px] md:max-w-[592px] ">
-                        Unable to connect to the network. Please check your internet connection and try again.
+                        {/* Unable to connect to the network. Please check your internet connection and try again. */}
+                        {isLanguageEnglish ? "Unable to connect to the network. Please check your internet connection and try again." : "ನಿರಂತರ ಸಂಪರ್ಕಕ್ಕೆ ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ಇಂಟರ್‌ನೆಟ್ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ"}
+
                     </div>
                     <button
                         className="w-full md:w-auto h-14 px-8 py-2 rounded-full border border-[#f55c38] text-[#f55c38] text-bodyM md:text-button1 font-button1-bold leading-[170%] cursor-pointer"
                         onClick={() => window.location.reload()}
                     >
-                        Refresh Page
+                        {/* Refresh Page */}
+                        {isLanguageEnglish
+                            ? "Refresh Page"
+                            : "ಪುಟವನ್ನು ನವೀಕರಿಸಿ"}
                     </button>
                 </div>
             </div>
