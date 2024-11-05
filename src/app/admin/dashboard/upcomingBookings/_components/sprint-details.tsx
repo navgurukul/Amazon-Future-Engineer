@@ -104,7 +104,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     schoolName: bookingDetails?.schoolName,
     udiseCode: bookingDetails?.udiseCode,
     name: bookingDetails?.name,
-    // email: bookingDetails?.email,
+    email: bookingDetails?.email,
   });
 
 
@@ -120,8 +120,8 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
       editedDetails.grade &&
       editedDetails.schoolName &&
       editedDetails.udiseCode &&
-      editedDetails.name 
-      // && editedDetails.email
+      editedDetails.name && 
+      editedDetails.email
     );
   };
 
@@ -179,7 +179,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         visiting_time: new Date().toISOString(),
         school_name: String(editedDetails.schoolName),
         udise: editedDetails.udiseCode,
-        email: String(bookingDetails.email),
+        email: String(editedDetails.email),
         address: bookingDetails.city,
         village: bookingDetails.city,
         state: "Karnataka",
@@ -249,7 +249,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         console.error("Error adding student feedback:", error);
       }
     },
-    [bookingProp.slot_id, bookingProp.program_id, fetchFeedbacks]
+    [bookingProp.user.id, bookingProp.slot_id, bookingProp.program_id, fetchFeedbacks]
   );
 
 
@@ -376,7 +376,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                     "schoolName",
                     "udiseCode",
                     "name",
-                    // "email"
+                    "email"
                   ].includes(key);
 
                   return (

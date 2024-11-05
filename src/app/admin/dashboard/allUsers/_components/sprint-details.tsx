@@ -25,6 +25,9 @@ interface BookingDetails {
   slot: string;
 }
 interface Booking {
+  students_grade: string;
+  udise: string;
+  program: any;
   school_name: string | any
   pin_code: number;
   school: string;
@@ -125,12 +128,12 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
           email: bookingProp.user.email || "",
           phoneNumber: bookingProp.user.phone || "-",
           dateofRequest: formatDate(bookingProp.created_at) || "-",
-          programName: "-",
+          programName: bookingProp.program.title || "-",
           schoolName: bookingProp?.school_name || bookingProp?.user?.school_id || bookingProp?.school || "-",
-          udiseCode: "-",
+          udiseCode:bookingProp?.udise ||  "-",
           city: "Bengaluru",
           pincode:bookingProp?.pin_code || 0,
-          grade: "-",
+          grade: bookingProp?.students_grade || "-" ,
           numberOfStudents: bookingProp.booking_batch_size || "-",
           slot: !dateCondition
             ? `${formatDate(bookingProp.booking_for)} | ${
@@ -141,8 +144,8 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
       }
     const loadBookingDetails = async () => {
       if (bookingProp.id) {
+        // console.log("data-show",bookingProp)
         const bookings = await fetchBookings();
-        
         const  finalBooking = bookings.find(
           (b: Booking) => b.id === bookingProp.id
         );
@@ -152,15 +155,15 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
         if (foundBooking) {
           setBookingDetails({
             name: foundBooking.user.name || "-",
-            email: foundBooking.user.email,
+            email: bookingProp.user.email ||foundBooking.user.email,
             phoneNumber: foundBooking.user.phone,
             dateofRequest: formatDate(foundBooking.created_at),
             programName: "-",
-            schoolName: foundBooking?.school_name || foundBooking?.user?.school_id || foundBooking?.school || "-",
-            udiseCode: "-",
+            schoolName: bookingProp?.school_name || bookingProp?.user?.school_id || bookingProp?.school || "-",
+            udiseCode:bookingProp?.udise ||  "-",
             city: foundBooking?.slot?.venue?.city || foundBooking?.venue?.city || "",
-            pincode: foundBooking?.pin_code || foundBooking?.slot?.venue?.pin_code || foundBooking?.venue?.pin_code || "",
-            grade: "-",
+            pincode: bookingProp?.pin_code || foundBooking?.slot?.venue?.pin_code || foundBooking?.venue?.pin_code || "",
+            grade: bookingProp?.students_grade || "-"            ,
             numberOfStudents: foundBooking.booking_batch_size,
             slot: `${formatDate(foundBooking.booking_for)} | ${
               foundBooking.start_time
@@ -289,6 +292,9 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                                   </option>
                                   {key === "programName" && (
                                     <>
+                                     <option value="">
+                                        Select Program
+                                      </option>
                                       <option value="Nano Sprint">
                                         Nano Sprint
                                       </option>
@@ -302,6 +308,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                                   )}
                                   {key === "grade" && (
                                     <>
+                                    <option value="">Select Class</option>
                                       <option value="Class 4th">
                                         Class 4th
                                       </option>

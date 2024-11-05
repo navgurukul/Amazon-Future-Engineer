@@ -1,4 +1,5 @@
 import { SprintDetailsComponent } from "./sprint-details";
+import SmartImage from "@/components/SmartImage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -19,11 +20,9 @@ import {
 import { getAllUsersAndBookings } from "@/utils/api";
 import { format } from "date-fns";
 import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
-import SmartImage from "@/components/SmartImage";;
 import React, { useMemo, useState, useEffect } from "react";
 
 const Dashboard: React.FC = () => {
-
   interface User {
     bookings: any;
     flatMap(arg0: (entry: any) => any): any;
@@ -113,10 +112,9 @@ const Dashboard: React.FC = () => {
         setUsers(result.data || []);
       } catch (error: any) {
         console.error("Failed to fetch bookings", error);
-        if (error.response.data.status === "error"
-        ) {
+        if (error.response.data.status === "error") {
           setIsLoading(false);
-          return error.response.data.message
+          return error.response.data.message;
         }
         setIsLoading(false);
       }
@@ -137,25 +135,26 @@ const Dashboard: React.FC = () => {
       const allBookings: FilteredBooking[] = users.flatMap((group) => {
         return group.flatMap((entry) => {
           if ("school" in entry && entry.school !== null) {
+            // console.log("school", entry);
             return entry.bookings.map((booking: any) => ({
               user: {
                 name: entry.name || "N/A",
                 phone: entry.phone || "N/A",
                 email: entry.school.email || "N/A",
               },
-              ...booking,  // Spread booking properties here
-          
+              ...booking, // Spread booking properties here
+
               // Pull data from the school object
               school_name: entry.school.school_name || "N/A",
+              udise: entry.school.udise || "N/A",
+              email: entry.school.email || "N/A",
               address: entry.school.address || "N/A",
-              state: entry.school.state || "N/A",
-              city: entry.school.district || "N/A",
-              pin_code: entry.school.pin_code || "N/A",
               village: entry.school.village || "N/A",
+              state: entry.school.state || "N/A",
+              district: entry.school.district || "N/A",
+              pin_code: entry.school.pin_code || "N/A",
             }));
-          }
-          
-          else if ("bookings" in entry) {
+          } else if ("bookings" in entry) {
             // Condition 1: If bookings are available
             return entry.bookings.map((booking: any) => ({
               user: {
@@ -163,7 +162,6 @@ const Dashboard: React.FC = () => {
                 phone: entry.phone || "N/A",
               },
               ...booking,
-
             }));
           } else if ("query" in entry) {
             // Condition 2: If no booking but query exists
@@ -204,7 +202,7 @@ const Dashboard: React.FC = () => {
               },
               id: 0, // Set to 0 or an appropriate value
               user_id: entry.id || entry?.user?.id,
-              program_id:entry?.waitingList?.program_id ||  0,// Set to an appropriate value
+              program_id: entry?.waitingList?.program_id || 0, // Set to an appropriate value
               venue_id: entry?.waitingList?.venue_id || 0, // Set to an appropriate value
               booking_batch_size: 0,
               visited_batch_size: null,
@@ -215,16 +213,18 @@ const Dashboard: React.FC = () => {
               query_id: null,
               update_count: 0,
               booking_for: "", // Set an appropriate value or format if needed
-              status: entry?.waitingList?.status || entry?.status || entry?.user?.status, // Set appropriate status
+              status:
+                entry?.waitingList?.status ||
+                entry?.status ||
+                entry?.user?.status, // Set appropriate status
               booked_by: "",
               start_time: "",
               end_time: "",
               created_at: new Date().toISOString(),
               updated_at: new Date().toISOString(),
-              city:entry.waitingList?.city || "",
-              school:entry?.waitingList?.school_name || "",
-              pin_code:entry?.waitingList?.pin_code || 0
-
+              city: entry.waitingList?.city || "",
+              school: entry?.waitingList?.school_name || "",
+              pin_code: entry?.waitingList?.pin_code || 0,
             };
           }
         });
@@ -238,7 +238,6 @@ const Dashboard: React.FC = () => {
         }
         // Process the user's bookings
         return user?.bookings.map((booking: any) => {
-
           const processedBooking = {
             ...booking,
             user: {
@@ -252,8 +251,6 @@ const Dashboard: React.FC = () => {
       });
     }
   }, [users]);
-
-
 
   const singleObjectBookings = allBookings.map((booking) => {
     return booking;
@@ -272,13 +269,19 @@ const Dashboard: React.FC = () => {
       (booking.venue &&
         booking.venue.city.toLowerCase().includes(normalizedSearchQuery)) ||
       (booking?.program &&
-        booking?.program?.title.toLowerCase().includes(normalizedSearchQuery)) ||
-      `${booking?.booking?.booking_for || booking?.booking_for} | ${booking?.booking?.start_time || booking?.start_time} to ${booking?.booking?.end_time || booking?.end_time}`
+        booking?.program?.title
+          .toLowerCase()
+          .includes(normalizedSearchQuery)) ||
+      `${booking?.booking?.booking_for || booking?.booking_for} | ${
+        booking?.booking?.start_time || booking?.start_time
+      } to ${booking?.booking?.end_time || booking?.end_time}`
         .toLowerCase()
         .includes(normalizedSearchQuery);
 
-
-    const matchesStatus = status === "all" || booking?.status === status || booking?.booking?.status === status;
+    const matchesStatus =
+      status === "all" ||
+      booking?.status === status ||
+      booking?.booking?.status === status;
 
     return matchesSearch && matchesStatus;
   });
@@ -290,7 +293,6 @@ const Dashboard: React.FC = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-
 
   const handleSprintProgramChange = (value: string) => {
     if (value === "all") {
@@ -430,9 +432,7 @@ const Dashboard: React.FC = () => {
                     <SelectItem value="JoinedWaitingList">
                       Joined Waitlist
                     </SelectItem>
-                    <SelectItem value="AwaitingInfo">
-                      AwaitingInfo
-                    </SelectItem>
+                    <SelectItem value="AwaitingInfo">AwaitingInfo</SelectItem>
                     <SelectItem value="Cancelled">Cancelled</SelectItem>
                     <SelectItem value="NotInterested">
                       Not Interested
@@ -509,9 +509,10 @@ const Dashboard: React.FC = () => {
                           {booking.program_id === 1
                             ? "NANO"
                             : booking.program_id === 2
-                              ? "MINI"
-                              : booking.program_id === 3 ?
-                                "MEGA" : "-"}
+                            ? "MINI"
+                            : booking.program_id === 3
+                            ? "MEGA"
+                            : "-"}
                         </TableCell>
                         <TableCell className="border-0">
                           {booking.user.phone}
@@ -522,17 +523,18 @@ const Dashboard: React.FC = () => {
                         <TableCell className="border-0">
                           {booking.created_at === null
                             ? "N/A"
-                            : formatDate(booking.created_at)
-                          }
+                            : formatDate(booking.created_at)}
                         </TableCell>
                         <TableCell className="border-0">
                           {booking.start_time === ""
                             ? "N/A"
                             : `${formatTime(
-                              booking.start_time
-                            )} to ${formatTime(booking.end_time)}`}
+                                booking.start_time
+                              )} to ${formatTime(booking.end_time)}`}
                         </TableCell>
-                        <TableCell className="border-0">{booking.city || "Bengaluru"}</TableCell>
+                        <TableCell className="border-0">
+                          {booking.city || "Bengaluru"}
+                        </TableCell>
                         <TableCell className="border-0">
                           {booking.status}
                         </TableCell>
@@ -579,17 +581,19 @@ const Dashboard: React.FC = () => {
                 </div>
                 <div className="flex flex-row items-center justify-start gap-4">
                   <ChevronLeft
-                    className={`w-6 h-6 cursor-pointer ${currentPage === 1
+                    className={`w-6 h-6 cursor-pointer ${
+                      currentPage === 1
                         ? "text-gray-400 opacity-50 cursor-not-allowed"
                         : "text-black"
-                      }`}
+                    }`}
                     onClick={() => handlePageChange(currentPage - 1)}
                   />
                   <ChevronRight
-                    className={`w-6 h-6 cursor-pointer ${currentPage === totalPages
+                    className={`w-6 h-6 cursor-pointer ${
+                      currentPage === totalPages
                         ? "text-gray-400 opacity-50 cursor-not-allowed"
                         : "text-black"
-                      }`}
+                    }`}
                     onClick={() => handlePageChange(currentPage + 1)}
                   />
                 </div>
