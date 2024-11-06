@@ -80,7 +80,7 @@ const UserLogin: React.FC = () => {
             <SmartImage
               className="hidden md:flex"
               alt="Logo"
-              src="/login/afe_subbrand_logo_horizontal_blue.svg"
+              src="/login/afe blue horizontal.svg"
               width={354}
               height={40}
             />
@@ -88,7 +88,7 @@ const UserLogin: React.FC = () => {
               <SmartImage
                 className="object-contain cursor-pointer"
                 alt="Reshot Icon"
-                src="/login/Group(12).svg"
+                src="/login/afe blue stacked.svg"
                 width={120}
                 height={40}
               />

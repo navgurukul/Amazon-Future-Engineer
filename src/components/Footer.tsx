@@ -6,6 +6,7 @@ import SmartImage from "@/components/SmartImage";;
 import { useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppState } from "@/context/AppContext";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 // import router from "next/router";
 
@@ -16,7 +17,9 @@ interface FooterProps {
 const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const { isLanguageEnglish } = useAppState(); 
+  const { isLanguageEnglish } = useAppState();
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+
 
   const onReshotIconClick = () => {
     router.push("/");
@@ -40,6 +43,14 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
   const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
   // const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
 
+  const handlePrivacyPolicyClick = () => {
+    setShowPrivacyPolicy(true);
+  };
+
+  const handleClosePrivacyPolicy = () => {
+    setShowPrivacyPolicy(false);
+  };
+
   return (
     <div className="w-full bg-[#ecf0f3] h-auto text-center text-lg text-gray-800 font-amazon-ember  px-4 py-12 md:py-8 md:px-12 shadow-lg">
       <div className="flex flex-col md:flex-row justify-between items-center h-full gap-6 md:gap-0">
@@ -50,7 +61,7 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
               // src="/login/afe_subbrand_logo_horizontal_blue.svg"
-              src="/login/AFE Makerspace_Blue_Horizontal 2.svg"
+              src="/login/afe blue horizontal.svg"
               onClick={onReshotIconClick}
               width={254}
               height={40}
@@ -60,7 +71,8 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
             <SmartImage
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
-              src="/login/Group(12).svg"
+              src="/login/afe blue stacked.svg"
+              // src="/login/afe blue stacked.svg"
               onClick={onReshotIconClick}
               width={120}
               height={40}
@@ -68,10 +80,22 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
           </div>
         </div>
 
-        {/* Privacy Policy */}
+        {/* Privacy Policy Link */}
         <div className="flex justify-center w-full md:w-auto text-body1 font-body1-regular text-darkslategray">
-          {isLanguageEnglish ? "Privacy Policy" : "ಗೌಪ್ಯತೆ ನೀತಿ"}
+          <button
+            onClick={handlePrivacyPolicyClick}
+            className="text-blue-500 underline ml-2"
+          >
+            {isLanguageEnglish ? "Privacy Policy" : "ಗೌಪ್ಯತೆ ನೀತಿ"}
+          </button>
         </div>
+
+        {/* Privacy Policy */}
+        {/* <div className="flex justify-center w-full md:w-auto text-body1 font-body1-regular text-darkslategray">
+          {isLanguageEnglish ? "Privacy Policy" : "ಗೌಪ್ಯತೆ ನೀತಿ"}
+        </div> */}
+
+
 
         {/* Helpdesk Section */}
         {/* Helpdesk Section */}
@@ -92,11 +116,11 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
             </span>
           </Button> */}
           <SmartImage
-          className="object-cover w-[100%] max-w-[100%] hidden md:block"
-           alt="TIS Logo"
-              src="/login/Logo TIS 1.svg"
-              width={24}
-              height={24}
+            className="object-cover w-[100%] max-w-[100%] hidden md:block"
+            alt="TIS Logo"
+            src="/login/Logo TIS 1.svg"
+            width={24}
+            height={24}
           />
 
           {isMobile && (
@@ -127,12 +151,18 @@ const Footer: NextPage<FooterProps> = ({ handleOfflineBooking }) => {
                 height={24}
               />
               <span className="relative font-medium leading-[170%] text-base text-darkslategray">
-              {isLanguageEnglish ? "Chat with Us" : "ನಮ್ಮೊಂದಿಗೆ ಚಾಟ್ ಮಾಡಿ"}
+                {isLanguageEnglish ? "Chat with Us" : "ನಮ್ಮೊಂದಿಗೆ ಚಾಟ್ ಮಾಡಿ"}
               </span>
             </Button>
           )}
         </div>
       </div>
+      {/* Render Privacy Policy Component */}
+      {showPrivacyPolicy && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+          <PrivacyPolicy onClose={handleClosePrivacyPolicy} />
+        </div>
+      )}
     </div>
   );
 };
