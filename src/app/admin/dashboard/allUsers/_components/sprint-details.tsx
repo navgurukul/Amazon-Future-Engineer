@@ -28,7 +28,7 @@ interface Booking {
   students_grade: string;
   udise: string;
   program: any;
-  school_name: string | any
+  school_name: string | any;
   pin_code: number;
   school: string;
   user_id(user_id: any): unknown;
@@ -119,55 +119,73 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     status === "Cancelled" ||
     status === "NotInterested";
 
-    useEffect(() => {
-      if (bookingProp.status !== "BookingConfirmed") {
-        const dateCondition = !bookingProp.booking_for;
-        // console.log("data-show",bookingProp?.students_grade)
-        setBookingDetails({
-          name: bookingProp?.user?.name || "-",
-          email: bookingProp?.user?.email || "",
-          phoneNumber: bookingProp?.user?.phone || "-",
-          dateofRequest: formatDate(bookingProp.created_at) || "-",
-          programName: "-",
-          schoolName: bookingProp?.school_name || bookingProp?.user?.school_id || bookingProp?.school || "-",
-          udiseCode:bookingProp?.udise ||  "-",
-          city: "Bengaluru",
-          pincode:bookingProp?.pin_code || 0,
-          grade: bookingProp?.students_grade || "-",
-          numberOfStudents: bookingProp?.booking_batch_size || "-",
-          slot: !dateCondition
-            ? `${formatDate(bookingProp?.booking_for)} | ${
-                bookingProp.start_time
-              } to ${bookingProp.end_time}`
-            : "",
-        });
-      }
+  useEffect(() => {
+    if (bookingProp.status !== "BookingConfirmed") {
+      const dateCondition = !bookingProp.booking_for;
+      // console.log("data-show",bookingProp)
+      setBookingDetails({
+        name: bookingProp?.user?.name || "-",
+        email: bookingProp?.user?.email || "",
+        phoneNumber: bookingProp?.user?.phone || "-",
+        dateofRequest: formatDate(bookingProp.created_at) || "-",
+        programName: "-",
+        schoolName:
+          bookingProp?.school_name ||
+          bookingProp?.user?.school_id ||
+          bookingProp?.school ||
+          "-",
+        udiseCode: bookingProp?.udise || "-",
+        city: "Bengaluru",
+        pincode: bookingProp?.pin_code || 0,
+        grade: bookingProp?.students_grade || "-",
+        numberOfStudents: bookingProp?.booking_batch_size || "-",
+        slot: !dateCondition
+          ? `${formatDate(bookingProp?.booking_for)} | ${
+              bookingProp.start_time
+            } to ${bookingProp.end_time}`
+          : "",
+      });
+    }
     const loadBookingDetails = async () => {
       if (bookingProp.id) {
         // console.log("data-show",bookingProp)
         const bookings = await fetchBookings();
-        const  finalBooking = bookings.find(
+        const finalBooking = bookings.find(
           (b: Booking) => b.id === bookingProp.id
         );
 
         const foundBooking = finalBooking || { ...bookingProp };
+        const dateCondition = !bookingProp.booking_for;
         setBookings(foundBooking);
         if (foundBooking) {
           setBookingDetails({
             name: foundBooking.user.name || "-",
-            email: bookingProp.user.email ||foundBooking.user.email,
+            email: bookingProp.user.email || foundBooking.user.email,
             phoneNumber: foundBooking.user.phone,
             dateofRequest: formatDate(foundBooking.created_at),
             programName: "-",
-            schoolName: bookingProp?.school_name || bookingProp?.user?.school_id || bookingProp?.school || "-",
-            udiseCode:bookingProp?.udise ||  "-",
-            city: foundBooking?.slot?.venue?.city || foundBooking?.venue?.city || "Bengaluru",
-            pincode: bookingProp?.pin_code || foundBooking?.slot?.venue?.pin_code || foundBooking?.venue?.pin_code || "",
+            schoolName:
+              bookingProp?.school_name ||
+              bookingProp?.user?.school_id ||
+              bookingProp?.school ||
+              "-",
+            udiseCode: bookingProp?.udise || "-",
+            city:
+              foundBooking?.slot?.venue?.city ||
+              foundBooking?.venue?.city ||
+              "Bengaluru",
+            pincode:
+              bookingProp?.pin_code ||
+              foundBooking?.slot?.venue?.pin_code ||
+              foundBooking?.venue?.pin_code ||
+              "",
             grade: bookingProp?.students_grade || "-",
             numberOfStudents: foundBooking.booking_batch_size,
-            slot: `${formatDate(foundBooking.booking_for)} | ${
-              foundBooking.start_time
-            } to ${foundBooking.end_time}`,
+            slot: !dateCondition
+            ? `${formatDate(bookingProp?.booking_for)} | ${
+                bookingProp.start_time
+              } to ${bookingProp.end_time}`
+            : "",
           });
         }
       }
@@ -252,11 +270,13 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
             {popupValue && (
               <div className="w-[592px] max-w-4xl mx-auto px-4 mt-[48px] mb-[152px] space-y-6">
                 <div className="space-y-8">
-                  <div className="flex gap-2 cursor-pointer" onClick={handlePreviousScreen}>
+                  <div
+                    className="flex gap-2 cursor-pointer"
+                    onClick={handlePreviousScreen}
+                  >
                     <SmartImage
                       src="/login/chevron_left.svg"
                       alt="back"
-                   
                       className="cursor-pointer overflow-hidden"
                       width={24}
                       height={24}
@@ -305,28 +325,28 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                                   )}
                                   {key === "grade" && (
                                     <>
-                                    <option value="">Select Class</option>
+                                      <option value="">Select Class</option>
                                       <option value="Class 6th">
                                         Class 6th
                                       </option>
                                       <option value="Class 7th">
-                                      Class 7th
-                                    </option>
-                                    <option value="Class 8th">
-                                      Class 8th
-                                    </option>
-                                    <option value="Class 9th">
-                                    Class 9th
-                                  </option>
-                                  <option value="Class 10th">
-                                    Class 10th
-                                  </option>
-                                  <option value="Class 11th">
-                                  Class 11th
-                                </option>
-                                <option value="Class 12th">
-                                  Class 12th
-                                </option>
+                                        Class 7th
+                                      </option>
+                                      <option value="Class 8th">
+                                        Class 8th
+                                      </option>
+                                      <option value="Class 9th">
+                                        Class 9th
+                                      </option>
+                                      <option value="Class 10th">
+                                        Class 10th
+                                      </option>
+                                      <option value="Class 11th">
+                                        Class 11th
+                                      </option>
+                                      <option value="Class 12th">
+                                        Class 12th
+                                      </option>
                                     </>
                                   )}
                                 </select>

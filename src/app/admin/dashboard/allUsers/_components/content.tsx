@@ -138,28 +138,28 @@ const Dashboard: React.FC = () => {
             // console.log("school", entry);
             return entry.bookings.map((booking: any) => ({
               user: {
-                name: entry.name || "N/A",
-                phone: entry.phone || "N/A",
-                email: entry.school.email || "N/A",
+                name: entry.name || "-",
+                phone: entry.phone || "-",
+                email: entry.school.email || "-",
               },
               ...booking, // Spread booking properties here
 
               // Pull data from the school object
-              school_name: entry.school.school_name || "N/A",
-              udise: entry.school.udise || "N/A",
-              email: entry.school.email || "N/A",
-              address: entry.school.address || "N/A",
-              village: entry.school.village || "N/A",
-              state: entry.school.state || "N/A",
-              district: entry.school.district || "N/A",
-              pin_code: entry.school.pin_code || "N/A",
+              school_name: entry.school.school_name || "-",
+              udise: entry.school.udise || "-",
+              email: entry.school.email || "-",
+              address: entry.school.address || "-",
+              village: entry.school.village || "-",
+              state: entry.school.state || "-",
+              district: entry.school.district || "-",
+              pin_code: entry.school.pin_code || "-",
             }));
           } else if ("bookings" in entry) {
             // Condition 1: If bookings are available
             return entry.bookings.map((booking: any) => ({
               user: {
-                name: entry.name || "N/A",
-                phone: entry.phone || "N/A",
+                name: entry.name || "-",
+                phone: entry.phone || "-",
               },
               ...booking,
             }));
@@ -167,9 +167,9 @@ const Dashboard: React.FC = () => {
             // Condition 2: If no booking but query exists
             return {
               user: {
-                name: entry.user.name || "N/A",
-                phone: entry.user.phone || "N/A",
-                email: entry.user.email || "N/A",
+                name: entry.user.name || "-",
+                phone: entry.user.phone || "-",
+                email: entry.user.email || "-",
               },
               id: entry.user.id,
               user_id: entry.query.id,
@@ -196,9 +196,9 @@ const Dashboard: React.FC = () => {
             // Condition 3: Only users exist
             return {
               user: {
-                name: entry.name || entry?.user?.name || "N/A",
-                phone: entry.phone || entry?.user?.phone || "N/A",
-                email: entry.email || entry?.user?.email || "N/A",
+                name: entry.name || entry?.user?.name || "-",
+                phone: entry.phone || entry?.user?.phone || "-",
+                email: entry.email || entry?.user?.email || "-",
               },
               id: 0, // Set to 0 or an appropriate value
               user_id: entry.id || entry?.user?.id,
@@ -241,8 +241,8 @@ const Dashboard: React.FC = () => {
           const processedBooking = {
             ...booking,
             user: {
-              name: user.name || "N/A",
-              phone: user.phone || "N/A",
+              name: user.name || "-",
+              phone: user.phone || "-",
             },
           };
 
@@ -444,6 +444,7 @@ const Dashboard: React.FC = () => {
                       Call Requested
                     </SelectItem>
                     <SelectItem value="Completed">Completed</SelectItem>
+                    <SelectItem value="profileCreated">Profile Created</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -522,12 +523,12 @@ const Dashboard: React.FC = () => {
                         </TableCell>
                         <TableCell className="border-0">
                           {booking.created_at === null
-                            ? "N/A"
+                            ? "-"
                             : formatDate(booking.created_at)}
                         </TableCell>
                         <TableCell className="border-0">
                           {booking.start_time === ""
-                            ? "N/A"
+                            ? "-"
                             : `${formatTime(
                                 booking.start_time
                               )} to ${formatTime(booking.end_time)}`}

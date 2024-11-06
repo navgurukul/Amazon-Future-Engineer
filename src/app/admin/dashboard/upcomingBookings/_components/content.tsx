@@ -152,7 +152,7 @@ const Dashboard = () => {
                 <TableBody className="border-b border-grey-300 gap-8 p font-body2-regular text-body2 leading-[170%]">
                   {displayedBookings.map((booking) => (
                     <TableRow key={booking.id} className="border-t border-b border-transparent">
-                      <TableCell className="border-0">{booking.user.name || "N/A"}</TableCell>
+                      <TableCell className="border-0">{booking.user.name || "-"}</TableCell>
                       <TableCell className="border-0">{booking.slot.program.title}</TableCell>
                       <TableCell className="border-0">{booking.user.phone}</TableCell>
                       <TableCell className="border-0 text-center">{booking.booking_batch_size}</TableCell>
