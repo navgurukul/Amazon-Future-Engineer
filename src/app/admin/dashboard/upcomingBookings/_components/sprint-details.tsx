@@ -44,9 +44,6 @@ interface Feedback {
   name: string;
 }
 
-
-
-
 interface Booking {
   slot_id(slot_id: any): unknown;
   program_id: any;
@@ -95,22 +92,19 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [toastId, setToastId] = useState<string | null>(null);
   
-
   // State for editable fields
   const [editedDetails, setEditedDetails] = useState({
     pincode: bookingDetails?.pincode,
     actualNumberOfStudents: bookingDetails?.actualNumberOfStudents,
-    grade: bookingDetails?.grade,
+    grade: bookingDetails?.grade || "",
     schoolName: bookingDetails?.schoolName,
     udiseCode: bookingDetails?.udiseCode,
     name: bookingDetails?.name,
     email: bookingDetails?.email,
   });
 
-
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-      // Function to handle the "Yes" confirmation
-      const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
   // Function to check if all fields are filled
   const checkAllFieldsFilled = () => {
@@ -127,21 +121,16 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
 
   // Use effect to enable/disable button based on field completion
   useEffect(() => {
-    // console.log( "tamanna", bookingProp,bookingDetails)
     const areAllFieldsFilled = checkAllFieldsFilled();
-    setIsButtonDisabled(!areAllFieldsFilled); // Disable if not all fields are filled
+    setIsButtonDisabled(!areAllFieldsFilled);
   }, [editedDetails]);
-
-
-   
-
 
   // Fetch feedbacks
   const fetchFeedbacks = useCallback(async () => {
     try {
       const response = await getFeedback(
         Number(bookingProp.user.id),
-        Number( bookingProp.slot_id)
+        Number(bookingProp.slot_id)
       );
       const hasTeacherFeedback = Array.isArray(response.data) && response.data.some((feedback: { is_teacher: any; }) => feedback.is_teacher);
       if (hasTeacherFeedback) {
@@ -169,11 +158,10 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   const handleSaveChanges = async () => { 
     setIsSaving(true);
     try {
-      // console.log( "raj",editedDetails)
       const bookingData = {
         user_id: Number(bookingProp.user.id),
-        slot_id: Number( bookingProp.slot_id),
-        name:editedDetails.name,
+        slot_id: Number(bookingProp.slot_id),
+        name: editedDetails.name,
         booking_batch_size: bookingDetails.numberOfStudents,
         visited_batch_size: Number(editedDetails.actualNumberOfStudents),
         students_grade: editedDetails.grade,
@@ -195,7 +183,6 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         duration: 1000,
       });
       setIsSaving(false);
-
     } catch (error) {
       console.error("Error updating booking details:", error);
     } finally {
@@ -208,7 +195,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
       try {
         const feedbackData = {
           user_id: Number(bookingProp.user.id),
-          slot_id: Number( bookingProp.slot_id),
+          slot_id: Number(bookingProp.slot_id),
           program_id: bookingProp.program_id,
           feedback: feedbackContent,
           rating: 5,
@@ -223,12 +210,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         console.error("Error adding teacher feedback:", error);
       }
     },
-    [
-      bookingProp.slot_id,
-      bookingProp.program_id,
-      bookingProp.user.id,
-      fetchFeedbacks,
-    ]
+    [bookingProp.slot_id, bookingProp.program_id, bookingProp.user.id, fetchFeedbacks]
   );
 
   const handleStudentFeedbackSubmit = useCallback(
@@ -236,7 +218,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
       try {
         const feedbackData = {
           user_id: Number(bookingProp.user.id),
-          slot_id: Number( bookingProp.slot_id),
+          slot_id: Number(bookingProp.slot_id),
           program_id: bookingProp.program_id,
           feedback: feedbackContent,
           rating: 5,
@@ -253,15 +235,12 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     [bookingProp.user.id, bookingProp.slot_id, bookingProp.program_id, fetchFeedbacks]
   );
 
-
-
-  /// Function to handle the "Yes" confirmation
   const handleConfirmYes = async () => {
     try {
       const bookingData = {
         user_id: Number(bookingProp.user.id),
-        slot_id: Number( bookingProp.slot_id),
-        name:editedDetails.name,
+        slot_id: Number(bookingProp.slot_id),
+        name: editedDetails.name,
         booking_batch_size: bookingDetails.numberOfStudents,
         visited_batch_size: Number(editedDetails.actualNumberOfStudents),
         students_grade: editedDetails.grade,
@@ -276,10 +255,9 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         pin_code: Number(editedDetails.pincode),
       };
       await updateBookingDetails(bookingProp.id, bookingData);
-      await updateBookingStatus(Number(bookingProp.id), "Completed", "Completed","Completed");
+      await updateBookingStatus(Number(bookingProp.id), "Completed", "Completed", "Completed");
       setIsConfirmationOpen(false);
       setIsSubmitPopupOpen(true);
-      // Show success toast
       toast({
         title: "Success",
         description: "Sprint completed successfully",
@@ -288,7 +266,6 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
       });
     } catch (error) {
       console.error("Error updating booking status:", error);
-      // Show error toast
       toast({
         title: "Error",
         description: "Failed to complete sprint",
@@ -299,7 +276,6 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   };
 
   const handleSubmitAndCompleteSprint = () => {
-
     setIsConfirmationOpen(true);
     toast({
       title: "Complete Sprint",
@@ -322,7 +298,6 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                 e.preventDefault();
                 e.stopPropagation();
                 setIsConfirmationOpen(false);
-                // Show cancelled toast
                 toast({
                   title: "Not Completed",
                   description: "Sprint not completed yet",
@@ -340,15 +315,11 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     });
   };
 
-  // Effect to clear the confirmation state when component unmounts
   useEffect(() => {
     return () => {
       setIsConfirmationOpen(false);
     };
   }, []);
-
-
-
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -366,7 +337,6 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     return { date: datePart, time: timePart };
   };
 
-
   return (
     <>
       {isSubmitPopupOpen ? (
@@ -378,10 +348,11 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
             date: parseSlot(bookingDetails.slot).date,
             time: parseSlot(bookingDetails.slot).time,
             students: bookingDetails.numberOfStudents,
-          }} type={""}        />
+          }} 
+          type={""}        
+        />
       ) : (
         <div className="w-[592px] max-w-4xl mx-auto px-4 mt-[10px] space-y-6">
-          {/* Booking Details Section */}
           <div className="space-y-8">
             <h1 className="text-heading5 font-heading5-bold leading-[150%] font-extrabold text-midnight-blue-main">
               Booking Details
@@ -415,24 +386,41 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                           )
                           .join(" ")}
                       </Label>
-                      <Input
-                        value={
-                          isEditable
-                            ? editedDetails[key as keyof typeof editedDetails]
-                            : value?.toString() ?? "-"
-                        }
-                        onChange={
-                          isEditable
-                            ? (e) => handleInputChange(key, e.target.value)
-                            : undefined
-                        }
-                        readOnly={!isEditable}
-                        className={`w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1 ${
-                          isEditable
-                            ? "bg-white border-text-primary"
-                            : "bg-grey-300 border-text-primary"
-                        }`}
-                      />
+                      {key === "grade" ? (
+                        <select
+                          value={editedDetails.grade}
+                          onChange={(e) => handleInputChange("grade", e.target.value)}
+                          className="w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1 bg-white"
+                        >
+                          <option value="">Select Class</option>
+                          <option value="Class 6th">Class 6th</option>
+                          <option value="Class 7th">Class 7th</option>
+                          <option value="Class 8th">Class 8th</option>
+                          <option value="Class 9th">Class 9th</option>
+                          <option value="Class 10th">Class 10th</option>
+                          <option value="Class 11th">Class 11th</option>
+                          <option value="Class 12th">Class 12th</option>
+                        </select>
+                      ) : (
+                        <Input
+                          value={
+                            isEditable
+                              ? editedDetails[key as keyof typeof editedDetails]
+                              : value?.toString() ?? "-"
+                          }
+                          onChange={
+                            isEditable
+                              ? (e) => handleInputChange(key, e.target.value)
+                              : undefined
+                          }
+                          readOnly={!isEditable}
+                          className={`w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1 ${
+                            isEditable
+                              ? "bg-white border-text-primary"
+                              : "bg-grey-300 border-text-primary"
+                          }`}
+                        />
+                      )}
                     </div>
                   );
                 })}
