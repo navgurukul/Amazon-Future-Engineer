@@ -289,9 +289,12 @@ export default function Footer({
         hadleIsUpdate()
         updateStatus("BookingConfirmed")
       }
-      else{
+      else if (!bookingProp.slot_id || bookingProp.slot_id === null){
         hadleIsUpdate()
         // handleNotInterestedStatus("AwaitingInfo")
+      }
+      else{
+        hadleIsUpdate()
       }
     }
     if (popup.isNotInterested) {

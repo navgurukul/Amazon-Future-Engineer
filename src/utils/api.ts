@@ -1,12 +1,20 @@
 import axios from 'axios';
 
 
+// const api = axios.create({
+//   baseURL: 'https://dev-afe.samyarth.org/api/v1',
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+// });
+
 const api = axios.create({
-  baseURL: 'https://dev-afe.samyarth.org/api/v1',
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
 
 // Utility function to get the user token
 const getToken = (): string | null => {

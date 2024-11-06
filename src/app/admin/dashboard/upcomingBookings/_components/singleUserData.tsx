@@ -76,7 +76,7 @@ const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingPr
             phoneNumber: foundBooking?.user?.phone,
             dateOfRequest: formatDate(foundBooking?.created_at),
             programName: foundBooking?.slot?.program?.title,
-            schoolName: foundBooking?.user?.school?.school_name || 'N/A',
+            schoolName: foundBooking?.user?.school?.school_name || '-',
             udiseCode: foundBooking?.user?.school?.udise || "-", // Assuming this is not provided in the API response
             city: foundBooking?.slot?.venue?.city,
             pincode: foundBooking?.user?.school?.pin_code,

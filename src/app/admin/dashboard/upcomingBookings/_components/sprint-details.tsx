@@ -173,6 +173,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
       const bookingData = {
         user_id: Number(bookingProp.user.id),
         slot_id: Number( bookingProp.slot_id),
+        name:editedDetails.name,
         booking_batch_size: bookingDetails.numberOfStudents,
         visited_batch_size: Number(editedDetails.actualNumberOfStudents),
         students_grade: editedDetails.grade,
