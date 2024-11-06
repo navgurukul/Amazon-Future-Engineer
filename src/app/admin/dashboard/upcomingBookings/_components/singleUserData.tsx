@@ -68,6 +68,7 @@ const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingPr
       if (bookingProp.id) {
         const bookings = await fetchBookings();
         const foundBooking = bookings.find((b: Booking) => b.id === bookingProp.id);
+        // console.log("bookingTamanna",foundBooking?.visited_batch_size)
         if (foundBooking) {
           setBookingDetails({
             name: foundBooking?.user?.name || "-",
@@ -83,7 +84,6 @@ const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingPr
             numberOfStudents: foundBooking?.booking_batch_size,
             actualNumberOfStudents: foundBooking?.visited_batch_size,
             slot: `${formatDate(foundBooking?.booking_for)} | ${foundBooking?.start_time} to ${foundBooking?.end_time}`,
-
           });
         }
       }
@@ -125,7 +125,7 @@ const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingPr
                 .join(' ')}
               </span>
               <span className="text-lg font-body1-regular text-body1 font-medium text-text-primary leading-[170%]">
-                {value !== null ? value.toString() : '-'}
+                {value !== null ? value?.toString() : '-'}
               </span>
             </div>
           ))}

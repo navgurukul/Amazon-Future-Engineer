@@ -122,7 +122,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     useEffect(() => {
       if (bookingProp.status !== "BookingConfirmed") {
         const dateCondition = !bookingProp.booking_for;
-        // console.log("data-show",bookingProp)
+        // console.log("data-show",bookingProp?.students_grade)
         setBookingDetails({
           name: bookingProp?.user?.name || "-",
           email: bookingProp?.user?.email || "",
@@ -133,7 +133,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
           udiseCode:bookingProp?.udise ||  "-",
           city: "Bengaluru",
           pincode:bookingProp?.pin_code || 0,
-          grade: bookingProp?.students_grade || "-" ,
+          grade: bookingProp?.students_grade || "-",
           numberOfStudents: bookingProp?.booking_batch_size || "-",
           slot: !dateCondition
             ? `${formatDate(bookingProp?.booking_for)} | ${
@@ -161,9 +161,9 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
             programName: "-",
             schoolName: bookingProp?.school_name || bookingProp?.user?.school_id || bookingProp?.school || "-",
             udiseCode:bookingProp?.udise ||  "-",
-            city: foundBooking?.slot?.venue?.city || foundBooking?.venue?.city || "",
+            city: foundBooking?.slot?.venue?.city || foundBooking?.venue?.city || "Bengaluru",
             pincode: bookingProp?.pin_code || foundBooking?.slot?.venue?.pin_code || foundBooking?.venue?.pin_code || "",
-            grade: bookingProp?.students_grade || "-"            ,
+            grade: bookingProp?.students_grade || "-",
             numberOfStudents: foundBooking.booking_batch_size,
             slot: `${formatDate(foundBooking.booking_for)} | ${
               foundBooking.start_time
@@ -292,9 +292,6 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                                   </option>
                                   {key === "programName" && (
                                     <>
-                                     <option value="">
-                                        Select Program
-                                      </option>
                                       <option value="Nano Sprint">
                                         Nano Sprint
                                       </option>
@@ -309,15 +306,27 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                                   {key === "grade" && (
                                     <>
                                     <option value="">Select Class</option>
-                                      <option value="Class 4th">
-                                        Class 4th
-                                      </option>
-                                      <option value="Class 5th">
-                                        Class 5th
-                                      </option>
                                       <option value="Class 6th">
                                         Class 6th
                                       </option>
+                                      <option value="Class 7th">
+                                      Class 7th
+                                    </option>
+                                    <option value="Class 8th">
+                                      Class 8th
+                                    </option>
+                                    <option value="Class 9th">
+                                    Class 9th
+                                  </option>
+                                  <option value="Class 10th">
+                                    Class 10th
+                                  </option>
+                                  <option value="Class 11th">
+                                  Class 11th
+                                </option>
+                                <option value="Class 12th">
+                                  Class 12th
+                                </option>
                                     </>
                                   )}
                                 </select>

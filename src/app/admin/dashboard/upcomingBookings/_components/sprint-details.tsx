@@ -257,6 +257,24 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   /// Function to handle the "Yes" confirmation
   const handleConfirmYes = async () => {
     try {
+      const bookingData = {
+        user_id: Number(bookingProp.user.id),
+        slot_id: Number( bookingProp.slot_id),
+        name:editedDetails.name,
+        booking_batch_size: bookingDetails.numberOfStudents,
+        visited_batch_size: Number(editedDetails.actualNumberOfStudents),
+        students_grade: editedDetails.grade,
+        visiting_time: new Date().toISOString(),
+        school_name: String(editedDetails.schoolName),
+        udise: editedDetails.udiseCode,
+        email: String(editedDetails.email),
+        address: bookingDetails.city,
+        village: bookingDetails.city,
+        state: "Karnataka",
+        district: bookingDetails.city,
+        pin_code: Number(editedDetails.pincode),
+      };
+      await updateBookingDetails(bookingProp.id, bookingData);
       await updateBookingStatus(Number(bookingProp.id), "Completed", "Completed","Completed");
       setIsConfirmationOpen(false);
       setIsSubmitPopupOpen(true);

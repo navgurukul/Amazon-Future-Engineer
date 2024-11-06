@@ -113,6 +113,7 @@ export default function Footer({
     status === "RequestedReschedule" || status === "BookingConfirmed";
   const disableRescheduleOnly = !disableAllButtons && !enableAllButtons;
 
+  
 
 
   useEffect(() => {
@@ -147,7 +148,7 @@ export default function Footer({
       { 
         field: bookings.schoolName, 
         name: 'School Name',
-        message: 'Please enterschool name'
+        message: 'Please enter school name'
       },
       // { 
       //   field: bookings.udiseCode, 
@@ -275,16 +276,22 @@ export default function Footer({
     }
   };
 
+  const updateStatus = async (status:string) => {
+    await updateBookingStatus(
+      Number(bookingId),
+      status,
+    );
+  }
 
   useEffect(() => {
     if (popup.isUpdate) {
       if (status === "BookingConfirmed"){
         hadleIsUpdate()
-        updateStatus()
+        updateStatus("BookingConfirmed")
       }
       else{
         hadleIsUpdate()
-        handleNotInterestedStatus("AwaitingInfo")
+        // handleNotInterestedStatus("AwaitingInfo")
       }
     }
     if (popup.isNotInterested) {
@@ -297,17 +304,12 @@ export default function Footer({
     }
   }, [popup.isUpdate, toast, popup.isNotInterested]);
 
-  const updateStatus = async () => {
-    await updateBookingStatus(
-      Number(bookingId),
-      "BookingConfirmed",
-    );
-  }
+
 
   useEffect(() => {
     if (popup.isConfirm) {
       hadleIsUpdate();
-      updateStatus();
+      updateStatus("BookingConfirmed")
       onSubmitClick("true");
     }
   }, [onSubmitClick, popup.isConfirm]);
