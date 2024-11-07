@@ -1,5 +1,4 @@
 "use client";
-
 import ErrorHighDemand from "./_components/ErrorHighDemand";
 import WaitingListPopup from "./_components/WaitingListPopup";
 import DialogHeader from "@/components/DialogHeader";
@@ -7,8 +6,6 @@ import { useAppState } from "@/context/AppContext";
 import { createWaitingList, callBookingQuery } from "@/utils/api";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
-
-
 // Translation object for dynamic field labels and placeholders
 const translations = {
   name: { en: "Name", kn: "ಹೆಸರು" },
@@ -18,11 +15,9 @@ const translations = {
   email: { en: "Email", kn: "ಇಮೇಲ್" },
   pincode: { en: "Pincode", kn: "ಪಿನ್‌ಕೋಡ್" },
 };
-
 // Utility function to fetch translations based on the language flag
 const getTranslation = (key: keyof FormData, isLanguageEnglish: boolean) =>
   isLanguageEnglish ? translations[key].en : translations[key].kn;
-
 interface FormData {
   name: string;
   phoneNo: string;
@@ -31,20 +26,17 @@ interface FormData {
   email: string;
   pincode: string;
 }
-
 interface MiniProgram {
   venue_id: string;
   id: string;
   title: string;
 }
-
 const MiniPage = () => {
   const router = useRouter();
   const { isLanguageEnglish } = useAppState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showErrorPopup, setShowErrorPopup] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
   const [formData, setFormData] = useState<FormData>({
     name: "",
     phoneNo: "",
@@ -53,72 +45,130 @@ const MiniPage = () => {
     email: "",
     pincode: "",
   });
-
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [miniProgram, setMiniProgram] = useState<MiniProgram | null>(null);
-
   useEffect(() => {
     const phoneNumber = localStorage.getItem("loginData")
       ? JSON.parse(localStorage.getItem("loginData") || "{}").data.phone
       : "";
     setFormData((prev) => ({ ...prev, phoneNo: phoneNumber }));
-
     const programData = JSON.parse(localStorage.getItem("programData") || "[]");
     const foundMiniProgram = programData.find(
       (program: { title: string }) => program.title === "MINI"
     );
     setMiniProgram(foundMiniProgram);
   }, []);
-
-
-
   const validateForm = () => {
     const newErrors: Partial<FormData> = {};
-
     if (!formData.name.trim()) {
       newErrors.name =
         getTranslation("name", isLanguageEnglish) +
         `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
     } else if (!/^[A-Za-z\s]+$/.test(formData.name.trim())) {
-      newErrors.name = getTranslation("name", isLanguageEnglish) + " should contain only letters";
+      newErrors.name =
+        getTranslation("name", isLanguageEnglish) +
+        " should contain only letters";
     }
-
     if (!formData.schoolName.trim()) {
       newErrors.schoolName =
         getTranslation("schoolName", isLanguageEnglish) +
         `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
     } else if (!/^[A-Za-z\s]+$/.test(formData.schoolName.trim())) {
-      newErrors.schoolName = getTranslation("schoolName", isLanguageEnglish) + " should contain only letters";
+      newErrors.schoolName =
+        getTranslation("schoolName", isLanguageEnglish) +
+        " should contain only letters";
     }
-
-    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (!formData.email.trim()) {
+      newErrors.email =
+        getTranslation("email", isLanguageEnglish) +
+        `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
+    } else if (
+      formData.email &&
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
+    ) {
       newErrors.email = "Enter a valid email";
     }
-
-    if (formData.pincode && !/^[1-9][0-9]{5}$/.test(formData.pincode.trim())) {
+    if (!formData.pincode.trim()) {
+      newErrors.pincode =
+        getTranslation("pincode", isLanguageEnglish) +
+        `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
+    } else if (
+      formData.pincode &&
+      !/^[1-9][0-9]{5}$/.test(formData.pincode.trim())
+    ) {
       newErrors.pincode = "Enter a valid 6-digit pincode";
     }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
+  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prev) => ({ ...prev, [name]: value }));
+  // };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    // Individual field validation
+    const newErrors: Partial<FormData> = { ...errors };
+    if (name === "name") {
+      if (!value.trim()) {
+        newErrors.name =
+          getTranslation("name", isLanguageEnglish) +
+          `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
+      } else if (!/^[A-Za-z\s]+$/.test(value.trim())) {
+        newErrors.name =
+          getTranslation("name", isLanguageEnglish) +
+          " should contain only letters";
+      } else {
+        delete newErrors.name;
+      }
+    }
+    if (name === "schoolName") {
+      if (!value.trim()) {
+        newErrors.schoolName =
+          getTranslation("schoolName", isLanguageEnglish) +
+          `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
+      } else if (!/^[A-Za-z\s]+$/.test(value.trim())) {
+        newErrors.schoolName =
+          getTranslation("schoolName", isLanguageEnglish) +
+          " should contain only letters";
+      } else {
+        delete newErrors.schoolName;
+      }
+    }
+    if (name === "email") {
+      if (!value.trim()) {
+        newErrors.email =
+          getTranslation("email", isLanguageEnglish) +
+          `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        newErrors.email = "Enter a valid email";
+      } else {
+        delete newErrors.email;
+      }
+    }
+    if (name === "pincode") {
+      if (!value.trim()) {
+        newErrors.pincode =
+          getTranslation("pincode", isLanguageEnglish) +
+          `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
+      } else if (!/^[1-9][0-9]{5}$/.test(value.trim())) {
+        newErrors.pincode = "Enter a valid 6-digit pincode";
+      } else {
+        delete newErrors.pincode;
+      }
+    }
+    setErrors(newErrors);
   };
-
   const waitingData = {
     name: formData.name,
     program_id: Number(miniProgram?.id),
     venue_id: Number(miniProgram?.venue_id),
-    status: "JoinedWaitingList"
+    status: "JoinedWaitingList",
   };
-  
   const updateWaitingQueryStatus = async () => {
     await callBookingQuery(waitingData);
-  }
-
+  };
   const handleJoinWaitingList = async () => {
     if (validateForm()) {
       try {
@@ -141,42 +191,40 @@ const MiniPage = () => {
       }
     }
   };
-
   const closeErrorPopup = () => {
     setShowErrorPopup(false);
     setErrorMessage("");
   };
-
   return (
     <div className="pt-[120px] w-full min-h-screen bg-white flex flex-col justify-center items-center gap-8 md:gap-16">
       <DialogHeader />
       <div className="w-full md:w-[592px] rounded-lg flex flex-col justify-start items-center gap-8 p-4 md:p-6">
-        <h1 className="text-[#3a3a3a] text-[1.25rem] md:text-[24px] font-extrabold">
+        <h1 className="text-[#3A3A3A] text-[1.25rem] md:text-[24px] font-extrabold">
           {isLanguageEnglish
             ? "Join Mini Sprint Waiting List"
             : "ಮಿನಿ ಸ್ಪ್ರಿಂಟ್ ವೇಟಿಂಗ್ ಲಿಸ್ಟ್‌ಗೆ ಸೇರಿ"}
         </h1>
-        <p className="text-[#6d6d6d] text-[1rem] leading-[170%]">
+        <p className="text-[#6D6D6D] text-[1rem] leading-[170%]">
           {isLanguageEnglish
             ? "Please share the following details below and we will connect with you as soon as the Mini Sprint program is launched at the lab."
             : "ದಯವಿಟ್ಟು ಕೆಳಗಿನ ವಿವರಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಿ ಮತ್ತು ಲ್ಯಾಬ್‌ನಲ್ಲಿ ಮಿನಿ ಸ್ಪ್ರಿಂಟ್ ಪ್ರೋಗ್ರಾಂ ಪ್ರಾರಂಭವಾದ ತಕ್ಷಣ ನಾವು ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುತ್ತೇವೆ."}
         </p>
-
         {Object.entries(formData).map(([key, value]) => {
           const isDisabled = key === "phoneNo" || key === "city";
           return (
             <div key={key} className="w-full flex flex-col gap-2">
-              <label className="text-[#3a3a3a] text-sm font-medium">
+              <label className="text-[#3A3A3A] text-sm font-medium">
                 {getTranslation(key as keyof FormData, isLanguageEnglish)}
                 {(key === "name" || key === "phoneNo") && (
-                  <span className="text-[#f55c38]">*</span>
+                  <span className="text-[#F55C38]">*</span>
                 )}
               </label>
               <input
-                className={`w-full h-12 md:h-14 px-4 py-2 rounded-full border ${isDisabled
+                className={`w-full h-12 md:h-14 px-4 py-2 rounded-full border ${
+                  isDisabled
                     ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                    : "border-[#3a3a3a]"
-                  }`}
+                    : "border-[#3A3A3A]"
+                }`}
                 type={key === "email" ? "email" : "text"}
                 name={key}
                 value={value}
@@ -189,15 +237,20 @@ const MiniPage = () => {
                 disabled={isDisabled}
               />
               {errors[key as keyof FormData] && (
-                <p className="text-red-500 text-sm">{errors[key as keyof FormData]}</p>
+                <p className="text-red-500 text-sm">
+                  {errors[key as keyof FormData]}
+                </p>
               )}
             </div>
           );
         })}
-        {showErrorPopup && 
-      <div className="text-[#f55c38]">You have already registered in the waiting list</div>}
+        {showErrorPopup && (
+          <div className="text-[#F55C38]">
+            You have already registered in the waiting list
+          </div>
+        )}
         <button
-          className="w-full md:w-auto h-12 md:h-14 px-6 md:px-8 py-2 bg-[#f55c38] rounded-full text-white"
+          className="w-full md:w-auto h-12 md:h-14 px-6 md:px-8 py-2 bg-[#F55C38] rounded-full text-white"
           onClick={handleJoinWaitingList}
         >
           {isLanguageEnglish ? "Join Waiting List" : "ಕಾಯುವ ಪಟ್ಟಿಗೆ ಸೇರಿಕೊಳ್ಳಿ"}
@@ -210,5 +263,4 @@ const MiniPage = () => {
     </div>
   );
 };
-
 export default MiniPage;

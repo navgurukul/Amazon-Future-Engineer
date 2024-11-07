@@ -119,7 +119,9 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     status === "Cancelled" ||
     status === "NotInterested";
 
-  const slotdisableAllButtons = ["profileCreated","CallRequested"].includes(status);
+  const slotdisableAllButtons = ["profileCreated", "CallRequested"].includes(
+    status
+  );
 
   useEffect(() => {
     if (bookingProp.status !== "BookingConfirmed") {
@@ -184,10 +186,10 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
             grade: bookingProp?.students_grade || "-",
             numberOfStudents: foundBooking.booking_batch_size,
             slot: !dateCondition
-            ? `${formatDate(bookingProp?.booking_for)} | ${
-                bookingProp.start_time
-              } to ${bookingProp.end_time}`
-            : "",
+              ? `${formatDate(bookingProp?.booking_for)} | ${
+                  bookingProp.start_time
+                } to ${bookingProp.end_time}`
+              : "",
           });
         }
       }
@@ -299,7 +301,9 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                           >
                             <Label className="font-subTitle1-bold text-subTitle1 font-extrabold text-text-primary leading-[170%]">
                               {labelMapping[key as keyof typeof labelMapping]}
-                             { key!=="udiseCode" && <span className="text-red-500">*</span> }
+                              {key !== "udiseCode" && (
+                                <span className="text-red-500">*</span>
+                              )}
                             </Label>
                             {key === "programName" || key === "grade" ? (
                               <div className="relative w-64 md:w-80">
@@ -315,12 +319,16 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                                   </option>
                                   {key === "programName" && (
                                     <>
-                                      <option value="Nano Sprint">
-                                        Nano Sprint
-                                      </option>
-                                      <option value="Mini Sprint">
-                                        Mini Sprint
-                                      </option>
+                                      {bookingProp.status !==
+                                      "JoinedWaitingList" ? (
+                                        <option value="Nano Sprint">
+                                          Nano Sprint
+                                        </option>
+                                      ) : (
+                                        <option value="Mini Sprint">
+                                          Mini Sprint
+                                        </option>
+                                      )}
                                       <option value="Mega Sprint">
                                         Mega Sprint
                                       </option>
@@ -411,22 +419,25 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                             onChange={(e) =>
                               handleInputChange("slot", e.target.value)
                             }
-                            disabled={!slotdisableAllButtons || disableslotInput}
+                            disabled={
+                              !slotdisableAllButtons || disableslotInput
+                            }
                             className={`w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1 ${
-                              !slotdisableAllButtons || disableslotInput? "bg-grey-300" : ""
+                              !slotdisableAllButtons || disableslotInput
+                                ? "bg-grey-300"
+                                : ""
                             }`}
                           />
-                          {
-                            slotdisableAllButtons && (   <SmartImage
+                          {slotdisableAllButtons && (
+                            <SmartImage
                               className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
                               src="/admin/calendar_today (1).svg"
                               alt="calendar"
                               width={24}
                               height={24}
                               onClick={handleCalendarClick}
-                            />)
-                          }
-                       
+                            />
+                          )}
                         </div>
                       )}
                     </CardContent>
