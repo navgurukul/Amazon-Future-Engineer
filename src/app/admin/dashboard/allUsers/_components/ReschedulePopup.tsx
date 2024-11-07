@@ -81,7 +81,7 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
         user_id: 1,
         name: bookings.name,
         slot_id: slotId,
-        booking_batch_size: bookings.numberOfStudents,
+        booking_batch_size: Number(bookings.numberOfStudents),
         students_grade: bookings.grade,
         visiting_time: new Date().toISOString(),
         status: "BookingConfirmed",
@@ -93,7 +93,7 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
         village: bookings.city,
         state: "Karnataka",
         district: bookings.city,
-        pin_code: bookings.pincode ? parseInt(bookings.pincode) : 461228,
+        pin_code: bookings.pincode ? parseInt(bookings.pincode) : 0,
       };
       await rescheduleBookingUpdate(bookingId, rescheduleData);
       await updateBookingStatus(
