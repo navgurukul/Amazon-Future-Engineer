@@ -201,7 +201,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
             ))}
           </div>
         </div>
-        <Button variant="proceed" onClick={handleIsopen}>Reschedule</Button>
+        <Button variant="proceed" onClick={handleIsopen}>Book Slot</Button>
         {isOpen && <ReschedulePopup isOpen={isOpen} onClose={closeCancelPopup} />}
       </div>
     </div>

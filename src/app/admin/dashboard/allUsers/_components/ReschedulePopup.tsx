@@ -12,6 +12,7 @@ import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { format } from "date-fns"; // Add date-fns for formatting
+import { useToast } from "@/hooks/use-toast";
 
 interface CancelPopupProps {
   isOpen: boolean;
@@ -45,6 +46,7 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
   bookingId,
   bookings,
 }) => {
+  const { toast } = useToast();
   const [reason, setReason] = useState("");
   const [slotData, setSlotData] = useState<any | null>(null); // Store slot details
   const [showError, setShowError] = useState(false);
@@ -81,7 +83,7 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
         user_id: 1,
         name: bookings.name,
         slot_id: slotId,
-        booking_batch_size: bookings.numberOfStudents,
+        booking_batch_size: Number(bookings.numberOfStudents),
         students_grade: bookings.grade,
         visiting_time: new Date().toISOString(),
         status: "BookingConfirmed",
@@ -93,7 +95,7 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
         village: bookings.city,
         state: "Karnataka",
         district: bookings.city,
-        pin_code: bookings.pincode ? parseInt(bookings.pincode) : 461228,
+        pin_code: bookings.pincode ? parseInt(bookings.pincode) : 0,
       };
       await rescheduleBookingUpdate(bookingId, rescheduleData);
       await updateBookingStatus(
@@ -104,8 +106,15 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
       );
       window.location.reload()
       onClose()
-    } catch (err) {
-      console.log(err);
+    } catch (err:any) {
+      // console.log(err.response.data.details);
+      // alert(err.response.data.details)
+      toast({
+        title:err.response.data.message,
+        description: err.response.data.details,
+        duration: 3000,
+        variant: "error"
+      });
     }
   };
 

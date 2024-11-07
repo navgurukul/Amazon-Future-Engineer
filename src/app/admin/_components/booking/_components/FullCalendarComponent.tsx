@@ -392,7 +392,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
             +916366969292
           </span>
         </div>
-      </div> */}
+      </div> 
       <div className="flex flex-col w-full gap-4">
         <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main font-extrabold">
           Have Questions?
@@ -401,7 +401,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           <span>{`Call Us or Whatsapp on `}</span>
           <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+916366969292</a>
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };
