@@ -408,7 +408,7 @@ export default function Footer({
                       variant="proceed"
                       className="h-14 px-8 bg-[#F55C38] text-white rounded-full"
                       aria-label="Confirm Booking"
-                      disabled={disableAllButtons || loading}
+                      disabled={status === "BookingConfirmed" || disableAllButtons || loading}
                       onClick={() => handlePopup("isConfirm")}
                     >
                       Confirm Booking

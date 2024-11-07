@@ -119,6 +119,8 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     status === "Cancelled" ||
     status === "NotInterested";
 
+  const slotdisableAllButtons = ["profileCreated","CallRequested"].includes(status);
+
   useEffect(() => {
     if (bookingProp.status !== "BookingConfirmed") {
       const dateCondition = !bookingProp.booking_for;
@@ -409,19 +411,22 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                             onChange={(e) =>
                               handleInputChange("slot", e.target.value)
                             }
-                            disabled={disableslotInput}
+                            disabled={!slotdisableAllButtons || disableslotInput}
                             className={`w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1 ${
-                              disableAllButtons ? "bg-grey-300" : ""
+                              !slotdisableAllButtons || disableslotInput? "bg-grey-300" : ""
                             }`}
                           />
-                          <SmartImage
-                            className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
-                            src="/admin/calendar_today (1).svg"
-                            alt="calendar"
-                            width={24}
-                            height={24}
-                            onClick={handleCalendarClick}
-                          />
+                          {
+                            slotdisableAllButtons && (   <SmartImage
+                              className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                              src="/admin/calendar_today (1).svg"
+                              alt="calendar"
+                              width={24}
+                              height={24}
+                              onClick={handleCalendarClick}
+                            />)
+                          }
+                       
                         </div>
                       )}
                     </CardContent>
