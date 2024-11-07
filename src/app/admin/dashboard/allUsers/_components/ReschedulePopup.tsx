@@ -12,6 +12,7 @@ import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { format } from "date-fns"; // Add date-fns for formatting
+import { useToast } from "@/hooks/use-toast";
 
 interface CancelPopupProps {
   isOpen: boolean;
@@ -45,6 +46,7 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
   bookingId,
   bookings,
 }) => {
+  const { toast } = useToast();
   const [reason, setReason] = useState("");
   const [slotData, setSlotData] = useState<any | null>(null); // Store slot details
   const [showError, setShowError] = useState(false);
@@ -104,8 +106,15 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
       );
       window.location.reload()
       onClose()
-    } catch (err) {
-      console.log(err);
+    } catch (err:any) {
+      // console.log(err.response.data.details);
+      // alert(err.response.data.details)
+      toast({
+        title:err.response.data.message,
+        description: err.response.data.details,
+        duration: 3000,
+        variant: "error"
+      });
     }
   };
 
