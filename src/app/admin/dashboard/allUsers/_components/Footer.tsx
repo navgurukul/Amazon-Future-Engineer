@@ -243,7 +243,6 @@ export default function Footer({
   const handleNotInterestedStatus = async (status:string) => {
     try {
       const reason1 = await queryBookingStatus(bookings.name,1, 2, status); //needs to be chanage it dynamic
-      window.location.reload()
     } catch (error) {
       console.error("Error updating booking status:", error);
     }
@@ -304,6 +303,9 @@ export default function Footer({
         description: "",
         duration: 3000,
       });
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     }
   }, [popup.isUpdate, toast, popup.isNotInterested]);
 
