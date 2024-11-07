@@ -160,11 +160,11 @@ export default function Footer({
         name: 'City',
         message: 'Please enter city'
       },
-      // { 
-      //   field: bookings.pincode, 
-      //   name: 'Pincode',
-      //   message: 'Please enter your area pincode'
-      // },
+      { 
+        field: bookings.pincode, 
+        name: 'Pincode',
+        message: 'Please enter your area pincode'
+      },
       { 
         field: bookings.grade, 
         name: 'Grade',

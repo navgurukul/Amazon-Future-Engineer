@@ -297,6 +297,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
                           >
                             <Label className="font-subTitle1-bold text-subTitle1 font-extrabold text-text-primary leading-[170%]">
                               {labelMapping[key as keyof typeof labelMapping]}
+                             { key!=="udiseCode" && <span className="text-red-500">*</span> }
                             </Label>
                             {key === "programName" || key === "grade" ? (
                               <div className="relative w-64 md:w-80">

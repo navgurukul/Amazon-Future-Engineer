@@ -107,17 +107,25 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
   // Function to check if all fields are filled
-  const checkAllFieldsFilled = () => {
-    return (
-      editedDetails.pincode &&
-      editedDetails.actualNumberOfStudents &&
-      editedDetails.grade &&
-      editedDetails.schoolName &&
-      editedDetails.udiseCode &&
-      editedDetails.name && 
-      editedDetails.email
-    );
-  };
+// Function to check if all fields are filled and do not contain just a hyphen
+const checkAllFieldsFilled = () => {
+  return (
+    editedDetails.pincode &&
+    editedDetails.pincode !== "-" &&
+    editedDetails.actualNumberOfStudents &&
+    editedDetails.grade &&
+    editedDetails.grade !== "-" &&
+    editedDetails.schoolName &&
+    editedDetails.schoolName !== "-" &&
+    editedDetails.udiseCode &&
+    editedDetails.udiseCode !== "-" &&
+    editedDetails.name &&
+    editedDetails.name !== "-" &&
+    editedDetails.email &&
+    editedDetails.email !== "-"
+  );
+};
+
 
   // Use effect to enable/disable button based on field completion
   useEffect(() => {
@@ -385,6 +393,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                               word.charAt(0).toUpperCase() + word.slice(1)
                           )
                           .join(" ")}
+                          <span className="text-red-500">*</span> 
                       </Label>
                       {key === "grade" ? (
                         <select
