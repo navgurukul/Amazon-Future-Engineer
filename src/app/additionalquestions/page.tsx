@@ -91,11 +91,17 @@ const MiniPage = () => {
       newErrors.schoolName = getTranslation("schoolName", isLanguageEnglish) + " should contain only letters";
     }
 
-    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if(!formData.email.trim()) {
+      newErrors.email = getTranslation("email", isLanguageEnglish) + `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
+    } else if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Enter a valid email";
     }
 
-    if (formData.pincode && !/^[1-9][0-9]{5}$/.test(formData.pincode.trim())) {
+    if (!formData.pincode.trim()) {
+      newErrors.pincode =
+        getTranslation("pincode", isLanguageEnglish) +
+        `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
+    } else if (formData.pincode && !/^[1-9][0-9]{5}$/.test(formData.pincode.trim())) {
       newErrors.pincode = "Enter a valid 6-digit pincode";
     }
 
