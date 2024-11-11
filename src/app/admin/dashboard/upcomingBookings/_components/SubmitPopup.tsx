@@ -8,7 +8,7 @@ interface BookingPopupProps {
   onClose: () => void;
   bookingData: {
     name: string;
-    date: string;
+    date: any;
     time: string;
     students: number;
   };

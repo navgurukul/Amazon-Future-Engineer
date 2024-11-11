@@ -734,8 +734,10 @@ export const updateSlot = async (slotId: number, updatedSlot: any) => {
 
 
 
-// Function to create a booking
+// Function to create a booking by admin 
+
 export const createBookingAdmin = async (bookingData: {
+  name:string,
   user_id: number;
   slot_id: number;
   program_id: number;

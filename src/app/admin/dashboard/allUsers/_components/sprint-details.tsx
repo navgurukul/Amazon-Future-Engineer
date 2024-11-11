@@ -124,9 +124,9 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
   );
 
   useEffect(() => {
-    if (bookingProp.status !== "BookingConfirmed") {
+    if (bookingProp.status !== "BookingConfirmed" || bookingProp.status === "BookingConfirmed") {
       const dateCondition = !bookingProp.booking_for;
-      // console.log("data-show",bookingProp)
+      console.log("data-show",bookingProp)
       setBookingDetails({
         name: bookingProp?.user?.name || "-",
         email: bookingProp?.user?.email || "",
@@ -150,51 +150,51 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
           : "",
       });
     }
-    const loadBookingDetails = async () => {
-      if (bookingProp.id) {
-        // console.log("data-show",bookingProp)
-        const bookings = await fetchBookings();
-        const finalBooking = bookings.find(
-          (b: Booking) => b.id === bookingProp.id
-        );
+    // const loadBookingDetails = async () => {
+    //   if (bookingProp.id) {
+    //     console.log("data-show",bookingProp)
+    //     const bookings = await fetchBookings();
+    //     const finalBooking = bookings.find(
+    //       (b: Booking) => b.id === bookingProp.id
+    //     );
 
-        const foundBooking = finalBooking || { ...bookingProp };
-        const dateCondition = !bookingProp.booking_for;
-        setBookings(foundBooking);
-        if (foundBooking) {
-          setBookingDetails({
-            name: foundBooking.user.name || "-",
-            email: bookingProp.user.email || foundBooking.user.email,
-            phoneNumber: foundBooking.user.phone,
-            dateofRequest: formatDate(foundBooking.created_at),
-            programName: "-",
-            schoolName:
-              bookingProp?.school_name ||
-              bookingProp?.user?.school_id ||
-              bookingProp?.school ||
-              "-",
-            udiseCode: bookingProp?.udise || "-",
-            city:
-              foundBooking?.slot?.venue?.city ||
-              foundBooking?.venue?.city ||
-              "Bengaluru",
-            pincode:
-              bookingProp?.pin_code ||
-              foundBooking?.slot?.venue?.pin_code ||
-              foundBooking?.venue?.pin_code ||
-              "",
-            grade: bookingProp?.students_grade || "-",
-            numberOfStudents: foundBooking.booking_batch_size,
-            slot: !dateCondition
-              ? `${formatDate(bookingProp?.booking_for)} | ${
-                  bookingProp.start_time
-                } to ${bookingProp.end_time}`
-              : "",
-          });
-        }
-      }
-    };
-    loadBookingDetails();
+    //     const foundBooking = finalBooking || { ...bookingProp };
+    //     const dateCondition = !bookingProp.booking_for;
+    //     setBookings(foundBooking);
+    //     if (foundBooking) {
+    //       setBookingDetails({
+    //         name: foundBooking.user.name || "-",
+    //         email: bookingProp.user.email || foundBooking.user.email,
+    //         phoneNumber: foundBooking.user.phone,
+    //         dateofRequest: formatDate(foundBooking.created_at),
+    //         programName: "-",
+    //         schoolName:
+    //           bookingProp?.school_name ||
+    //           bookingProp?.user?.school_id ||
+    //           bookingProp?.school ||
+    //           "-",
+    //         udiseCode: bookingProp?.udise || "-",
+    //         city:
+    //           foundBooking?.slot?.venue?.city ||
+    //           foundBooking?.venue?.city ||
+    //           "Bengaluru",
+    //         pincode:
+    //           bookingProp?.pin_code ||
+    //           foundBooking?.slot?.venue?.pin_code ||
+    //           foundBooking?.venue?.pin_code ||
+    //           "",
+    //         grade: bookingProp?.students_grade || "-",
+    //         numberOfStudents: foundBooking.booking_batch_size,
+    //         slot: !dateCondition
+    //           ? `${formatDate(bookingProp?.booking_for)} | ${
+    //               bookingProp.start_time
+    //             } to ${bookingProp.end_time}`
+    //           : "",
+    //       });
+    //     }
+    //   }
+    // };
+    // loadBookingDetails();
   }, [bookingProp.id]);
 
   if (!bookingDetails) {
@@ -236,6 +236,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
     try {
       const slotData = await getSlotDetailsSlotId(slotId);
       setSlotData(slotData.data[0]); // Assuming data is an array, get the first element
+
     } catch (error) {
       console.error("Failed to fetch slot details:", error);
     }
@@ -456,6 +457,7 @@ export const SprintDetailsComponent: React.FC<{ booking: Booking }> = ({
               status={bookingProp?.status}
               slotId={enableAllButtons ? calendarDataUser : 0}
               bookingProp={bookingProp}
+              newSlotBooking = {slotData}
             />
           </div>
         </div>

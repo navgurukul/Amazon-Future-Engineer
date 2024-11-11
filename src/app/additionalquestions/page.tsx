@@ -215,9 +215,10 @@ const MiniPage = () => {
             <div key={key} className="w-full flex flex-col gap-2">
               <label className="text-[#3A3A3A] text-sm font-medium">
                 {getTranslation(key as keyof FormData, isLanguageEnglish)}
-                {(key === "name" || key === "phoneNo") && (
+                {/*{(key === "name" || key === "phoneNo") && (
                   <span className="text-[#F55C38]">*</span>
-                )}
+                )} */}
+                <span className="text-[#F55C38]">*</span>
               </label>
               <input
                 className={`w-full h-12 md:h-14 px-4 py-2 rounded-full border ${
