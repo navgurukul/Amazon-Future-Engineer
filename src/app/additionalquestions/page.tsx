@@ -63,7 +63,7 @@ const MiniPage = () => {
     if (!formData.name.trim()) {
       newErrors.name =
         getTranslation("name", isLanguageEnglish) +
-        `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
+        `${isLanguageEnglish ? " is required*" : " ಅಗತ್ಯವಿದೆ*"}`;
     } else if (!/^[A-Za-z\s]+$/.test(formData.name.trim())) {
       newErrors.name =
         getTranslation("name", isLanguageEnglish) +
@@ -72,7 +72,7 @@ const MiniPage = () => {
     if (!formData.schoolName.trim()) {
       newErrors.schoolName =
         getTranslation("schoolName", isLanguageEnglish) +
-        `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
+        `${isLanguageEnglish ? " is required*" : " ಅಗತ್ಯವಿದೆ*"}`;
     } else if (!/^[A-Za-z\s]+$/.test(formData.schoolName.trim())) {
       newErrors.schoolName =
         getTranslation("schoolName", isLanguageEnglish) +
@@ -81,7 +81,7 @@ const MiniPage = () => {
     if (!formData.email.trim()) {
       newErrors.email =
         getTranslation("email", isLanguageEnglish) +
-        `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
+        `${isLanguageEnglish ? " is required*" : " ಅಗತ್ಯವಿದೆ*"}`;
     } else if (
       formData.email &&
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
@@ -91,7 +91,7 @@ const MiniPage = () => {
     if (!formData.pincode.trim()) {
       newErrors.pincode =
         getTranslation("pincode", isLanguageEnglish) +
-        `${isLanguageEnglish ? " is required" : " ಅಗತ್ಯವಿದೆ"}`;
+        `${isLanguageEnglish ? " is required*" : " ಅಗತ್ಯವಿದೆ*"}`;
     } else if (
       formData.pincode &&
       !/^[1-9][0-9]{5}$/.test(formData.pincode.trim())
