@@ -7,8 +7,10 @@ import {
   queryBookingStatus,
   updateBookingStatus,
   updateBookingStatusAllUsers,
-  updateBookingDetails
+  updateBookingDetails,
+  createBookingAdmin
 } from "@/utils/api";
+import { format } from "path";
 import { useEffect, useState } from "react";
 
 interface BookingDetails {
@@ -90,7 +92,8 @@ export default function Footer({
   bookingSingle,
   status,
   slotId,
-  bookingProp
+  bookingProp,
+  newSlotBooking
 }: FooterProps) {
   const { toast } = useToast();
   const [isCancelPopupOpen, setIsCancelPopupOpen] = useState<boolean>(false);
@@ -101,6 +104,7 @@ export default function Footer({
     isUpdate: false,
     isConfirm: false,
   });
+
 
 
 
@@ -128,7 +132,6 @@ export default function Footer({
   }, [slotId]);
 
   const validateBookingDetails = (): boolean => {
-    console.log("raj",bookings)
     const requiredFields = [
       { 
         field: bookings.name, 
@@ -175,14 +178,13 @@ export default function Footer({
         name: 'Number of Students',
         message: 'Please enter the number of students'
       },
-      { 
-        field: bookings.slot, 
-        name: 'Slot',
-        message: 'Please select a time slot for the session'
-      }
+      // { 
+      //   field: bookings.slot, 
+      //   name: 'Slot',
+      //   message: 'Please select a time slot for the session'
+      // }
     ];
 
-    console.log("raj",requiredFields)
   
     const emptyField = requiredFields.find(
       ({ field }) => !field || field === '-' || field === ''
@@ -282,6 +284,27 @@ export default function Footer({
     );
   }
 
+  const createBookingByAdmin = async()=>{
+    const adminBookingData = {
+      name: bookings.name,
+      user_id: Number(bookingProp.user_id),
+      slot_id: Number(newSlotBooking.id),
+      program_id: Number(newSlotBooking.program_id), 
+      venue_id: Number(newSlotBooking.venue_id), 
+      booking_batch_size: Number(bookings.numberOfStudents),
+      students_grade: bookings.grade,
+      school_name: String(bookings.schoolName),
+      udise: bookings.udiseCode,
+      email: bookings.email,
+      address: bookings.city,
+      village: bookings.city,
+      state: "Karnataka",
+      district: bookings.city,
+      pin_code: parseInt(bookings.pincode, 10)
+    };
+    await createBookingAdmin(adminBookingData);
+  }
+
   useEffect(() => {
     if (popup.isUpdate) {
       if (status === "BookingConfirmed"){
@@ -313,11 +336,18 @@ export default function Footer({
 
   useEffect(() => {
     if (popup.isConfirm) {
-      hadleIsUpdate();
-      updateStatus("BookingConfirmed")
+      const slotdisableAllButtons = ["profileCreated", "CallRequested"].includes(status);
+      
+      if (slotdisableAllButtons){
+        createBookingByAdmin()
+      }
+      else{
+        hadleIsUpdate();
+        updateStatus("BookingConfirmed")
+      }
       onSubmitClick("true");
     }
-  }, [onSubmitClick, popup.isConfirm]);
+  }, [popup.isConfirm]);
 
   const [loading, setLoading] = useState(false); // State to handle button loading
 
@@ -329,6 +359,28 @@ export default function Footer({
     return { date: datePart, time: timePart };
   };
 
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    if (
+      bookingProp.status == "profileCreated" ||
+      bookingProp.status == "CallRequested" 
+    ) {
+      const options: Intl.DateTimeFormatOptions = {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      };
+
+      // Use 'en-GB' to avoid commas and format day-month-year naturally
+      const formattedDate = date.toLocaleDateString("en-GB", options);
+
+      // Return the formatted date as "24 Oct 2024"
+      return formattedDate.replace(/,/g, "");
+    }
+  };
+
+
   return (
     <>
       {popup.isConfirm ? (
@@ -338,8 +390,10 @@ export default function Footer({
           onClose={() => setIsSubmitPopupOpen(false)}
           bookingData={{
             name: bookings.name,
-            date: parseSlot(bookings.slot).date,
-            time: parseSlot(bookings.slot).time,
+            date: newSlotBooking?.date ? formatDate(newSlotBooking.date)  :parseSlot(bookings.slot).date,
+            time: newSlotBooking?.start_time && newSlotBooking?.end_time
+            ? `${newSlotBooking.start_time} - ${newSlotBooking.end_time}`
+            : parseSlot(bookings.slot).time,
             students: bookings.numberOfStudents,
           }}
         />

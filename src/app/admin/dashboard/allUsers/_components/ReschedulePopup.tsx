@@ -104,8 +104,16 @@ const ReschedulePopup: React.FC<CancelPopupProps> = ({
         "BookingConfirmed",
         reason
       );
-      window.location.reload()
-      onClose()
+      toast({
+        title: "Slot has been updated successfully!",
+        description: "",
+        duration: 3000,
+      });
+      setTimeout(()=>{
+        window.location.reload()
+        onClose()
+      },3000)
+ 
     } catch (err:any) {
       // console.log(err.response.data.details);
       // alert(err.response.data.details)
