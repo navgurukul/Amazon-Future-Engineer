@@ -13,6 +13,21 @@ import {
 import { format } from "path";
 import { useEffect, useState } from "react";
 
+
+interface NewSlotBooking {
+  id: number;
+  program_id: number;
+  venue_id: number;
+  date: string;
+  start_time: string;
+  end_time: string;
+  available_capacity: number;
+  status: string;
+  created_at: string;
+  updated_at: string;
+}
+
+
 interface BookingDetails {
   name: string;
   email: string | any;
@@ -45,6 +60,7 @@ interface FooterProps {
   status: string;
   slotId: number;
   bookingProp: Booking;
+  newSlotBooking?: NewSlotBooking; 
 }
 interface PopupState {
   isCancel: boolean;
@@ -284,13 +300,23 @@ export default function Footer({
     );
   }
 
-  const createBookingByAdmin = async()=>{
+  const createBookingByAdmin = async () => {
+    // Add type safety check for newSlotBooking
+    if (!newSlotBooking) {
+      toast({
+        title: "Error",
+        description: "Booking slot information is missing",
+        duration: 3000,
+        variant: "error"
+      });
+      return;
+    }
     const adminBookingData = {
       name: bookings.name,
       user_id: Number(bookingProp.user_id),
       slot_id: Number(newSlotBooking.id),
-      program_id: Number(newSlotBooking.program_id), 
-      venue_id: Number(newSlotBooking.venue_id), 
+      program_id: Number(newSlotBooking.program_id),
+      venue_id: Number(newSlotBooking.venue_id),
       booking_batch_size: Number(bookings.numberOfStudents),
       students_grade: bookings.grade,
       school_name: String(bookings.schoolName),
@@ -302,8 +328,22 @@ export default function Footer({
       district: bookings.city,
       pin_code: parseInt(bookings.pincode, 10)
     };
-    await createBookingAdmin(adminBookingData);
-  }
+    try {
+      await createBookingAdmin(adminBookingData);
+      toast({
+        title: "Success",
+        description: "Booking created successfully",
+        duration: 3000,
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to create booking",
+        duration: 3000,
+        variant: "error"
+      });
+    }
+  };
 
   useEffect(() => {
     if (popup.isUpdate) {
@@ -338,12 +378,11 @@ export default function Footer({
     if (popup.isConfirm) {
       const slotdisableAllButtons = ["profileCreated", "CallRequested"].includes(status);
       
-      if (slotdisableAllButtons){
-        createBookingByAdmin()
-      }
-      else{
+      if (slotdisableAllButtons) {
+        createBookingByAdmin();
+      } else {
         hadleIsUpdate();
-        updateStatus("BookingConfirmed")
+        updateStatus("BookingConfirmed");
       }
       onSubmitClick("true");
     }
@@ -390,7 +429,7 @@ export default function Footer({
           onClose={() => setIsSubmitPopupOpen(false)}
           bookingData={{
             name: bookings.name,
-            date: newSlotBooking?.date ? formatDate(newSlotBooking.date)  :parseSlot(bookings.slot).date,
+            date: newSlotBooking?.date ? formatDate(newSlotBooking.date)  : parseSlot(bookings.slot).date,
             time: newSlotBooking?.start_time && newSlotBooking?.end_time
             ? `${newSlotBooking.start_time} - ${newSlotBooking.end_time}`
             : parseSlot(bookings.slot).time,
