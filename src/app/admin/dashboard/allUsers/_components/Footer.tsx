@@ -160,11 +160,11 @@ export default function Footer({
         name: 'City',
         message: 'Please enter city'
       },
-      // { 
-      //   field: bookings.pincode, 
-      //   name: 'Pincode',
-      //   message: 'Please enter your area pincode'
-      // },
+      { 
+        field: bookings.pincode, 
+        name: 'Pincode',
+        message: 'Please enter your area pincode'
+      },
       { 
         field: bookings.grade, 
         name: 'Grade',
@@ -243,7 +243,6 @@ export default function Footer({
   const handleNotInterestedStatus = async (status:string) => {
     try {
       const reason1 = await queryBookingStatus(bookings.name,1, 2, status); //needs to be chanage it dynamic
-      window.location.reload()
     } catch (error) {
       console.error("Error updating booking status:", error);
     }
@@ -304,6 +303,9 @@ export default function Footer({
         description: "",
         duration: 3000,
       });
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     }
   }, [popup.isUpdate, toast, popup.isNotInterested]);
 
@@ -408,7 +410,7 @@ export default function Footer({
                       variant="proceed"
                       className="h-14 px-8 bg-[#F55C38] text-white rounded-full"
                       aria-label="Confirm Booking"
-                      disabled={disableAllButtons || loading}
+                      disabled={status === "BookingConfirmed" || disableAllButtons || loading}
                       onClick={() => handlePopup("isConfirm")}
                     >
                       Confirm Booking

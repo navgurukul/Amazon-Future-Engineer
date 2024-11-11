@@ -101,18 +101,16 @@ const VerifyOTP: React.FC<VerifyOTPProps> = ({
       localStorage.setItem("loginData", JSON.stringify(response));
       Cookies.set("loginData", JSON.stringify(response), { expires: 7 });
 
+
       setLoginSuccess(true);
-
-      setTimeout(() => {
-        setLoginSuccess(false);
-        router.push("/sprintPages/nanopage");
-      }, 10000);
-
       const userId = JSON.stringify(response.userId);
       localStorage.setItem("LoginId", userId);
       fetchProgramData()
       setMessage(response.message);
-      router.push("/sprintPages/nanopage");
+      setTimeout(() => {
+        setLoginSuccess(false);
+        router.push("/sprintPages/nanopage");
+      }, 3000);
     } catch (err: any) {
       setMessage("");
       setError("Please enter a valid OTP");

@@ -728,3 +728,43 @@ export const updateSlot = async (slotId: number, updatedSlot: any) => {
     throw new Error(error.response?.data?.details || "An error occurred while deleting the slot");
   }
 };
+
+
+
+
+
+
+// Function to create a booking
+export const createBookingAdmin = async (bookingData: {
+  user_id: number;
+  slot_id: number;
+  program_id: number;
+  venue_id: number;
+  booking_batch_size: number;
+  students_grade: string;
+  school_name: string;
+  udise: string;
+  email: string;
+  address: string;
+  village: string;
+  state: string;
+  district: string;
+  pin_code: number;
+}) => {
+  const token = getAdminToken();
+
+  if (!token) {
+    throw new Error('No token found');
+  }
+
+  try {
+    const response = await api.post('/bookings/admin', bookingData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw error;
+  }
+};
