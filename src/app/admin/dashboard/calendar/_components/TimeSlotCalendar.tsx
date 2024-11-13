@@ -7,14 +7,7 @@ import { getSlots } from "@/utils/api";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
-import { set } from "date-fns";
 import React, { useRef, useEffect, useState } from "react";
-
-
-;
-
-
-
 
 interface EventSlot {
   id: number;
@@ -33,14 +26,14 @@ interface TimeSlotCalendarProps {
   onBack: () => void;
 }
 
-// const TimeSlotCalendar: React.FC = () => {
 const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
   showTimeSlotCalendar,
-    onBack,
+  onBack,
 }) => {
   const calendarRef = useRef<any>(null);
   const [currentMonthYear, setCurrentMonthYear] = useState<string>("");
   const { events } = useAllBookings();
+  const [filteredEvents, setFilteredEvents] = useState(events);
   const [showPopup, setShowPopup] = useState(false);
   const [showTimeSlotsPopup, setShowTimeSlotsPopup] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -54,20 +47,21 @@ const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
 
   const getMonthYear = (date: Date) => {
     const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
     ];
     return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+  };
+
+  const filterEventsByMonth = (date: Date) => {
+    const currentMonth = date.getMonth();
+    const currentYear = date.getFullYear();
+    
+    return events.filter(event => {
+      const eventStart = new Date(event.start);
+      return eventStart.getMonth() === currentMonth && 
+             eventStart.getFullYear() === currentYear;
+    });
   };
 
   const updateMonthYear = () => {
@@ -75,6 +69,7 @@ const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
     const currentDate = calendarApi?.getDate();
     if (currentDate) {
       setCurrentMonthYear(getMonthYear(currentDate));
+      setFilteredEvents(filterEventsByMonth(currentDate));
     }
   };
 
@@ -90,7 +85,7 @@ const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
 
   useEffect(() => {
     updateMonthYear();
-  }, []);
+  }, [events]);
 
   const handleCalendarClick = (info: any) => {
     let date: Date | null = null;
@@ -105,8 +100,7 @@ const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
       return;
     }
 
-    const el =
-      info.el || info.jsEvent?.target?.closest(".fc-daygrid-day, .fc-event");
+    const el = info.el || info.jsEvent?.target?.closest(".fc-daygrid-day, .fc-event");
     if (!el) {
       setPopupPosition(null);
       return;
@@ -118,13 +112,12 @@ const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
     setSelectedDate(date);
     setSelectedDayName(date.toLocaleDateString("en-US", { weekday: "long" }));
 
-    const filteredEvents = events.filter((event) => {
+    const filteredSlotsForDate = filteredEvents.filter((event) => {
       const eventStart = new Date(event.start);
       return eventStart.toDateString() === date.toDateString();
     });
 
-    const slotsForDate: EventSlot[] = filteredEvents.map((event) => {
-      const [programId, venueId] = event.title.split(" - Venue ");
+    const slotsForDate: EventSlot[] = filteredSlotsForDate.map((event) => {
       return {
         id: Number(event.id),
         start: new Date(event.start).toLocaleTimeString("en-US", {
@@ -137,9 +130,7 @@ const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
           minute: "2-digit",
           hour12: false,
         }),
-        // program_id: parseInt(programId.replace('Program ', '')),
         program_id: 1,
-        // venue_id: parseInt(venueId),
         venue_id: 2,
         date: date.toISOString().split("T")[0],
         available_capacity: event.extendedProps.availableCapacity,
@@ -149,7 +140,6 @@ const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
     });
 
     setSelectedSlots(slotsForDate);
-
     setShowPopup(true);
   };
 
@@ -167,31 +157,16 @@ const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
     setShowTimeSlotsPopup(false);
   };
 
-  const handleUpdateSlots = async (
-    updatedSlots: EventSlot[]
-  ): Promise<void> => {
-    console.log("handleUpdateSlots called with:", updatedSlots);
+  const handleUpdateSlots = async (updatedSlots: EventSlot[]): Promise<void> => {
     try {
-      console.log("Starting to update slots:", updatedSlots);
-
-      // Ensure all slots are processed in parallel
       await Promise.all(
         updatedSlots.map(async (slot) => {
           if (!slot.id) {
             console.warn("Slot ID is missing for a slot:", slot);
             return;
           }
-
-          console.log("Updating slot:", slot);
-
-          console.log(
-            "Slot updated successfully, fetching data for slot:",
-            slot.id
-          );
         })
       );
-
-      console.log("Successfully updated all slots.");
 
       const calendarApi = calendarRef.current?.getApi?.();
       if (calendarApi) {
@@ -201,9 +176,6 @@ const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
       }
       setSelectedSlots(updatedSlots);
       setShowTimeSlotsPopup(false);
-
-      // localStorage.setItem("shouldManageSlots", "true");
-      // window.location.reload();
     } catch (error) {
       console.error("Error updating slots:", error);
     }
@@ -217,38 +189,35 @@ const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
 
   const handleDayCellClassNames = (arg: any) => {
     const date = arg.date;
-
     if (isBeforeToday(date) || date.getDay() === 0) {
       return ["disabled-date"];
     }
-
     return [];
   };
 
   const handleDayCellDidMount = (arg: any) => {
     const date = arg.date;
-
     if (isBeforeToday(date) || date.getDay() === 0) {
       arg.el.style.backgroundColor = "#f5f5f5";
     }
   };
 
+  const handleDatesSet = (arg: any) => {
+    updateMonthYear();
+  };
+
   return (
     <div className="calendar-container" style={{ display: showTimeSlotCalendar ? "block" : "none" }}>
-      {/* <Button className="mb-8" onClick={onBack}>
-        Back
-      </Button> */}
       <div className="flex gap-2 cursor-pointer mb-8" onClick={onBack}>
-                    <SmartImage
-                      src="/login/chevron_left.svg"
-                      alt="back"
-                   
-                      className="overflow-hidden"
-                      width={24}
-                      height={24}
-                    />
-                    <div className="leading-[170%] font-extrabold">Back</div>
-                  </div>
+        <SmartImage
+          src="/login/chevron_left.svg"
+          alt="back"
+          className="overflow-hidden"
+          width={24}
+          height={24}
+        />
+        <div className="leading-[170%] font-extrabold">Back</div>
+      </div>
       <div className="calendar-header">
         <SmartImage
           src="/previous.svg"
@@ -276,14 +245,14 @@ const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
           initialView="dayGridMonth"
           headerToolbar={false}
           height="auto"
-          events={events}
+          events={filteredEvents}
           eventClick={handleCalendarClick}
           dateClick={handleCalendarClick}
           dayCellClassNames={handleDayCellClassNames}
           dayCellDidMount={handleDayCellDidMount}
+          datesSet={handleDatesSet}
           eventContent={(eventInfo) => {
             const { start, end } = eventInfo.event;
-
             if (start && end) {
               const formatTime = (date: Date) =>
                 date.toLocaleTimeString("en-US", {
@@ -291,14 +260,12 @@ const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
                   minute: "2-digit",
                   hour12: true,
                 });
-
               return (
                 <div className="event-content">
                   {`${formatTime(start)} - ${formatTime(end)}`}
                 </div>
               );
             }
-
             return null;
           }}
         />
@@ -319,7 +286,6 @@ const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
                 }}
               />
             )}
-
             {showTimeSlotsPopup && (
               <EditTimeSlotsPopup
                 selectedDate={selectedDate?.toDateString() || ""}
@@ -381,8 +347,8 @@ const TimeSlotCalendar: React.FC<TimeSlotCalendarProps> = ({
           left: 0;
           width: 100%;
           height: 100%;
-          background: rgba(0, 0, 0, 0.5); /* semi-transparent black */
-          z-index: 999; /* Ensure it's below the popup */
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 999;
         }
 
         .disabled-date {

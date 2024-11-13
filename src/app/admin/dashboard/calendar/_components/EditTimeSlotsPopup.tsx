@@ -273,6 +273,7 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
             </div>
           ))}
           {isEditing && (
+            <div>
             <Button
               className="font-bold hover:bg-white p-0 flex items-start justify-start"
               variant="proceedWhite"
@@ -280,6 +281,7 @@ const EditTimeSlotsPopup: React.FC<EditTimeSlotsPopupProps> = ({
             >
               + &nbsp;Add New Slots
             </Button>
+            </div>
           )}
         </div>
       </div>
