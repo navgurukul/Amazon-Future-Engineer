@@ -61,7 +61,7 @@
 import Image from 'next/image';
 import { ImageProps } from 'next/image';
 // const BASE_URL = '/amazon/makerspace-blr';
-const BASE_URL = '';
+const BASE_URL = '/amazon/makerspace-blr';
 const SmartImage = ({ src, ...props }: ImageProps) => {
   let processedSrc = src;
   if (typeof src === 'string') {
