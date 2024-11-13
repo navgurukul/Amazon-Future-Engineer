@@ -24,7 +24,7 @@ export default function ComingSoonPage() {
             Exciting Things Are Coming!
           </h1>
           <p style={{ fontSize: '1.5em', color: '#666' }}>
-            We're working hard to bring you a fantastic experience. Stay tuned for something amazing!
+            We are working hard to bring you a fantastic experience. Stay tuned for something amazing!
           </p>
           <p style={{ fontSize: '1.2em', color: '#049796' }}>Launching Soon</p>
         </div>
