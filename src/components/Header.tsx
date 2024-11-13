@@ -3,10 +3,12 @@
 import { Button } from "./ui/button";
 import Cookies from "js-cookie";
 import { NextPage } from "next";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter, usePathname } from "next/navigation";
 import React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import LogoutSuccess from "./LogoutSuccess";
+import { useAppDispatch, useAppState } from "@/context/AppContext";
 
 interface HeaderProps {
   bgColor: string;
@@ -34,8 +36,16 @@ const Header: NextPage<HeaderProps> = ({
   const [headerBgColor, setHeaderBgColor] = useState<string>("transparent");
   const [currentLang, setCurrentLang] = useState<"en" | "kn">("en");
   const [showBothButtons, setShowBothButtons] = useState<boolean>(false);
+  const [logoutSuccess, setLogoutSuccess] = useState<boolean>(false);
+
+  const { isLanguageEnglish } = useAppState(); // Get language state from context
+  const dispatch = useAppDispatch(); // Get dispatch function from context
+
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] =
     useState<boolean>(false);
+
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
 
   const isLandingPage = pathname === "/";
 
@@ -67,7 +77,7 @@ const Header: NextPage<HeaderProps> = ({
   }, []);
 
   const handleScroll = useCallback(() => {
-    const scrollPosition = window.scrollY;
+    const scrollPosition = window.scrollY + 700;
     const windowHeight = window.innerHeight;
 
     if (scrollPosition > 0) {
@@ -101,28 +111,29 @@ const Header: NextPage<HeaderProps> = ({
     router.push("/");
   };
 
-  // const googleTranslateBaseURL = "https://translate.google.com/translate?hl=";
-  // const redirectToGoogleTranslator = (targetLang: string) => {
-  //   const currentUrl = window.location.href;
-  //   const translatedUrl = `${googleTranslateBaseURL}${targetLang}&sl=auto&tl=${targetLang}&u=${encodeURIComponent(
-  //     currentUrl
-  //   )}`;
-  //   window.location.href = translatedUrl;
-  // };
 
   const handleLanguageToggle = () => {
-    if (currentLang === "en") {
-      setCurrentLang("kn");
-      // redirectToGoogleTranslator("kn");
-    } else {
-      setCurrentLang("en");
-      // redirectToGoogleTranslator("en");
-    }
+    // Toggle language in context
+    handleLanguageToggleContext();
+
+    // Determine new language
+    const newLang = currentLang === "en" ? "kn" : "en";
+
+    // Set the new language in local state
+    setCurrentLang(newLang);
+
+    // Store the selected language in local storage
+    localStorage.setItem("currentLang", newLang);
   };
 
   const handleProfileClick = () => {
     setIsProfileDropdownOpen((prev) => !prev);
   };
+
+  const handleDoubleClickProfile = () => {
+    setIsProfileDropdownOpen(false);
+  };
+
 
   const handleDashboardClick = () => {
     router.push("/userdashboard");
@@ -137,57 +148,113 @@ const Header: NextPage<HeaderProps> = ({
     router.push("/");
   };
 
-  const whatsappLink = `https://wa.me/${6366969292}`;
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setIsProfileDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+
+  // const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+  const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+  const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
+
+
+  const handleLanguageToggleContext = () => {
+    dispatch({ type: "TOGGLE_LANGUAGE" }); // Dispatch toggle action
+  };
+
+  useEffect(() => {
+    const savedLang = localStorage.getItem("currentLang");
+    if (savedLang) {
+      // Ensure the saved language is valid before setting it
+      if (savedLang === "en" || savedLang === "kn") {
+        setCurrentLang(savedLang as "en" | "kn");
+      }
+    }
+  }, []);
 
   return (
     <>
+      <LogoutSuccess show={logoutSuccess} />
+
       <div
-        className={`fixed z-50 w-full ${
-          isDropdownOpen || bgColor !== "home" ? "bg-white" : headerBgColor
-        } text-center text-[14px] text-white transition-shadow duration-300 ${
-          hasShadow && !isDropdownOpen
+        className={`fixed z-50 w-full ${isDropdownOpen || bgColor !== "home" ? "bg-white" : headerBgColor
+          } text-center text-[14px] text-white transition-shadow duration-300 ${hasShadow && !isDropdownOpen
             ? "shadow-[0_1px_2px_rgba(0,0,0,0.06),0_2px_1px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)]"
             : ""
-        } z-${
-          offlinePopup || openSecondPopup || bookingPopup ? 0 : 50
-        } px-4 sm:px-8 md:px-12 py-6`}
+          } z-${offlinePopup || openSecondPopup || bookingPopup ? 0 : 50
+          } px-4 sm:px-8 md:px-12 py-6`}
       >
         <div className="mx-auto flex justify-between items-center h-full">
           {/* Reshot Icon */}
           <div className="hidden md:flex items-center gap-[5px]">
             <div className="hidden md:flex">
-              <Image
+              <SmartImage
                 className="object-contain cursor-pointer"
                 alt="Reshot Icon"
                 src={
                   headerBgColor == "transparent" && bgColor === "home"
-                    ? "/login/afe_subbrand_logo_horizontal_white.svg"
-                    : "/login/afe_subbrand_logo_horizontal_blue.svg"
+                    // ? "/login/afe_subbrand_logo_horizontal_white.svg"
+                    // : "/login/afe_subbrand_logo_horizontal_blue.svg"
+                    ? "/login/afe white horizontal.svg"
+                    : "/login/afe blue horizontal.svg"
                 }
-                // onClick={onReshotIconClick}
+                onClick={onReshotIconClick}
                 width={254}
                 height={40}
               />
+              <Button
+                // className="ml-4 bg-transparent hover:bg-transparent"
+                className={`ml-4 ${headerBgColor == "transparent" && bgColor === "home" ? "bg-transparent text-white hover:bg-transparent" : "text-[#3a3a3a] hover:bg-transparent"
+                  }`}
+                variant="proceedWhite"
+                onClick={() => router.push("/")}
+              >
+                {isLanguageEnglish ? "Home" : "ಮನೆ"}
+              </Button>
             </div>
           </div>
-          <div className="md:hidden">
-            <Image
+
+          {/* <div className="md:hidden">
+            <SmartImage
               className="object-contain cursor-pointer"
               alt="Reshot Icon"
-              src={`/login/Group(${
-                headerBgColor === "transparent" &&
+              src={`/login/Group(${headerBgColor === "transparent" &&
                 bgColor === "home" &&
                 !isDropdownOpen
-                  ? "11"
-                  : "12"
-              }).svg`}
-              // onClick={onReshotIconClick}
+                ? "11"
+                : "12"
+                }).svg`}
+              onClick={onReshotIconClick}
               // width={120}
               // height={40}
               width={100}
               height={30}
             />
+          </div> */}
+
+          <div className="md:hidden">
+            <SmartImage
+              className="object-contain cursor-pointer"
+              alt="Reshot Icon"
+              src={headerBgColor === "transparent" && bgColor === "home" && !isDropdownOpen
+                ? "login/afe white stacked.svg"
+                : "login/afe blue stacked.svg"}
+              onClick={onReshotIconClick}
+              width={100}
+              height={30}
+            />
           </div>
+
+
           {/* Right side buttons */}
           <div className="flex items-center md:gap-4 gap-8">
             {isMobile ? (
@@ -198,7 +265,7 @@ const Header: NextPage<HeaderProps> = ({
                   onClick={toggleDropdown}
                 >
                   {isDropdownOpen ? (
-                    <Image
+                    <SmartImage
                       src="/login/close.svg"
                       alt="Close"
                       width={24}
@@ -209,25 +276,22 @@ const Header: NextPage<HeaderProps> = ({
                       {bgColor == "home" ? (
                         <>
                           <div
-                            className={`w-[24px] h-[2px] relative rounded-full ${
-                              headerBgColor === "transparent" && !isDropdownOpen
-                                ? "bg-white"
-                                : "bg-black"
-                            }`}
+                            className={`w-[24px] h-[2px] relative rounded-full ${headerBgColor === "transparent" && !isDropdownOpen
+                              ? "bg-white"
+                              : "bg-black"
+                              }`}
                           />
                           <div
-                            className={`w-[16px] h-[2px] relative rounded-full ${
-                              headerBgColor === "transparent" && !isDropdownOpen
-                                ? "bg-white"
-                                : "bg-black"
-                            }`}
+                            className={`w-[16px] h-[2px] relative rounded-full ${headerBgColor === "transparent" && !isDropdownOpen
+                              ? "bg-white"
+                              : "bg-black"
+                              }`}
                           />
                           <div
-                            className={`w-[8px] h-[2px] relative rounded-full ${
-                              headerBgColor === "transparent" && !isDropdownOpen
-                                ? "bg-white"
-                                : "bg-black"
-                            }`}
+                            className={`w-[8px] h-[2px] relative rounded-full ${headerBgColor === "transparent" && !isDropdownOpen
+                              ? "bg-white"
+                              : "bg-black"
+                              }`}
                           />
                         </>
                       ) : (
@@ -241,10 +305,9 @@ const Header: NextPage<HeaderProps> = ({
                                   ? "proceed"
                                   : "proceedWhite"
                               }
-                              className={`${
-                                currentLang !== "en" &&
+                              className={`${currentLang !== "en" &&
                                 "text-black bg-transparent"
-                              } h-8 py-2 px-3`}
+                                } h-8 py-2 px-3`}
                               onClick={handleLanguageToggle}
                             >
                               Eng
@@ -255,22 +318,22 @@ const Header: NextPage<HeaderProps> = ({
                                   ? "proceed"
                                   : "proceedWhite"
                               }
-                              className={`${
-                                currentLang === "en" &&
+                              className={`${currentLang === "en" &&
                                 "text-black bg-transparent"
-                              } h-8 py-2 px-3`}
+                                } h-8 py-2 px-3`}
                               onClick={handleLanguageToggle}
                             >
                               ಅಇಈ
                             </Button>
                           </div>
-                          <Image
+                          <SmartImage
                             className="object-cover rounded-full cursor-pointer"
                             alt="User Avatar"
                             src="/login/avatarIcon.svg"
                             width={48}
                             height={48}
                             onClick={handleProfileClick}
+                            onDoubleClick={handleDoubleClickProfile}
                           />
                         </div>
                       )}
@@ -282,27 +345,24 @@ const Header: NextPage<HeaderProps> = ({
               <>
                 {/* Language Selector for desktop */}
                 <div
-                 
-                  className={` p-2  h-[48px] flex items-center rounded-full md:gap-1 gap-2  bg-${
-                    headerBgColor !== "transparent" || bgColor != "home"
-                      ? "incandescent-light"
-                      : "white"
-                  }`}
+
+                  className={` p-2  h-[48px] flex items-center rounded-full md:gap-1 gap-2  bg-${headerBgColor !== "transparent" || bgColor != "home"
+                    ? "incandescent-light"
+                    : "white"
+                    }`}
                 >
                   <Button
                     variant={currentLang === "en" ? "proceed" : "proceedWhite"}
-                    className={`${
-                      currentLang !== "en" && "text-black bg-transparent"
-                    } h-8 py-2 px-3`}
+                    className={`${currentLang !== "en" && "text-black bg-transparent"
+                      } h-8 py-2 px-3`}
                     onClick={handleLanguageToggle}
                   >
                     Eng
                   </Button>
                   <Button
                     variant={currentLang !== "en" ? "proceed" : "proceedWhite"}
-                    className={`${
-                      currentLang === "en" && "text-black bg-transparent"
-                    } h-8 py-2 px-3`}
+                    className={`${currentLang === "en" && "text-black bg-transparent"
+                      } h-8 py-2 px-3`}
                     onClick={handleLanguageToggle}
                   >
                     ಅಇಈ
@@ -316,33 +376,34 @@ const Header: NextPage<HeaderProps> = ({
                     onClick={handleOfflineBooking}
                     className="flex-grow flex justify-center items-center gap-3 px-4 py-2 border-2 border-[#F55C38] "
                   >
-                    <Image
+                    <SmartImage
                       alt="Helpdesk Icon"
                       src="/nanopage/reshot-icon-phone-XZTUCW7SFA 1.svg"
                       width={24}
                       height={24}
                     />
                     <span className="relative font-medium leading-[170%] text-base">
-                      Call Us
+                      {/* Call Us */}
+                      {isLanguageEnglish ? "Call Us" : "ನಮಗೆ ಕರೆ ಮಾಡಿ"}
                     </span>
                   </Button>
                 )}
 
                 {profileOpen ? (
                   <div className="relative">
-                    <Image
+                    <SmartImage
                       className="object-cover rounded-full cursor-pointer"
                       alt="User Avatar"
                       src="/login/avatarIcon.svg"
                       width={56}
                       height={56}
                       onClick={handleProfileClick}
+                    // onDoubleClick={handleDoubleClickProfile}
                     />
                     {isProfileDropdownOpen && (
-                      <div
-                        className={`absolute right-0 mt-2 ${
-                          isMobile ? "w-screen" : "w-48"
-                        } bg-white rounded-md shadow-lg z-50`}
+                      <div ref={dropdownRef}
+                        className={`absolute right-0 mt-2 ${isMobile ? "w-screen" : "w-48"
+                          } bg-white rounded-md shadow-lg z-50`}
                       >
                         <div className="py-2">
                           <button
@@ -350,7 +411,8 @@ const Header: NextPage<HeaderProps> = ({
                             className="block w-full text-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition duration-150 ease-in-out"
                           >
                             <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-text-primary text-center">
-                              Dashboard
+                              {/* Dashboard */}
+                              {isLanguageEnglish ? "Dashboard" : "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್"}
                             </div>
                           </button>
                           <button
@@ -358,7 +420,8 @@ const Header: NextPage<HeaderProps> = ({
                             className="block w-full text-center px-4 py-3 text-sm text-red-600 hover:bg-gray-100 transition duration-150 ease-in-out"
                           >
                             <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-incandescent-main text-center">
-                              Logout
+                              {/* Logout */}
+                              {isLanguageEnglish ? "Logout" : "ಲಾಗ್‌ಔಟ್"}
                             </div>
                           </button>
                         </div>
@@ -374,7 +437,8 @@ const Header: NextPage<HeaderProps> = ({
                     }
                     onClick={handleBookSessionClick}
                   >
-                    Login
+                    {/* Login */}
+                    {isLanguageEnglish ? "Login" : "ಲಾಗಿನ್"}
                   </Button>
                 )}
               </>
@@ -384,18 +448,18 @@ const Header: NextPage<HeaderProps> = ({
             <div className="fixed w-full top-[104px] bg-[#FFF] left-0 shadow-lg z-40 rounded-b-2xl">
               {bgColor !== "home" ? (
                 <div
-                  className={`absolute right-0 mt-2 ${
-                    isMobile ? "w-screen" : "w-48"
-                  } bg-white rounded-md shadow-lg z-50`}
+                  className={`absolute right-0 mt-2 ${isMobile ? "w-screen" : "w-48"
+                    } bg-white rounded-md shadow-lg z-50`}
                 >
-                <div className="h-[2px] bg-gray-300 mx-4"></div>
+                  <div className="h-[2px] bg-gray-300 mx-4"></div>
                   <div className="py-2">
                     <button
                       onClick={handleDashboardClick}
                       className="block w-full text-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 transition duration-150 ease-in-out"
                     >
                       <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-text-primary text-center">
-                        Dashboard
+                        {/* Dashboard */}
+                        {isLanguageEnglish ? "Dashboard" : "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್"}
                       </div>
                     </button>
                     <button
@@ -403,7 +467,8 @@ const Header: NextPage<HeaderProps> = ({
                       className="block w-full text-center px-4 py-3 text-sm text-red-600 hover:bg-gray-100 transition duration-150 ease-in-out"
                     >
                       <div className="relative text-base leading-[170%] font-medium font-mobiletypestyles-buttonlarge text-incandescent-main text-center">
-                        Logout
+                        {/* Logout */}
+                        {isLanguageEnglish ? "Logout" : "ಲಾಗ್‌ಔಟ್"}
                       </div>
                     </button>
                   </div>
@@ -411,7 +476,7 @@ const Header: NextPage<HeaderProps> = ({
               ) : (
                 <div className="p-4 flex flex-col items-center gap-4">
                   {profileOpen ? (
-                    <Image
+                    <SmartImage
                       className="w-10 h-10 object-cover rounded-full"
                       alt="User Avatar"
                       src="/login/avatarIcon.svg"
@@ -420,20 +485,20 @@ const Header: NextPage<HeaderProps> = ({
                     />
                   ) : (
                     <Button variant="proceed" onClick={handleBookSessionClick}>
-                      Login
+                      {/* Login */}
+                      {isLanguageEnglish ? "Login" : "ಲಾಗಿನ್"}
                     </Button>
                   )}
                   <div
-                 
+
                     className="w-auto mx-auto p-2 h-[48px] flex items-center rounded-full md:gap-1 gap-2  bg-incandescent-light"
                   >
                     <Button
                       variant={
                         currentLang === "en" ? "proceed" : "proceedWhite"
                       }
-                      className={`${
-                        currentLang !== "en" && "text-black bg-transparent"
-                      } h-8 px-8 py-3`}
+                      className={`${currentLang !== "en" && "text-black bg-transparent"
+                        } h-8 px-8 py-3`}
                       onClick={handleLanguageToggle}
                     >
                       Eng
@@ -442,9 +507,8 @@ const Header: NextPage<HeaderProps> = ({
                       variant={
                         currentLang !== "en" ? "proceed" : "proceedWhite"
                       }
-                      className={`${
-                        currentLang === "en" && "text-black bg-transparent"
-                      } h-8 px-8 py-3`}
+                      className={`${currentLang === "en" && "text-black bg-transparent"
+                        } h-8 px-8 py-3`}
                       onClick={handleLanguageToggle}
                     >
                       ಅಇಈ
@@ -458,9 +522,8 @@ const Header: NextPage<HeaderProps> = ({
         {/* chat with us and call us button for small screens*/}
         {isMobile && !isDropdownOpen && (
           <div
-            className={`fixed w-full left-0 right-0 ${headerBgColor} ${
-              hasShadow ? "shadow-md" : ""
-            }`}
+            className={`fixed w-full left-0 right-0 ${headerBgColor} ${hasShadow ? "shadow-md" : ""
+              }`}
             style={{ top: "104px" }}
           >
             <div className="flex justify-between px-4 space-x-2 py-2">
@@ -470,14 +533,15 @@ const Header: NextPage<HeaderProps> = ({
                   onClick={handleOfflineBooking}
                   className="flex-1 flex-grow flex justify-center items-center gap-3 px-4 py-2 border-2 border-[#F55C38] "
                 >
-                  <Image
+                  <SmartImage
                     alt="Helpdesk Icon"
                     src="/nanopage/reshot-icon-phone-XZTUCW7SFA 1.svg"
                     width={24}
                     height={24}
                   />
                   <span className="relative font-medium leading-[170%] text-base">
-                    Call Us
+                    {/* Call Us */}
+                    {isLanguageEnglish ? "Call Us" : "ನಮಗೆ ಕರೆ ಮಾಡಿ"}
                   </span>
                 </Button>
               )}
@@ -487,7 +551,7 @@ const Header: NextPage<HeaderProps> = ({
                 // onClick={handleOfflineBooking}
                 className="flex-1  flex-grow flex justify-center items-center gap-3 px-4 py-2 border-text-primary border-[1px] border-solid box-border"
               >
-                <Image
+                <SmartImage
                   alt="WhatsApp Icon"
                   src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
                   width={24}
@@ -502,20 +566,21 @@ const Header: NextPage<HeaderProps> = ({
                 </a>
               </Button> */}
               <Button
-  variant="proceedWhite"
-  className="flex-1 flex-grow flex justify-center items-center gap-3 px-4 py-2 border-text-primary border-[1px] border-solid box-border"
-  onClick={() => window.open(whatsappLink, '_blank')}
->
-  <Image
-    alt="WhatsApp Icon"
-    src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
-    width={24}
-    height={24}
-  />
-  <span className="relative font-medium leading-[170%] text-base text-darkslategray">
-    Chat with Us
-  </span>
-</Button>
+                variant="proceedWhite"
+                className="flex-1 flex-grow flex justify-center items-center gap-3 px-4 py-2 border-text-primary border-[1px] border-solid box-border"
+                onClick={() => window.open(whatsappLink, '_blank')}
+              >
+                <SmartImage
+                  alt="WhatsApp Icon"
+                  src="/login/reshot-icon-whatsapp-UANBKF398R 1.svg"
+                  width={24}
+                  height={24}
+                />
+                <span className="relative font-medium leading-[170%] text-base text-darkslategray">
+                  {/* Chat with Us */}
+                  {isLanguageEnglish ? "Chat with Us" : "ನಮ್ಮೊಂದಿಗೆ ಚಾಟ್ ಮಾಡಿ"}
+                </span>
+              </Button>
 
             </div>
           </div>
@@ -529,3 +594,5 @@ const Header: NextPage<HeaderProps> = ({
 };
 
 export default Header;
+
+

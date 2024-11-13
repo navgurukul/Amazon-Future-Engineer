@@ -2,7 +2,7 @@ import { useAllBookings } from "./allBookings";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";
 import React, { useRef, useEffect, useState } from "react";
 import EventPopup from "./Event";
 
@@ -18,8 +18,10 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   const [selectedDateState, setSelectedDateState] = useState<Date | null>(null);
   const { events } = useAllBookings();
   const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
+  const [filteredEvents, setFilteredEvents] = useState(events);
 
-  const whatsappLink = `https://wa.me/${6366969292}`;
+  const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+  const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
 
   const getMonthYear = (date: Date) => {
     const monthNames = [
@@ -30,10 +32,24 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
     return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
   };
 
+  const filterEventsByMonth = (date: Date) => {
+    const currentMonth = date.getMonth();
+    const currentYear = date.getFullYear();
+    
+    return events.filter(event => {
+      const eventDate = new Date(event.start as unknown as string);
+      return eventDate.getMonth() === currentMonth && 
+             eventDate.getFullYear() === currentYear;
+    });
+  };
+
   const updateMonthYear = () => {
     const calendarApi = calendarRef.current?.getApi();
     const currentDate = calendarApi?.getDate();
-    if (currentDate) setCurrentMonthYear(getMonthYear(currentDate));
+    if (currentDate) {
+      setCurrentMonthYear(getMonthYear(currentDate));
+      setFilteredEvents(filterEventsByMonth(currentDate));
+    }
   };
 
   const handlePrevMonth = () => {
@@ -47,7 +63,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   };
 
   const handleDateClick = (arg: any) => {
-    const isAvailableDate = events.some(
+    const isAvailableDate = filteredEvents.some(
       (event) =>
         arg.date.toDateString() ===
         new Date(event.start as unknown as string).toDateString()
@@ -60,20 +76,25 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   };
 
   const handleEventClick = (arg: any) => {
-    setSelectedEventId(Number(arg.event.id)); // Open popup with event ID
+    setSelectedEventId(Number(arg.event.id));
   };
 
   const closePopup = () => {
-    setSelectedEventId(null); // Close the popup
+    setSelectedEventId(null);
   };
+
+  const handleDatesSet = (arg: any) => {
+    updateMonthYear();
+  };
+
   useEffect(() => {
     updateMonthYear();
-  }, []);
+  }, [events]);
 
   return (
     <div className="calendar-container">
       <div className="calendar-header">
-        <Image
+        <SmartImage
           src="/previous.svg"
           alt="Previous"
           width={30}
@@ -82,7 +103,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           className="nav-icon"
         />
         <h1 className="calendar-title">{currentMonthYear}</h1>
-        <Image
+        <SmartImage
           src="/next.svg"
           alt="Next"
           width={30}
@@ -98,13 +119,14 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
         initialView="dayGridMonth"
         headerToolbar={false}
         dateClick={handleDateClick}
-        events={events}
+        events={filteredEvents}
         height="auto"
         eventClick={handleEventClick}
+        datesSet={handleDatesSet}
         dayCellClassNames={(arg) => {
           const classes = [];
           if (
-            events.some(
+            filteredEvents.some(
               (event) =>
                 arg.date.toDateString() ===
                 new Date(event.start as unknown as string).toDateString()
@@ -126,8 +148,6 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
         .calendar-container {
           background-color: #fff;
           border-radius: 12px;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-          padding: 20px;
           max-width: 100%;
         }
 
@@ -152,7 +172,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           transform: scale(1.1);
         }
 
-         .fc-day-past .fc-daygrid-day-number,
+        .fc-day-past .fc-daygrid-day-number,
         .fc-day-future .fc-daygrid-day-number {
           color: #ccc !important;
         }
@@ -210,9 +230,35 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           gap: 4px;
           align-self: stretch;
           border-radius: 8px;
-          background: var(--Incandescent-Main, #F55C38) !important; /* Use a fallback color */
-          color: #fff !important; /* Text color */
-          border: none !important; /* Remove borders if any */
+          background: var(--Incandescent-Main, #F55C38) !important;
+          color: #fff !important;
+          border: none !important;
+          margin-bottom: 8px;
+          cursor: pointer;
+        }
+
+        .fc-event-low-capacity {
+          background: var(--Incandescent-Main, #00A36C) !important;
+          cursor: pointer;
+        }
+          
+        .fc-daygrid-event-dot, .fc-event-time {
+          display: none;
+        }
+
+        .fc-event, .fc-event-start, .fc-event-end, .fc-event-today, .fc-daygrid-event, .fc-daygrid-dot-event {
+          font-size: 14px;
+          line-height: 1.7;
+          color: #fff;
+          font-family: 'Amazon Ember';
+        }
+
+        .fc-daygrid-dot-event .fc-event-title {
+          font-weight: 500;
+        }
+
+        .fc-daygrid-day-frame, .fc-scrollgrid-sync-inner {
+          padding: 9px;
         }
 
         @media (max-width: 640px) {

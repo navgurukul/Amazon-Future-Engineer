@@ -1,19 +1,40 @@
-import CancelPopup from "./CancelPopup";
-import { Button } from "@/components/ui/button";
-import { updateBookingStatus, updateBookingStatusAllUsers } from "@/utils/api";
-import { useEffect, useState } from "react";
-import ReschedulePopup from "./ReschedulePopup";
 import SubmitPopup from "../../upcomingBookings/_components/SubmitPopup";
+import CancelPopup from "./CancelPopup";
+import ReschedulePopup from "./ReschedulePopup";
+import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import {
+  queryBookingStatus,
+  updateBookingStatus,
+  updateBookingStatusAllUsers,
+  updateBookingDetails,
+  createBookingAdmin
+} from "@/utils/api";
+import { format } from "path";
+import { useEffect, useState } from "react";
+
+
+interface NewSlotBooking {
+  id: number;
+  program_id: number;
+  venue_id: number;
+  date: string;
+  start_time: string;
+  end_time: string;
+  available_capacity: number;
+  status: string;
+  created_at: string;
+  updated_at: string;
+}
 
 
 interface BookingDetails {
   name: string;
-  email: string | null;
+  email: string | any;
   phoneNumber: string;
   dateofRequest: string;
   programName: string;
-  schoolName: string | number;  // Adjust based on your data
+  schoolName: string | number; // Adjust based on your data
   udiseCode: string;
   city: string;
   pincode: string;
@@ -24,9 +45,9 @@ interface BookingDetails {
 
 interface FooterProps {
   programName: string;
-  bookingId: string;
+  bookingId: number;
   onSubmitClick: (message: string) => void;
-  handleCalendar:()=>void;
+  handleCalendar: () => void;
   bookingSingle: {
     id: number;
     status: string;
@@ -36,6 +57,10 @@ interface FooterProps {
     // Add any other fields you need from bookingSingle
   };
   bookings: BookingDetails;
+  status: string;
+  slotId: number;
+  bookingProp: Booking;
+  newSlotBooking?: NewSlotBooking; 
 }
 interface PopupState {
   isCancel: boolean;
@@ -45,55 +70,182 @@ interface PopupState {
   isConfirm: boolean;
 }
 
-export default function Footer({handleCalendar, programName, bookingId, onSubmitClick,bookings,bookingSingle }: FooterProps){
-  const { toast } = useToast()
+
+interface Booking {
+  user_id(user_id: any): unknown;
+  slot_id(slot_id: any): unknown;
+  id: number;
+  user: {
+    name: string;
+    id: string;
+    email: string;
+    phone: string;
+    school_id?: string;
+  };
+  slot: {
+    venue: {
+      pin_code: any;
+      city: string;
+    };
+    program: {
+      title: string;
+    };
+  };
+  booking_for: string;
+  start_time: string;
+  end_time: string;
+  booking_batch_size: number;
+  created_at: string;
+  status: string;
+}
+
+export default function Footer({
+  handleCalendar,
+  programName,
+  bookingId,
+  onSubmitClick,
+  bookings,
+  bookingSingle,
+  status,
+  slotId,
+  bookingProp,
+  newSlotBooking
+}: FooterProps) {
+  const { toast } = useToast();
   const [isCancelPopupOpen, setIsCancelPopupOpen] = useState<boolean>(false);
-  const [popup,setPopup] = useState<PopupState>({
-    isCancel:false,
-    isReschedule:false,
-    isNotInterested:false,
-    isUpdate:false,
-    isConfirm:false
-  })
-
-  console.log(bookings,"bookings")
-// Function to handle popup toggle based on id
-const handlePopup = (id: string) => {
-  console.log("id",id)
-  setPopup((prevPopup) => {
-    switch (id) {
-      case "isCancel":
-        return {
-          ...prevPopup,
-          isCancel: !prevPopup.isCancel,
-        };
-      case "isReschedule":
-        return {
-          ...prevPopup,
-          isReschedule: !prevPopup.isReschedule,
-        };
-      case "isNotInterested":
-        return {
-          ...prevPopup,
-          isNotInterested: !prevPopup.isNotInterested,
-        };
-      case "isUpdate":
-        return {
-          ...prevPopup,
-          isUpdate: !prevPopup.isUpdate,
-        };
-      case "isConfirm":
-        return {
-          ...prevPopup,
-          isConfirm: !prevPopup.isConfirm,
-        };
-      default:
-        return prevPopup; // If the id doesn't match any case, return the previous state
-    }
+  const [popup, setPopup] = useState<PopupState>({
+    isCancel: false,
+    isReschedule: false,
+    isNotInterested: false,
+    isUpdate: false,
+    isConfirm: false,
   });
-};
 
-    const handleCancelClick = () => {
+
+
+
+  // Logic for disabling/enabling buttons based on status
+  const disableAllButtons =
+    status === "Completed" ||
+    status === "Cancelled" ||
+    status === "NotInterested";
+  const enableAllButtons =
+    status === "RequestedReschedule" || status === "BookingConfirmed";
+  const disableRescheduleOnly = !disableAllButtons && !enableAllButtons;
+
+  
+
+
+  useEffect(() => {
+    if (slotId !== 0) {
+      setPopup((prev) => {
+        return {
+          ...prev,
+          isReschedule: true,
+        };
+      });
+    }
+  }, [slotId]);
+
+  const validateBookingDetails = (): boolean => {
+    const requiredFields = [
+      { 
+        field: bookings.name, 
+        name: 'Name',
+        message: 'Please enter the name'
+      },
+      { 
+        field: bookings.email, 
+        name: 'Email',
+        message: 'Please provide a valid email address'
+      },
+      { 
+        field: bookings.phoneNumber, 
+        name: 'Phone Number',
+        message: 'Please enter a contact phone number'
+      },
+      { 
+        field: bookings.schoolName, 
+        name: 'School Name',
+        message: 'Please enter school name'
+      },
+      // { 
+      //   field: bookings.udiseCode, 
+      //   name: 'UDISE Code',
+      //   message: 'Please enter the school UDISE code'
+      // },
+      { 
+        field: bookings.city, 
+        name: 'City',
+        message: 'Please enter city'
+      },
+      { 
+        field: bookings.pincode, 
+        name: 'Pincode',
+        message: 'Please enter your area pincode'
+      },
+      { 
+        field: bookings.grade, 
+        name: 'Grade',
+        message: 'Please select the grade/class'
+      },
+      { 
+        field: bookings.numberOfStudents, 
+        name: 'Number of Students',
+        message: 'Please enter the number of students'
+      },
+      // { 
+      //   field: bookings.slot, 
+      //   name: 'Slot',
+      //   message: 'Please select a time slot for the session'
+      // }
+    ];
+
+  
+    const emptyField = requiredFields.find(
+      ({ field }) => !field || field === '-' || field === ''
+    );
+  
+    if (emptyField) {
+      toast({
+        title: "Required Field",
+        description: emptyField.message,
+        duration: 3000,
+        variant: "error"
+      });
+      return false;
+    }
+  
+    return true;
+  };
+
+
+  // Modified handlePopup to include validation
+  const handlePopup = (id: string) => {
+    if ((id === 'isUpdate' || id === 'isConfirm') && !validateBookingDetails()) {
+      return;
+    }
+
+    setPopup((prevPopup) => {
+      switch (id) {
+        case "isCancel":
+          return { ...prevPopup, isCancel: !prevPopup.isCancel };
+        case "isReschedule":
+          return { ...prevPopup, isReschedule: !prevPopup.isReschedule };
+        case "isNotInterested":
+          return { ...prevPopup, isNotInterested: !prevPopup.isNotInterested };
+        case "isUpdate":
+          return { ...prevPopup, isUpdate: !prevPopup.isUpdate };
+        case "isConfirm":
+          return { ...prevPopup, isConfirm: !prevPopup.isConfirm };
+        default:
+          return prevPopup;
+      }
+    });
+  };
+
+
+  const handleCancelClick = () => {
     setIsCancelPopupOpen(true);
   };
   const closeCancelPopup = () => {
@@ -105,185 +257,305 @@ const handlePopup = (id: string) => {
       isConfirm: false,
     });
   };
-   
-  useEffect (()=>{
-    if (popup.isUpdate) {
-      toast({
-        title: "Sprint Booking Details Updated Successfully!",
-        description: "",
-        duration: 3000,
-      })
 
-    }
-  },[popup.isUpdate, toast])
-
-  useEffect(()=>{
-    if (popup.isConfirm){
-      onSubmitClick("true")
-    }
-    console.log("Hello")
-  },[onSubmitClick, popup.isConfirm])
-  
-
-
-  const [loading, setLoading] = useState(false); // State to handle button loading
-  const handleStatusChange = async (
-    status:
-      | "Confirmed"
-      | "Waiting"
-      | "Cancelled"
-      | "Disinterested"
-      | "Completed"
-    // queryType: "Booking" | "Reschedule",
-    // cancellationReason?: string
-  ) => {
-    setLoading(true);
+  const handleNotInterestedStatus = async (status:string) => {
     try {
-      console.log(
-        // `Making API call with status: ${status}, queryType: ${queryType}, reason: ${cancellationReason}`
-        `Making API call with status: ${status}`
-      );
-      const response = await updateBookingStatus(
-        Number(bookingId),
-        status
-        // queryType,
-        // cancellationReason
-      );
-      alert(`Status updated to ${status}`);
+      const reason1 = await queryBookingStatus(bookings.name,1, 2, status); //needs to be chanage it dynamic
     } catch (error) {
-      console.error("Error making API request:", error);
-    } finally {
-      setLoading(false);
+      console.error("Error updating booking status:", error);
     }
   };
+
+
+  // Save changes to booking details
+  const hadleIsUpdate = async () => {
+    try {
+      const bookingData = {
+        user_id: Number(bookingProp.user_id),
+        slot_id: Number(bookingProp.slot_id),
+        booking_batch_size: Number(bookings.numberOfStudents),
+        visited_batch_size: 0,
+        students_grade: bookings.grade,
+        visiting_time: new Date().toISOString(),
+        school_name: String(bookings.schoolName),
+        udise: bookings.udiseCode,
+        email: bookings.email,
+        address: bookings.city,
+        village: bookings.city,
+        state: "Karnataka",
+        district: bookings.city,
+        pin_code: parseInt(bookings.pincode, 10),
+      };
+      await updateBookingDetails(bookingProp.id, bookingData);
+      window.location.reload()
+    } catch (error) {
+      console.error("Error updating booking details:", error);
+    }
+  };
+
+  const updateStatus = async (status:string) => {
+    await updateBookingStatus(
+      Number(bookingId),
+      status,
+    );
+  }
+
+  const createBookingByAdmin = async () => {
+    // Add type safety check for newSlotBooking
+    if (!newSlotBooking) {
+      toast({
+        title: "Error",
+        description: "Booking slot information is missing",
+        duration: 3000,
+        variant: "error"
+      });
+      return;
+    }
+    const adminBookingData = {
+      name: bookings.name,
+      user_id: Number(bookingProp.user_id),
+      slot_id: Number(newSlotBooking.id),
+      program_id: Number(newSlotBooking.program_id),
+      venue_id: Number(newSlotBooking.venue_id),
+      booking_batch_size: Number(bookings.numberOfStudents),
+      students_grade: bookings.grade,
+      school_name: String(bookings.schoolName),
+      udise: bookings.udiseCode,
+      email: bookings.email,
+      address: bookings.city,
+      village: bookings.city,
+      state: "Karnataka",
+      district: bookings.city,
+      pin_code: parseInt(bookings.pincode, 10)
+    };
+    try {
+      await createBookingAdmin(adminBookingData);
+      toast({
+        title: "Success",
+        description: "Booking created successfully",
+        duration: 3000,
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to create booking",
+        duration: 3000,
+        variant: "error"
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (popup.isUpdate) {
+      if (status === "BookingConfirmed"){
+        hadleIsUpdate()
+        updateStatus("BookingConfirmed")
+      }
+      else if (!bookingProp.slot_id || bookingProp.slot_id === null){
+        hadleIsUpdate()
+        // handleNotInterestedStatus("AwaitingInfo")
+      }
+      else{
+        hadleIsUpdate()
+      }
+    }
+    if (popup.isNotInterested) {
+      handleNotInterestedStatus("NotInterested");
+      toast({
+        title: "User is marked as not intersted",
+        description: "",
+        duration: 3000,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    }
+  }, [popup.isUpdate, toast, popup.isNotInterested]);
+
+
+
+  useEffect(() => {
+    if (popup.isConfirm) {
+      const slotdisableAllButtons = ["profileCreated", "CallRequested"].includes(status);
+      
+      if (slotdisableAllButtons) {
+        createBookingByAdmin();
+      } else {
+        hadleIsUpdate();
+        updateStatus("BookingConfirmed");
+      }
+      onSubmitClick("true");
+    }
+  }, [popup.isConfirm]);
+
+  const [loading, setLoading] = useState(false); // State to handle button loading
 
   function setIsSubmitPopupOpen(arg0: boolean): void {
     throw new Error("Function not implemented.");
   }
   const parseSlot = (slot: string) => {
-    const [datePart, timePart] = slot.split(' | ');
+    const [datePart, timePart] = slot.split(" | ");
     return { date: datePart, time: timePart };
   };
 
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    if (
+      bookingProp.status == "profileCreated" ||
+      bookingProp.status == "CallRequested" 
+    ) {
+      const options: Intl.DateTimeFormatOptions = {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      };
+
+      // Use 'en-GB' to avoid commas and format day-month-year naturally
+      const formattedDate = date.toLocaleDateString("en-GB", options);
+
+      // Return the formatted date as "24 Oct 2024"
+      return formattedDate.replace(/,/g, "");
+    }
+  };
 
 
   return (
     <>
-    {
-      popup.isConfirm ? (<SubmitPopup 
-        isOpen={popup.isConfirm}
-        type = "Rahul Prakash"
-        onClose={() => setIsSubmitPopupOpen(false)}
-        bookingData={{
-          name:bookings.name,
-          date: parseSlot(bookings.slot).date,
-          time: parseSlot(bookings.slot).time,
-          students: bookings.numberOfStudents,
-        }}  />):(
-    
-    <footer className="z-50 w-full shadow-[0px_-2px_2px_rgba(0,0,0,0.04),0px_-1px_5px_rgba(0,0,0,0.08)] bg-white p-6 text-center text-lg text-gray-800 font-amazon-ember">
-      <div className="flex flex-row items-center justify-between">
-        <nav
-          aria-label="Sprint actions"
-          className="flex flex-row items-start justify-between w-full"
-        >
-          <div className="flex gap-4">
-            {(programName === "Nano Sprint" || programName === "") && (
-              <>
-                <Button
-                  className="h-14 px-8 border rounded-full text-[#3A3A3A] border-[#3A3A3A] bg-white hover:text-white"
-                  aria-label="Cancel Sprint"
-                  disabled={loading}
-                  onClick={() => handlePopup("isCancel")}
-                >
-                  Cancel Sprint
-                </Button>
-                <Button
-                  className="h-14 px-8 border rounded-full text-[#3A3A3A] border-[#3A3A3A] bg-white hover:text-white"
-                  aria-label="Mark as Not Interested"
-                  disabled={loading}
-                  onClick={() => handlePopup("isNotInterested")}
-                >
-                  Mark as Not Interested
-                </Button>
-              </>
-            )}
-            {(programName === "Mini Sprint" ||
-              programName === "Mega Sprint") && (
-              <Button
-                className="h-14 px-8 border rounded-full text-[#3A3A3A] border-[#3A3A3A] bg-white hover:text-white"
-                aria-label="Mark as Not Interested"
-                disabled={loading}
-                onClick={() => handlePopup("isNotInterested")}
-              >
-                Mark as Not Interested
-              </Button>
-            )}
+      {popup.isConfirm ? (
+        <SubmitPopup
+          isOpen={popup.isConfirm}
+          type="Rahul Prakash"
+          onClose={() => setIsSubmitPopupOpen(false)}
+          bookingData={{
+            name: bookings.name,
+            date: newSlotBooking?.date ? formatDate(newSlotBooking.date)  : parseSlot(bookings.slot).date,
+            time: newSlotBooking?.start_time && newSlotBooking?.end_time
+            ? `${newSlotBooking.start_time} - ${newSlotBooking.end_time}`
+            : parseSlot(bookings.slot).time,
+            students: bookings.numberOfStudents,
+          }}
+        />
+      ) : (
+        <footer className="z-50 w-full shadow-[0px_-2px_2px_rgba(0,0,0,0.04),0px_-1px_5px_rgba(0,0,0,0.08)] bg-white p-6 text-center text-lg text-gray-800 font-amazon-ember">
+          <div className="flex flex-row items-center justify-between">
+            <nav
+              aria-label="Sprint actions"
+              className="flex flex-row items-start justify-between w-full"
+            >
+              <div className="flex gap-4">
+                {(programName === "Nano Sprint" || programName === "-") && (
+                  <>
+                    <Button
+                      className="h-14 px-8 border rounded-full text-[#3A3A3A] border-[#3A3A3A] bg-white hover:text-white"
+                      aria-label="Cancel Sprint"
+                      disabled={disableAllButtons || loading}
+                      onClick={() => handlePopup("isCancel")}
+                    >
+                      Cancel Sprint
+                    </Button>
+                    <Button
+                      className="h-14 px-8 border rounded-full text-[#3A3A3A] border-[#3A3A3A] bg-white hover:text-white"
+                      aria-label="Mark as Not Interested"
+                      disabled={disableAllButtons || loading}
+                      onClick={() => handlePopup("isNotInterested")}
+                    >
+                      Mark as Not Interested
+                    </Button>
+                  </>
+                )}
+                {(programName === "Mini Sprint" ||
+                  programName === "Mega Sprint") && (
+                    <Button
+                      className="h-14 px-8 border rounded-full text-[#3A3A3A] border-[#3A3A3A] bg-white hover:text-white"
+                      aria-label="Mark as Not Interested"
+                      disabled={disableAllButtons || loading}
+                      onClick={() => handlePopup("isNotInterested")}
+                    >
+                      Mark as Not Interested
+                    </Button>
+                  )}
+              </div>
+              <div className="flex gap-4">
+                {(programName === "Nano Sprint" || programName === "-") && (
+                  <>
+                    <Button
+                      variant="proceed"
+                      className="h-14 px-8 bg-[#29458C] text-white rounded-full hover:bg-[#0A2A52]"
+                      aria-label="Update Sprint Details"
+                      disabled={disableAllButtons || loading}
+                      onClick={() => handlePopup("isUpdate")}
+                    >
+                      Update Sprint Details
+                    </Button>
+                    <Button
+                      variant="proceed"
+                      className="h-14 px-8 bg- text-white rounded-full bg-[#f091b2] hover:bg-[#c06e8d]"
+                      aria-label="Reschedule Sprint"
+                      disabled={
+                        disableRescheduleOnly || disableAllButtons || loading
+                      }
+                      onClick={() => handlePopup("isReschedule")}
+                    >
+                      Reschedule Sprint
+                    </Button>
+                    <Button
+                      variant="proceed"
+                      className="h-14 px-8 bg-[#F55C38] text-white rounded-full"
+                      aria-label="Confirm Booking"
+                      disabled={status === "BookingConfirmed" || disableAllButtons || loading}
+                      onClick={() => handlePopup("isConfirm")}
+                    >
+                      Confirm Booking
+                    </Button>
+                  </>
+                )}
+                {(programName === "Mini Sprint" ||
+                  programName === "Mega Sprint") && (
+                    <>
+                      <Button
+                        variant="proceed"
+                        className="h-14 px-8 bg-blue-800 text-white rounded-full hover:bg-blue-900"
+                        aria-label="Update Sprint Details"
+                        disabled={disableRescheduleOnly || loading}
+                        onClick={() => handlePopup("isConfirm")}
+                      >
+                        Update Sprint Details
+                      </Button>
+                      <Button
+                        variant="proceed"
+                        className="h-14 px-8 bg-[#F55C38] text-white rounded-full"
+                        aria-label="Go to Dashboard"
+                        // onClick={() => handleStatusChange('Completed', 'Booking')}
+                      >
+                        Go to Dashboard
+                      </Button>
+                    </>
+                  )}
+              </div>
+            </nav>
           </div>
-          <div className="flex gap-4">
-            {(programName === "Nano Sprint" || programName === "") && (
-              <>
-                <Button
-                  variant="proceed"
-                  className="h-14 px-8 bg-[#29458C] text-white rounded-full hover:bg-[#0A2A52]"
-                  aria-label="Update Sprint Details"
-                  disabled={loading}
-                  onClick={() => handlePopup("isUpdate")}
-                >
-                  Update Sprint Details
-                </Button>
-                <Button
-                  variant="proceed"
-                  className="h-14 px-8 bg-gray-400 text-white rounded-full hover:bg-gray-500"
-                  aria-label="Reschedule Sprint"
-                  disabled={loading}
-                  onClick={() => handlePopup("isReschedule")}
-                  
-                >
-                  Reschedule Sprint
-                </Button>
-                <Button
-                  variant="proceed"
-                  className="h-14 px-8 bg-[#F55C38] text-white rounded-full"
-                  aria-label="Confirm Booking"
-                  disabled={loading}
-                  onClick={() => handlePopup("isConfirm")}
-                >
-                  Confirm Booking
-                </Button>
-              </>
-            )}
-            {(programName === "Mini Sprint" ||
-              programName === "Mega Sprint") && (
-              <>
-                <Button
-                  variant="proceed"
-                  className="h-14 px-8 bg-blue-800 text-white rounded-full hover:bg-blue-900"
-                  aria-label="Update Sprint Details"
-                  disabled={loading}
-                  onClick={() => handlePopup("isConfirm")}
-                >
-                  Update Sprint Details
-                </Button>
-                <Button
-                  variant="proceed"
-                  className="h-14 px-8 bg-[#F55C38] text-white rounded-full"
-                  aria-label="Go to Dashboard"
-                  // onClick={() => handleStatusChange('Completed', 'Booking')}
-                >
-                  Go to Dashboard
-                </Button>
-              </>
-            )}
-          </div>
-        </nav>
-      </div>
-            {/* Conditionally rendering the popups */}
-            {popup.isCancel &&  <CancelPopup name="cancel" bookingSingle={bookingSingle} isOpen={popup.isCancel} onClose={closeCancelPopup} />}
-            {popup.isReschedule && <ReschedulePopup handleCalendar = {handleCalendar} isOpen = {popup.isReschedule} onClose={closeCancelPopup}/>}
-            {popup.isNotInterested &&  <CancelPopup  name="interested" isOpen={popup.isNotInterested} onClose={closeCancelPopup}  bookingSingle={bookingSingle}/>}
-      
-    </footer>)}</>
+          {/* Popups */}
+          {popup.isCancel && (
+            <CancelPopup
+              name="cancel"
+              bookingSingle={bookingSingle}
+              isOpen={popup.isCancel}
+              onClose={closeCancelPopup}
+            />
+          )}
+          {popup.isReschedule && (
+            <ReschedulePopup
+              handleCalendar={handleCalendar}
+              isOpen={popup.isReschedule}
+              onClose={closeCancelPopup}
+              slotId={slotId}
+              bookingId={bookingId}
+              bookings={bookings}
+            />
+          )}
+        </footer>
+      )}
+    </>
   );
 }

@@ -11,11 +11,11 @@ import {
   updateBookingStatus,
   updateBookingDetails,
 } from "@/utils/api";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useState, useCallback, useEffect } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 interface BookingDetails {
-  // bookingDetails(slot: string, arg1: number): unknown;
   name: string;
   email: string;
   phoneNumber: string;
@@ -44,10 +44,8 @@ interface Feedback {
   name: string;
 }
 
-
-
-
 interface Booking {
+  slot_id(slot_id: any): unknown;
   program_id: any;
   id: number;
   user: {
@@ -82,6 +80,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   bookingProp,
   bookingDetails,
 }) => {
+  const { toast } = useToast()
   // State Management
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [isTeacherFeedbackSubmitted, setIsTeacherFeedbackSubmitted] =
@@ -90,25 +89,56 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   const [isStudentPopupOpen, setIsStudentPopupOpen] = useState(false);
   const [isSubmitPopupOpen, setIsSubmitPopupOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [toastId, setToastId] = useState<string | null>(null);
+  
   // State for editable fields
   const [editedDetails, setEditedDetails] = useState({
     pincode: bookingDetails?.pincode,
     actualNumberOfStudents: bookingDetails?.actualNumberOfStudents,
-    grade: bookingDetails?.grade,
+    grade: bookingDetails?.grade || "",
     schoolName: bookingDetails?.schoolName,
     udiseCode: bookingDetails?.udiseCode,
     name: bookingDetails?.name,
+    email: bookingDetails?.email,
   });
 
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
+  // Function to check if all fields are filled
+// Function to check if all fields are filled and do not contain just a hyphen
+const checkAllFieldsFilled = () => {
+  return (
+    editedDetails.pincode &&
+    editedDetails.pincode !== "-" &&
+    editedDetails.actualNumberOfStudents &&
+    editedDetails.grade &&
+    editedDetails.grade !== "-" &&
+    editedDetails.schoolName &&
+    editedDetails.schoolName !== "-" &&
+    editedDetails.udiseCode &&
+    editedDetails.udiseCode !== "-" &&
+    editedDetails.name &&
+    editedDetails.name !== "-" &&
+    editedDetails.email &&
+    editedDetails.email !== "-"
+  );
+};
+
+
+  // Use effect to enable/disable button based on field completion
+  useEffect(() => {
+    const areAllFieldsFilled = checkAllFieldsFilled();
+    setIsButtonDisabled(!areAllFieldsFilled);
+  }, [editedDetails]);
 
   // Fetch feedbacks
   const fetchFeedbacks = useCallback(async () => {
     try {
       const response = await getFeedback(
         Number(bookingProp.user.id),
-        parseInt(bookingDetails.slot, 10)
+        Number(bookingProp.slot_id)
       );
       const hasTeacherFeedback = Array.isArray(response.data) && response.data.some((feedback: { is_teacher: any; }) => feedback.is_teacher);
       if (hasTeacherFeedback) {
@@ -118,7 +148,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
     } catch (error) {
       console.error("Error fetching feedbacks:", error);
     }
-  }, [bookingDetails.slot, bookingProp.user.id]);
+  }, [bookingProp.slot_id, bookingProp.user.id]);
 
   useEffect(() => {
     fetchFeedbacks();
@@ -133,28 +163,34 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
   };
 
   // Save changes to booking details
-  const handleSaveChanges = async () => {
+  const handleSaveChanges = async () => { 
     setIsSaving(true);
     try {
       const bookingData = {
         user_id: Number(bookingProp.user.id),
-        slot_id: parseInt(bookingDetails.slot, 10),
-        program_id: bookingProp.program_id,
+        slot_id: Number(bookingProp.slot_id),
+        name: editedDetails.name,
         booking_batch_size: bookingDetails.numberOfStudents,
         visited_batch_size: Number(editedDetails.actualNumberOfStudents),
         students_grade: editedDetails.grade,
-        visiting_time: bookingDetails.dateOfRequest,
-        school_name: editedDetails.schoolName,
+        visiting_time: new Date().toISOString(),
+        school_name: String(editedDetails.schoolName),
         udise: editedDetails.udiseCode,
-        email: bookingDetails.email,
+        email: String(editedDetails.email),
         address: bookingDetails.city,
         village: bookingDetails.city,
         state: "Karnataka",
         district: bookingDetails.city,
-        pin_code: parseInt(bookingDetails.pincode, 10),
+        pin_code: Number(editedDetails.pincode),
       };
-
       await updateBookingDetails(bookingProp.id, bookingData);
+      toast({
+        title: "Success",
+        description: "Data Updated Successfully",
+        variant: "success",
+        duration: 1000,
+      });
+      setIsSaving(false);
     } catch (error) {
       console.error("Error updating booking details:", error);
     } finally {
@@ -167,7 +203,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
       try {
         const feedbackData = {
           user_id: Number(bookingProp.user.id),
-          slot_id: parseInt(bookingDetails.slot, 10),
+          slot_id: Number(bookingProp.slot_id),
           program_id: bookingProp.program_id,
           feedback: feedbackContent,
           rating: 5,
@@ -182,12 +218,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         console.error("Error adding teacher feedback:", error);
       }
     },
-    [
-      bookingDetails.slot,
-      bookingProp.program_id,
-      bookingProp.user.id,
-      fetchFeedbacks,
-    ]
+    [bookingProp.slot_id, bookingProp.program_id, bookingProp.user.id, fetchFeedbacks]
   );
 
   const handleStudentFeedbackSubmit = useCallback(
@@ -195,7 +226,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
       try {
         const feedbackData = {
           user_id: Number(bookingProp.user.id),
-          slot_id: parseInt(bookingDetails.slot, 10),
+          slot_id: Number(bookingProp.slot_id),
           program_id: bookingProp.program_id,
           feedback: feedbackContent,
           rating: 5,
@@ -209,17 +240,94 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
         console.error("Error adding student feedback:", error);
       }
     },
-    [bookingDetails.slot, bookingProp.program_id, fetchFeedbacks]
+    [bookingProp.user.id, bookingProp.slot_id, bookingProp.program_id, fetchFeedbacks]
   );
 
-  const handleSubmitAndCompleteSprint = async () => {
+  const handleConfirmYes = async () => {
     try {
-      await updateBookingStatus(Number(bookingProp.user.id), "Completed");
+      const bookingData = {
+        user_id: Number(bookingProp.user.id),
+        slot_id: Number(bookingProp.slot_id),
+        name: editedDetails.name,
+        booking_batch_size: bookingDetails.numberOfStudents,
+        visited_batch_size: Number(editedDetails.actualNumberOfStudents),
+        students_grade: editedDetails.grade,
+        visiting_time: new Date().toISOString(),
+        school_name: String(editedDetails.schoolName),
+        udise: editedDetails.udiseCode,
+        email: String(editedDetails.email),
+        address: bookingDetails.city,
+        village: bookingDetails.city,
+        state: "Karnataka",
+        district: bookingDetails.city,
+        pin_code: Number(editedDetails.pincode),
+      };
+      await updateBookingDetails(bookingProp.id, bookingData);
+      await updateBookingStatus(Number(bookingProp.id), "Completed", "Completed", "Completed");
+      setIsConfirmationOpen(false);
       setIsSubmitPopupOpen(true);
+      toast({
+        title: "Success",
+        description: "Sprint completed successfully",
+        variant: "success",
+        duration: 1000,
+      });
     } catch (error) {
       console.error("Error updating booking status:", error);
+      toast({
+        title: "Error",
+        description: "Failed to complete sprint",
+        variant: "destructive",
+        duration: 1000,
+      });
     }
   };
+
+  const handleSubmitAndCompleteSprint = () => {
+    setIsConfirmationOpen(true);
+    toast({
+      title: "Complete Sprint",
+      description: (
+        <div className="space-y-2">
+          <p>Are you sure you want to complete the sprint?</p>
+          <div className="flex space-x-2">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleConfirmYes();
+              }}
+              className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-colors"
+            >
+              Yes
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsConfirmationOpen(false);
+                toast({
+                  title: "Not Completed",
+                  description: "Sprint not completed yet",
+                  duration: 3000,
+                });
+              }}
+              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors"
+            >
+              No
+            </button>
+          </div>
+        </div>
+      ),
+      duration: isConfirmationOpen ? Infinity : 0,
+    });
+  };
+
+  useEffect(() => {
+    return () => {
+      setIsConfirmationOpen(false);
+    };
+  }, []);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -248,10 +356,11 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
             date: parseSlot(bookingDetails.slot).date,
             time: parseSlot(bookingDetails.slot).time,
             students: bookingDetails.numberOfStudents,
-          }} type={""}        />
+          }} 
+          type={""}        
+        />
       ) : (
         <div className="w-[592px] max-w-4xl mx-auto px-4 mt-[10px] space-y-6">
-          {/* Booking Details Section */}
           <div className="space-y-8">
             <h1 className="text-heading5 font-heading5-bold leading-[150%] font-extrabold text-midnight-blue-main">
               Booking Details
@@ -266,6 +375,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                     "schoolName",
                     "udiseCode",
                     "name",
+                    "email"
                   ].includes(key);
 
                   return (
@@ -283,25 +393,43 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                               word.charAt(0).toUpperCase() + word.slice(1)
                           )
                           .join(" ")}
+                          <span className="text-red-500">*</span> 
                       </Label>
-                      <Input
-                        value={
-                          isEditable
-                            ? editedDetails[key as keyof typeof editedDetails]
-                            : value?.toString() ?? ""
-                        }
-                        onChange={
-                          isEditable
-                            ? (e) => handleInputChange(key, e.target.value)
-                            : undefined
-                        }
-                        readOnly={!isEditable}
-                        className={`w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1 ${
-                          isEditable
-                            ? "bg-white border-text-primary"
-                            : "bg-grey-300 border-text-primary"
-                        }`}
-                      />
+                      {key === "grade" ? (
+                        <select
+                          value={editedDetails.grade}
+                          onChange={(e) => handleInputChange("grade", e.target.value)}
+                          className="w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1 bg-white"
+                        >
+                          <option value="">Select Class</option>
+                          <option value="Class 6th">Class 6th</option>
+                          <option value="Class 7th">Class 7th</option>
+                          <option value="Class 8th">Class 8th</option>
+                          <option value="Class 9th">Class 9th</option>
+                          <option value="Class 10th">Class 10th</option>
+                          <option value="Class 11th">Class 11th</option>
+                          <option value="Class 12th">Class 12th</option>
+                        </select>
+                      ) : (
+                        <Input
+                          value={
+                            isEditable
+                              ? editedDetails[key as keyof typeof editedDetails]
+                              : value?.toString() ?? "-"
+                          }
+                          onChange={
+                            isEditable
+                              ? (e) => handleInputChange(key, e.target.value)
+                              : undefined
+                          }
+                          readOnly={!isEditable}
+                          className={`w-80 rounded-[100px] border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-left text-lg text-text-primary font-webtypestyles-body1 ${
+                            isEditable
+                              ? "bg-white border-text-primary"
+                              : "bg-grey-300 border-text-primary"
+                          }`}
+                        />
+                      )}
                     </div>
                   );
                 })}
@@ -313,7 +441,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
               <Button
                 variant="proceed"
                 onClick={handleSaveChanges}
-                disabled={isSaving}
+                disabled={isButtonDisabled}
               >
                 {isSaving ? "Saving..." : "Save Changes"}
               </Button>
@@ -347,7 +475,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                     <div key={feedback.id} className="pb-8 rounded">
                       <div className="flex items-center justify-between mb-2 gap-4 font-body1-regular text-body1">
                         <div className="flex items-center gap-4">
-                          <Image
+                          <SmartImage
                             className="object-cover rounded-full cursor-pointer"
                             alt="User Avatar"
                             src="/login/avatarIcon.svg"
@@ -378,7 +506,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
                     <div key={feedback.id} className="pb-8 rounded">
                       <div className="flex items-center justify-between mb-2 gap-4 font-body1-regular text-body1">
                         <div className="flex items-center gap-4">
-                          <Image
+                          <SmartImage
                             className="object-cover rounded-full cursor-pointer"
                             alt="User Avatar"
                             src="/login/avatarIcon.svg"
@@ -412,7 +540,7 @@ const SprintDetailsComponent: React.FC<SprintDetailsProps> = ({
 
           {/* Submit Button */}
           <div className="flex justify-center items-center mt-[104px] py-6">
-            <Button variant="proceed" onClick={handleSubmitAndCompleteSprint}>
+            <Button variant="proceed" onClick={handleSubmitAndCompleteSprint} disabled={isButtonDisabled}>
               Submit and Complete Sprint
             </Button>
           </div>

@@ -2,9 +2,9 @@ import { useAllBookings } from "./allBookings";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useRef, useEffect, useState } from "react";
-
+import { useAppState } from "@/context/AppContext";
 
 interface FullCalendarComponentProps {
   setSelectedDate: (date: Date) => void;
@@ -13,13 +13,15 @@ interface FullCalendarComponentProps {
 const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   setSelectedDate,
 }) => {
+  const { isLanguageEnglish } = useAppState(); // Access language state
   const calendarRef = useRef<any>(null);
   const [currentMonthYear, setCurrentMonthYear] = useState<string>("");
   const [selectedDateState, setSelectedDateState] = useState<Date | null>(null);
   // const events = useAllBookings();
   const { events } = useAllBookings();
 
-  const whatsappLink = `https://wa.me/${6366969292}`;
+  const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+  const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
 
   const getMonthYear = (date: Date) => {
     const monthNames = [
@@ -66,11 +68,16 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   };
 
   const handleDateClick = (arg: any) => {
-    const isAvailableDate = events.some(
-      (event) =>
-        arg.date.toDateString() ===
-        new Date(event.start as unknown as string).toDateString()
-    );
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+
+    const isAvailableDate =
+      events.some(
+        (event) =>
+          arg.date.toDateString() ===
+          new Date(event.start as unknown as string).toDateString()
+      ) && arg.date > tomorrow;
 
     if (isAvailableDate) {
       setSelectedDate(arg.date);
@@ -82,13 +89,32 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
     updateMonthYear();
   }, []);
 
+
+  const [copied, setCopied] = useState(false);
+
+  const phoneNumber = " +91 63669-69292";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(phoneNumber)
+      .then(() => {
+        setCopied(true); 
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(err => {
+        console.error("Failed to copy: ", err);
+      });
+  };
+
   return (
     <div className="calendar-container">
       <div className="w-full md:pl-[20px] text-lg leading-[170%] font-extrabold font-webtypestyles-subtitle1 text-text-primary text-left mb-6 pl-2">
-        Available Dates
+        {/* Available Dates */}
+        <span>
+          {isLanguageEnglish ? "Available Dates" : "ಲಭ್ಯವಿರುವ ದಿನಾಂಕಗಳು"}
+        </span>
       </div>
       <div className="flex justify-between items-center mb-4 px-2 md:px-[20px]">
-        <Image
+        <SmartImage
           src="/previous.svg"
           alt="Previous Month"
           width={30}
@@ -99,7 +125,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
         <h1 className="text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-primary text-center">
           {currentMonthYear}
         </h1>
-        <Image
+        <SmartImage
           src="/next.svg"
           alt="Next Month"
           width={30}
@@ -287,6 +313,12 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           font-size: 1em;
         }
 
+        .fc .fc-daygrid-day.disabled-date .fc-daygrid-day-number {
+          color: #ccc !important;
+          pointer-events: none;
+          background-color: transparent !important;
+        }
+
         /* Remove any extra padding */
         .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
           min-height: 0;
@@ -342,6 +374,10 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
         height="auto"
         dayCellClassNames={(arg) => {
           const classes = [];
+          const today = new Date();
+          const tomorrow = new Date();
+          tomorrow.setDate(today.getDate() + 1);
+
           if (
             events.some(
               (event) =>
@@ -356,6 +392,9 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
             arg.date.toDateString() === selectedDateState.toDateString()
           ) {
             classes.push("selected-date");
+          }
+          if (arg.date <= tomorrow) {
+            classes.push("disabled-date");
           }
           return classes;
         }}
@@ -374,11 +413,53 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
       </div> */}
       <div className="flex flex-col w-full gap-4">
         <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main font-extrabold">
-          Have Questions?
+          {/* Have Questions? */}
+          <span>
+            {isLanguageEnglish ? "Have Questions?" : "ಪ್ರಶ್ನೆಗಳಿವೆಯೆ?"}
+          </span>
         </h1>
         <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-          <span>{`Call Us or Whatsapp on `}</span>
-          <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+916366969292</a>
+          {/* <span>{`Call Us or Whatsapp on `}</span> <br/> */}
+          <span>
+            {isLanguageEnglish ? `Call Us or Whatsapp on ` : `ನಮಗೆ ಕರೆ ಅಥವಾ ವಾಟ್ಸಾಪ್ ಮಾಡಿ `}
+          </span>
+          <br/>
+          {/* <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+9163669-69292</a> */}
+          <strong className="inline-flex items-center">
+            <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
+              +91 63669-69292
+            </a>
+            <button
+              className="hidden md:inline-flex px-3 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] gap-2 w-[89px] h-[40px]"
+              onClick={handleCopy}
+            >
+              {copied ? (
+                <>
+                  <SmartImage
+                    src="/userDashboard/checkmark_icon.png"
+                    alt="Check Icon"
+                    width={16}
+                    height={16}
+                  />
+                  <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                    Copied!
+                  </span>
+                </>
+              ) : (
+                <>
+                  <SmartImage
+                    src="/userDashboard/content_copy.svg"
+                    alt="Copy Icon"
+                    width={16}
+                    height={16}
+                  />
+                  <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                    Copy
+                  </span>
+                </>
+              )}
+            </button>
+          </strong>
         </p>
       </div>
     </div>

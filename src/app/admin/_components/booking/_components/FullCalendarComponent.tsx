@@ -2,7 +2,7 @@ import { useAllBookings } from "./allBookings";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useRef, useEffect, useState } from "react";
 
 
@@ -19,7 +19,8 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   // const events = useAllBookings();
   const { events } = useAllBookings();
 
-  const whatsappLink = `https://wa.me/${6366969292}`;
+  const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+  const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
 
   const getMonthYear = (date: Date) => {
     const monthNames = [
@@ -66,17 +67,23 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
   };
 
   const handleDateClick = (arg: any) => {
-    const isAvailableDate = events.some(
-      (event) =>
-        arg.date.toDateString() ===
-        new Date(event.start as unknown as string).toDateString()
-    );
-
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+  
+    const isAvailableDate =
+      events.some(
+        (event) =>
+          arg.date.toDateString() ===
+          new Date(event.start as unknown as string).toDateString()
+      ) && arg.date > tomorrow;
+  
     if (isAvailableDate) {
       setSelectedDate(arg.date);
       setSelectedDateState(arg.date);
     }
   };
+  
 
   useEffect(() => {
     updateMonthYear();
@@ -88,7 +95,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
         Available Dates
       </div>
       <div className="flex justify-between items-center mb-4 px-2 md:px-[20px]">
-        <Image
+        <SmartImage
           src="/previous.svg"
           alt="Previous Month"
           width={30}
@@ -99,7 +106,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
         <h1 className="text-lg leading-[170%] font-medium font-webtypestyles-body1 text-text-primary text-center">
           {currentMonthYear}
         </h1>
-        <Image
+        <SmartImage
           src="/next.svg"
           alt="Next Month"
           width={30}
@@ -287,6 +294,12 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           font-size: 1em;
         }
 
+        .fc .fc-daygrid-day.disabled-date .fc-daygrid-day-number {
+  color: #ccc !important;
+  pointer-events: none;
+  background-color: transparent !important;
+}
+
         /* Remove any extra padding */
         .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
           min-height: 0;
@@ -342,6 +355,10 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
         height="auto"
         dayCellClassNames={(arg) => {
           const classes = [];
+          const today = new Date();
+          const tomorrow = new Date();
+          tomorrow.setDate(today.getDate() + 1);
+        
           if (
             events.some(
               (event) =>
@@ -357,8 +374,12 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           ) {
             classes.push("selected-date");
           }
+          if (arg.date <= tomorrow) {
+            classes.push("disabled-date");
+          }
           return classes;
         }}
+        
       />
 
       {/* <div className="self-stretch flex flex-col items-start justify-start gap-4 px-2 md:pl-[20px]">
@@ -371,7 +392,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
             +916366969292
           </span>
         </div>
-      </div> */}
+      </div> 
       <div className="flex flex-col w-full gap-4">
         <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main font-extrabold">
           Have Questions?
@@ -380,7 +401,7 @@ const FullCalendarComponent: React.FC<FullCalendarComponentProps> = ({
           <span>{`Call Us or Whatsapp on `}</span>
           <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+916366969292</a>
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };

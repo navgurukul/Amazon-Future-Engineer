@@ -23,6 +23,7 @@ interface BookingDetails {
 }
 
 interface Booking {
+  slot_id(slot_id: any): unknown;
   program_id: any;
   id: number;
   user: {
@@ -55,7 +56,7 @@ const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingPr
   const [showSprintDetails, setShowSprintDetails] = useState(false);
   const router = useRouter();
 
-  console.log("Tamanna",bookingProp)
+
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -67,22 +68,22 @@ const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingPr
       if (bookingProp.id) {
         const bookings = await fetchBookings();
         const foundBooking = bookings.find((b: Booking) => b.id === bookingProp.id);
+        // console.log("bookingTamanna",foundBooking?.visited_batch_size)
         if (foundBooking) {
           setBookingDetails({
-            name: foundBooking.user.name,
-            email: foundBooking.user.email,
-            phoneNumber: foundBooking.user.phone,
-            dateOfRequest: formatDate(foundBooking.created_at),
-            programName: foundBooking.slot.program.title,
-            schoolName: foundBooking.user.school_id || 'N/A',
-            udiseCode: 'U-213012894', // Assuming this is not provided in the API response
-            city: foundBooking.slot.venue.city,
-            pincode: foundBooking.slot.venue.pin_code,
-            grade: 'Grade 6', // Assuming this is not provided in the API response
-            numberOfStudents: foundBooking.booking_batch_size,
-            actualNumberOfStudents: foundBooking.visited_batch_size,
-            slot: `${formatDate(foundBooking.booking_for)} | ${foundBooking.start_time} to ${foundBooking.end_time}`,
-
+            name: foundBooking?.user?.name || "-",
+            email: foundBooking?.user?.school?.email || "-",
+            phoneNumber: foundBooking?.user?.phone,
+            dateOfRequest: formatDate(foundBooking?.created_at),
+            programName: foundBooking?.slot?.program?.title,
+            schoolName: foundBooking?.user?.school?.school_name || '-',
+            udiseCode: foundBooking?.user?.school?.udise || "-", // Assuming this is not provided in the API response
+            city: foundBooking?.slot?.venue?.city,
+            pincode: foundBooking?.user?.school?.pin_code,
+            grade: foundBooking?.students_grade || "-", // Assuming this is not provided in the API response
+            numberOfStudents: foundBooking?.booking_batch_size,
+            actualNumberOfStudents: foundBooking?.visited_batch_size,
+            slot: `${formatDate(foundBooking?.booking_for)} | ${foundBooking?.start_time} to ${foundBooking?.end_time}`,
           });
         }
       }
@@ -124,7 +125,7 @@ const BookingDetailsPage: React.FC<{ booking: Booking }> = ({ booking: bookingPr
                 .join(' ')}
               </span>
               <span className="text-lg font-body1-regular text-body1 font-medium text-text-primary leading-[170%]">
-                {value !== null ? value.toString() : '-'}
+                {value !== null ? value?.toString() : '-'}
               </span>
             </div>
           ))}

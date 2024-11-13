@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import React from 'react';
+import SmartImage from "@/components/SmartImage";
 
 const SecondPopup: NextPage = () => {
   return (
@@ -13,7 +14,7 @@ const SecondPopup: NextPage = () => {
       >
         <div className="flex flex-col items-center justify-start text-lg text-gray-full font-body-body-reg">
           <div className="w-full flex flex-col items-center justify-start gap-2">
-            <img className="w-60 relative max-h-full" alt="Line Decoration" src="/nanopage/Rectangle 2933.svg"/>
+            <SmartImage className="w-60 relative max-h-full" alt="Line Decoration" src="/nanopage/Rectangle 2933.svg" width={240}  height={100} />
             <div className="relative leading-[170%] font-medium text-center">
             Thanks for requesting a callback. We will reach out to you shortly to confirm your booking plans.
           </div>

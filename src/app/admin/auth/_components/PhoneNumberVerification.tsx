@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
-import React, { useState, ChangeEvent } from "react";
+import SmartImage from "@/components/SmartImage";;
+import React, { useState, ChangeEvent, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { adminLogin } from "@/utils/api"
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 const UserLogin: React.FC = () => {
   const router = useRouter()
@@ -19,10 +20,24 @@ const UserLogin: React.FC = () => {
     setUsernameError("");
   };
 
+
+  useEffect(() => {
+    const localStorageData = localStorage.getItem('adminLoginData');
+    const cookieData = Cookies.get('adminLoginData');
+
+    if (cookieData) {
+      console.log("Heloo",cookieData)
+      localStorage.setItem('adminLoginData', cookieData || "");
+      router.push("/admin/dashboard/upcomingBookings")
+    }
+  }, []);
+
+
   const userAuth = async () => {
     try {
       const response = await adminLogin(username, password);
       localStorage.setItem('adminLoginData', JSON.stringify(response));
+      Cookies.set('adminLoginData', JSON.stringify(response), { expires: 7 });
       router.push("/admin/dashboard/upcomingBookings")
     } catch (error) {
       console.error("Error logging in:", error);
@@ -62,18 +77,18 @@ const UserLogin: React.FC = () => {
       <div className="mt-8 ml-4 md:mt-0 md:ml-0">
         <div className="flex flex-col w-[20rem] md:w-[24rem] mx-auto items-start gap-12">
           <div>
-            <Image
+            <SmartImage
               className="hidden md:flex"
               alt="Logo"
-              src="/login/afe_subbrand_logo_horizontal_blue.svg"
+              src="/login/afe blue horizontal.svg"
               width={354}
               height={40}
             />
             <div className="md:hidden">
-              <Image
+              <SmartImage
                 className="object-contain cursor-pointer"
                 alt="Reshot Icon"
-                src="/login/Group(12).svg"
+                src="/login/afe blue stacked.svg"
                 width={120}
                 height={40}
               />

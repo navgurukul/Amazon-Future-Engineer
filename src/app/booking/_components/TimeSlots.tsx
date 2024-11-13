@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAllBookings } from "./allBookings";
 import { bookSlot, getSlotDetails } from "@/utils/api";
 import { Button } from "@/components/ui/button";
+import { useAppState } from "@/context/AppContext";
 
 interface TimeSlotsProps {
   selectedDate: Date | null;
@@ -26,10 +27,13 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [students, setStudents] = useState("");
+  const [nameError, setNameError] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [studentsError, setStudentsError] = useState<string | null>(null);
   const [bookingStatus, setBookingStatus] = useState<string | null>(null);
   const [slots, setSlots] = useState<Slot[]>([]);
+  const { isLanguageEnglish } = useAppState(); // Access language state
+
 
   useEffect(() => {
     if (selectedDate) {
@@ -40,51 +44,39 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     }
   }, [selectedDate, events]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const phoneNumber = localStorage.getItem("loginData")
-    ? JSON.parse(localStorage.getItem("loginData") || "{}").data.phone
-    : "";
+      ? JSON.parse(localStorage.getItem("loginData") || "{}").data.phone
+      : "";
     setPhone(phoneNumber)
-  },[])
+  }, [])
+
+  const formatTimeRange = (start: Date, end: Date) => {
+    const formatTime = (date: Date) => {
+      return date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+    };
+    return `${formatTime(start)} to ${formatTime(end)}`;
+  };
 
   const getAvailableSlots = (): Slot[] => {
-    const fixedSlots = [
-      { time: "10:00 AM to 1:00 PM", apiTime: "10:00" },
-      { time: "1:30 PM to 4:30 PM", apiTime: "13:30" },
-    ];
-
-    if (!selectedDate) {
-      return fixedSlots.map((fixedSlot) => ({
-        time: fixedSlot.time,
-        available: true,
-        status: "",
-        capacity: 0,
-      }));
-    }
+    if (!selectedDate || !events.length) return [];
 
     const eventsForDate = events.filter(
-      (event) =>
-        new Date(event.start).toDateString() === selectedDate.toDateString()
+      (event) => new Date(event.start).toDateString() === selectedDate.toDateString()
     );
 
-    return fixedSlots.map((fixedSlot) => {
-      const matchingEvent = eventsForDate.find((event) =>
-        new Date(event.start).toTimeString().startsWith(fixedSlot.apiTime)
-      );
-
-      return {
-        time: fixedSlot.time,
-        available: matchingEvent
-          ? matchingEvent.extendedProps.availableCapacity > 0
-          : false,
-        status: matchingEvent
-          ? matchingEvent.extendedProps.status
-          : "Not Available",
-        event: matchingEvent,
-        id: matchingEvent ? Number(matchingEvent.id) : undefined,
-        capacity: matchingEvent ? matchingEvent.extendedProps.availableCapacity : 0,
-      };
-    });
+    return eventsForDate.map((event) => ({
+      time: formatTimeRange(new Date(event.start), new Date(event.end)),
+      available: event.extendedProps.availableCapacity > 0,
+      status: event.extendedProps.status,
+      event: event,
+      id: Number(event.id),
+      capacity: event.extendedProps.availableCapacity,
+    }));
   };
 
   const handleSlotSelection = async (slot: Slot) => {
@@ -95,6 +87,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    setNameError(null);
     setPhoneError(null);
     setStudentsError(null);
 
@@ -108,10 +101,19 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
     //   return;
     // }
 
+    // Name validation
+    const namePattern = /^[A-Za-z\s]+$/;
+    if (!name.trim()) {
+      setNameError("Name is required");
+      return;
+    } else if (!namePattern.test(name.trim())) {
+      setNameError("Name should only contain letters");
+      return;
+    }
     const studentCount = parseInt(students);
     const minStudents = selectedSlot?.capacity === 40 ? 12 : 1;
-    const maxStudents = selectedSlot?.capacity || 0;
-    
+    const maxStudents = selectedSlot?.capacity || 40;
+
     if (studentCount < minStudents || studentCount > maxStudents) {
       setStudentsError(`Please enter a number between ${minStudents} and ${maxStudents}.`);
       return;
@@ -129,6 +131,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
         program_id: programId,
         venue_id: venueId,
         booking_batch_size: studentCount,
+        name:name,
+        // phone_number:phone
       };
 
       const response = await bookSlot(bookingData);
@@ -157,30 +161,39 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
       <div className="self-stretch flex flex-col items-start justify-start gap-4">
         {displayDate && (
           <div className="self-stretch relative leading-[170%] font-extrabold text-lg text-midnight-blue-main">
-            Booking for {displayDate.toDateString()}
+            {/* Booking for {displayDate.toDateString()} */}
+            <span>
+              {isLanguageEnglish ? `Booking for ${displayDate.toDateString()}` : `ಬುಕ್ಕಿಂಗ್ ಮಾಡಲು ${displayDate.toDateString()}`}
+            </span>
           </div>
         )}
         <div className="self-stretch relative leading-[170%] font-extrabold text-lg">
-          Choose a Time Slot
+          {/* Choose a Time Slot */}
+          <span>
+            {isLanguageEnglish ? "Choose a Time Slot" : "ಒಂದು ಕಾಲದ ಆಯ್ಕೆ ಮಾಡಿ"}
+          </span>
         </div>
         <div className="self-stretch flex flex-col items-start justify-start gap-4 text-center">
-          <div className="self-stretch flex flex-col lg:flex-row items-start justify-start flex-wrap content-start gap-4">
+          {/* <div className="self-stretch flex flex-col lg:flex-row items-start justify-start flex-wrap content-start gap-4"> */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 w-full">
             {slots.map((slot, index) => (
               <button
                 key={index}
-                className={`w-full sm:flex-1 rounded-lg h-14 flex flex-row items-center justify-center py-2 px-8 ${
-                  slot.status === "Booked"
-                    ? "bg-grey-300 text-[#6d6d6d]"
-                    : selectedSlot?.time === slot.time
-                    ? "bg-[#fdded7] text-incandescent-main border-[1px] border-incandescent-main border-solid box-border"
+                // className={`w-full sm:flex-1 rounded-lg h-14 flex flex-row items-center justify-center py-2 px-8 ${
+                className={`w-full rounded-lg h-14 flex flex-row items-center justify-center px-2 text-sm md:text-base ${slot.status === "Booked"
+                  ? "bg-grey-300 text-[#6d6d6d]"
+                  : selectedSlot?.time === slot.time
+                    // ? "bg-[#fdded7] text-incandescent-main border-[1px] border-incandescent-main border-solid box-border"
+                    ? "bg-[#FDDED7] text-incandescent-main border-[1px] border-incandescent-main border-solid"
                     : slot.available
-                    ? "border-text-primary1 border-[1px] border-solid text-text-primary1 cursor-pointer"
-                    : "bg-red-100 border-[#fdded7] border-[1px] border-solid text-incandescent-main cursor-not-allowed"
-                }`}
+                      ? "border-text-primary1 border-[1px] border-solid text-text-primary1 cursor-pointer"
+                      : "bg-red-100 border-[#fdded7] border-[1px] border-solid text-incandescent-main cursor-not-allowed"
+                  }`}
                 onClick={() => slot.available && handleSlotSelection(slot)}
                 disabled={!slot.available}
               >
-                <div className="relative leading-[170%] font-medium">
+                {/* <div className="relative leading-[170%] font-medium"> */}
+                <div className="relative font-medium whitespace-nowrap">
                   {slot.time}
                 </div>
               </button>
@@ -195,12 +208,18 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
           className="w-full flex flex-col items-start justify-start gap-4 text-sm"
         >
           <div className="self-stretch relative text-lg leading-[170%] font-extrabold">
-            Almost Done!
+            {/* Almost Done! */}
+            <span>
+              {isLanguageEnglish ? "Almost Done!" : "ಹೀಗೊಂದು ಮುಗಿಯಿತು!"}
+            </span>
           </div>
 
           <div className="self-stretch flex flex-col items-start justify-start gap-2">
             <div className="relative leading-[170%] font-medium">
-              <span>Name</span>
+              {/* <span>Name</span> */}
+              <span>
+                {isLanguageEnglish ? "Name" : "ಹೆಸರು"}
+              </span>
               <span className="text-incandescent-main">*</span>
             </div>
             <input
@@ -212,15 +231,20 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               required
               className="self-stretch rounded-81xl border-text-primary border-[1px] border-solid box-border h-14 flex flex-row items-center justify-start py-2 px-4 text-lg w-full"
             />
+            {nameError && (
+              <div className="text-red-500 text-sm">{nameError}</div>
+            )}
           </div>
 
           <div className="self-stretch flex flex-col items-start justify-start gap-2">
             <div className="relative leading-[170%] font-medium">
-              <span>Phone Number</span>
+              {/* <span>Phone Number</span> */}
+              <span>
+                {isLanguageEnglish ? "Phone Number" : "ದೂರವಾಣಿ ಸಂಖ್ಯೆ"}
+              </span>
               <span className="text-incandescent-main">*</span>
             </div>
             <div className="relative flex items-center w-full bg-[#dedede] rounded-full">
-              {/*<span className="absolute left-4 text-[#3a3a3a] text-lg font-medium">+91</span>*/}
               <input
                 type="tel"
                 name="phone"
@@ -239,11 +263,21 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
 
           <div className="self-stretch flex flex-col items-start justify-start gap-2">
             <div className="relative leading-[170%] font-medium">
-              <span>
+              {/* <span>
                 Number of Students
-                {selectedSlot.capacity === 40 
-                  ? " (min 12, max 40)" 
+                {selectedSlot.capacity === 40
+                  ? " (min 12, max 40)"
                   : ` (max ${selectedSlot.capacity})`}
+              </span> */}
+               <span>
+                {isLanguageEnglish ? "Number of Students" : "ವಿದ್ಯಾರ್ಥಿಗಳ ಸಂಖ್ಯೆ"}
+                {selectedSlot.capacity === 40
+                  ? isLanguageEnglish
+                    ? " (min 12, max 40)"
+                    : " (ಕನಿಷ್ಠ 12, ಗರಿಷ್ಠ 40)"
+                  : isLanguageEnglish
+                    ? ` (max ${selectedSlot.capacity})`
+                    : ` (ಗರ್ಸ್ತ ${selectedSlot.capacity})`}
               </span>
               <span className="text-incandescent-main">*</span>
             </div>
@@ -252,7 +286,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               name="students"
               value={students}
               onChange={(e) => setStudents(e.target.value)}
-              placeholder={`Enter students`}
+              // placeholder={`Enter students`}
+              placeholder={isLanguageEnglish ? "Enter students" : "ವಿದ್ಯಾರ್ಥಿಗಳನ್ನು ನಮೂದಿಸಿ"}
               min={selectedSlot.capacity === 40 ? 12 : 1}
               max={selectedSlot.capacity}
               required
@@ -268,7 +303,10 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({
               type="submit"
               className="w-full h-14 rounded-full bg-incandescent-main text-web-light-background-default font-button1-bold text-lg leading-[170%] hover:bg-incandescent-main hover:text-web-light-background-default whitespace-nowrap overflow-hidden text-ellipsis"
             >
-              Book Now
+              {/* Book Now */}
+              <span>
+                {isLanguageEnglish ? "Book Now" : "ಈಗ ಬುಕ್ಕಿಂಗ್ ಮಾಡಿ"}
+              </span>
             </Button>
           </div>
         </form>

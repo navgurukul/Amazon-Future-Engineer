@@ -1,8 +1,9 @@
 import LastPart from "./LastPart";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import React from "react";
+import { useAppState } from "@/context/AppContext";
 
 
 const Booking = () => {
@@ -11,6 +12,8 @@ const Booking = () => {
   const handleRoute = () => {
     router.push("/additionalquestions");
   };
+  const { isLanguageEnglish } = useAppState(); // Access language state
+
   return (
     <>
       <div className="relative flex flex-col items-center w-full">
@@ -18,54 +21,85 @@ const Booking = () => {
           <div className="flex flex-col w-full lg:w-2/3 gap-8">
             <div className="w-full text-left text-[#29458c]">
               {/* <h1 className="text-2xl md:text-3xl lg:text-13xl font-extrabold font-['Amazon Ember']"> */}
-              <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">
+              {/* <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">
                 Programs Details
+              </h1> */}
+              <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">
+                {isLanguageEnglish ? "Program Details" : "ಕಾರ್ಯಕ್ರಮದ ವಿವರಗಳು"}
               </h1>
             </div>
             <div className="flex flex-row items-center gap-4 text-darkslategray">
-              <img
+              <SmartImage 
                 className="w-[67px] h-12 relative"
                 src="/nanopage/reshot-icon-time-YEDR7WZV2Q.svg"
                 alt="Time Icon"
+                width={67}
+                height={48}
               />
               <div className="flex flex-col">
                 {/* <b className="leading-[170%] text-extrabold">Duration</b> */}
-                <b className="w-full relative text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-darkslategray">Duration</b>
+                {/* <b className="w-full relative text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-darkslategray">Duration</b> */}
+                <b className="w-full relative text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+                  {isLanguageEnglish ? "Duration" : "ಕಾಲಾವಧಿ"}
+                </b>
                 {/* <div className="leading-[170%] font-medium"> */}
-                <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+                {/* <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
                   2 Days (3 hours per day)
+                </div> */}
+                <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+                  {isLanguageEnglish ? "2 Days (3 hours per day)" : "೨ ದಿನಗಳು (ಪ್ರತಿ ದಿನ ೩ ಗಂಟೆಗಳು)"}
                 </div>
+
               </div>
             </div>
             <div className="flex flex-row items-center gap-4 text-darkslategray">
               <div className="w-[67px] h-12 relative">
-              <Image
-                alt="Batch Strength Icon"
-                src="/nanopage/reshot-icon-student-DRC3YF56MU.svg"
-                layout="fill"
-                  objectFit="contain"
-              />
+                <SmartImage
+                  alt="Batch Strength Icon"
+                  src="/nanopage/reshot-icon-student-DRC3YF56MU.svg"
+                  fill
+                  style={{ objectFit: 'contain' }}
+                />
               </div>
               <div className="flex flex-col">
                 {/* <b className="leading-[170%] text-extrabold">Batch Strength</b> */}
-                <b className="w-full relative text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-darkslategray">Batch Strength</b>
+                {/* <b className="w-full relative text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-darkslategray">Batch Strength</b> */}
+                <b className="w-full relative text-bodyM2 md:text-subTitle1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+                  {isLanguageEnglish ? "Batch Strength" : "ಬ್ಯಾಚ್ ಶಕ್ತಿ"}
+                </b>
+
                 {/* <div className="leading-[170%] font-medium"> */}
-                <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+                {/* <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
                   30 to 40 students per session
+                </div> */}
+                <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+                  {isLanguageEnglish ? "30 to 40 students per session" : "ಪ್ರತಿಯೊಂದರ ಕಾರ್ಯಶೀಲತೆ 30 ರಿಂದ 40 ವಿದ್ಯಾರ್ಥಿಗಳು"}
                 </div>
+
               </div>
             </div>
             <div className="w-full mt-8">
               {/* <h1 className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left"> */}
-              <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
+              {/* <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
                 Why Schedule a Mini Sprint?{" "}
+              </h1> */}
+              <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
+                {isLanguageEnglish ? "Why Schedule a Mini Sprint?" : "ಮಿನಿ ಸ್ಪ್ರಿಂಟ್ ಅನ್ನು ಏಕೆ ವೇಳೆಯಿಡುವುದು?"}
               </h1>
-              <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4">
+
+              {/* <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4">
                 Mini Sprints provide a rich, multi-day experience that helps
                 students develop and strengthen their skills in robotics and AI.
                 Through hands-on projects and expert guidance, this program
                 offers students a deeper, more engaging learning experience
+              </p> */}
+
+              <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4">
+                {isLanguageEnglish
+                  ? "Mini Sprints provide a rich, multi-day experience that helps students develop and strengthen their skills in robotics and AI. Through hands-on projects and expert guidance, this program offers students a deeper, more engaging learning experience."
+                  : "ಮಿನಿ ಸ್ಪ್ರಿಂಟ್ಸ್ ವಿದ್ಯಾರ್ಥಿಗಳನ್ನು ರೋಬೊಟಿಕ್‌ ಮತ್ತು AI ಕೌಶಲ್ಯಗಳನ್ನು ಅಭಿವೃದ್ಧಿಪಡಿಸಲು ಮತ್ತು ಬಲಪಡಿಸಲು ಸಹಾಯ ಮಾಡುವ ಸಮೃದ್ಧ, ಬಹು-ದಿನ ಅನುಭವವನ್ನು ಒದಗಿಸುತ್ತವೆ. ಕೈಯಲ್ಲಿ ನಡೆಯುವ ಪ್ರಾಜೆಕ್ಟ್‌ಗಳು ಮತ್ತು ತಜ್ಞ ಮಾರ್ಗದರ್ಶನದ ಮೂಲಕ, ಈ ಕಾರ್ಯಕ್ರಮವು ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಹೆಚ್ಚು ಆಳವಾದ ಮತ್ತು ಪ್ರೇರಣಾದಾಯಕ ಶಿಕ್ಷಣದ ಅನುಭವವನ್ನು ಒದಗಿಸುತ್ತದೆ."}
               </p>
+
             </div>
           </div>
           {/* <div className="flex flex-col w-full lg:w-2/3 gap-8 md:h-[500px] lg:h-[560px]">
@@ -114,15 +148,25 @@ const Booking = () => {
 
           {/* Adjacent Section (for Larger Screens) */}
           <div className="hidden lg:block lg:w-1/3 w-full sticky top-32 h-full">
-            <div className="w-full relative rounded-lg bg-incandescent-light border-[2px] border-incandescent-main p-8 gap-8">
+            {/* <div className="w-full relative rounded-lg bg-incandescent-light border-[2px] border-incandescent-main p-8 gap-8"> */}
+            <div className="w-full relative rounded-lg bg-[#ECF0F3] border-[2px] border-[#29458C] p-8 gap-8">
               {/* <h1 className="text-darkslategray leading-[150%] lg:text-[20px] md:text-[16px] text-[12px] font-extrabold font-[Amazon Ember]"> */}
-              <h1 className="text-darkslategray leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">
+              {/* <h1 className="text-darkslategray leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">
                 Coming Soon!
+              </h1> */}
+              <h1 className="text-darkslategray leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">
+                {isLanguageEnglish ? "Coming Soon!" : "ಹೊರೆಯುವದು ಶೀಘ್ರದಲ್ಲೇ!"}
               </h1>
+
               {/* <p className="text-darkslategray leading-[150%] font-extrabold font-[Amazon Ember] lg:text-[17px] md:text-[12px] text-[10px] font-medium mt-4 mb-8"> */}
-              <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4 mb-8">
+              {/* <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4 mb-8">
                 Be the first to know when Mini Sprints launch. Leave your
                 details to receive updates
+              </p> */}
+              <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4 mb-8">
+                {isLanguageEnglish
+                  ? "Be the first to know when Mini Sprints launch. Leave your details to receive updates."
+                  : "ಮಿನಿ ಸ್ಪ್ರಿಂಟ್ಸ್ ಲಾಂಚ್ ಆದಾಗ ಮೊದಲನೆಯವರು ತಿಳಿಯಿರಿ. ನವೀಕರಣಗಳನ್ನು ಸ್ವೀಕರಿಸಲು ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಬಿಡಿ."}
               </p>
               {/* <div className="flex flex-row items-center gap-4 md:mb-10">
                 <img
@@ -157,8 +201,13 @@ const Booking = () => {
                   className="w-full h-14 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer"
                   onClick={handleRoute}
                 >
-                  <div className="leading-[170%] font-medium text-white">
+                  {/* <div className="leading-[170%] font-medium text-white">
                     Join Waiting List
+                  </div> */}
+                  <div className="leading-[170%] font-medium text-white">
+                    {isLanguageEnglish
+                      ? "Join Waiting List"
+                      : "ಓದುಗರ ಸಾಲಿಗೆ ಸೇರಿ"}
                   </div>
                 </div>
               </div>
@@ -166,19 +215,21 @@ const Booking = () => {
           </div>
           {/* <div className="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl"> */}
           <div
-  className={`lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl ${
-    hasShadow
-      ? "shadow-[-1px_-2px_2px_rgba(0,0,0,0.06),-2px_-1px_1px_rgba(0,0,0,0.04),-1px_-5px_5px_rgba(0,0,0,0.08)]"
-      : ""
-  }`}
->
+            className={`lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl ${hasShadow
+                ? "shadow-[-1px_-2px_2px_rgba(0,0,0,0.06),-2px_-1px_1px_rgba(0,0,0,0.04),-1px_-5px_5px_rgba(0,0,0,0.08)]"
+                : ""
+              }`}
+          >
             <div
               className="flex flex-col gap-4 text-center"
               onClick={handleRoute}
             >
               <div className="w-full h-12 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer">
-                <div className="leading-[170%] font-medium text-white">
+                {/* <div className="leading-[170%] font-medium text-white">
                   Join Waiting List
+                </div> */}
+                <div className="leading-[170%] font-medium text-white">
+                  {isLanguageEnglish ? "Join Waiting List" : "ಓದುಗರ ಸಾಲಿಗೆ ಸೇರಿ"}
                 </div>
               </div>
             </div>

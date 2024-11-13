@@ -15,7 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import React, { useState, useEffect } from "react";
 import { fetchBookings } from "@/utils/api";
 import { format } from 'date-fns';
@@ -120,7 +120,7 @@ const Dashboard = () => {
               Upcoming Bookings
             </h1>
             <div className="relative flex items-center gap-4 w-full">
-              <Image
+              <SmartImage
                 className="absolute left-4 z-10"
                 src="/admin/search.svg"
                 width={24}
@@ -152,7 +152,7 @@ const Dashboard = () => {
                 <TableBody className="border-b border-grey-300 gap-8 p font-body2-regular text-body2 leading-[170%]">
                   {displayedBookings.map((booking) => (
                     <TableRow key={booking.id} className="border-t border-b border-transparent">
-                      <TableCell className="border-0">{booking.user.name || "N/A"}</TableCell>
+                      <TableCell className="border-0">{booking.user.name || "-"}</TableCell>
                       <TableCell className="border-0">{booking.slot.program.title}</TableCell>
                       <TableCell className="border-0">{booking.user.phone}</TableCell>
                       <TableCell className="border-0 text-center">{booking.booking_batch_size}</TableCell>

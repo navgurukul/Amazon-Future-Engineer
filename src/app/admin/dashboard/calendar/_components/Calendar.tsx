@@ -4,9 +4,9 @@ import settingsIcon from "../../../assets/settings.svg";
 import BookingPopup from "./BookingPopup";
 import FullCalendarComponent from "./FullCalendarComponent";
 import TimeSlotCalendar from "./TimeSlotCalendar";
+import SmartImage from "@/components/SmartImage";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 
 const Calendar: React.FC = () => {
@@ -22,8 +22,20 @@ const Calendar: React.FC = () => {
   };
 
   const handleManageSlotsClick = () => {
-    setShowTimeSlotCalendar(true); // Show TimeSlotCalendar when clicked
+    setShowTimeSlotCalendar(true);
   };
+
+  const handleBackButton = () => {
+    setShowTimeSlotCalendar(false); // Close calendar on back button click
+  };
+
+  // useEffect(() => {
+  //   const shouldManageSlots = localStorage.getItem("shouldManageSlots");
+  //   if (shouldManageSlots === "true") {
+  //     handleManageSlotsClick();
+  //     localStorage.removeItem("shouldManageSlots");
+  //   }
+  // }, []);
 
 
   return (
@@ -34,17 +46,17 @@ const Calendar: React.FC = () => {
         <div>
           {/* <div className="pt-[120px] px-4 md:px-8 pb-[48px]"> */}
           <div className="mt-8 px-4 md:px-8 pb-[48px]">
-            <div className="w-full relative h-14 flex flex-row items-center justify-end text-center text-lg text-white font-['Amazon Ember'] mb-8">
+            <div className="w-full relative h-14 flex flex-row items-center justify-end text-center text-lg text-white font-['Amazon Ember'] mb-8" style={{ display: showTimeSlotCalendar ? "none" : "flex" }}>
               {/* <Button className="bg-[#f55c38] rounded-full h-14 flex items-center justify-center px-8 py-2 box-border">
                 <span className="relative font-medium leading-[170%]">Create Booking</span>
               </Button> */}
-              <Button className="bg-[#f091b2] rounded-full h-14 flex items-center justify-center px-8 py-2 box-border gap-2">
-                <Image width={24} height={24} className="w-6 h-6 relative flex-shrink-0" alt="settings" src={settingsIcon} />
-                <span onClick={handleManageSlotsClick} className="relative font-medium leading-[170%]">Manage Slots</span>
+              <Button onClick={handleManageSlotsClick} className="bg-[#f091b2] rounded-full h-14 items-center justify-center px-8 py-2 box-border gap-2">
+                <SmartImage width={24} height={24} className="w-6 h-6 relative flex-shrink-0" alt="settings" src={settingsIcon} />
+                <span className="relative font-medium leading-[170%]">Manage Slots</span>
               </Button>
             </div>
-            {showTimeSlotCalendar ? ( // Conditionally render TimeSlotCalendar based on state
-              <TimeSlotCalendar />
+            {showTimeSlotCalendar ? (
+              <TimeSlotCalendar showTimeSlotCalendar={showTimeSlotCalendar} onBack={handleBackButton} />
             ) : (
               <div className="flex flex-col lg:flex-row w-full justify-center">
                 <div className="w-full lg:w-[100%]">

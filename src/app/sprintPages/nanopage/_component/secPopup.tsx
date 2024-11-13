@@ -1,16 +1,20 @@
 "use client";
 
 import type { NextPage } from 'next';
-import Image from "next/image";
+import SmartImage from "@/components/SmartImage";;
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useAppState } from "@/context/AppContext";
 
 
 const SecondPopup: NextPage = () => {
+    const { isLanguageEnglish } = useAppState(); // Access language state
+
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(true);
 
-    const whatsappLink = `https://wa.me/${6366969292}`;
+    const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+  const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
 
     const handleGoToSprints = () => {
         router.push("/sprintPages/nanopage");
@@ -55,10 +59,11 @@ const SecondPopup: NextPage = () => {
                     <div className="w-full flex flex-col items-center justify-start gap-2">
                         <div className="flex items-center justify-between text-lg font-amazon-ember w-full">
                             <div className="font-extrabold text-[#3a3a3a] leading-9 text-xl md:text-2xl lg:text-3xl md:leading-10 lg:leading-[40px]">
-                                Call Us
+                                {/* Call Us */}
+                                {isLanguageEnglish?"Request a Callback":"ಕಾಲ್‌ಬ್ಯಾಕ್‌ಗೆ ವಿನಂತಿಸಿ"}
                             </div>
 
-                            <Image
+                            <SmartImage
                                 className="w-5 h-5 cursor-pointer"
                                 alt="close"
                                 src="/userDashboard/close.svg"
@@ -69,36 +74,44 @@ const SecondPopup: NextPage = () => {
                         </div>
 
                         <div className="w-full max-w-[592px] h-auto mt-6 flex items-center justify-between px-4 relative md:text-center">
-                            <Image src="/symbols/Vector (8).svg" alt="Image 1" width={30} height={30} className="rounded-full self-start mt-4" />
+                            <SmartImage src="/symbols/Vector (8).svg" alt="SmartImage 1" width={30} height={30} className="rounded-full self-start mt-4" />
                             <div className="flex items-center self-center">
-                                <Image src="/symbols/Vector (7).svg" alt="Arrow Left" width={20} height={20} className="mt-2" />
-                                <Image src="/symbols/Vector (4).svg" alt="Arrow Right" width={20} height={20} className="ml-1 mt-4" />
+                                <SmartImage src="/symbols/Vector (7).svg" alt="Arrow Left" width={20} height={20} className="mt-2" />
+                                <SmartImage src="/symbols/Vector (4).svg" alt="Arrow Right" width={20} height={20} className="ml-1 mt-4" />
                             </div>
-                            <Image src="/symbols/Vector (2).svg" alt="Image 2" width={32} height={32} className="self-end md:hidden" />
-                            <Image src="/symbols/Vector (5).svg" alt="Image 3" width={30} height={30} className="self-center" />
+                            <SmartImage src="/symbols/Vector (2).svg" alt="SmartImage 2" width={32} height={32} className="self-end md:hidden" />
+                            <SmartImage src="/symbols/Vector (5).svg" alt="SmartImage 3" width={30} height={30} className="self-center" />
                             <div className="items-center self-start mt-2 hidden md:flex">
-                                <Image src="/symbols/Vector (9).svg" alt="Arrow Left" width={16} height={16} className="mt-2" />
-                                <Image src="/symbols/Vector (6).svg" alt="Arrow Right" width={16} height={16} className="ml-1 mt-4" />
+                                <SmartImage src="/symbols/Vector (9).svg" alt="Arrow Left" width={16} height={16} className="mt-2" />
+                                <SmartImage src="/symbols/Vector (6).svg" alt="Arrow Right" width={16} height={16} className="ml-1 mt-4" />
                             </div>
                         </div>
 
                         <div className="relative leading-[30.60px] w-full text-left md:text-center text-lg text-[#3a3a3a] font-medium mt-8 gap-8">
-                            Thanks for requesting a callback. We will reach out to you shortly to confirm your booking plans.
+                            {/* Thank you for requesting a callback! We’ll reach out to you shortly to discuss and confirm your booking plans.                         */}
+                            {isLanguageEnglish
+                                ? " Thank you for requesting a callback! We will reach out to you shortly to discuss and confirm your booking plans."
+                                : "ಮತ್ತೆ ಕರೆಮಾಡಲು ವಿನಂತಿಸಿದಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು! ನಿಮ್ಮ ಬುಕಿಂಗ್ ಪ್ಲಾನ್ ಗಳನ್ನು ಚರ್ಚಿಸಲು ಮತ್ತು ಖಚಿತಪಡಿಸಲು ನಾವು ಶೀಘ್ರದಲ್ಲೇ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುತ್ತೇವೆ."}
+
                         </div>
                         <div className="self-stretch bg-gainsboro" />
                         <div className="w-full relative text-left md:text-center inline-block text-lg leading-[30.60px]">
-                            <span className="text-[#3a3a3a] text-lg font-medium ">In the meantime, feel free to call or Whatsapp on </span>
+                            <span className="text-[#3a3a3a] text-lg font-medium ">
+                                {isLanguageEnglish
+                                    ? "In the meantime, feel free to call or Whatsapp on"
+                                    : "ಈ ಮಧ್ಯೆ,ನಲ್ಲಿ ನಮಗೆ ಕರೆ ಮಾಡಲು ಅಥವಾ ವಾಟ್ಸ್ ಆಪ್ ಮಾಡಲು ಮುಕ್ತವಾಗಿರಿ."}
+                            </span>
                             {/* <span className="text-[#f55c38] text-lg font-extrabold  whitespace-nowrap md:whitespace-normal ">+916366969292</span> */}
                             <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
-                +916366969292
-              </a>
+                                +9163669-69292
+                            </a>
                         </div>
                     </div>
                     <button
                         className="h-14 px-8 py-2 rounded-full border border-[#f55c38] flex justify-center items-center mt-8 gap-8 w-full md:w-auto"
                         onClick={handleGoToSprints}
                     >
-                        <span className="text-[#f55c38] text-lg font-medium">Go to Sprints</span>
+                        <span className="text-[#f55c38] text-lg font-medium">{isLanguageEnglish?"Return to Nano Sprints":"ನ್ಯಾನೋ ಸ್ಪ್ರಿಂಟ್‌ಗಳಿಗೆ ಹಿಂತಿರುಗಿ"}</span>
                     </button>
 
                 </div>

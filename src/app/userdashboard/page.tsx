@@ -1,11 +1,13 @@
 "use client";
 
+import CallPopup from "../sprintPages/nanopage/_component/CallPopup";
 import FirstPopup from "./_components/FirstPopup";
 import PhoneSecondPopup from "./_components/PhoneSecondPopup";
 import Header from "@/components/Header";
+import SmartImage from "@/components/SmartImage";
+import { useAppState } from "@/context/AppContext";
 import { getUserData } from "@/utils/api";
 import type { NextPage } from "next";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useState, useEffect } from "react";
@@ -26,8 +28,11 @@ const Page: NextPage = () => {
   const router = useRouter();
   const [userData, setUserData] = useState<EventData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { isLanguageEnglish } = useAppState(); // Get language state from context
+  const [offlinePopup, setOfflinePopup] = useState<boolean>(false);
 
-  const whatsappLink = `https://wa.me/${6366969292}`;
+  const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+  const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,15 +65,45 @@ const Page: NextPage = () => {
 
   const handleCloseSecondPopup = () => setIsPhoneSecondPopupOpen(false);
   const handleBookSessionClick = () => {
-    console.log("need to add logic for this")
+    // console.log("need to add logic for this")
   }
+
+  const handleClose = () => {
+    setOfflinePopup(false);
+    document.body.classList.remove("overflow-hidden");
+  };
+
+  const handleOfflineBooking: () => void = () => {
+    setOfflinePopup(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleOfflineBookingClose = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    // document.body.classList.add("overflow-hidden");
+  };
+
+
+  const [copied, setCopied] = useState(false);
+
+  const phoneNumber = " +91 63669-69292";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(phoneNumber)
+      .then(() => {
+        setCopied(true);
+
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(err => {
+        console.error("Failed to copy: ", err);
+      });
+  };
 
   return (
     <>
       <div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
-        <Header bgColor="" openSecondPopup={false} handleOfflineBooking={function (): void {
-          throw new Error("Function not implemented.");
-        }} offlinePopup={false} bookingPopup={false} handleBookSessionClick={handleBookSessionClick} />
+        <Header bgColor="" openSecondPopup={false} handleOfflineBooking={handleOfflineBooking} offlinePopup={false} bookingPopup={false} handleBookSessionClick={handleBookSessionClick} />
       </div>
       {/* <Header isLoggedIn={true} /> */}
       {/* <div className="mt-[184px] max-w-[90%] sm:max-w-[1216px] h-auto flex flex-col justify-start items-center gap-8 mb-8 mx-auto relative"> */}
@@ -77,7 +112,11 @@ const Page: NextPage = () => {
         {/* <div className="text-[#29458c]  text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px] self-stretch">
           My Bookings
         </div> */}
-        <h2 className="self-stretch leading-[150%] text-heading6 md:text-heading5 text-[#29458c]">My Bookings</h2>
+        <h2 className="self-stretch leading-[150%] text-heading6 md:text-heading5 text-[#29458c]">
+          {isLanguageEnglish
+            ? "My Bookings"
+            : "ನನ್ನ ಬುಕಿಂಗ್‌ಗಳು"}
+        </h2>
         {/* <div className="text-[#29458c] text-heading4 font-heading4-bold  sm:text-[32px]  leading-[48px] sm:leading-[48px] self-stretch">
                     My Bookings
                 </div> */}
@@ -88,17 +127,21 @@ const Page: NextPage = () => {
             <div
               key={index}
               // className="bg-white p-4 rounded-md flex flex-col sm:flex-row sm:justify-between sm:items-center shadow-md h-auto sm:h-[132px] border border-gray-200 w-full"
-              className="bg-white p-4 rounded-md flex flex-col md:flex-row md:justify-between md:items-center shadow-md h-auto border border-gray-200 w-full"
+              className="bg-white p-6 rounded-md flex flex-col md:flex-row md:justify-between md:items-center shadow-md h-auto border border-gray-200 w-full"
             >
-              <div className="space-y-2 text-left md:text-right">
+              <div className="text-left md:text-right">
                 {/* <div className="text-left leading-[150%] font-bold text-[1.5rem] md:font-extrabold">
                   Nano Sprint
                 </div> */}
-                <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#3a3a3a] text-left">Nano Sprint</h3>
-                <div className="flex flex-col gap-[1rem] md:flex-row space-x-0 space-y-2 sm:space-y-0">
-                  <div className="flex items-center space-x-[12px]">
-                    <Image
-                      className="w-6 sm:w-8 h-6 sm:h-8"
+                <h3 className="leading-[150%] text-subHeading1 md:text-heading6 font-heading5-bold text-[#3a3a3a] text-left mb-4">
+                  {isLanguageEnglish
+                    ? "Nano Sprint"
+                    : "ನ್ಯಾನೋ ಸ್ಪ್ರಿಂಟ್"}
+                </h3>
+                <div className="flex flex-col gap-4 md:gap-8 md:flex-row">
+                  <div className="flex items-center gap-3">
+                    <SmartImage
+                      className="w-auto h-8"
                       alt="calendar icon"
                       src="/userDashboard/reshot-icon-calendar-U75ASPNFXK.svg"
                       width={20}
@@ -109,9 +152,9 @@ const Page: NextPage = () => {
                     </div> */}
                     <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{new Date(event.booking_for).toLocaleDateString()}</p>
                   </div>
-                  <div className="flex items-center space-x-[12px]">
-                    <Image
-                      className="w-6 sm:w-8 h-6 sm:h-8"
+                  <div className="flex items-center gap-3">
+                    <SmartImage
+                      className="w-auto h-8"
                       alt="time icon"
                       src="/userDashboard/reshot-icon-time-SRKEMN64PU.svg"
                       width={20}
@@ -122,9 +165,9 @@ const Page: NextPage = () => {
                     </div> */}
                     <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{`${event.start_time} to ${event.end_time}`}</p>
                   </div>
-                  <div className="flex items-center space-x-[12px]">
-                    <Image
-                      className="w-6 sm:w-8 h-6 sm:h-8"
+                  <div className="flex items-center gap-3">
+                    <SmartImage
+                      className="w-auto h-8"
                       alt="students icon"
                       src="/userDashboard/reshot-icon-student-DRC3YF56MU.svg"
                       width={20}
@@ -133,27 +176,33 @@ const Page: NextPage = () => {
                     {/* <div className="text-[#3a3a3a] flex items-center text-lg gap-[2rem] font-medium font-['Amazon Ember'] leading-[30.60px]">
                       {`${event.booking_batch_size} Students`}
                     </div> */}
-                    <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{`${event.booking_batch_size} Students`}</p>
+                    <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">{`${event.booking_batch_size} `} {isLanguageEnglish ? "Students" : "ವಿದ್ಯಾರ್ಥಿಗಳು"}</p>
                   </div>
                 </div>
               </div>
               {/* <div> */}
-                {/* <div className="h-14 px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full sm:w-48 sm:px-6 sm:py-2 mt-4"> */}
-                  <div
-                    className="text-center text-[#f55c38] text-lg font-medium font-['Amazon Ember'] cursor-pointer px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full md:w-auto mt-4 md:mt-0"
-                    onClick={handleOpenFirstPopup}
-                  >
-                    Reschedule
-                  </div>
-                {/* </div> */}
+              {/* <div className="h-14 px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full sm:w-48 sm:px-6 sm:py-2 mt-4"> */}
+              <div
+                className="text-center text-[#f55c38] text-lg font-medium font-['Amazon Ember'] cursor-pointer px-8 py-2 rounded-[100px] border border-[#f55c38] justify-center items-center gap-2 inline-flex hover:bg-transparent w-full md:w-auto mt-6 md:mt-0 text-bodyM md:text-body1"
+                onClick={handleOpenFirstPopup}
+              >
+                {isLanguageEnglish
+                  ? "Reschedule"
+                  : "ಮರುನಿಗದಿಪಡಿಸಿ"}
+              </div>
+              {/* </div> */}
               {/* </div> */}
             </div>
           ))
         ) : (
-          <div>No upcoming events found.</div>
+          <div>
+            {isLanguageEnglish
+              ? "No upcoming events found."
+              : "ಯಾವುದೇ ಮುಂಬರುವ ಈವೆಂಟ್‌ಗಳು ಕಂಡುಬಂದಿಲ್ಲ."}
+          </div>
         )}
       </div>
-      
+
       <FirstPopup
         isOpen={isFirstPopupOpen}
         handleClose={handleCloseFirstPopup}
@@ -170,39 +219,102 @@ const Page: NextPage = () => {
       <div className="w-full max-w-[90%] lg:max-w-[70%] md:max-w-[90%] h-auto mx-auto relative flex flex-col items-center gap-8 mt-12">
         {/* <div className="text-[#29458c] text-[24px] font-extrabold leading-[36px] text-left sm:text-[32px] sm:leading-[48px] self-start"> */}
         <h2 className="leading-[150%] text-heading6 md:text-heading5 text-[#29458c] text-left self-start w-full max-w-[90%]">
-          How to Reach AFE Makerspace
+          {isLanguageEnglish
+            ? " How to Reach AFE Makerspace?"
+            : "AFE ಮೇಕರ್ಸ್ಪೇಸ್ ಅನ್ನು ಹೇಗೆ ತಲುಪುವುದು?"}
           {/* <span className="block sm:hidden"></span>
           <span className="sm:ml-2">Makerspace</span> */}
         </h2>
         <div className="flex flex-col xl:flex-row items-start gap-[33px] w-full">
-          <img
-            // className="w-full sm:w-[592px] h-[13.75rem] sm:h-[440px] rounded-lg object-cover"
+          {/* <img
             className="lg:w-[50%] w-full h-auto rounded-lg object-cover"
             alt="innovation hub map"
-            src="/userDashboard/map.png"
-            // width={592}
-            // height={440}
-          />
+            src="/userDashboard/map.png"        
+          /> */}
+          <div >
+            <a href="https://maps.app.goo.gl/z7QztCwrwcMTnpscA" target="_blank" rel="noopener noreferrer">
+              {/* <img
+                className=" w-full h-auto lg:w-[592px] rounded-lg object-cover cursor-pointer"
+                alt="innovation hub map"
+                src="/userDashboard/map.png"
+              /> */}
+              <SmartImage
+                className="w-full h-auto lg:w-[592px] rounded-lg object-cover cursor-pointer"
+                alt="innovation hub map"
+                src="/userDashboard/map.png"
+                width={592}
+                height={440}
+
+              />
+            </a>
+          </div>
+
           <div className="w-full flex flex-col gap-4">
             {/* <div className="text-[#3a3a3a] text-[24px] sm:text-xl font-extrabold leading-9"> */}
             <div className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-[#3a3a3a]">
-              Amazon Future Engineer Makerspace</div>
+              
+              {isLanguageEnglish
+            ? "Amazon Future Engineer Makerspace"
+            : "ಅಮೆಜಾನ್ ಫ್ಯೂಚರ್ ಇಂಜಿನಿಯರ್ ಮೇಕರ್ಸ್ಪೇಸ್"}
+              </div>
             {/* <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
             <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-              #41, 3rd Floor, Above Maruti Suzuki Arena, 15th Cross, Margosa Road, Malleshwaram, Bangalore - 560003
+              {isLanguageEnglish
+              ? "#41, 3rd Floor, Above Maruti Suzuki Arena, 15th Cross, Margosa Road, Malleshwaram, Bangalore - 560003"
+              : "#41, 3ನೇ ಮಹಡಿ, ಮಾರುತಿ ಸುಜುಕಿ ಅರೆನಾ ಮೇಲೆ, 15ನೇ ಕ್ರಾಸ್, ಮಾರ್ಗೋಸಾ ರಸ್ತೆ, ಮಲ್ಲೇಶ್ವರಂ, ಬೆಂಗಳೂರು - 560003"
+              }
             </div>
             {/* <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
             <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-              Landmark: Near Veena Stores
+              {isLanguageEnglish
+                ? "Landmark: Near Veena Stores"
+                : "ಹೆಗ್ಗುರುತು: ವೀಣಾ ಸ್ಟೋರ್ಸ್ ಹತ್ತಿರ"
+                }
             </div>
             {/* <div className="text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
+
             <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-              For queries, please call or Whatsapp us on {" "}
-              <strong>
-              <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
-              +916366969292
-            </a>
-            </strong>
+
+              {isLanguageEnglish
+                ? "For queries, please call or Whatsapp us on "
+                : "ಪ್ರಶ್ನೆಗಳಿಗೆ, ದಯವಿಟ್ಟು ನಮಗೆ ಕರೆ ಮಾಡಿ ಅಥವಾ ವಾಟ್ಸಾಪ್ ಮಾಡಿ "}{" "}
+              <strong className="inline-flex items-center">
+                <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
+                  +91 63669-69292
+                </a>
+                <button
+                  className="hidden md:inline-flex px-4 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] gap-2 w-[89px] h-[40px]"
+                  onClick={handleCopy}
+                >
+                  {copied ? (
+                    <>
+                      <SmartImage
+                        src="/userDashboard/checkmark_icon.png"
+                        alt="Check Icon"
+                        className="h-[16px] w-[16px]"
+                        width={16}
+                        height={16}
+                      />
+                      <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                        Copied!
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <SmartImage
+                        src="/userDashboard/content_copy.svg"
+                        alt="Copy Icon"
+                        className="h-[16px] w-[16px]"
+                        width={16}
+                        height={16}
+                      />
+                      <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                        Copy
+                      </span>
+                    </>
+                  )}
+                </button>
+              </strong>
             </div>
           </div>
         </div>
@@ -210,30 +322,43 @@ const Page: NextPage = () => {
       {/* <div className=" max-w-[90%] lg:max-w-[70%] md:max-w-[90%] h-auto flex flex-col justify-center items-start gap-8 mx-auto relative mt-8"> */}
       <div className="max-w-[90%] lg:max-w-[70%] md:max-w-[90%] h-auto flex justify-between items-start gap-8 mx-auto relative mt-8 md:mb-16">
         <div className="h-auto flex flex-col justify-center items-start gap-8 relative md:mt-8 text-left">
-        <div className="flex flex-col justify-start items-start gap-4">
-          {/* <div className="text-left text-[#29458c] text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px]"> */}
-          <div className="leading-[150%] text-heading6 md:text-heading5 text-[#29458c] text-left self-start">
-            Planned for future sprints?
+          <div className="flex flex-col justify-start items-start gap-4">
+            {/* <div className="text-left text-[#29458c] text-[24px] sm:text-[32px] font-extrabold leading-[36px] sm:leading-[48px]"> */}
+            <div className="leading-[150%] text-heading6 md:text-heading5 text-[#29458c] text-left self-start">
+              {isLanguageEnglish
+                ? "Planned for future sprints ? "
+                : "ಭವಿಷ್ಯದ ಸ್ಪ್ರಿಂಟ್‌ಗಳಿಗಾಗಿ ಯೋಜಿಸಲಾಗಿದೆಯೇ ?"}
+            </div>
+            {/* <div className="text-left text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
+            <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
+              {isLanguageEnglish
+                ? "Checkout the sprint details and book"
+                : "ಸ್ಪ್ರಿಂಟ್ ವಿವರಗಳು ಮತ್ತು ಪುಸ್ತಕವನ್ನು ಪರಿಶೀಲಿಸಿ"}
+              {/* <br className="block sm:hidden" /> */}
+              {isLanguageEnglish
+                ? "one for your students today!"
+                : "ಇಂದು ನಿಮ್ಮ ವಿದ್ಯಾರ್ಥಿಗಳಿಗೆ ಒಂದು!"}
+            </div>
           </div>
-          {/* <div className="text-left text-[#3a3a3a] text-lg font-medium leading-[30.60px]"> */}
-          <div className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-            Checkout the sprint details and book
-            {/* <br className="block sm:hidden" /> */}
-            one for your students today!
+          <div className="w-full sm:w-auto h-12 sm:h-12 bg-[#f55c38] rounded-[100px] flex items-center justify-center px-4 sm:px-8 py-2 mb-4 cursor-pointer"
+            onClick={handleViewSprintDetails}>
+            {/* <div className="text-center text-white text-sm sm:text-base font-medium leading-[170%] font-['Amazon Ember']"> */}
+            <div className="text-center text-white text-body1 font-medium leading-[170%] font-['Amazon Ember']">
+              {isLanguageEnglish
+                ? " View Sprint Details"
+                : "ಸ್ಪ್ರಿಂಟ್ ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಿ"}
+            </div>
           </div>
         </div>
-        <div className="w-full sm:w-auto h-12 sm:h-12 bg-[#f55c38] rounded-[100px] flex items-center justify-center px-4 sm:px-8 py-2 mb-4 cursor-pointer"
-          onClick={handleViewSprintDetails}>
-          {/* <div className="text-center text-white text-sm sm:text-base font-medium leading-[170%] font-['Amazon Ember']"> */}
-          <div className="text-center text-white text-body1 font-medium leading-[170%] font-['Amazon Ember']">
-            View Sprint Details
-          </div>
+        <div>
+          {/* <img className="hidden md:block mt-16 w-[80%] float-right" src="/userDashboard/Frame 31752.svg" alt="Coding symbol" /> */}
         </div>
-        </div>
-        {/* <div>
-          <img className="hidden md:block mt-16 w-[80%] float-right" src="/userDashboard/Frame 31752.svg" alt="Coding symbol" />
-        </div> */}
       </div>
+      <CallPopup
+        offlinePopup={offlinePopup}
+        handleClose={handleClose}
+        handleOfflineBookingClose={handleOfflineBookingClose}
+      />
     </>
   );
 };

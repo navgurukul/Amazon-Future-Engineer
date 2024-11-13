@@ -2,17 +2,40 @@ import LastPart from "./LastPart";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import React from "react";
+import { useAppState } from "@/context/AppContext";
+import SmartImage from "@/components/SmartImage";
+
 
 
 const Booking = () => {
+  const { isLanguageEnglish } = useAppState(); // Access language state
+
   const [hasShadow, setHasShadow] = useState<boolean>(true);
   const router = useRouter();
 
-  const whatsappLink = `https://wa.me/${6366969292}`;
+  const whatsappMessage = encodeURIComponent("Hello! I am a teacher interested in learning more about the AFE Makerspace and booking a session for my students. Please share the next steps. Thank you!");
+  const whatsappLink = `https://wa.me/6366969292?text=${whatsappMessage}`;
 
   const handleRoute = () => {
     router.push("/additionalquestionsMegaPage");
   };
+
+  const [copied, setCopied] = useState(false);
+
+  const phoneNumber = " +91 63669-69292";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(phoneNumber)
+      .then(() => {
+        setCopied(true);
+
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(err => {
+        console.error("Failed to copy: ", err);
+      });
+  };
+
   return (
     <>
       <div className="relative flex flex-col items-center w-full">
@@ -20,28 +43,85 @@ const Booking = () => {
           <div className="flex flex-col w-full lg:w-2/3 gap-8">
             <div className="w-full">
               {/* <h1 className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left"> */}
-              <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
+              {/* <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
                 Why Schedule a Mega Sprint?{" "}
+              </h1> */}
+              <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
+                {isLanguageEnglish ? "Why Schedule a Mega Sprint?" : "ಮೆಗಾ ಸ್ಪ್ರಿಂಟ್ ಅನ್ನು ಏಕೆ ಶೆಡ್ಯೂಲ್ ಮಾಡಬೇಕು?"}
               </h1>
               {/* <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember'] mt-4"> */}
-              <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4">
+              {/* <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4">
                 Select students who demonstrate interest and skill will have the
                 opportunity to participate in Mega Sprints—intensive programs
                 lasting several months that provide a solid foundation in
                 robotics and prepare them for prestigious competitions such as
                 the AFE Tech Rally, National Robotics League, and VEX Robotics
                 Championship
+              </p> */}
+              <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4">
+                {isLanguageEnglish ? (
+                  "Select students who demonstrate interest and skill will have the opportunity to participate in Mega Sprints—intensive programs lasting several months that provide a solid foundation in robotics and prepare them for prestigious competitions such as the AFE Tech Rally, National Robotics League, and VEX Robotics Championship."
+                ) : (
+                  "ಹುಚ್ಚುಮನೆಯ ಮತ್ತು ಕೌಶಲ್ಯದ ಪ್ರದರ್ಶನವನ್ನು ನೀಡುವ ವಿದ್ಯಾರ್ಥಿಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡುವುದು ಮೆಗಾ ಸ್ಪ್ರಿಂಟ್ಸ್‌ನಲ್ಲಿ ಭಾಗವಹಿಸಲು ಅವಕಾಶ ನೀಡುತ್ತದೆ—ಇವು ಹಲವಾರು ತಿಂಗಳು ನಡೆಯುವ ತೀವ್ರ ಕಾರ್ಯಕ್ರಮಗಳು, ಇದು ರೋಬೊಟಿಕ್‌ಗಳಲ್ಲಿ ದೃಢದ ಹಿನ್ನಡೆಯನ್ನು ಒದಗಿಸುತ್ತದೆ ಮತ್ತು ಅವರನ್ನು AFE ಟೆಕ್ ರಾಲಿ, ರಾಷ್ಟ್ರೀಯ ರೋಬೋಟಿಕ್ಸ್ ಲೀಗ್ ಮತ್ತು VEX ರೋಬೋಟಿಕ್ಸ್ ಚಾಂಪಿಯನ್‌ಶಿಪ್‌ಂತೆ ಖ್ಯಾತ ಸ್ಪರ್ಧೆಗಳಿಗಾಗಿ ತಯಾರಿಸುತ್ತದೆ."
+                )}
               </p>
+
             </div>
             <div className="flex flex-col w-full mt-8 gap-4">
               {/* <h1 className="text-2xl md:text-3xl lg:text-13xl leading-[150%] font-extrabold text-midnight-blue-main text-left"> */}
-              <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
+              {/* <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
                 Have Questions?
+              </h1> */}
+              <h1 className="leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember'] text-midnight-blue-main text-left">
+                {isLanguageEnglish ? "Have Questions?" : "ಪ್ರಶ್ನೆಗಳಿದೆಯೆ?"}
               </h1>
+
               {/* <p className="w-full relative text-[14px] md:text-[20px] leading-[170%] font-medium text-[#3a3a3a] font-['Amazon Ember']"> */}
               <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray">
-                <span>{`Call Us or Whatsapp on `}</span>
-                <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+916366969292</a>
+                {/* <span>{`Call Us or Whatsapp on `}</span> */}
+                <span>
+                  {isLanguageEnglish ? `Call Us or Whatsapp on ` : `ನಮಗೆ ಕಾಲ್ ಅಥವಾ ವಾಟ್ಸಾಪ್ ಮಾಡಿ `}
+                </span>
+                {/* <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">+9163669-69292</a> */}
+                <strong className="inline-flex items-center">
+                  <a href={whatsappLink} target="_blank" className="text-tomato font-extrabold">
+                    +91 63669-69292
+                  </a>
+
+                  <button
+                    className="inline-flex px-3 py-2 ml-4 rounded-full border border-[#F55C38] justify-center items-center leading-[170%] gap-2 w-[89px] h-[40px]"
+                    onClick={handleCopy}
+                  >
+                    {copied ? (
+                      <>
+                        <SmartImage
+                          src="/userDashboard/checkmark_icon.png"
+                          alt="Check Icon"
+                          className="h-[16px] w-[16px]"
+                          width={16}
+                          height={16}
+                        />
+                        <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                          Copied!
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <SmartImage
+                          src="/userDashboard/content_copy.svg"
+                          alt="Copy Icon"
+                          className="h-[16px] w-[16px]"
+                          width={16}
+                          height={16}
+                        />
+                        <span className="text-[#F55C38] text-base md:text-body2 font-body2-regular">
+                          Copy
+                        </span>
+                      </>
+                    )}
+                  </button>
+                </strong>
+
               </p>
             </div>
             {/* <div className="w-full mt-4">
@@ -99,15 +179,25 @@ const Booking = () => {
 
           {/* Adjacent Section (for Larger Screens) */}
           <div className="hidden lg:block lg:w-1/3 w-full sticky top-32 h-full">
-            <div className="w-full relative rounded-lg bg-incandescent-light border-[2px] border-incandescent-main p-8 gap-8">
+            {/* <div className="w-full relative rounded-lg bg-incandescent-light border-[2px] border-incandescent-main p-8 gap-8"> */}
+            <div className="w-full relative rounded-lg bg-[#ECF0F3] border-[2px] border-[#29458C] p-8 gap-8">
               {/* <h1 className="text-darkslategray leading-[150%] lg:text-[20px] md:text-[16px] text-[12px] font-extrabold font-[Amazon Ember]"> */}
-              <h1 className="text-darkslategray leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">
+              {/* <h1 className="text-darkslategray leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">
                 Coming Soon!
+              </h1> */}
+              <h1 className="text-darkslategray leading-[150%] text-subHeading1 md:text-heading6 font-['Amazon Ember']">
+                {isLanguageEnglish ? "Coming Soon!" : "ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ!"}
               </h1>
+
               {/* <p className="text-darkslategray leading-[150%] font-extrabold font-[Amazon Ember] lg:text-[17px] md:text-[12px] text-[10px] font-medium mt-4 mb-8"> */}
-              <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4 mb-8">
+              {/* <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4 mb-8">
                 Be the first to know when Mega Sprints launch. Leave your
                 details to receive updates
+              </p> */}
+              <p className="w-full relative text-bodyM md:text-body1 leading-[170%] font-['Amazon Ember'] text-darkslategray mt-4 mb-8">
+                {isLanguageEnglish
+                  ? "New programs are on the way. Keep an eye out for updates and announcements!"
+                  : "ಮೇಗಾ ಸ್ಪ್ರಿಂಟ್ಸ್ ಪ್ರಾರಂಭವಾದಾಗ ಮೊದಲನೆಯದಾಗಿ ತಿಳಿಯಿರಿ. ನವೀಕರಣಗಳನ್ನು ಪಡೆಯಲು ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಬಿಡಿ."}
               </p>
               {/* <div className="flex flex-row items-center gap-4 md:mb-10">
                 <img
@@ -137,14 +227,17 @@ const Booking = () => {
                 </div>
               </div> */}
 
-              <div className="flex flex-col gap-4 text-center">
+              <div className="hidden flex-col gap-4 text-center">
                 <div
                   className="w-full h-14 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer"
                   onClick={handleRoute}
                 >
-                  <div className="leading-[170%] font-medium text-white">
+                  {/* <div className="leading-[170%] font-medium text-white">
                     Join Waiting List
-                  </div>
+                  </div> */}
+                  {/* <div className="leading-[170%] font-medium text-white">
+                    {isLanguageEnglish ? "Join Waiting List" : "ಕಾದಲು ಪಟ್ಟಿಯಲ್ಲಿ ಸೇರಿ"}
+                  </div> */}
                 </div>
                 {/* <div
                   className="w-full h-14 flex items-center justify-center rounded-81xl bg-orange-main py-2 px-8 cursor-pointer"
@@ -159,15 +252,14 @@ const Booking = () => {
             </div>
           </div>
           {/* <div className="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl"> */}
-          <div
-  className={`lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl ${
-    hasShadow
-      ? "shadow-[-1px_-2px_2px_rgba(0,0,0,0.06),-2px_-1px_1px_rgba(0,0,0,0.04),-1px_-5px_5px_rgba(0,0,0,0.08)]"
-      : ""
-  }`}
->
+          {/* <div
+            className={`lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white p-4 rounded-t-xl ${hasShadow
+              ? "shadow-[-1px_-2px_2px_rgba(0,0,0,0.06),-2px_-1px_1px_rgba(0,0,0,0.04),-1px_-5px_5px_rgba(0,0,0,0.08)]"
+              : ""
+              }`}
+          >
             <div
-              className="flex flex-col gap-4 text-center"
+              className="flex-col gap-4 text-center"
               onClick={handleRoute}
             >
               <div className="w-full h-12 flex items-center justify-center rounded-81xl bg-incandescent-main py-2 px-8 cursor-pointer">
@@ -176,7 +268,7 @@ const Booking = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
