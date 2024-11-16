@@ -172,7 +172,7 @@ const Dashboard: React.FC = () => {
                 email: entry.user.email || "-",
               },
               id: entry.user.id,
-              user_id: entry.query.id,
+              user_id: entry.query.user_id,
               program_id: entry.query.program_id,
               venue_id: entry.user.venue_id,
               booking_batch_size: 0, // Set to 0 or an appropriate value
